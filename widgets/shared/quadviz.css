@@ -1,0 +1,104 @@
+/* Shared styling for the conic / quadric visualisers.
+   The widget lives inside an <iframe class="widget-frame">, so these rules
+   cannot leak into the book page and may safely style bare elements. */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+body {
+  font: 15px/1.45 Arial, "Helvetica Neue", sans-serif;
+  color: #1f2937;
+}
+.qv {
+  border: 1px solid #9ca3af;
+  background: #ffffff;
+  padding: 0.7rem 0.8rem 0.9rem;
+}
+.qv-title {
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #374151;
+}
+.qv-canvas-wrap {
+  position: relative;
+  width: 100%;
+}
+canvas.qv-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;   /* let us handle drag-to-rotate ourselves */
+}
+canvas.qv-canvas.qv-grab { cursor: grab; }
+canvas.qv-canvas.qv-grabbing { cursor: grabbing; }
+.qv-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+.qv-label { color: #475569; white-space: nowrap; }
+.qv-slider {
+  flex: 1 1 12rem;
+  max-width: 24rem;
+  direction: ltr;
+}
+.qv-btn {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.qv-btn:hover { background: #ececec; }
+.qv-badge {
+  font-weight: 700;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 0.1rem 0.5rem;
+  min-width: 3.2rem;
+  text-align: center;
+  direction: ltr;
+}
+.qv-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.1rem;
+  margin-top: 0.5rem;
+  color: #475569;
+  font-size: 0.92em;
+}
+.qv-legend > span { white-space: nowrap; }
+.qv-key {
+  display: inline-block;
+  width: 1.6em;
+  height: 0.22em;
+  vertical-align: middle;
+  margin-inline-end: 0.35em;
+}
+/* numeric readout of the principal directions and the shifted origin */
+.qv-dirs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.2rem;
+  margin-top: 0.35rem;
+  color: #334155;
+  font-size: 0.92em;
+}
+.qv-dirs > span { white-space: nowrap; }
+.qv-dirs b { color: #1f4e79; }
+.qv-hint {
+  margin-top: 0.45rem;
+  color: #64748b;
+  font-size: 0.9em;
+}
+.qv-class {
+  margin-top: 0.5rem;
+  font-weight: 700;
+  color: #1f4e79;
+}

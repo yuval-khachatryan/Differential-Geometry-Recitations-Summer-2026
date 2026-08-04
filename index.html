@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="he" xml:lang="he" dir="rtl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="יובל חצ׳טריאן-רזיאל">
+
+<title>גיאומטריה דיפרנציאלית — תרגולים</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./01-quadrics.html" rel="next">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "אין תוצאות",
+    "search-matching-documents-text": "מסמכים תואמים",
+    "search-copy-link-title": "העתק קישור לחיפוש",
+    "search-hide-matches-text": "הסתר התאמות נוספות",
+    "search-more-match-text": "התאמה נוספת במסמך זה",
+    "search-more-matches-text": "התאמות נוספות במסמך זה",
+    "search-clear-button-title": "נקה",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "בטל",
+    "search-submit-button-title": "שלח",
+    "search-label": "חפש"
+  }
+}</script>
+<style>
+.todo {
+  color: #8a8a8a;
+  font-style: italic;
+  background: #fafafa;
+  border: 1px dashed #cccccc;
+  border-radius: 4px;
+  padding: 1.2rem 1rem;
+  margin: 0.4rem 0 1.2rem;
+}
+.tf-quiz {
+  margin: 0.6rem 0 1rem;
+}
+.tf-quiz .tf-opt {
+  margin: 0 0 0 0.5rem;
+  padding: 0.35rem 1.4rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.tf-quiz .tf-opt:hover {
+  background: #ececec;
+}
+.tf-quiz .tf-opt.correct {
+  background: #d4edda;
+  border-color: #28a745;
+}
+.tf-quiz .tf-opt.incorrect {
+  background: #f8d7da;
+  border-color: #dc3545;
+}
+.tf-quiz .tf-feedback {
+  margin-top: 0.45rem;
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.set-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.set-quiz .set-label {
+  min-width: 5rem;
+}
+.set-quiz .set-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 12rem;
+}
+.set-quiz .set-input.correct {
+  border-color: #28a745;
+  background: #d4edda;
+}
+.set-quiz .set-input.incorrect {
+  border-color: #dc3545;
+  background: #f8d7da;
+}
+.set-quiz .set-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.set-quiz .set-check:hover {
+  background: #ececec;
+}
+.set-quiz .set-feedback {
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.seq-quiz, .formula-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.seq-quiz .seq-label, .formula-quiz .seq-label { min-width: 12rem; }
+.seq-quiz .seq-input, .formula-quiz .seq-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 16rem;
+}
+.seq-quiz .seq-input.correct, .formula-quiz .seq-input.correct { border-color: #28a745; background: #d4edda; }
+.seq-quiz .seq-input.incorrect, .formula-quiz .seq-input.incorrect { border-color: #dc3545; background: #f8d7da; }
+.seq-quiz .seq-check, .formula-quiz .seq-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.seq-quiz .seq-check:hover, .formula-quiz .seq-check:hover { background: #ececec; }
+.seq-quiz .seq-feedback, .formula-quiz .seq-feedback { font-weight: bold; min-height: 1.2em; }
+/* Interactive widgets embedded from widgets/<chapter>/*.html.
+   They live in an iframe so their CSS (which styles body/table/button
+   unscoped) cannot leak into the page, and so several copies on one
+   page do not collide on element ids. The height below is a first guess;
+   each widget posts its real height and the listener at the bottom of this
+   file applies it. */
+iframe.widget-frame {
+  display: block;
+  width: 100%;
+  height: 440px;      /* replaced by the widget's own reported height */
+  border: 0;          /* the widget draws its own frame */
+  background: transparent;
+  margin: 1.2rem 0 0;
+}
+/* Inside a .thmsim box the frame sits flush; the box supplies the padding. */
+.thmbox-simulation iframe.widget-frame { margin: 0.5rem 0 0.2rem; }
+.thmbox {
+  border-inline-start: 4px solid #9ca3af;
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  margin: 1rem 0;
+}
+.thmbox > :first-child { margin-top: 0; }
+.thmbox > :last-child { margin-bottom: 0; }
+.thmbox-definition  { border-color: #3b82f6; background: #eff6ff; }
+.thmbox-theorem     { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-proposition { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-lemma       { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-corollary   { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-example     { border-color: #d97706; background: #fffbeb; }
+/* Question: kin to .thmbox-example, so same hue family, one shade deeper. Its
+   solution reuses the proof's slate — a solution is to a question what a proof
+   is to a theorem, and the reader already reads that grey as "the working". */
+.thmbox-question    { border-color: #b45309; background: #fef6e7; }
+.thmbox-solution    { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-solution > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-simulation  { border-color: #7c3aed; background: #f7f5ff; }
+.thmbox-proof       { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-proof > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-remark      { border-color: #cbd5e1; background: #f8fafc; }
+.thmbox-remark > p:first-child > strong { font-weight: 600; color: #64748b; }
+/* Optional box (.optional): foldable, collapsed by default; same gray look as .extra,
+   but the gray bar is the clickable <summary>. */
+details.thmoptional {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+details.thmoptional > summary {
+  background: #d1d5db;
+  color: #374151;
+  font-weight: 700;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+}
+details.thmoptional[open] > summary { border-bottom: 1px solid #9ca3af; }
+details.thmoptional > .optional { padding: 0.7rem 0.9rem; }
+details.thmoptional > .optional > :first-child { margin-top: 0; }
+details.thmoptional > .optional > :last-child { margin-bottom: 0; }
+/* .foldable: hidden calculations / derivations. Distinct from .optional (which is a
+   whole gray-boxed aside) — this is a light inline disclosure inside the running text. */
+details.thmfoldable {
+  margin: 1rem 0;
+  border-inline-start: 3px solid #cbd5e1;
+  padding-inline-start: 0.8rem;
+}
+details.thmfoldable > summary {
+  cursor: pointer;
+  color: #475569;
+  font-weight: 600;
+}
+details.thmfoldable[open] > summary { margin-bottom: 0.5rem; }
+details.thmcollapse { margin: 1rem 0; }
+details.thmcollapse > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #475569;
+  padding: 0.2rem 0;
+}
+details.thmcollapse[open] > summary { margin-bottom: 0.4rem; }
+/* Enrichment box (.extra): non-foldable, gray box; the section heading becomes a gray
+   header bar. Quarto merges the div into <section class="... extra">, so we style .extra. */
+.extra {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  padding: 0.7rem 0.9rem;
+}
+.extra > h2, .extra > h3, .extra > .extra-title {
+  background: #d1d5db;
+  color: #374151;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: -0.7rem -0.9rem 0.8rem;
+  padding: 0.45rem 0.8rem;
+  border-bottom: 1px solid #9ca3af;
+}
+.extra > :last-child { margin-bottom: 0; }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".tf-quiz").forEach(function (quiz) {
+    var correct = quiz.getAttribute("data-correct");
+    var feedback = quiz.querySelector(".tf-feedback");
+    quiz.querySelectorAll(".tf-opt").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        quiz.querySelectorAll(".tf-opt").forEach(function (b) {
+          b.classList.remove("correct", "incorrect");
+        });
+        if (btn.getAttribute("data-val") === correct) {
+          btn.classList.add("correct");
+          if (feedback) feedback.textContent = "✓ נכון!";
+        } else {
+          btn.classList.add("incorrect");
+          if (feedback) feedback.textContent = "✗ לא מדויק — נסו שוב, או פתחו את הפתרון.";
+        }
+      });
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function normSet(str) {
+    if (!str) return [];
+    return Array.from(new Set(
+      str.split(/[\s,;]+/).filter(function (s) { return s.length; }).map(Number)
+    )).filter(function (n) { return !Number.isNaN(n); }).sort(function (a, b) { return a - b; });
+  }
+  function eqSet(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) { if (a[i] !== b[i]) return false; }
+    return true;
+  }
+  document.querySelectorAll(".set-quiz").forEach(function (q) {
+    var answer = normSet(q.getAttribute("data-answer"));
+    var input = q.querySelector(".set-input");
+    var feedback = q.querySelector(".set-feedback");
+    var btn = q.querySelector(".set-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSet(normSet(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Evaluate one entered term as arithmetic (whitelisted chars only: digits + - * / ^ ( ) . )
+  function evalTerm(s) {
+    s = String(s).trim();
+    if (!s) return null;
+    if (!/^[0-9+\-*/^().\s]+$/.test(s)) return null;
+    try {
+      var v = Function('"use strict"; return (' + s.replace(/\^/g, "**") + ');')();
+      return (typeof v === "number" && isFinite(v)) ? v : null;
+    } catch (e) { return null; }
+  }
+  function parseSeq(str) { return String(str || "").split(",").map(evalTerm); }
+  function eqSeq(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] == null || b[i] == null || Math.abs(a[i] - b[i]) > 1e-9) return false;
+    }
+    return true;
+  }
+  document.querySelectorAll(".seq-quiz").forEach(function (q) {
+    var answer = parseSeq(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSeq(parseSeq(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Build n -> value from a formula in n (whitelisted: digits, n, + - * / ^ ! ( ) . )
+  function makeFormula(s) {
+    s = String(s || "").trim();
+    if (!s || !/^[0-9n+\-*/^!().\s]+$/.test(s)) return null;
+    s = s.replace(/(\d)\s*([n(])/g, "$1*$2")             // 2n, 2(  -> 2*n, 2*(
+         .replace(/([n)])\s*([n(])/g, "$1*$2")           // )n, )(, n(  -> insert *
+         .replace(/(\([^()]*\)|\d+|n)!/g, "fact($1)")    // n!, 5!, (n+1)!  -> fact(...)
+         .replace(/\^/g, "**");
+    try {
+      var f = Function("n", '"use strict"; var fact=function(k){k=Math.round(k);var r=1;for(var i=2;i<=k;i++)r*=i;return r;}; return (' + s + ");");
+      var t = f(1);
+      return (typeof t === "number" && isFinite(t)) ? f : null;
+    } catch (e) { return null; }
+  }
+  function parseTargets(str) {
+    return String(str || "").split(",").map(function (t) {
+      t = t.trim();
+      if (!/^-?[0-9]+(?:\/[0-9]+)?$/.test(t)) return NaN;
+      var p = t.split("/");
+      return p.length === 2 ? Number(p[0]) / Number(p[1]) : Number(p[0]);
+    });
+  }
+  document.querySelectorAll(".formula-quiz").forEach(function (q) {
+    var targets = parseTargets(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      var f = makeFormula(input.value), ok = !!f;
+      for (var i = 0; ok && i < targets.length; i++) {
+        var v; try { v = f(i + 1); } catch (e) { ok = false; break; }
+        if (typeof v !== "number" || !isFinite(v) || Math.abs(v - targets[i]) > 1e-9) ok = false;
+      }
+      if (ok) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+// Widgets embedded from widgets/<chapter>/ report their own height, so the
+// iframe does not need a hard-coded one (which breaks on narrow screens,
+// where the control panel stacks above the plot).
+window.addEventListener("message", function (e) {
+  var d = e.data;
+  if (!d || d.type !== "widget-height" || typeof d.height !== "number") return;
+  var frames = document.querySelectorAll("iframe.widget-frame");
+  for (var i = 0; i < frames.length; i++) {
+    if (frames[i].contentWindow === e.source) {
+      frames[i].style.height = Math.max(320, Math.min(2000, d.height)) + "px";
+      return;
+    }
+  }
+});
+</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">פתח דבר</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="חפש" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">גיאומטריה דיפרנציאלית — תרגולים</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="הצג/הסתר מצב קריאה">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="חפש"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">פתח דבר</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-quadrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">תוכן העניינים</h2>
+   
+  <ul>
+  <li><a href="#פתח-דבר" id="toc-פתח-דבר" class="nav-link active" data-scroll-target="#פתח-דבר">פתח דבר</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">גיאומטריה דיפרנציאלית — תרגולים</h1>
+<p class="subtitle lead">דפי תרגול — טיוטה לעריכה</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">כותב</div>
+    <div class="quarto-title-meta-contents">
+             <p>יובל חצ׳טריאן-רזיאל </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="פתח-דבר" class="level1 unnumbered">
+<h1 class="unnumbered">פתח דבר</h1>
+<p>דפי התרגול בגיאומטריה דיפרנציאלית. כל דף מכיל תזכורת קצרה של ההליך הנדרש, טבלאות ייחוס, ותרגילים עם פתרונות מלאים.</p>
+<p>הרקע התיאורטי המלא — ההגדרות, המשפטים וההוכחות — נמצא במחברת ההרצאות.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "הועתק!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "הועתק!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/yuval-khachatryan\.github\.io\/Differential-Geometry-Recitations-Summer-2026");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./01-quadrics.html" class="pagination-link" aria-label="תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
