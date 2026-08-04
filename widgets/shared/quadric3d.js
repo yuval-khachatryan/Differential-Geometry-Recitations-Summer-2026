@@ -280,6 +280,24 @@
       if (R / tstep > 12) tstep *= 2;
       var nlen = R * 0.022, ax, gv, o2, base, n1, n2, s1, s2;
       ctx.strokeStyle = COL.axis; ctx.lineWidth = 1.1;
+      ctx.fillStyle = COL.axis; ctx.font = "10px Arial, sans-serif";
+
+      /* Put the number on whichever perpendicular direction currently points
+         most steeply DOWN on screen, so labels sit under the axis from any
+         viewing angle instead of landing on top of the mesh. */
+      function labelOffset(p) {
+        var best = null, bestDy = -Infinity, o3, probe, sp = proj(p), sq;
+        for (o3 = 0; o3 < 3; o3++) {
+          probe = p.slice(); probe[o3] += nlen * 3.2;
+          sq = proj(probe);
+          if (sq[1] - sp[1] > bestDy) { bestDy = sq[1] - sp[1]; best = sq; }
+          probe = p.slice(); probe[o3] -= nlen * 3.2;
+          sq = proj(probe);
+          if (sq[1] - sp[1] > bestDy) { bestDy = sq[1] - sp[1]; best = sq; }
+        }
+        return best;
+      }
+
       for (ax = 0; ax < 3; ax++) {
         for (gv = -Math.floor(R / tstep) * tstep; gv <= R; gv += tstep) {
           if (Math.abs(gv) < tstep / 2) continue;
@@ -291,8 +309,13 @@
             s1 = proj(n1); s2 = proj(n2);
             ctx.beginPath(); ctx.moveTo(s1[0], s1[1]); ctx.lineTo(s2[0], s2[1]); ctx.stroke();
           }
+          var lo = labelOffset(base);
+          ctx.fillText(L.fmtNum(gv), lo[0], lo[1]);
         }
       }
+      /* a single 0 at the origin — one per axis would just overprint */
+      var z0 = labelOffset([0, 0, 0]);
+      ctx.fillText("0", z0[0], z0[1]);
 
       /* the surface */
       ctx.lineWidth = 1.1;

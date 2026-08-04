@@ -155,6 +155,11 @@
     return s === "-0.000" ? "0.000" : s;
   }
   function vecText(v) { return "= (" + v.map(f3).join(", ") + ")"; }
+  /* short tick label: 2, -1.5, 0.25 — never 1.0000000000000002 */
+  function fmtNum(v) {
+    var s = (Math.round(v * 1000) / 1000).toString();
+    return s === "-0" ? "0" : s;
+  }
   function col(M, d) {
     var out = [], i;
     for (i = 0; i < M.length; i++) out.push(M[i][d]);
@@ -172,7 +177,7 @@
   }
 
   global.LinAlg = {
-    f3: f3, vecText: vecText, col: col, dirsSkeleton: dirsSkeleton,
+    f3: f3, vecText: vecText, fmtNum: fmtNum, col: col, dirsSkeleton: dirsSkeleton,
     zeros: zeros, identity: identity, matVec: matVec, transpose: transpose,
     det: det, matMul: matMul, eigSym: eigSym, makeProper: makeProper,
     rot2: rot2, angle2: angle2, axisAngle3: axisAngle3, rot3: rot3,

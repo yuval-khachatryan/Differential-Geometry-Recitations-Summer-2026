@@ -15,11 +15,6 @@
     grid:  "#e2e8f0"
   };
 
-  /* short tick label: 2, -1.5, 0.25 — never 1.0000000000000002 */
-  function fmtNum(v) {
-    var s = (Math.round(v * 1000) / 1000).toString();
-    return s === "-0" ? "0" : s;
-  }
   /* how far one may travel from p along dir before leaving the visible world
      box; used to park an axis label just inside the edge */
   function rayMax(p, dir, halfW, halfH) {
@@ -197,8 +192,8 @@
       ctx.fillStyle = COL.axis; ctx.font = "11px Arial, sans-serif";
       for (var g2 = -Math.ceil(R / step) * step; g2 <= R; g2 += step) {
         if (Math.abs(g2) < step / 2) continue;
-        ctx.fillText(fmtNum(g2), X([g2, 0]), cy + 11);
-        ctx.fillText(fmtNum(g2), cx - 14, Y([0, g2]));
+        ctx.fillText(L.fmtNum(g2), X([g2, 0]), cy + 11);
+        ctx.fillText(L.fmtNum(g2), cx - 14, Y([0, g2]));
       }
       ctx.fillStyle = "#475569"; ctx.font = "bold 13px Arial, sans-serif";
       ctx.fillText("x", w - 9, cy - 11);
