@@ -128,12 +128,67 @@
        k      - the constant that lands on the right-hand side
        linIdx - index of the direction that kept a linear term (-1 if none)
        mu     - its coefficient, i.e. equation is  sum lam_i U_i^2 = k + mu*U_linIdx */
+  /* An m x m orthogonal matrix whose FIRST COLUMN is the given unit vector,
+     the rest completed by Gram-Schmidt against the standard basis. */
+  function orthoBasisFrom(u) {
+    var m = u.length, cols = [u.slice()], k, i, j, w, d, nrm, Q = [], r;
+    for (k = 0; k < m && cols.length < m; k++) {
+      w = [];
+      for (i = 0; i < m; i++) w.push(i === k ? 1 : 0);
+      for (j = 0; j < cols.length; j++) {
+        d = 0;
+        for (i = 0; i < m; i++) d += cols[j][i] * w[i];
+        for (i = 0; i < m; i++) w[i] -= d * cols[j][i];
+      }
+      nrm = 0;
+      for (i = 0; i < m; i++) nrm += w[i] * w[i];
+      nrm = Math.sqrt(nrm);
+      if (nrm > 1e-8) {
+        for (i = 0; i < m; i++) w[i] /= nrm;
+        cols.push(w);
+      }
+    }
+    for (r = 0; r < m; r++) { Q.push([]); for (j = 0; j < m; j++) Q[r].push(cols[j][r]); }
+    return Q;
+  }
+
   function canonical(A, b, c) {
     var raw = eigSym(A),
         e = makeProper(raw.vectors, raw.values),
         P = e.vectors, lam = e.values,
         beta = matVec(transpose(P), b),
-        n = lam.length, u0 = [], k = -c, linIdx = -1, mu = 0, i;
+        n = lam.length, u0 = [], k = -c, linIdx = -1, mu = 0, i, j, r,
+        TOL = 1e-9;
+
+    /* Gather the linear terms that live in ker A into ONE coordinate.
+       More than one zero-eigenvalue direction may carry a linear term — say
+       a*x^2 = b*y + c*z. Rotating INSIDE ker A collects them; it cannot touch
+       the quadratic part, because A vanishes there. Without this the loop below
+       would keep only the last such term and silently drop the others. */
+    var z = [], hits = 0;
+    for (i = 0; i < n; i++) if (Math.abs(lam[i]) <= TOL) z.push(i);
+    for (i = 0; i < z.length; i++) if (Math.abs(beta[z[i]]) > TOL) hits++;
+    if (z.length > 1 && hits > 1) {
+      var m = z.length, v = [], rho = 0, Q, cols;
+      for (i = 0; i < m; i++) { v.push(beta[z[i]]); rho += beta[z[i]] * beta[z[i]]; }
+      rho = Math.sqrt(rho);
+      for (i = 0; i < m; i++) v[i] /= rho;
+      Q = orthoBasisFrom(v);
+      /* keep the whole change of basis a rotation: flipping a later kernel
+         column is free, since its linear coefficient is zero anyway */
+      if (det(Q) < 0) for (i = 0; i < m; i++) Q[i][m - 1] = -Q[i][m - 1];
+      cols = [];
+      for (j = 0; j < m; j++) {
+        cols.push([]);
+        for (r = 0; r < n; r++) {
+          var s = 0;
+          for (i = 0; i < m; i++) s += Q[i][j] * P[r][z[i]];
+          cols[j].push(s);
+        }
+      }
+      for (j = 0; j < m; j++) for (r = 0; r < n; r++) P[r][z[j]] = cols[j][r];
+      beta = matVec(transpose(P), b);      // recompute rather than track signs
+    }
 
     for (i = 0; i < n; i++) {
       if (Math.abs(lam[i]) > 1e-9) {

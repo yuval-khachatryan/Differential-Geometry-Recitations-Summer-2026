@@ -30,6 +30,12 @@
     }
     if (nz.length === 2 && li >= 0) return (pos === 2 || neg === 2) ? "paraboloid" : "hypparaboloid";
     if (nz.length === 2) return "cylinder";
+    if (nz.length === 1) {
+      /* only reachable once the linear terms in ker A have been gathered */
+      if (li >= 0) return "parcylinder";
+      if (Math.abs(k) < 1e-12) return "plane";
+      return (k / nz[0] > 0) ? "planes" : "empty";
+    }
     return "other";
   }
 
@@ -37,7 +43,9 @@
     ellipsoid: "אליפסואיד", hyper1: "היפרבולואיד חד-יריעתי",
     hyper2: "היפרבולואיד דו-יריעתי", cone: "חרוט אליפטי",
     paraboloid: "פרבולואיד אליפטי", hypparaboloid: "פרבולואיד היפרבולי",
-    cylinder: "גליל", point: "נקודה בודדת", empty: "קבוצה ריקה", other: "מקרה מנוון"
+    cylinder: "גליל", parcylinder: "גליל פרבולי",
+    planes: "זוג מישורים מקבילים", plane: "מישור יחיד",
+    point: "נקודה בודדת", empty: "קבוצה ריקה", other: "מקרה מנוון"
   };
 
   /* Wireframe as a list of polylines in canonical (U,V,W) coordinates. */
@@ -175,6 +183,45 @@
           }
           out.push(seg);
         }
+      }
+    } else if (kind === "parcylinder") {
+      /* l[q] U_q^2 = mu * U_li , free along the remaining kernel direction */
+      var qi = -1, fi = -1;
+      for (i = 0; i < 3; i++) {
+        if (Math.abs(l[i]) > 1e-9) qi = i;
+        else if (i !== li) fi = i;
+      }
+      var umx = Math.sqrt(Math.abs(2.2 * R * mu / l[qi])) || R, Hp = R * 0.8;
+      for (i = -3; i <= 3; i++) {                 // parabola cross-sections
+        var fv = Hp * i / 3; seg = [];
+        for (j = 0; j <= NV; j++) {
+          var uu = -umx + 2 * umx * j / NV, pp = [];
+          pp[qi] = uu; pp[li] = l[qi] * uu * uu / mu; pp[fi] = fv;
+          seg.push(pp);
+        }
+        out.push(seg);
+      }
+      for (j = 0; j <= 10; j++) {                 // rulings
+        var ur = -umx + 2 * umx * j / 10, r1 = [], r2 = [];
+        r1[qi] = ur; r1[li] = l[qi] * ur * ur / mu; r1[fi] = -Hp;
+        r2[qi] = ur; r2[li] = l[qi] * ur * ur / mu; r2[fi] = Hp;
+        out.push([r1, r2]);
+      }
+    } else if (kind === "planes" || kind === "plane") {
+      var pi2 = -1;
+      for (i = 0; i < 3; i++) if (Math.abs(l[i]) > 1e-9) pi2 = i;
+      var rs = [0, 1, 2].filter(function (x) { return x !== pi2; }),
+          dd = Math.sqrt(Math.max(0, k / l[pi2])), Hq = R * 0.8, sg;
+      for (sg = -1; sg <= 1; sg += 2) {
+        for (i = -3; i <= 3; i++) {
+          var g1 = [], g2 = [], h1 = [], h2 = [];
+          g1[pi2] = sg * dd; g1[rs[0]] = Hq * i / 3; g1[rs[1]] = -Hq;
+          g2[pi2] = sg * dd; g2[rs[0]] = Hq * i / 3; g2[rs[1]] = Hq;
+          h1[pi2] = sg * dd; h1[rs[1]] = Hq * i / 3; h1[rs[0]] = -Hq;
+          h2[pi2] = sg * dd; h2[rs[1]] = Hq * i / 3; h2[rs[0]] = Hq;
+          out.push([g1, g2]); out.push([h1, h2]);
+        }
+        if (dd < 1e-12) break;                    // a single plane, not a pair
       }
     } else if (kind === "cylinder") {
       var czi = o.zer[0], cri = [0, 1, 2].filter(function (x) { return x !== czi; }),

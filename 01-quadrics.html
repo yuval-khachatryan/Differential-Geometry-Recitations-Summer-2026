@@ -543,7 +543,7 @@ window.Quarto = {
     <h2 id="toc-title">תוכן העניינים</h2>
    
   <ul>
-  <li><a href="#ההליך-בקצרה" id="toc-ההליך-בקצרה" class="nav-link active" data-scroll-target="#ההליך-בקצרה"><span class="header-section-number">1.1</span> ההליך בקצרה</a></li>
+  <li><a href="#התהליך-בקצרה" id="toc-התהליך-בקצרה" class="nav-link active" data-scroll-target="#התהליך-בקצרה"><span class="header-section-number">1.1</span> התהליך בקצרה</a></li>
   <li><a href="#טבלאות-ייחוס-הצורות-הקנוניות" id="toc-טבלאות-ייחוס-הצורות-הקנוניות" class="nav-link" data-scroll-target="#טבלאות-ייחוס-הצורות-הקנוניות"><span class="header-section-number">1.2</span> טבלאות ייחוס: הצורות הקנוניות</a>
   <ul>
   <li><a href="#עקומות-ריבועיות-ב-mathbbr2" id="toc-עקומות-ריבועיות-ב-mathbbr2" class="nav-link" data-scroll-target="#עקומות-ריבועיות-ב-mathbbr2">עקומות ריבועיות ב-<span class="math inline">\(\mathbb{R}^2\)</span></a></li>
@@ -577,18 +577,238 @@ window.Quarto = {
 </header>
 
 
-<section id="ההליך-בקצרה" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="ההליך-בקצרה"><span class="header-section-number">1.1</span> ההליך בקצרה</h2>
+<p>כל תבנית ריבועית ניתנת להצגה, ב<strong>מערכת קואורדינטות מתאימה שתמיד קיימת</strong>, בצורה שאין בה איברים מעורבים <span class="math inline">\(x_i x_j\)</span> אלא ריבועים בלבד.</p>
+<p>יתרה מזו, אפשר תמיד לבחור את מעבר הקואורדינטות כך שמטריצת המעבר תהיה אורתוגונלית ובעלת דטרמיננטה <span class="math inline">\(1\)</span> — כלומר <strong>סיבוב</strong> של הצירים. בצירוף השלמה לריבוע, שאינה אלא <strong>הזזה</strong> של ראשית הצירים, מתקבלת הצורה הקנונית.</p>
+<p>נזכיר שמעבר אורתוגונלי הוא <strong>איזומטריה</strong>: הוא משמר אורכים וזוויות. גם ההזזה היא איזומטריה, ולכן כל התהליך כולו הוא איזומטריה. מכאן שהצורה הגיאומטרית עצמה אינה מושפעת ממעבר הקואורדינטות — אליפסה נשארת אליפסה ואורכי הצירים שלה אינם משתנים; מה שמשתנה הוא רק מערכת הצירים שממנה אנו מתבוננים בה.</p>
+<p>בתרגול זה נתאר את התהליך, ונבצע את הסיווג ב-<span class="math inline">\(\mathbb{R}^2\)</span> וב-<span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+<section id="התהליך-בקצרה" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="התהליך-בקצרה"><span class="header-section-number">1.1</span> התהליך בקצרה</h2>
 <p><strong>המטריצה.</strong> כל משוואה ממעלה שנייה ב-<span class="math inline">\(\mathbb{R}^n\)</span> נכתבת בצורה <span class="math display">\[,F(\mathbf{x}) = \mathbf{x}^t A \mathbf{x} + b^t \mathbf{x} + c = 0\]</span> כאשר <span class="math inline">\(A\)</span> סימטרית, <span class="math display">\[.a_{ii} = x_i^2\ \text{לש םדקמה}, \qquad a_{ij} = a_{ji} = \frac{x_i x_j\ \text{לש םדקמה}}{2}\]</span></p>
 <p><strong>דוגמה.</strong> עבור <span class="math inline">\(2x^2 - 6xy + y^2 + 4x - 2y + 5 = 0\)</span> המקדם של <span class="math inline">\(xy\)</span> הוא <span class="math inline">\(-6\)</span>, ולכן <span class="math inline">\(a_{12} = a_{21} = -3\)</span>, ומכאן <span class="math display">\[.A = \begin{pmatrix} 2 &amp; -3 \\ -3 &amp; 1 \end{pmatrix}, \qquad b = \begin{pmatrix} 4 \\ -2 \end{pmatrix}, \qquad c = 5\]</span></p>
 <p><strong>לכסון.</strong> מאלגברה ליניארית: מטריצה סימטרית ניתנת ללכסון אורתוגונלי. כלומר קיים בסיס אורתונורמלי <span class="math inline">\(\mathcal{C} = \{q_1, \dots, q_n\}\)</span> של וקטורים עצמיים, ואם <span class="math inline">\(P\)</span> היא המטריצה שעמודותיה הן <span class="math inline">\(q_1, \dots, q_n\)</span> אז <span class="math display">\[.P^t A P = \Lambda = \begin{pmatrix} \lambda_1 &amp; 0 &amp; \cdots &amp; 0 \\ 0 &amp; \lambda_2 &amp; \cdots &amp; 0 \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; \cdots &amp; \lambda_n \end{pmatrix}, \qquad P^{-1} = P^t\]</span></p>
 <p><strong>מטריצת מעבר.</strong> תזכורת כללית: אם <span class="math inline">\(A\)</span> הפיכה ו-<span class="math inline">\(\mathcal{C} = \{C_1(A), \dots, C_n(A)\}\)</span> הוא הבסיס הנפרש על ידי עמודותיה, אז <span class="math inline">\(A\)</span> פועלת כמטריצת המעבר <span class="math inline">\([I]_E^{\mathcal{C}}\)</span>, כאשר <span class="math inline">\(E\)</span> הוא הבסיס הסטנדרטי. אצלנו <span class="math inline">\(\mathcal{C}\)</span> הוא בסיס הווקטורים העצמיים, ולכן <span class="math display">\[,\mathbf{x} = P\mathbf{u}\]</span> כאשר <span class="math inline">\(\mathbf{u}\)</span> הוא וקטור הקואורדינטות ביחס ל-<span class="math inline">\(\mathcal{C}\)</span>. מ-<span class="math inline">\(P^{-1} = P^t\)</span> מקבלים את הכיוון השימושי <span class="math display">\[.\mathbf{u} = P^t \mathbf{x}\]</span></p>
-<p><strong>המשוואה החדשה.</strong> נציב <span class="math inline">\(\mathbf{x} = P\mathbf{u}\)</span>. האיבר הריבועי: <span class="math display">\[,\mathbf{x}^t A \mathbf{x} = (P\mathbf{u})^t A (P\mathbf{u}) = \mathbf{u}^t \left( P^t A P \right) \mathbf{u} = \lambda_1 u^2 + \lambda_2 v^2 + \lambda_3 w^2\]</span> ובאותה דרך, האיבר הליניארי: <span class="math display">\[,b^t \mathbf{x} = b^t P \mathbf{u} = \left( P^t b \right)^t \mathbf{u}\]</span> כלומר גם <span class="math inline">\(b\)</span> עובר לקואורדינטות החדשות, <span class="math inline">\(\beta = P^t b\)</span>. בסך הכול <span class="math display">\[.\lambda_1 u^2 + \lambda_2 v^2 + \lambda_3 w^2 + \beta_1 u + \beta_2 v + \beta_3 w + c = 0\]</span> האיברים המעורבים נעלמו.</p>
-<p><strong>השלמה לריבוע.</strong> מוציאים את <span class="math inline">\(\lambda\)</span> מחוץ לסוגריים, ואז מוסיפים ומחסרים את ריבוע מחצית המקדם של <span class="math inline">\(u\)</span>: <span class="math display">\[.\lambda u^2 + \beta u = \lambda \left( u^2 + \frac{\beta}{\lambda} u \right) = \lambda \left[ \left( u + \frac{\beta}{2\lambda} \right)^2 - \left( \frac{\beta}{2\lambda} \right)^2 \right] = \lambda \left( u + \frac{\beta}{2\lambda} \right)^2 - \frac{\beta^2}{4\lambda}\]</span> האיבר הליניארי נבלע בתוך הריבוע: הביטוי <span class="math inline">\(u + \dfrac{\beta}{2\lambda}\)</span> הוא המשתנה המוזז, כלומר השלמה לריבוע היא בסך הכול הזזה של ראשית הצירים. אם <span class="math inline">\(\lambda = 0\)</span> אי אפשר להשלים לריבוע, ואז:</p>
-<ul>
-<li>אם <span class="math inline">\(\beta \neq 0\)</span> — האיבר הליניארי נשאר, ומתקבלת <strong>פרבולה</strong> או <strong>פרבולואיד</strong>;</li>
-<li>אם <span class="math inline">\(\beta = 0\)</span> — המשתנה נעלם מהמשוואה, ומתקבל <strong>גליל</strong> או מקרה מנוון.</li>
-</ul>
+<p><strong>המשוואה החדשה.</strong> נציב <span class="math inline">\(\mathbf{x} = P\mathbf{u}\)</span>, כאשר <span class="math inline">\(\mathbf{u} = (u_1, \dots, u_n)^t\)</span>. האיבר הריבועי: <span class="math display">\[,\mathbf{x}^t A \mathbf{x} = (P\mathbf{u})^t A (P\mathbf{u}) = \mathbf{u}^t \left( P^t A P \right) \mathbf{u} = \mathbf{u}^t \Lambda \mathbf{u} = \sum_{i=1}^{n} \lambda_i u_i^2\]</span> ובאותה דרך, האיבר הליניארי: <span class="math display">\[,b^t \mathbf{x} = b^t P \mathbf{u} = \left( P^t b \right)^t \mathbf{u} = \sum_{i=1}^{n} \beta_i u_i\]</span> כלומר גם <span class="math inline">\(b\)</span> עובר לקואורדינטות החדשות, <span class="math inline">\(\beta = P^t b\)</span>. בסך הכול <span class="math display">\[.\sum_{i=1}^{n} \lambda_i u_i^2 + \sum_{i=1}^{n} \beta_i u_i + c = 0\]</span> האיברים המעורבים נעלמו.</p>
+<p><strong>השלמה לריבוע.</strong> משלימים לריבוע <strong>בכל קואורדינטה בנפרד</strong>. עבור <span class="math inline">\(i\)</span> שעבורו <span class="math inline">\(\lambda_i \neq 0\)</span>, מוציאים את <span class="math inline">\(\lambda_i\)</span> מחוץ לסוגריים ומוסיפים ומחסרים את ריבוע מחצית המקדם של <span class="math inline">\(u_i\)</span>: <span class="math display">\[.\lambda_i u_i^2 + \beta_i u_i = \lambda_i \left( u_i^2 + \frac{\beta_i}{\lambda_i} u_i \right) = \lambda_i \left[ \left( u_i + \frac{\beta_i}{2\lambda_i} \right)^2 - \left( \frac{\beta_i}{2\lambda_i} \right)^2 \right] = \lambda_i \left( u_i + \frac{\beta_i}{2\lambda_i} \right)^2 - \frac{\beta_i^2}{4\lambda_i}\]</span> האיבר הליניארי נבלע בתוך הריבוע: הביטוי <span class="math inline">\(u_i + \dfrac{\beta_i}{2\lambda_i}\)</span> הוא המשתנה המוזז, כלומר השלמה לריבוע היא בסך הכול הזזה של ראשית הצירים בכיוון <span class="math inline">\(q_i\)</span>.</p>
+<p>עבור <span class="math inline">\(i\)</span> שעבורו <span class="math inline">\(\lambda_i = 0\)</span> אי אפשר להשלים לריבוע באותה קואורדינטה, והאיבר הליניארי <span class="math inline">\(\beta_i u_i\)</span> נשאר.</p>
+<p><strong>איסוף האיברים הליניאריים.</strong> ייתכן שיותר מקואורדינטה אחת מקיימת <span class="math inline">\(\lambda_i = 0\)</span> עם <span class="math inline">\(\beta_i \neq 0\)</span>, ואז נשארים כמה איברים ליניאריים. במקרה כזה מבצעים <strong>סיבוב נוסף בתוך גרעין</strong> <span class="math inline">\(A\)</span> — המרחב הנפרש על ידי הווקטורים העצמיים שהערך העצמי שלהם <span class="math inline">\(0\)</span>. סיבוב זה אינו נוגע כלל בחלק הריבועי, שכן <span class="math inline">\(A\)</span> מתאפסת על הגרעין ואין שם איברים ריבועיים שיושפעו ממנו.</p>
+<p>נניח שנשאר <span class="math inline">\(\beta_2 u_2 + \beta_3 u_3\)</span>, ונסמן <span class="math inline">\(\rho = \sqrt{\beta_2^2 + \beta_3^2}\)</span>. נגדיר קואורדינטות חדשות <span class="math display">\[.\begin{pmatrix} u_2' \\ u_3' \end{pmatrix} = \frac{1}{\rho}\begin{pmatrix} \beta_2 &amp; \beta_3 \\ -\beta_3 &amp; \beta_2 \end{pmatrix}\begin{pmatrix} u_2 \\ u_3 \end{pmatrix}\]</span> המטריצה אורתוגונלית ובעלת דטרמיננטה <span class="math inline">\(1\)</span> (בדקו!), ובקואורדינטות החדשות <span class="math display">\[,\beta_2 u_2 + \beta_3 u_3 = \rho\, u_2'\]</span> כלומר כל האיברים הליניאריים התאספו לאיבר <strong>יחיד</strong>, והמשתנה <span class="math inline">\(u_3'\)</span> נעלם מן המשוואה.</p>
+<p><strong>דוגמה.</strong> במשוואה <span class="math inline">\(ax^2 = by + cz\)</span> מתקיים <span class="math inline">\(\lambda_1 = a\)</span> ו-<span class="math inline">\(\lambda_2 = \lambda_3 = 0\)</span>, והחלק הליניארי הוא <span class="math inline">\(by + cz\)</span>. בסימון <span class="math inline">\(\rho = \sqrt{b^2 + c^2}\)</span> נגדיר <span class="math display">\[,v' = \frac{by + cz}{\rho}, \qquad w' = \frac{-cy + bz}{\rho}\]</span> והמשוואה הופכת ל- <span class="math display">\[,ax^2 = \rho\, v'\]</span> כאשר <span class="math inline">\(w'\)</span> אינו מופיע בה כלל — כלומר <strong>גליל פרבולי</strong>.</p>
+<p>לאחר האיסוף נשאר במשוואה לכל היותר איבר ליניארי אחד.</p>
+<p><strong>חיסול הקבוע החופשי.</strong> נניח שלאחר השלמה לריבוע ואיסוף האיברים הליניאריים נשאר איבר ליניארי יחיד, כלומר המשוואה היא <span class="math display">\[.\sum_i \lambda_i U_i^2 = k + \mu\, u_j, \qquad \lambda_j = 0,\ \mu \neq 0\]</span> נציב <span class="math display">\[,U_j = u_j + \frac{k}{\mu}\]</span> וזוהי הזזה נוספת, בכיוון <span class="math inline">\(q_j\)</span> בלבד. בקואורדינטה החדשה מתקבל <span class="math display">\[.\sum_i \lambda_i U_i^2 = \mu\, U_j\]</span> הקבוע נעלם. הסיבה פשוטה: הזזה של <span class="math inline">\(u_j\)</span> במרחק <span class="math inline">\(t\)</span> משנה את האיבר <span class="math inline">\(\mu u_j\)</span> בדיוק ב-<span class="math inline">\(\mu t\)</span>, ומכיוון ש-<span class="math inline">\(\mu \neq 0\)</span> אפשר לבחור <span class="math inline">\(t\)</span> שיבטל <strong>כל</strong> קבוע. לעומת זאת, כשאין איבר ליניארי כלל — אין במה לבלוע את הקבוע, והוא נשאר במשוואה.</p>
+<p><strong>שתי הצורות האפשריות.</strong> לאחר הסיבוב, השלמה לריבוע ואיסוף האיברים הליניאריים, כל משוואה ממעלה שנייה מגיעה לאחת משתי הצורות <span class="math display">\[,\sum_i \lambda_i U_i^2 = k\]</span> או <span class="math display">\[.\sum_i \lambda_i U_i^2 = \mu\, U_j\]</span> בצורה הראשונה הקבוע <span class="math inline">\(k\)</span> הוא חלק מהותי מן הסיווג: הוא שקובע, יחד עם סימני <span class="math inline">\(\lambda_i\)</span>, אם מדובר באליפסואיד, בהיפרבולואיד חד-יריעתי או דו-יריעתי, בחרוט או בקבוצה ריקה. בצורה השנייה אין קבוע כלל — בדיוק משום שהאיבר הליניארי בלע אותו. זו הסיבה שבטבלאות הייחוס הפרבולה נכתבת <span class="math inline">\(x^2 = 4py\)</span> והפרבולואיד <span class="math inline">\(\frac{x^2}{a^2} + \frac{y^2}{b^2} = \frac{z}{c}\)</span> — בלי קבוע — ואילו הגלילים, שאין בהם איבר ליניארי, נכתבים עם <span class="math inline">\(=1\)</span>.</p>
+<p><strong>הסיווג.</strong> נסמן ב-<span class="math inline">\(r\)</span> את מספר הערכים העצמיים השונים מאפס (<span class="math inline">\(r = \operatorname{rank} A\)</span>), ב-<span class="math inline">\(f\)</span> את מספר <strong>המשתנים החופשיים</strong> — אלה שאינם מופיעים כלל במשוואה הסופית — וב-<span class="math inline">\(\ell\)</span> את מספר האיברים הליניאריים שנשארו (<span class="math inline">\(0\)</span> או <span class="math inline">\(1\)</span>). תמיד מתקיים <span class="math display">\[.n = r + \ell + f\]</span> שימו לב ש-<span class="math inline">\(r = n\)</span> פירושו גרעין טריוויאלי, ואז בהכרח <span class="math inline">\(\ell = f = 0\)</span>; ואילו כאשר <span class="math inline">\(r &lt; n\)</span> ומתקיים <span class="math inline">\(f = 0\)</span>, בהכרח <span class="math inline">\(\ell = 1\)</span> — כלומר נשאר איבר ליניארי.</p>
+<p><strong>עקומות ב-<span class="math inline">\(\mathbb{R}^2\)</span>:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(r\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\ell\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(f\)</span></th>
+<th style="text-align: left;">תנאי</th>
+<th style="text-align: left;">הצורה</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים זהים, <span class="math inline">\(k\)</span> באותו סימן</td>
+<td style="text-align: left;">אליפסה</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים זהים, <span class="math inline">\(k\)</span> בסימן מנוגד</td>
+<td style="text-align: left;">הקבוצה הריקה</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים זהים, <span class="math inline">\(k = 0\)</span></td>
+<td style="text-align: left;">נקודה בודדת</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים מעורבים, <span class="math inline">\(k \neq 0\)</span></td>
+<td style="text-align: left;">היפרבולה</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים מעורבים, <span class="math inline">\(k = 0\)</span></td>
+<td style="text-align: left;">זוג ישרים נחתכים</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">פרבולה</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(k/\lambda &gt; 0\)</span></td>
+<td style="text-align: left;">זוג ישרים מקבילים</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(k = 0\)</span></td>
+<td style="text-align: left;">ישר יחיד</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(k/\lambda &lt; 0\)</span></td>
+<td style="text-align: left;">הקבוצה הריקה</td>
+</tr>
+</tbody>
+</table>
+<p><strong>משטחים ב-<span class="math inline">\(\mathbb{R}^3\)</span>:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(r\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\ell\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(f\)</span></th>
+<th style="text-align: left;">תנאי</th>
+<th style="text-align: left;">הצורה</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים זהים, <span class="math inline">\(k\)</span> באותו סימן</td>
+<td style="text-align: left;">אליפסואיד</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים זהים, <span class="math inline">\(k\)</span> בסימן מנוגד</td>
+<td style="text-align: left;">הקבוצה הריקה</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים זהים, <span class="math inline">\(k = 0\)</span></td>
+<td style="text-align: left;">נקודה בודדת</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים מעורבים, <span class="math inline">\(k \neq 0\)</span></td>
+<td style="text-align: left;">היפרבולואיד חד- או דו-יריעתי</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים מעורבים, <span class="math inline">\(k = 0\)</span></td>
+<td style="text-align: left;">חרוט אליפטי</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים זהים</td>
+<td style="text-align: left;">פרבולואיד אליפטי</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;">סימנים מעורבים</td>
+<td style="text-align: left;">פרבולואיד היפרבולי</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;">סימנים זהים, <span class="math inline">\(k\)</span> באותו סימן</td>
+<td style="text-align: left;">גליל אליפטי</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;">סימנים זהים, <span class="math inline">\(k\)</span> בסימן מנוגד</td>
+<td style="text-align: left;">הקבוצה הריקה</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;">סימנים זהים, <span class="math inline">\(k = 0\)</span></td>
+<td style="text-align: left;">ישר</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;">סימנים מעורבים, <span class="math inline">\(k \neq 0\)</span></td>
+<td style="text-align: left;">גליל היפרבולי</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;">סימנים מעורבים, <span class="math inline">\(k = 0\)</span></td>
+<td style="text-align: left;">זוג מישורים נחתכים</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">גליל פרבולי</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(k/\lambda &gt; 0\)</span></td>
+<td style="text-align: left;">זוג מישורים מקבילים</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(k = 0\)</span></td>
+<td style="text-align: left;">מישור יחיד</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(k/\lambda &lt; 0\)</span></td>
+<td style="text-align: left;">הקבוצה הריקה</td>
+</tr>
+</tbody>
+</table>
+<p>כל שורה שבה <span class="math inline">\(f \geq 1\)</span> היא <strong>גליל</strong>: הצורה המתוארת ביתר המשתנים, נמתחת לאורך הכיוונים החופשיים. לכן טבלת <span class="math inline">\(\mathbb{R}^3\)</span> היא, למעשה, טבלת <span class="math inline">\(\mathbb{R}^2\)</span> בתוספת ממד אחד.</p>
+<p><strong>סימון.</strong> בתרגילים, במקום האינדקסים, נסמן את הקואורדינטות המסובבות ב-<span class="math inline">\(u, v\)</span> ב-<span class="math inline">\(\mathbb{R}^2\)</span> וב-<span class="math inline">\(u, v, w\)</span> ב-<span class="math inline">\(\mathbb{R}^3\)</span>; את הקואורדינטות שלאחר ההזזה נסמן באותיות גדולות — <span class="math inline">\(U, V\)</span> ו-<span class="math inline">\(U, V, W\)</span> בהתאמה.</p>
 <p><strong>האלגוריתם.</strong></p>
 <ol type="1">
 <li>כתבו את המשוואה כ-<span class="math inline">\(\mathbf{x}^t A \mathbf{x} + b^t \mathbf{x} + c = 0\)</span> עם <span class="math inline">\(A\)</span> סימטרית.</li>
