@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="he" xml:lang="he" dir="rtl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; תרגול 2: גיאומטריה דיפרנציאלית של עקומות במישור – גיאומטריה דיפרנציאלית — תרגולים</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./01-quadrics.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "אין תוצאות",
+    "search-matching-documents-text": "מסמכים תואמים",
+    "search-copy-link-title": "העתק קישור לחיפוש",
+    "search-hide-matches-text": "הסתר התאמות נוספות",
+    "search-more-match-text": "התאמה נוספת במסמך זה",
+    "search-more-matches-text": "התאמות נוספות במסמך זה",
+    "search-clear-button-title": "נקה",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "בטל",
+    "search-submit-button-title": "שלח",
+    "search-label": "חפש"
+  }
+}</script>
+<style>
+.todo {
+  color: #8a8a8a;
+  font-style: italic;
+  background: #fafafa;
+  border: 1px dashed #cccccc;
+  border-radius: 4px;
+  padding: 1.2rem 1rem;
+  margin: 0.4rem 0 1.2rem;
+}
+.tf-quiz {
+  margin: 0.6rem 0 1rem;
+}
+.tf-quiz .tf-opt {
+  margin: 0 0 0 0.5rem;
+  padding: 0.35rem 1.4rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.tf-quiz .tf-opt:hover {
+  background: #ececec;
+}
+.tf-quiz .tf-opt.correct {
+  background: #d4edda;
+  border-color: #28a745;
+}
+.tf-quiz .tf-opt.incorrect {
+  background: #f8d7da;
+  border-color: #dc3545;
+}
+.tf-quiz .tf-feedback {
+  margin-top: 0.45rem;
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.set-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.set-quiz .set-label {
+  min-width: 5rem;
+}
+.set-quiz .set-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 12rem;
+}
+.set-quiz .set-input.correct {
+  border-color: #28a745;
+  background: #d4edda;
+}
+.set-quiz .set-input.incorrect {
+  border-color: #dc3545;
+  background: #f8d7da;
+}
+.set-quiz .set-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.set-quiz .set-check:hover {
+  background: #ececec;
+}
+.set-quiz .set-feedback {
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.seq-quiz, .formula-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.seq-quiz .seq-label, .formula-quiz .seq-label { min-width: 12rem; }
+.seq-quiz .seq-input, .formula-quiz .seq-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 16rem;
+}
+.seq-quiz .seq-input.correct, .formula-quiz .seq-input.correct { border-color: #28a745; background: #d4edda; }
+.seq-quiz .seq-input.incorrect, .formula-quiz .seq-input.incorrect { border-color: #dc3545; background: #f8d7da; }
+.seq-quiz .seq-check, .formula-quiz .seq-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.seq-quiz .seq-check:hover, .formula-quiz .seq-check:hover { background: #ececec; }
+.seq-quiz .seq-feedback, .formula-quiz .seq-feedback { font-weight: bold; min-height: 1.2em; }
+/* Interactive widgets embedded from widgets/<chapter>/*.html.
+   They live in an iframe so their CSS (which styles body/table/button
+   unscoped) cannot leak into the page, and so several copies on one
+   page do not collide on element ids. The height below is a first guess;
+   each widget posts its real height and the listener at the bottom of this
+   file applies it. */
+iframe.widget-frame {
+  display: block;
+  width: 100%;
+  height: 440px;      /* replaced by the widget's own reported height */
+  border: 0;          /* the widget draws its own frame */
+  background: transparent;
+  margin: 1.2rem 0 0;
+}
+/* Inside a .thmsim box the frame sits flush; the box supplies the padding. */
+.thmbox-simulation iframe.widget-frame { margin: 0.5rem 0 0.2rem; }
+.thmbox {
+  border-inline-start: 4px solid #9ca3af;
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  margin: 1rem 0;
+}
+.thmbox > :first-child { margin-top: 0; }
+.thmbox > :last-child { margin-bottom: 0; }
+.thmbox-definition  { border-color: #3b82f6; background: #eff6ff; }
+.thmbox-theorem     { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-proposition { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-lemma       { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-corollary   { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-example     { border-color: #d97706; background: #fffbeb; }
+/* Question: kin to .thmbox-example, so same hue family, one shade deeper. Its
+   solution reuses the proof's slate — a solution is to a question what a proof
+   is to a theorem, and the reader already reads that grey as "the working". */
+.thmbox-question    { border-color: #b45309; background: #fef6e7; }
+.thmbox-solution    { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-solution > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-simulation  { border-color: #7c3aed; background: #f7f5ff; }
+.thmbox-proof       { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-proof > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-remark      { border-color: #cbd5e1; background: #f8fafc; }
+.thmbox-remark > p:first-child > strong { font-weight: 600; color: #64748b; }
+/* Optional box (.optional): foldable, collapsed by default; same gray look as .extra,
+   but the gray bar is the clickable <summary>. */
+details.thmoptional {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+details.thmoptional > summary {
+  background: #d1d5db;
+  color: #374151;
+  font-weight: 700;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+}
+details.thmoptional[open] > summary { border-bottom: 1px solid #9ca3af; }
+details.thmoptional > .optional { padding: 0.7rem 0.9rem; }
+details.thmoptional > .optional > :first-child { margin-top: 0; }
+details.thmoptional > .optional > :last-child { margin-bottom: 0; }
+/* .foldable: hidden calculations / derivations. Distinct from .optional (which is a
+   whole gray-boxed aside) — this is a light inline disclosure inside the running text. */
+details.thmfoldable {
+  margin: 1rem 0;
+  border-inline-start: 3px solid #cbd5e1;
+  padding-inline-start: 0.8rem;
+}
+details.thmfoldable > summary {
+  cursor: pointer;
+  color: #475569;
+  font-weight: 600;
+}
+details.thmfoldable[open] > summary { margin-bottom: 0.5rem; }
+details.thmcollapse { margin: 1rem 0; }
+details.thmcollapse > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #475569;
+  padding: 0.2rem 0;
+}
+details.thmcollapse[open] > summary { margin-bottom: 0.4rem; }
+/* Enrichment box (.extra): non-foldable, gray box; the section heading becomes a gray
+   header bar. Quarto merges the div into <section class="... extra">, so we style .extra. */
+.extra {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  padding: 0.7rem 0.9rem;
+}
+.extra > h2, .extra > h3, .extra > .extra-title {
+  background: #d1d5db;
+  color: #374151;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: -0.7rem -0.9rem 0.8rem;
+  padding: 0.45rem 0.8rem;
+  border-bottom: 1px solid #9ca3af;
+}
+.extra > :last-child { margin-bottom: 0; }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".tf-quiz").forEach(function (quiz) {
+    var correct = quiz.getAttribute("data-correct");
+    var feedback = quiz.querySelector(".tf-feedback");
+    quiz.querySelectorAll(".tf-opt").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        quiz.querySelectorAll(".tf-opt").forEach(function (b) {
+          b.classList.remove("correct", "incorrect");
+        });
+        if (btn.getAttribute("data-val") === correct) {
+          btn.classList.add("correct");
+          if (feedback) feedback.textContent = "✓ נכון!";
+        } else {
+          btn.classList.add("incorrect");
+          if (feedback) feedback.textContent = "✗ לא מדויק — נסו שוב, או פתחו את הפתרון.";
+        }
+      });
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function normSet(str) {
+    if (!str) return [];
+    return Array.from(new Set(
+      str.split(/[\s,;]+/).filter(function (s) { return s.length; }).map(Number)
+    )).filter(function (n) { return !Number.isNaN(n); }).sort(function (a, b) { return a - b; });
+  }
+  function eqSet(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) { if (a[i] !== b[i]) return false; }
+    return true;
+  }
+  document.querySelectorAll(".set-quiz").forEach(function (q) {
+    var answer = normSet(q.getAttribute("data-answer"));
+    var input = q.querySelector(".set-input");
+    var feedback = q.querySelector(".set-feedback");
+    var btn = q.querySelector(".set-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSet(normSet(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Evaluate one entered term as arithmetic (whitelisted chars only: digits + - * / ^ ( ) . )
+  function evalTerm(s) {
+    s = String(s).trim();
+    if (!s) return null;
+    if (!/^[0-9+\-*/^().\s]+$/.test(s)) return null;
+    try {
+      var v = Function('"use strict"; return (' + s.replace(/\^/g, "**") + ');')();
+      return (typeof v === "number" && isFinite(v)) ? v : null;
+    } catch (e) { return null; }
+  }
+  function parseSeq(str) { return String(str || "").split(",").map(evalTerm); }
+  function eqSeq(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] == null || b[i] == null || Math.abs(a[i] - b[i]) > 1e-9) return false;
+    }
+    return true;
+  }
+  document.querySelectorAll(".seq-quiz").forEach(function (q) {
+    var answer = parseSeq(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSeq(parseSeq(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Build n -> value from a formula in n (whitelisted: digits, n, + - * / ^ ! ( ) . )
+  function makeFormula(s) {
+    s = String(s || "").trim();
+    if (!s || !/^[0-9n+\-*/^!().\s]+$/.test(s)) return null;
+    s = s.replace(/(\d)\s*([n(])/g, "$1*$2")             // 2n, 2(  -> 2*n, 2*(
+         .replace(/([n)])\s*([n(])/g, "$1*$2")           // )n, )(, n(  -> insert *
+         .replace(/(\([^()]*\)|\d+|n)!/g, "fact($1)")    // n!, 5!, (n+1)!  -> fact(...)
+         .replace(/\^/g, "**");
+    try {
+      var f = Function("n", '"use strict"; var fact=function(k){k=Math.round(k);var r=1;for(var i=2;i<=k;i++)r*=i;return r;}; return (' + s + ");");
+      var t = f(1);
+      return (typeof t === "number" && isFinite(t)) ? f : null;
+    } catch (e) { return null; }
+  }
+  function parseTargets(str) {
+    return String(str || "").split(",").map(function (t) {
+      t = t.trim();
+      if (!/^-?[0-9]+(?:\/[0-9]+)?$/.test(t)) return NaN;
+      var p = t.split("/");
+      return p.length === 2 ? Number(p[0]) / Number(p[1]) : Number(p[0]);
+    });
+  }
+  document.querySelectorAll(".formula-quiz").forEach(function (q) {
+    var targets = parseTargets(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      var f = makeFormula(input.value), ok = !!f;
+      for (var i = 0; ok && i < targets.length; i++) {
+        var v; try { v = f(i + 1); } catch (e) { ok = false; break; }
+        if (typeof v !== "number" || !isFinite(v) || Math.abs(v - targets[i]) > 1e-9) ok = false;
+      }
+      if (ok) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+// Widgets embedded from widgets/<chapter>/ report their own height, so the
+// iframe does not need a hard-coded one (which breaks on narrow screens,
+// where the control panel stacks above the plot).
+window.addEventListener("message", function (e) {
+  var d = e.data;
+  if (!d || d.type !== "widget-height" || typeof d.height !== "number") return;
+  var frames = document.querySelectorAll("iframe.widget-frame");
+  for (var i = 0; i < frames.length; i++) {
+    if (frames[i].contentWindow === e.source) {
+      frames[i].style.height = Math.max(320, Math.min(2000, d.height)) + "px";
+      return;
+    }
+  }
+});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-Plane-Curves.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">תרגול 2: גיאומטריה דיפרנציאלית של עקומות במישור</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="חפש" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">גיאומטריה דיפרנציאלית — תרגולים</a> 
+        <div class="sidebar-tools-main">
+    <a href="./Differential-Geometry-Tirgulim.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="הצג/הסתר מצב קריאה">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="חפש"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">פתח דבר</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-quadrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Plane-Curves.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">תרגול 2: גיאומטריה דיפרנציאלית של עקומות במישור</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">תוכן העניינים</h2>
+   
+  <ul>
+  <li><a href="#עקומות-פרמטריות" id="toc-עקומות-פרמטריות" class="nav-link active" data-scroll-target="#עקומות-פרמטריות"><span class="header-section-number">2.1</span> עקומות פרמטריות</a>
+  <ul>
+  <li><a href="#תרגילים" id="toc-תרגילים" class="nav-link" data-scroll-target="#תרגילים">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#מהירות-רגולריות-ואורך-קשת" id="toc-מהירות-רגולריות-ואורך-קשת" class="nav-link" data-scroll-target="#מהירות-רגולריות-ואורך-קשת"><span class="header-section-number">2.2</span> מהירות, רגולריות ואורך קשת</a>
+  <ul>
+  <li><a href="#תרגילים-1" id="toc-תרגילים-1" class="nav-link" data-scroll-target="#תרגילים-1">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#הוקטור-המשיק-והנורמלי" id="toc-הוקטור-המשיק-והנורמלי" class="nav-link" data-scroll-target="#הוקטור-המשיק-והנורמלי"><span class="header-section-number">2.3</span> הוקטור המשיק והנורמלי</a>
+  <ul>
+  <li><a href="#תרגילים-2" id="toc-תרגילים-2" class="nav-link" data-scroll-target="#תרגילים-2">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#עקמומיות" id="toc-עקמומיות" class="nav-link" data-scroll-target="#עקמומיות"><span class="header-section-number">2.4</span> עקמומיות</a>
+  <ul>
+  <li><a href="#תרגילים-3" id="toc-תרגילים-3" class="nav-link" data-scroll-target="#תרגילים-3">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#משפטי-יחידות" id="toc-משפטי-יחידות" class="nav-link" data-scroll-target="#משפטי-יחידות"><span class="header-section-number">2.5</span> משפטי יחידות</a>
+  <ul>
+  <li><a href="#תרגילים-4" id="toc-תרגילים-4" class="nav-link" data-scroll-target="#תרגילים-4">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#עקומות-סגורות-ועקמומיות-כוללת" id="toc-עקומות-סגורות-ועקמומיות-כוללת" class="nav-link" data-scroll-target="#עקומות-סגורות-ועקמומיות-כוללת"><span class="header-section-number">2.6</span> עקומות סגורות ועקמומיות כוללת</a>
+  <ul>
+  <li><a href="#תרגילים-5" id="toc-תרגילים-5" class="nav-link" data-scroll-target="#תרגילים-5">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#מקורות" id="toc-מקורות" class="nav-link" data-scroll-target="#מקורות"><span class="header-section-number">2.7</span> מקורות</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">תרגול 2: גיאומטריה דיפרנציאלית של עקומות במישור</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="עקומות-פרמטריות" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="עקומות-פרמטריות"><span class="header-section-number">2.1</span> עקומות פרמטריות</h2>
+<p>מערכת קואורדינטות במרחב וקטורי מתאימה <span class="math inline">\(n\)</span>-יות של מספרים לנקודות של המרחב, כך שלכל נקודה מתאימה <span class="math inline">\(n\)</span>-יה.</p>
+<p><strong>פרמטריזציה</strong> מרחיבה את הרעיון הזה למשפחות רחבות יותר של קבוצות — אצלנו, תת-קבוצות של <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+<p>נתחיל מהמקרה הפשוט ביותר, שבו תחום הפרמטרים הוא קטע.</p>
+<div id="box-def-parametric-curve" class="thmbox thmbox-definition" title="עקומה פרמטרית">
+<p><strong>הגדרה 2.1.1 — עקומה פרמטרית.</strong></p>
+<p><strong>עקומה פרמטרית</strong>, או <strong>פרמטריזציה של עקומה</strong>, היא פונקציה <strong>רציפה</strong> <span class="math inline">\(\alpha : I \to \mathbb{R}^n\)</span>, כאשר <span class="math inline">\(I \subseteq \mathbb{R}\)</span> הוא <strong>קטע</strong> — פתוח, סגור או חצי-פתוח, חסום או לא חסום. ניתן לייצג עקומה כווקטור עמודה (או כווקטור שורה) <span class="math display">\[.\alpha(t) = \begin{pmatrix} \alpha^1(t) \\ \alpha^2(t) \\ \alpha^3(t) \\ \vdots \\ \alpha^n(t) \end{pmatrix}\]</span> האינדקסים כתובים למעלה, ו-<span class="math inline">\(\alpha^i(t)\)</span> הוא <strong>הרכיב ה-</strong><span class="math inline">\(i\)</span> של הווקטור — לא חזקה.</p>
+</div>
+<div id="box-rem-c2" class="thmbox thmbox-remark">
+<p><strong>הערה 2.1.2.</strong></p>
+<p>רציפות לבדה חלשה מכדי להגדיר עקומה: קיימות העתקות רציפות מקטע <strong>על</strong> ריבוע שלם (עקומות פאנו והילברט), והתמונה שלהן היא עצם דו-ממדי מלא — ובוודאי לא מה שהיינו רוצים לכנות עקומה. לכן נדרוש יותר: ש-<span class="math inline">\(\alpha\)</span> תהיה גזירה ברציפות, לפחות למקוטעין. בדרך כלל נניח <span class="math inline">\(\alpha \in C^2\)</span>.</p>
+</div>
+<div id="box-rem-traverse" class="thmbox thmbox-remark" title="עקומה פרמטרית היא מסלול, לא קבוצה">
+<p><strong>הערה 2.1.3 — עקומה פרמטרית היא מסלול, לא קבוצה.</strong></p>
+<p>ניתן להתייחס ל-<span class="math inline">\(t\)</span> כאל <strong>זמן</strong>: דרך נוחה לחשוב על פרמטריזציה היא כעל נקודה הנעה במהלך קטע זמן, כאשר <span class="math inline">\(\gamma(t)\)</span> הוא מיקומה בזמן <span class="math inline">\(t\)</span>. לכן <span class="math inline">\(\gamma\)</span> מתארת את <strong>המסלול</strong> — האופן שבו עוברים על הקבוצה — ולא רק את הקבוצה עצמה, שהיא בסך הכול התמונה <span class="math inline">\(\gamma(I)\)</span>.</p>
+<p>מנקודת מבט זו ברור שפרמטריזציה אינה חייבת להיות חד-חד-ערכית: אותה קבוצה עצמה יכולה להתקבל ממסלולים שונים — במהירויות שונות, בכיוונים שונים, ואף תוך מעבר על אותה נקודה יותר מפעם אחת. כך למשל נקודה על מעגל נקבעת על ידי זווית, אך את אותה נקודה אפשר לתאר בזוויות רבות: הוספת סיבוב שלם, או מדידה בכיוון ההפוך, מחזירה אותנו אליה. לעומת זאת, כשאומרים ש-<span class="math inline">\(\gamma\)</span> היא פרמטריזציה של קבוצה <strong>נתונה</strong>, כן נדרוש שהתמונה תהיה הקבוצה כולה.</p>
+</div>
+<section id="תרגילים" class="level3">
+<h3 class="anchored" data-anchor-id="תרגילים">תרגילים</h3>
+<div id="box-q-param-line" class="thmbox thmbox-question">
+<p><strong>שאלה 2.1.4.</strong></p>
+<p>מצאו פרמטריזציה לישר העובר דרך הנקודה <span class="math inline">\(p\)</span> בכיוון הווקטור <span class="math inline">\(v \neq 0\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p>הישר הוא בדיוק הקבוצה <span class="math display">\[,\left\{ p + tv \ : \ t \in \mathbb{R} \right\}\]</span> ולכן הפרמטריזציה מיידית: <span class="math display">\[.\gamma(t) = p + tv, \qquad t \in \mathbb{R}\]</span> אם <span class="math inline">\(p = (p_1, p_2)\)</span> ו-<span class="math inline">\(v = (v_1, v_2)\)</span>, אז רכיב-רכיב <span class="math display">\[.\gamma(t) = \left( p_1 + t v_1,\ p_2 + t v_2 \right)\]</span></p>
+<p>ההכלה והכיסוי מיידיים מהגדרת הישר: כל <span class="math inline">\(\gamma(t)\)</span> נמצא עליו, וכל נקודה שעליו היא מהצורה <span class="math inline">\(p + tv\)</span> עבור <span class="math inline">\(t\)</span> מתאים.</p>
+<p><strong>שלוש דרכים לעבור על אותו ישר.</strong> אותו ישר מתקבל גם מ-<span class="math inline">\(\tilde{\gamma}(t) = p + 2tv\)</span>, העוברת עליו במהירות כפולה, וגם מ-<span class="math inline">\(\hat{\gamma}(t) = p - tv\)</span>, העוברת עליו בכיוון ההפוך. לשלוש הפרמטריזציות אותה תמונה בדיוק.</p>
+</div>
+<div id="box-q-param-ellipse" class="thmbox thmbox-question">
+<p><strong>שאלה 2.1.5.</strong></p>
+<p>מצאו פרמטריזציה לאליפסה <span class="math inline">\(\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} = 1\)</span>, כאשר <span class="math inline">\(a, b &gt; 0\)</span>, והראו שהיא מכסה את האליפסה כולה.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>הרעיון.</strong> מעגל היחידה <span class="math inline">\(x^2 + y^2 = 1\)</span> מפורמטר על ידי <span class="math inline">\((\cos t, \sin t)\)</span>, משום שזהות היסוד <span class="math inline">\(\cos^2 t + \sin^2 t = 1\)</span> היא בדיוק משוואתו. נכתוב את משוואת האליפסה בצורה דומה: <span class="math display">\[,\left( \frac{x}{a} \right)^2 + \left( \frac{y}{b} \right)^2 = 1\]</span> כלומר הזוג <span class="math inline">\(\left( \frac{x}{a},\ \frac{y}{b} \right)\)</span> נמצא על מעגל היחידה. לכן נציב <span class="math display">\[,\frac{x}{a} = \cos t, \qquad \frac{y}{b} = \sin t\]</span> ומתקבלת <span class="math display">\[.\gamma(t) = \left( a\cos t,\ b \sin t \right), \qquad t \in [0, 2\pi]\]</span></p>
+<p><strong>הכלה.</strong> נציב במשוואת האליפסה: <span class="math display">\[.\frac{\left( a \cos t \right)^2}{a^2} + \frac{\left( b\sin t \right)^2}{b^2} = \cos^2 t + \sin^2 t = 1\]</span> ולכן כל נקודה מהצורה <span class="math inline">\(\gamma(t)\)</span> אכן נמצאת על האליפסה.</p>
+<p><strong>כיסוי.</strong> תהי <span class="math inline">\((x,y)\)</span> נקודה כלשהי על האליפסה. אז <span class="math inline">\(\left( \frac{x}{a},\ \frac{y}{b} \right)\)</span> נמצאת על מעגל היחידה, ולכן קיים <span class="math inline">\(t \in [0, 2\pi)\)</span> יחיד המקיים <span class="math inline">\(\frac{x}{a} = \cos t\)</span> ו-<span class="math inline">\(\frac{y}{b} = \sin t\)</span>. עבור <span class="math inline">\(t\)</span> זה <span class="math inline">\(\gamma(t) = (x,y)\)</span>, ולכן התמונה היא האליפסה כולה.</p>
+</div>
+<div id="box-q-param-parabola" class="thmbox thmbox-question">
+<p><strong>שאלה 2.1.6.</strong></p>
+<p>האם <span class="math inline">\(\gamma(t) = \left( t^2, t^4 \right)\)</span> היא פרמטריזציה של הפרבולה <span class="math inline">\(y = x^2\)</span>?</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p>נסמן <span class="math inline">\(\gamma(t) = (\gamma_1(t), \gamma_2(t))\)</span>, כלומר <span class="math inline">\(\gamma_1(t) = t^2\)</span> ו-<span class="math inline">\(\gamma_2(t) = t^4\)</span>. נבדוק תחילה אם כל נקודה על העקומה מקיימת את משוואת הפרבולה: <span class="math display">\[,\gamma_2(t) = t^4 = \left( t^2 \right)^2 = \gamma_1(t)^2\]</span> ולכן כל נקודה מהצורה <span class="math inline">\(\gamma(t)\)</span> אכן מקיימת <span class="math inline">\(y = x^2\)</span>; כלומר <strong>התמונה מוכלת</strong> בפרבולה.</p>
+<p>אבל זה אינו מספיק: פרמטריזציה של עקומה צריכה לכסות את <strong>כל</strong> העקומה. נשים לב ש- <span class="math display">\[,\gamma_1(t) = t^2 \geq 0\]</span> לכל <span class="math inline">\(t \in \mathbb{R}\)</span>, ולכן קואורדינטת ה-<span class="math inline">\(x\)</span> של כל נקודה בתמונה היא אי-שלילית. לעומת זאת, על הפרבולה <span class="math inline">\(y = x^2\)</span> יש נקודות עם <span class="math inline">\(x &lt; 0\)</span>, למשל <span class="math inline">\((-1, 1)\)</span>, המקיימת <span class="math inline">\(1 = (-1)^2\)</span>.</p>
+<p>נראה שנקודה זו אינה בתמונה: אילו הייתה קיימת <span class="math inline">\(t\)</span> עם <span class="math inline">\(\gamma(t) = (-1,1)\)</span>, היינו מקבלים <span class="math inline">\(t^2 = -1\)</span>, ולמשוואה זו אין פתרון ממשי.</p>
+<p><strong>מסקנה.</strong> <span class="math inline">\(\gamma\)</span> אינה פרמטריזציה של הפרבולה כולה, אלא רק של החצי הימני שלה, <span class="math display">\[.\left\{ (x, x^2) \ : \ x \geq 0 \right\}\]</span></p>
+</div>
+<div id="box-q-cartesian-equation" class="thmbox thmbox-question">
+<p><strong>שאלה 2.1.7.</strong></p>
+<p>מצאו את המשוואה הקרטזית של העקומה <span class="math inline">\(\gamma(t) = \left( \cos^2 t,\ \sin^2 t \right)\)</span>, ותארו במדויק את התמונה שלה.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p>נסמן <span class="math inline">\(x = \cos^2 t\)</span> ו-<span class="math inline">\(y = \sin^2 t\)</span>. מזהות היסוד הטריגונומטרית <span class="math display">\[,x + y = \cos^2 t + \sin^2 t = 1\]</span> ולכן כל נקודה על העקומה נמצאת על <strong>הישר</strong> <span class="math inline">\(x + y = 1\)</span>.</p>
+<p>גם כאן נבדוק מהי התמונה המדויקת. מכיוון ש-<span class="math inline">\(\cos t \in [-1,1]\)</span>, מתקיים <span class="math display">\[,x = \cos^2 t \in [0,1]\]</span> ובאותו אופן <span class="math inline">\(y \in [0,1]\)</span>. מצד שני, כאשר <span class="math inline">\(t\)</span> עובר על הקטע <span class="math inline">\(\left[ 0, \frac{\pi}{2} \right]\)</span> הפונקציה <span class="math inline">\(\cos^2 t\)</span> רציפה ויורדת מ-<span class="math inline">\(1\)</span> ל-<span class="math inline">\(0\)</span>, ולכן לפי משפט ערך הביניים היא מקבלת <strong>כל</strong> ערך בקטע <span class="math inline">\([0,1]\)</span>.</p>
+<p><strong>מסקנה.</strong> התמונה היא בדיוק הקטע <span class="math display">\[,\left\{ (x,y) \ : \ x + y = 1,\ 0 \leq x \leq 1 \right\}\]</span> המחבר את <span class="math inline">\((1,0)\)</span> ל-<span class="math inline">\((0,1)\)</span>, ולא הישר כולו. שימו לב שהעקומה עוברת על הקטע הזה הלוך ושוב אינסוף פעמים.</p>
+</div>
+<div id="box-q-self-intersection" class="thmbox thmbox-question">
+<p><strong>שאלה 2.1.8.</strong></p>
+<p>תהי <span class="math inline">\(\gamma(t) = \left( t^3 - 4t,\ t^2 - 4 \right)\)</span>, <span class="math inline">\(t \in \mathbb{R}\)</span>. הראו ש-<span class="math inline">\(\gamma\)</span> אינה חד-חד-ערכית, ומצאו את נקודת החיתוך העצמי.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p>נחפש <span class="math inline">\(t_1 \neq t_2\)</span> שעבורם <span class="math inline">\(\gamma(t_1) = \gamma(t_2)\)</span>. השוואת הרכיב השני נותנת <span class="math display">\[,t_1^2 - 4 = t_2^2 - 4 \ \Longrightarrow\ t_1^2 = t_2^2 \ \Longrightarrow\ t_2 = \pm t_1\]</span> ומכיוון ש-<span class="math inline">\(t_1 \neq t_2\)</span> נותר רק <span class="math inline">\(t_2 = -t_1\)</span>.</p>
+<p>נציב זאת ברכיב הראשון: <span class="math display">\[,t_1^3 - 4t_1 = (-t_1)^3 - 4(-t_1) = -t_1^3 + 4t_1\]</span> ולכן <span class="math display">\[,2t_1^3 - 8t_1 = 0 \ \Longrightarrow\ 2t_1 \left( t_1^2 - 4 \right) = 0\]</span> כלומר <span class="math inline">\(t_1 = 0\)</span> או <span class="math inline">\(t_1 = \pm 2\)</span>.</p>
+<p>הפתרון <span class="math inline">\(t_1 = 0\)</span> גורר <span class="math inline">\(t_2 = 0\)</span>, בסתירה ל-<span class="math inline">\(t_1 \neq t_2\)</span>. נותרו <span class="math inline">\(t_1 = 2\)</span> ו-<span class="math inline">\(t_2 = -2\)</span>. נציב ונוודא: <span class="math display">\[,\gamma(2) = \left( 8 - 8,\ 4 - 4 \right) = (0,0)\]</span> <span class="math display">\[.\gamma(-2) = \left( -8 + 8,\ 4 - 4 \right) = (0,0)\]</span></p>
+<p><strong>מסקנה.</strong> <span class="math inline">\(\gamma(2) = \gamma(-2) = (0,0)\)</span>, ולכן <span class="math inline">\(\gamma\)</span> אינה חד-חד-ערכית ונקודת החיתוך העצמי היא הראשית.</p>
+<iframe class="widget-frame" src="widgets/ch02/curve-cubic.html" loading="lazy" title="ציור: עקומה בעלת חיתוך עצמי"></iframe>
+</div>
+</section>
+</section>
+<section id="מהירות-רגולריות-ואורך-קשת" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="מהירות-רגולריות-ואורך-קשת"><span class="header-section-number">2.2</span> מהירות, רגולריות ואורך קשת</h2>
+<div id="box-def-velocity" class="thmbox thmbox-definition" title="וקטור המהירות והמהירות הסקלרית">
+<p><strong>הגדרה 2.2.1 — וקטור המהירות והמהירות הסקלרית.</strong></p>
+<p>אם העקומה גזירה, <strong>וקטור המהירות</strong> שלה הוא <span class="math display">\[,\alpha'(t) = \begin{pmatrix} \alpha^{1\prime}(t) \\ \alpha^{2\prime}(t) \\ \vdots \\ \alpha^{n\prime}(t) \end{pmatrix}\]</span> והוא נותן את כיוון התנועה ואת קצב השינוי הווקטורי. <strong>המהירות הסקלרית</strong> היא אורכו של וקטור זה, <span class="math display">\[.v(t) = \left\| \alpha'(t) \right\|\]</span></p>
+</div>
+<div id="box-def-unit-speed" class="thmbox thmbox-definition" title="פרמטריזציה במהירות יחידה">
+<p><strong>הגדרה 2.2.2 — פרמטריזציה במהירות יחידה.</strong></p>
+<p>אם <span class="math inline">\(\left\| \alpha'(t) \right\| = 1\)</span>, אז <span class="math inline">\(\alpha(t)\)</span> נקראת <strong>פרמטריזציה במהירות יחידה</strong>, או <strong>פרמטריזציית אורך קשת</strong>.</p>
+</div>
+<div id="box-def-regular" class="thmbox thmbox-definition" title="פרמטריזציה רגולרית">
+<p><strong>הגדרה 2.2.3 — פרמטריזציה רגולרית.</strong></p>
+<p>נאמר שהפרמטריזציה של עקומה <span class="math inline">\(\alpha : I \to \mathbb{R}^n\)</span> היא <strong>רגולרית</strong> אם לכל <span class="math inline">\(t\)</span> הנגזרת <span class="math inline">\(\alpha'(t)\)</span> קיימת ומתקיים <span class="math display">\[.\alpha'(t) \neq 0\]</span> נקודות <span class="math inline">\(t\)</span> שבהן <span class="math inline">\(\alpha'(t)\)</span> אינה קיימת, או שבהן <span class="math inline">\(\alpha'(t) = 0\)</span>, נקראות <strong>נקודות סינגולריות</strong> של <span class="math inline">\(\alpha\)</span>. בנקודה רגולרית קו המשיק לעקומה קיים, ולכן נתמקד בעקומות ללא נקודות סינגולריות.</p>
+</div>
+<div id="box-def-piecewise-c1" class="thmbox thmbox-definition" title="גזירות ברציפות למקוטעין">
+<p><strong>הגדרה 2.2.4 — גזירות ברציפות למקוטעין.</strong></p>
+<p>פונקציה <span class="math inline">\(\alpha : [a,b] \to \mathbb{R}^n\)</span> נקראת <strong>גזירה ברציפות למקוטעין</strong> אם היא רציפה, וקיימת חלוקה <span class="math inline">\(a = c_0 &lt; c_1 &lt; \dots &lt; c_k = b\)</span> כך שבכל קטע <span class="math inline">\([c_{i-1}, c_i]\)</span> הפונקציה <span class="math inline">\(\alpha\)</span> גזירה ברציפות — כאשר בקצות הקטע מדובר בנגזרות חד-צדדיות.</p>
+</div>
+<div id="box-def-arc-length" class="thmbox thmbox-definition" title="אורך עקומה">
+<p><strong>הגדרה 2.2.5 — אורך עקומה.</strong></p>
+<p>תהי <span class="math inline">\(\alpha : I \to \mathbb{R}^n\)</span> גזירה ברציפות למקוטעין. אורך העקומה בקטע <span class="math inline">\([t_1, t_2]\)</span> מוגדר על ידי <span class="math display">\[,L = \int_{t_1}^{t_2} \left\| \alpha'(t) \right\| dt\]</span> כלומר האינטגרל של גודל וקטור המהירות. ב-<span class="math inline">\(\mathbb{R}^2\)</span>, עבור <span class="math inline">\(\alpha(t) = \left( \alpha^1(t),\ \alpha^2(t) \right)\)</span>, מתקבל <span class="math display">\[.L = \int_{t_1}^{t_2} \sqrt{\left( \alpha^{1\prime}(t) \right)^2 + \left( \alpha^{2\prime}(t) \right)^2}\, dt\]</span></p>
+</div>
+<!-- בדיקה: במקור נכתב תחת השורש $(\alpha^{1\prime})^2 + (\alpha^{1\prime})^2$ (פעמיים הרכיב הראשון); כאן תוקן לרכיב השני. -->
+<div id="box-def-reparam" class="thmbox thmbox-definition" title="פרמטריזציות שקולות">
+<p><strong>הגדרה 2.2.6 — פרמטריזציות שקולות.</strong></p>
+<p>תהי <span class="math inline">\(\alpha : I \to \mathbb{R}^n\)</span> עקומה פרמטרית. נאמר ש-<span class="math inline">\(\beta : J \to \mathbb{R}^n\)</span> <strong>שקולה</strong> ל-<span class="math inline">\(\alpha\)</span> אם קיימת פונקציה <span class="math inline">\(\varphi : J \to I\)</span> רגולרית, חד-חד-ערכית ועל, כך ש-<span class="math display">\[.\beta = \alpha \circ \varphi\]</span></p>
+</div>
+<div id="box-rem-reparam" class="thmbox thmbox-remark">
+<p><strong>הערה 2.2.7.</strong></p>
+<p>זוהי למעשה הרחבה של המושג <strong>החלפת קואורדינטות</strong>. פרמטריזציות שקולות שומרות על תכונות כמו רגולריות, ועל מספר הפעמים שהפרמטריזציה עוברת בכל נקודה.</p>
+</div>
+<div id="box-def-natural-param" class="thmbox thmbox-definition" title="פרמטריזציה טבעית">
+<p><strong>הגדרה 2.2.8 — פרמטריזציה טבעית.</strong></p>
+<p>נגדיר <span class="math display">\[,s(t) = \int_0^t \left\| \alpha'(u) \right\| du = \int_0^t \sqrt{\left( \alpha^{1\prime}(u) \right)^2 + \left( \alpha^{2\prime}(u) \right)^2}\, du\]</span> פונקציה המתארת את האורך של <span class="math inline">\(\alpha\)</span> מזמן <span class="math inline">\(0\)</span> עד זמן <span class="math inline">\(t\)</span>. היא מונוטונית עולה ממש, ולכן הפיכה; אם נסמן את הפונקציה ההופכית ב-<span class="math inline">\(t(s)\)</span> ונציב, נקבל את <strong>הפרמטריזציה הטבעית</strong> <span class="math display">\[.r(s) = \alpha(t(s))\]</span> בנוסף מתקיים <span class="math display">\[.\frac{ds}{dt} = \left\| \alpha'(t) \right\|\]</span></p>
+</div>
+<!-- בדיקה: במקור נכתב תחת השורש $(\alpha^1(u))^2 + (\alpha^2(u))^2$ ללא גרשים; כאן תוקן לנגזרות. -->
+<div id="box-sim-reparam" class="thmbox thmbox-simulation" title="אותה נקודה, שתי פרמטריזציות של המעגל">
+<p><strong>סימולציה 2.2.9 — אותה נקודה, שתי פרמטריזציות של המעגל.</strong></p>
+<iframe class="widget-frame" src="widgets/ch02/reparam-circle.html" loading="lazy" title="סימולציה: אותה נקודה על המעגל בשתי פרמטריזציות"></iframe>
+<p>שתי פרמטריזציות של מעגל היחידה. הראשונה היא הפרמטריזציה הרגילה <span class="math display">\[,\alpha(\theta) = \left( \cos\theta,\ \sin\theta \right), \qquad \theta \in \left[ 0,\ 2\pi \right]\]</span> והשנייה <span class="math display">\[.\beta(x) = \left( \cos\left( e^x - 1 \right),\ \sin\left( e^x - 1 \right) \right), \qquad x \in \left[ 0,\ \ln\left( 2\pi + 1 \right) \right]\]</span></p>
+</div>
+<div id="box-prp-arc-length-unit-speed" class="thmbox thmbox-proposition">
+<p><strong>טענה 2.2.10.</strong></p>
+<p>פרמטריזציית אורך קשת היא פרמטריזציה במהירות יחידה.</p>
+</div>
+<div id="box-rem-converse-unit-speed" class="thmbox thmbox-remark">
+<p><strong>הערה 2.2.11.</strong></p>
+<p>גם ההיפך נכון: אם הפרמטריזציה היא בעלת מהירות יחידה עם פרמטר <span class="math inline">\(t\)</span>, אז <span class="math inline">\(t\)</span> הוא פרמטר אורך קשת, שכן <span class="math inline">\(\left\| \alpha'(t) \right\| = 1\)</span> ולכן <span class="math display">\[.s = \int_0^t 1\, du = t\]</span></p>
+</div>
+<section id="תרגילים-1" class="level3">
+<h3 class="anchored" data-anchor-id="תרגילים-1">תרגילים</h3>
+<div id="box-q-catenary-arclength" class="thmbox thmbox-question">
+<p><strong>שאלה 2.2.12.</strong></p>
+<p>חשבו את אורך הקשת של <strong>קו השרשרת</strong> <span class="math inline">\(\gamma(t) = \left( t,\ \cosh t \right)\)</span>, החל מהנקודה <span class="math inline">\((0,1)\)</span>.</p>
+<p><em>התוצאה תשמש בהמשך ב<a href="#box-q-catenary-curvature">שאלה 2.4.9</a>, בחישוב העקמומיות של קו השרשרת.</em></p>
+</div>
+<div id="box-rem-catenary" class="thmbox thmbox-remark" title="קו שרשרת">
+<p><strong>הערה 2.2.13 — קו שרשרת.</strong></p>
+<p>העקומה <span class="math inline">\(\gamma(t) = \left( t,\ \cosh t \right)\)</span> נקראת <strong>קו שרשרת</strong>, והשם אינו מקרי: זוהי בדיוק הצורה שאותה מקבלת שרשרת אחידה וגמישה לחלוטין, התלויה בחופשיות משני קצותיה תחת משקלה שלה (בלטינית <em>catena</em> — שרשרת). גלילאו שיער שהצורה היא פרבולה, אך היא אינה פרבולה; הפתרון הנכון, <span class="math inline">\(y = \cosh x\)</span>, נמצא בשנת 1691 באופן בלתי תלוי על ידי הויגנס, לייבניץ ויוהאן ברנולי. שרשרת תלויה שטוחה יותר במרכזה מפרבולה, ומתרוממת בתלילות רבה יותר בקצוות.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/catenary.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:78.0%" alt="קו שרשרת התלוי בין שתי נקודות, ולצידו פרבולה העוברת דרך אותן נקודות"></p>
+</figure>
+</div>
+<div style="text-align:center">
+<p>בכחול — שרשרת התלויה בין שתי נקודות; באדום ומקווקו — הפרבולה העוברת דרך אותן שתי נקודות ובעלת אותה נקודה נמוכה. קו השרשרת שטוח יותר בתחתית ותלול יותר בקצוות, ולכן הוא נמצא כולו מתחת לפרבולה.</p>
+</div>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p>הנקודה <span class="math inline">\((0,1)\)</span> מתקבלת עבור <span class="math inline">\(t = 0\)</span>, שכן <span class="math inline">\(\gamma(0) = (0, \cosh 0) = (0,1)\)</span>.</p>
+<p><strong>וקטור המהירות.</strong> נגזור רכיב-רכיב. הרכיב הראשון הוא <span class="math inline">\(\gamma^1(t) = t\)</span> ולכן <span class="math inline">\(\gamma^{1\prime}(t) = 1\)</span>. הרכיב השני הוא <span class="math inline">\(\gamma^2(t) = \cosh t\)</span>, ומהגדרת הפונקציה <span class="math inline">\(\cosh t = \frac{e^t + e^{-t}}{2}\)</span> נקבל <span class="math display">\[,\gamma^{2\prime}(t) = \frac{e^t - e^{-t}}{2} = \sinh t\]</span> ולכן <span class="math display">\[.\gamma'(t) = \left( 1,\ \sinh t \right)\]</span></p>
+<p><strong>המהירות הסקלרית.</strong> <span class="math display">\[\left\| \gamma'(t) \right\| = \sqrt{1 + \sinh^2 t}\]</span> ולפי הזהות <span class="math inline">\(\cosh^2 t - \sinh^2 t = 1\)</span> מתקיים <span class="math inline">\(1 + \sinh^2 t = \cosh^2 t\)</span>, ולכן <span class="math display">\[.\left\| \gamma'(t) \right\| = \sqrt{\cosh^2 t} = \cosh t\]</span> בשוויון האחרון השתמשנו בכך ש-<span class="math inline">\(\cosh t &gt; 0\)</span> לכל <span class="math inline">\(t\)</span>, ולכן אין צורך בערך מוחלט.</p>
+<p>אגב, מכאן גם נובע ש-<span class="math inline">\(\gamma\)</span> <strong>רגולרית</strong>: <span class="math inline">\(\left\| \gamma'(t) \right\| = \cosh t \geq 1 &gt; 0\)</span>, ובפרט <span class="math inline">\(\gamma'(t) \neq 0\)</span>.</p>
+<p><strong>אורך הקשת.</strong> <span class="math display">\[.s(t) = \int_0^t \left\| \gamma'(u) \right\| du = \int_0^t \cosh u\, du = \left. \sinh u \right|_0^t = \sinh t - \sinh 0 = \sinh t\]</span></p>
+<p><strong>הפרמטריזציה הטבעית.</strong><span id="natural-catenary"></span> כאן <span class="math inline">\(s = \sinh t\)</span> הפיכה, ולכן <span class="math inline">\(t = \operatorname{arcsinh} s\)</span>, ואפשר לכתוב את קו השרשרת בפרמטריזציה טבעית במפורש: <span class="math display">\[,r(s) = \left( \operatorname{arcsinh} s,\ \cosh\left( \operatorname{arcsinh} s \right) \right) = \left( \operatorname{arcsinh} s,\ \sqrt{1+s^2} \right)\]</span> כאשר בשוויון האחרון השתמשנו ב-<span class="math inline">\(\cosh^2 = 1 + \sinh^2\)</span>.</p>
+<p>לפני הגזירה נזכיר כיצד גוזרים את <span class="math inline">\(\operatorname{arcsinh}\)</span>. נצא מהזהות <span class="math inline">\(\sinh\left( \operatorname{arcsinh} s \right) = s\)</span> ונגזור את שני האגפים לפי <span class="math inline">\(s\)</span>; לפי כלל השרשרת <span class="math display">\[,\cosh\left( \operatorname{arcsinh} s \right) \cdot \left( \operatorname{arcsinh} s \right)' = 1\]</span> ומכאן <span class="math display">\[.\left( \operatorname{arcsinh} s \right)' = \frac{1}{\cosh\left( \operatorname{arcsinh} s \right)} = \frac{1}{\sqrt{1+s^2}}\]</span> בשוויון האחרון השתמשנו שוב ב-<span class="math inline">\(\cosh\left( \operatorname{arcsinh} s \right) = \sqrt{1+s^2}\)</span>. את הרכיב השני גוזרים בכלל השרשרת הרגיל: <span class="math display">\[.\left( \sqrt{1+s^2} \right)' = \frac{2s}{2\sqrt{1+s^2}} = \frac{s}{\sqrt{1+s^2}}\]</span></p>
+<p>כעת אפשר לוודא ישירות שזו אכן פרמטריזציה במהירות יחידה: <span class="math display">\[,r'(s) = \left( \frac{1}{\sqrt{1+s^2}},\ \frac{s}{\sqrt{1+s^2}} \right)\]</span> ולכן <span class="math display">\[.\left\| r'(s) \right\| = \sqrt{\frac{1 + s^2}{1+s^2}} = 1\]</span></p>
+<p>קו השרשרת מוגדר לכל <span class="math inline">\(t \in \mathbb{R}\)</span>, והציור שלהלן מציג את שתי הזרועות. בתרגיל זה מודדים את אורך הקשת החל מהנקודה <span class="math inline">\((0,1)\)</span> ימינה, כלומר עבור <span class="math inline">\(t \geq 0\)</span>, ולכן רק החלק הזה מסומן. מכיוון ש-<span class="math inline">\(\cosh\)</span> זוגית, העקומה סימטרית ביחס לציר <span class="math inline">\(y\)</span>, והזרוע השמאלית נותנת את אותו אורך: המרחק מ-<span class="math inline">\((0,1)\)</span> עד הנקודה שעבורה <span class="math inline">\(t = -a\)</span> הוא <span class="math inline">\(\sinh a\)</span> בדיוק, כמו בזרוע הימנית.</p>
+<iframe class="widget-frame" src="widgets/ch02/curve-catenary-arclength.html" loading="lazy" title="ציור: אורך קשת של קו השרשרת"></iframe>
+</div>
+<div id="box-rem-signed-arclength" class="thmbox thmbox-remark" title="אורך קשת שלילי">
+<p><strong>הערה 2.2.14 — אורך קשת שלילי.</strong></p>
+<p>בהגדרה <span class="math inline">\(s(t) = \int_0^t \left\| \alpha'(u) \right\| du\)</span> אין דרישה ש-<span class="math inline">\(t\)</span> יהיה חיובי. עבור <span class="math inline">\(t &lt; 0\)</span> האינטגרל הוא מ-<span class="math inline">\(0\)</span> אחורה, ולפי המוסכמה <span class="math inline">\(\int_0^t = -\int_t^0\)</span> מתקבל <span class="math inline">\(s(t) &lt; 0\)</span>: הגודל <span class="math inline">\(\left| s(t) \right|\)</span> הוא אורך הקשת, והסימן מציין רק את הכיוון שבו התרחקנו מנקודת הבסיס <span class="math inline">\(t = 0\)</span>.</p>
+<p>אין בכך שום פגם, והסיבה היא ש-<span class="math display">\[,\frac{ds}{dt} = \left\| \alpha'(t) \right\| &gt; 0\]</span> ולכן <span class="math inline">\(s\)</span> עולה ממש על <strong>כל</strong> התחום, ובפרט הפיכה שם. הפרמטריזציה המתקבלת היא במהירות יחידה גם עבור <span class="math inline">\(s &lt; 0\)</span>. אצל קו השרשרת <span class="math inline">\(s = \sinh t\)</span> סורקת את <span class="math inline">\(\mathbb{R}\)</span> כולו, ולכן <span class="math inline">\(r(s) = \left( \operatorname{arcsinh} s,\ \sqrt{1+s^2} \right)\)</span> מתארת את שתי הזרועות — עובדה שנשתמש בה בחישוב העקמומיות הכוללת בסוף הפרק.</p>
+</div>
+<div id="box-q-unit-speed-check" class="thmbox thmbox-question">
+<p><strong>שאלה 2.2.15.</strong></p>
+<p>הראו שהעקומה <span class="math inline">\(\gamma(t) = \left( \tfrac{4}{5} \cos t,\ 1 - \sin t,\ -\tfrac{3}{5} \cos t \right)\)</span> היא בעלת מהירות יחידה.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>וקטור המהירות.</strong> נגזור כל רכיב בנפרד: <span class="math display">\[,\left( \tfrac{4}{5}\cos t \right)' = -\tfrac{4}{5}\sin t, \qquad \left( 1 - \sin t \right)' = -\cos t, \qquad \left( -\tfrac{3}{5}\cos t \right)' = \tfrac{3}{5}\sin t\]</span> ולכן <span class="math display">\[.\gamma'(t) = \left( -\tfrac{4}{5} \sin t,\ -\cos t,\ \tfrac{3}{5} \sin t \right)\]</span></p>
+<p><strong>ריבוע המהירות.</strong> <span class="math display">\[\left\| \gamma'(t) \right\|^2 = \left( -\tfrac{4}{5}\sin t \right)^2 + \left( -\cos t \right)^2 + \left( \tfrac{3}{5}\sin t \right)^2 = \frac{16}{25}\sin^2 t + \cos^2 t + \frac{9}{25}\sin^2 t\]</span> נאסוף את שני האיברים עם <span class="math inline">\(\sin^2 t\)</span>: <span class="math display">\[,\frac{16}{25} + \frac{9}{25} = \frac{25}{25} = 1\]</span> ולכן <span class="math display">\[,\left\| \gamma'(t) \right\| = \sqrt{\sin^2 t + \cos^2 t} = \sqrt{1} = 1\]</span> כלומר הפרמטריזציה היא במהירות יחידה.</p>
+</div>
+<div id="box-q-log-spiral" class="thmbox thmbox-question">
+<p><strong>שאלה 2.2.16.</strong></p>
+<p>חשבו את אורך הקשת של <strong>הספירלה הלוגריתמית</strong> <span class="math inline">\(\gamma(t) = \left( e^{kt} \cos t,\ e^{kt} \sin t \right)\)</span> החל מ-<span class="math inline">\(t = 0\)</span>, כאשר <span class="math inline">\(k \neq 0\)</span> קבוע.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>וקטור המהירות.</strong> כל רכיב הוא מכפלה של <span class="math inline">\(e^{kt}\)</span> בפונקציה טריגונומטרית, ולכן נגזור לפי כלל המכפלה. הרכיב הראשון: <span class="math display">\[,\left( e^{kt} \cos t \right)' = k e^{kt} \cos t + e^{kt} \left( -\sin t \right) = e^{kt} \left( k \cos t - \sin t \right)\]</span> והרכיב השני: <span class="math display">\[,\left( e^{kt} \sin t \right)' = k e^{kt} \sin t + e^{kt} \cos t = e^{kt} \left( k \sin t + \cos t \right)\]</span> ולכן <span class="math display">\[.\gamma'(t) = \left( e^{kt} \left( k \cos t - \sin t \right),\ e^{kt} \left( k \sin t + \cos t \right) \right)\]</span></p>
+<p><strong>ריבוע המהירות.</strong> נוציא <span class="math inline">\(e^{2kt}\)</span> החוצה: <span class="math display">\[\left\| \gamma'(t) \right\|^2 = e^{2kt} \left[ \left( k \cos t - \sin t \right)^2 + \left( k \sin t + \cos t \right)^2 \right]\]</span> נפתח את שני הריבועים: <span class="math display">\[,\left( k \cos t - \sin t \right)^2 = k^2 \cos^2 t - 2k \cos t \sin t + \sin^2 t\]</span> <span class="math display">\[.\left( k \sin t + \cos t \right)^2 = k^2 \sin^2 t + 2k \sin t \cos t + \cos^2 t\]</span> בסכום, האיברים המעורבים <span class="math inline">\(\mp 2k \cos t \sin t\)</span> מתבטלים, ונשאר <span class="math display">\[.k^2 \left( \cos^2 t + \sin^2 t \right) + \left( \sin^2 t + \cos^2 t \right) = k^2 + 1\]</span> לכן <span class="math display">\[.\left\| \gamma'(t) \right\| = e^{kt} \sqrt{k^2 + 1}\]</span></p>
+<p><strong>אורך הקשת.</strong> <span class="math display">\[.s(t) = \int_0^t \sqrt{k^2+1}\, e^{ku}\, du = \sqrt{k^2+1} \left. \frac{e^{ku}}{k} \right|_0^t = \frac{\sqrt{k^2+1}}{k} \left( e^{kt} - 1 \right)\]</span></p>
+<p><strong>הפרמטריזציה הטבעית.</strong> נסמן <span class="math display">\[,u = 1 + \frac{ks}{\sqrt{k^2+1}}\]</span> ואז <span class="math inline">\(u = e^{kt}\)</span>, כלומר <span class="math inline">\(t = \frac{\ln u}{k}\)</span>, ובהצבה מתקבל <span class="math display">\[.r(s) = u \left( \cos\frac{\ln u}{k},\ \sin\frac{\ln u}{k} \right)\]</span></p>
+<p><strong>תחום הפרמטרים.</strong> הדרישה <span class="math inline">\(u &gt; 0\)</span> פירושה <span class="math display">\[,s &gt; -\frac{\sqrt{k^2+1}}{k}\]</span> כלומר תחום אורך הקשת חסום מלמטה. גיאומטרית: אף שהספירלה מקיפה את הראשית אינסוף פעמים בדרכה אליה, אורך הקשת שהיא עוברת הוא <strong>סופי</strong>, ושווה ל-<span class="math inline">\(\frac{\sqrt{k^2+1}}{k}\)</span>.</p>
+</div>
+<div id="box-q-ellipse-arclength" class="thmbox thmbox-question">
+<p><strong>שאלה 2.2.17.</strong></p>
+<p>חשבו את אורך הקשת של האליפסה <span class="math inline">\(\gamma(t) = \left( a\cos t,\ b\sin t \right)\)</span>, כאשר <span class="math inline">\(a \neq b\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>וקטור המהירות.</strong> <span class="math display">\[,\gamma'(t) = \left( -a\sin t,\ b\cos t \right)\]</span> ולכן <span class="math display">\[.\left\| \gamma'(t) \right\| = \sqrt{a^2 \sin^2 t + b^2 \cos^2 t}\]</span></p>
+<p><strong>אורך הקשת.</strong> <span class="math display">\[.s(t) = \int_0^t \sqrt{a^2 \sin^2 u + b^2 \cos^2 u}\ du\]</span> כאן נעצור. אינטגרל זה נקרא <strong>אינטגרל אליפטי</strong>, והשם עצמו בא מהבעיה הזו; מוכח שאי אפשר לבטא אותו באמצעות הפונקציות האלמנטריות.</p>
+</div>
+<div id="box-cor-no-closed-form" class="thmbox thmbox-corollary">
+<p><strong>מסקנה 2.2.18.</strong></p>
+<p>לא תמיד קיימת נוסחה מפורשת לפרמטריזציה הטבעית: אם אין ביטוי אלמנטרי ל-<span class="math inline">\(s(t)\)</span>, אין כזה גם ל-<span class="math inline">\(t(s)\)</span>, ולפיכך גם לא ל-<span class="math inline">\(r(s)\)</span>.</p>
+</div>
+<div id="box-rem-common-case" class="thmbox thmbox-remark">
+<p><strong>הערה 2.2.19.</strong></p>
+<p>זהו דווקא המצב השכיח. לרוב האינטגרלים אין פונקציה קדומה הניתנת לכתיבה באמצעות הפונקציות האלמנטריות, וקו השרשרת והספירלה הלוגריתמית הם היוצאים מן הכלל.</p>
+</div>
+<div id="box-rem-natural-exists" class="thmbox thmbox-remark">
+<p><strong>הערה 2.2.20.</strong></p>
+<p>עם זאת, הפרמטריזציה הטבעית <strong>קיימת</strong> גם כשאין לה נוסחה: מתקיים <span class="math inline">\(\frac{ds}{dt} = \left\| \gamma'(t) \right\| &gt; 0\)</span>, ולכן <span class="math inline">\(s(t)\)</span> עולה ממש והפיכה. לכן היא בעיקר <strong>כלי תיאורטי</strong>: לכל עקומה רגולרית קיימת פרמטריזציה שקולה במהירות יחידה, וזה נוח בהוכחות. בפועל, כפי שנראה בהמשך, נפתח כלים לעבוד ישירות עם פרמטריזציה רגולרית כלשהי.</p>
+</div>
+</section>
+</section>
+<section id="הוקטור-המשיק-והנורמלי" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="הוקטור-המשיק-והנורמלי"><span class="header-section-number">2.3</span> הוקטור המשיק והנורמלי</h2>
+<div id="box-def-tangent" class="thmbox thmbox-definition" title="הוקטור המשיק">
+<p><strong>הגדרה 2.3.1 — הוקטור המשיק.</strong></p>
+<p>הוקטור המשיק לעקומה הנתונה בפרמטריזציית אורך קשת הוא <span class="math display">\[.T = \frac{d\alpha}{ds} = \alpha'(s)\]</span> אם <span class="math inline">\(\alpha(t)\)</span> היא פרמטריזציה רגולרית כלשהי, אז <span class="math display">\[.T = \frac{\alpha'(t)}{\left\| \alpha'(t) \right\|}\]</span> מכיוון ש-<span class="math inline">\(T\)</span> הוא וקטור יחידה, קיימת פונקציה <span class="math inline">\(\theta(s)\)</span> כך ש- <span class="math display">\[,T(s) = \left( \cos(\theta(s)),\ \sin(\theta(s)) \right)\]</span> ו-<span class="math inline">\(\theta\)</span> נקראת <strong>פונקציית הזווית</strong>: היא מודדת את הזווית שהוקטור המשיק יוצר עם ציר ה-<span class="math inline">\(x\)</span>.</p>
+</div>
+<div id="box-def-normal" class="thmbox thmbox-definition" title="הוקטור הנורמלי">
+<p><strong>הגדרה 2.3.2 — הוקטור הנורמלי.</strong></p>
+<p>במישור נגדיר וקטור נוסף, ניצב ל-<span class="math inline">\(T\)</span>, הנקרא <strong>הוקטור הנורמלי</strong> <span class="math inline">\(N\)</span> (גם הוא וקטור יחידה), הנבחר כך ש- <span class="math display">\[.\det \begin{pmatrix} T^1(s) &amp; N^1(s) \\ T^2(s) &amp; N^2(s) \end{pmatrix} = 1\]</span> באופן שקול, <span class="math inline">\(N\)</span> הוא סיבוב של <span class="math inline">\(T\)</span> בזווית <span class="math inline">\(\frac{\pi}{2}\)</span> נגד כיוון השעון: <span class="math display">\[.N = \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix} \cdot T\]</span></p>
+</div>
+<div id="box-rem-tn-frame" class="thmbox thmbox-remark">
+<p><strong>הערה 2.3.3.</strong></p>
+<p>משוואת העקומה אומרת לנו היכן אנחנו נמצאים בכל רגע נתון; הוקטור המשיק <span class="math inline">\(T\)</span> והוקטור הנורמלי <span class="math inline">\(N\)</span> מגדירים יחד <strong>מערכת צירים מקומית נעה</strong> לאורך העקומה. הוקטור המשיק נותן את הקירוב הליניארי הטוב ביותר לעקומה באותה נקודה, והוקטור הנורמלי מורה לאן העקומה פונה — שכן קצב השינוי של הוקטור המשיק ביחס לאורך הקשת מוגדר ישירות דרך הנורמל, <span class="math inline">\(\frac{dT}{ds} = kN\)</span>.</p>
+</div>
+<section id="תרגילים-2" class="level3">
+<h3 class="anchored" data-anchor-id="תרגילים-2">תרגילים</h3>
+<div id="box-q-circle-tn" class="thmbox thmbox-question">
+<p><strong>שאלה 2.3.4.</strong></p>
+<p>חשבו את <span class="math inline">\(T\)</span>, את <span class="math inline">\(N\)</span> ואת פונקציית הזווית <span class="math inline">\(\theta(s)\)</span> עבור המעגל ברדיוס <span class="math inline">\(R\)</span>, הנתון בפרמטריזציה <span class="math display">\[.\alpha(s) = \left( R \cos \frac{s}{R},\ R \sin \frac{s}{R} \right)\]</span></p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>בדיקת מהירות יחידה.</strong> נגזור כל רכיב לפי כלל השרשרת. הרכיב הראשון: <span class="math display">\[,\left( R \cos \frac{s}{R} \right)' = R \cdot \left( -\sin \frac{s}{R} \right) \cdot \frac{1}{R} = -\sin \frac{s}{R}\]</span> והרכיב השני: <span class="math display">\[,\left( R \sin \frac{s}{R} \right)' = R \cdot \cos \frac{s}{R} \cdot \frac{1}{R} = \cos \frac{s}{R}\]</span> כלומר הגורם <span class="math inline">\(\frac{1}{R}\)</span> שמגיע מכלל השרשרת מצטמצם מול ה-<span class="math inline">\(R\)</span> החיצוני, ומתקבל <span class="math display">\[.\alpha'(s) = \left( -\sin \frac{s}{R},\ \cos \frac{s}{R} \right)\]</span> לכן <span class="math display">\[,\left\| \alpha'(s) \right\| = \sqrt{\sin^2 \frac{s}{R} + \cos^2 \frac{s}{R}} = 1\]</span> כלומר <span class="math inline">\(s\)</span> הוא אכן פרמטר אורך קשת ומותר להשתמש בנוסחאות של פרמטריזציה טבעית.</p>
+<p><strong>הוקטור המשיק.</strong> <span class="math display">\[.T(s) = \alpha'(s) = \left( -\sin \frac{s}{R},\ \cos \frac{s}{R} \right)\]</span></p>
+<p><strong>הוקטור הנורמלי.</strong> נכפול במטריצת הסיבוב: <span class="math display">\[.N(s) = \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix} \begin{pmatrix} -\sin \frac{s}{R} \\ \cos \frac{s}{R} \end{pmatrix} = \begin{pmatrix} -\cos \frac{s}{R} \\ -\sin \frac{s}{R} \end{pmatrix}\]</span> שימו לב לפירוש הגיאומטרי: הנקודה על המעגל היא <span class="math inline">\(R\left( \cos \frac{s}{R}, \sin \frac{s}{R} \right)\)</span>, ולכן <span class="math inline">\(N\)</span> מצביע <strong>אל מרכז המעגל</strong>.</p>
+<p><strong>פונקציית הזווית.</strong> נדרש <span class="math inline">\(T = (\cos \theta, \sin \theta)\)</span>, כלומר <span class="math display">\[.\cos \theta = -\sin \frac{s}{R}, \qquad \sin \theta = \cos \frac{s}{R}\]</span> נשתמש בזהויות <span class="math inline">\(-\sin x = \cos\left( x + \frac{\pi}{2} \right)\)</span> ו-<span class="math inline">\(\cos x = \sin\left( x + \frac{\pi}{2} \right)\)</span>, ונקבל <span class="math display">\[.\theta(s) = \frac{s}{R} + \frac{\pi}{2}\]</span></p>
+</div>
+<div id="box-q-tangent-normal-lines" class="thmbox thmbox-question">
+<p><strong>שאלה 2.3.5.</strong></p>
+<p>חשבו את הוקטור המשיק <span class="math inline">\(T\)</span> ואת הוקטור הנורמלי <span class="math inline">\(N\)</span> של העקומה <span class="math display">\[\gamma(t) = \left( 2\cos t - \cos 2t,\ 2 \sin t - \sin 2t \right)\]</span> בנקודה המתאימה ל-<span class="math inline">\(t = \frac{\pi}{4}\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>הנקודה.</strong> נציב <span class="math inline">\(t = \frac{\pi}{4}\)</span>, ואז <span class="math inline">\(2t = \frac{\pi}{2}\)</span>: <span class="math display">\[.\gamma\left( \tfrac{\pi}{4} \right) = \left( 2 \cdot \tfrac{\sqrt{2}}{2} - 0,\ 2 \cdot \tfrac{\sqrt{2}}{2} - 1 \right) = \left( \sqrt{2},\ \sqrt{2} - 1 \right)\]</span></p>
+<p><strong>וקטור המהירות.</strong> לפי כלל השרשרת <span class="math inline">\(\left( \cos 2t \right)' = -2 \sin 2t\)</span> ו-<span class="math inline">\(\left( \sin 2t \right)' = 2 \cos 2t\)</span>. לכן הרכיב הראשון: <span class="math display">\[,\left( 2\cos t - \cos 2t \right)' = -2 \sin t - \left( -2 \sin 2t \right) = -2 \sin t + 2 \sin 2t\]</span> והרכיב השני: <span class="math display">\[,\left( 2 \sin t - \sin 2t \right)' = 2 \cos t - 2 \cos 2t\]</span> כלומר <span class="math display">\[.\gamma'(t) = \left( -2 \sin t + 2 \sin 2t,\ 2 \cos t - 2 \cos 2t \right)\]</span> נציב <span class="math inline">\(t = \frac{\pi}{4}\)</span>, ושוב <span class="math inline">\(2t = \frac{\pi}{2}\)</span>: <span class="math display">\[.\gamma'\left( \tfrac{\pi}{4} \right) = \left( -2 \cdot \tfrac{\sqrt{2}}{2} + 2 \cdot 1,\ 2 \cdot \tfrac{\sqrt{2}}{2} - 2 \cdot 0 \right) = \left( 2 - \sqrt{2},\ \sqrt{2} \right)\]</span></p>
+<p><strong>הוקטור המשיק המנורמל.</strong> נחשב תחילה את האורך: <span class="math display">\[,\left\| \gamma'\left( \tfrac{\pi}{4} \right) \right\|^2 = \left( 2 - \sqrt{2} \right)^2 + \left( \sqrt{2} \right)^2 = \left( 4 - 4\sqrt{2} + 2 \right) + 2 = 8 - 4\sqrt{2}\]</span> ולכן <span class="math display">\[,\left\| \gamma'\left( \tfrac{\pi}{4} \right) \right\| = \sqrt{4 \left( 2 - \sqrt{2} \right)} = 2\sqrt{2 - \sqrt{2}}\]</span> ומכאן <span class="math display">\[.T = \frac{1}{2\sqrt{2-\sqrt{2}}} \left( 2 - \sqrt{2},\ \sqrt{2} \right)\]</span></p>
+<p><strong>הוקטור הנורמלי.</strong> <span class="math inline">\(N\)</span> מתקבל מסיבוב <span class="math inline">\(T\)</span> בזווית <span class="math inline">\(\frac{\pi}{2}\)</span> נגד כיוון השעון, כלומר אם <span class="math inline">\(T = (a,b)\)</span> אז <span class="math inline">\(N = (-b,a)\)</span>. לכן <span class="math display">\[.N = \frac{1}{2\sqrt{2-\sqrt{2}}} \left( -\sqrt{2},\ 2 - \sqrt{2} \right)\]</span></p>
+</div>
+<div id="box-q-catenary-tn" class="thmbox thmbox-question">
+<p><strong>שאלה 2.3.6.</strong></p>
+<p>חשבו את <span class="math inline">\(T\)</span>, את <span class="math inline">\(N\)</span> ואת פונקציית הזווית עבור קו השרשרת <span class="math inline">\(\gamma(t) = \left( t,\ \cosh t \right)\)</span>.</p>
+<p><em>התוצאה תשמש בהמשך ב<a href="#box-q-catenary-curvature">שאלה 2.4.9</a>, בחישוב העקמומיות של קו השרשרת.</em></p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>נרמול.</strong> ראינו כבר ש-<span class="math inline">\(\gamma'(t) = (1, \sinh t)\)</span> ו-<span class="math inline">\(\left\| \gamma'(t) \right\| = \cosh t\)</span>. הפרמטריזציה אינה במהירות יחידה, ולכן נשתמש בנוסחה הכללית <span class="math display">\[.T = \frac{\gamma'(t)}{\left\| \gamma'(t) \right\|} = \left( \frac{1}{\cosh t},\ \frac{\sinh t}{\cosh t} \right)\]</span></p>
+<p><strong>הוקטור הנורמלי.</strong> נכפול במטריצת הסיבוב, שורה אחר שורה: <span class="math display">\[.N = \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix} \begin{pmatrix} \frac{1}{\cosh t} \\ \frac{\sinh t}{\cosh t} \end{pmatrix} = \begin{pmatrix} 0 \cdot \frac{1}{\cosh t} + (-1) \cdot \frac{\sinh t}{\cosh t} \\[4pt] 1 \cdot \frac{1}{\cosh t} + 0 \cdot \frac{\sinh t}{\cosh t} \end{pmatrix} = \begin{pmatrix} -\frac{\sinh t}{\cosh t} \\[4pt] \frac{1}{\cosh t} \end{pmatrix}\]</span></p>
+<p><strong>פונקציית הזווית.</strong> מהדרישה <span class="math inline">\(T = (\cos \theta, \sin \theta)\)</span> נקבל <span class="math display">\[,\cos \theta = \frac{1}{\cosh t}, \qquad \sin \theta = \frac{\sinh t}{\cosh t}\]</span> ולכן <span class="math display">\[,\tan \theta = \frac{\sin \theta}{\cos \theta} = \sinh t\]</span> כלומר <span class="math display">\[.\theta(t) = \arctan \left( \sinh t \right)\]</span> נשמור תוצאה זו — היא תשמש אותנו בחישוב העקמומיות.</p>
+<iframe class="widget-frame" src="widgets/ch02/curve-catenary-tn.html" loading="lazy" title="ציור: הוקטורים T ו-N של קו השרשרת"></iframe>
+</div>
+</section>
+</section>
+<section id="עקמומיות" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="עקמומיות"><span class="header-section-number">2.4</span> עקמומיות</h2>
+<div id="box-def-curvature-informal" class="thmbox thmbox-definition" title="עקמומיות — הגדרה לא פורמלית">
+<p><strong>הגדרה 2.4.1 — עקמומיות — הגדרה לא פורמלית.</strong></p>
+<p>העקמומיות של עקומה מודדת כמה מהר העקומה משנה את כיוונה, כלומר עד כמה העקומה היא עקומה. בכביש ישר אין צורך לסובב את ההגה כלל, ולכן העקמומיות של כביש ישר היא <span class="math inline">\(0\)</span>; מצד שני, בסיבוב חד יש צורך לסובב הרבה כדי להישאר על המסלול — שם העקמומיות היא גבוהה.</p>
+</div>
+<div id="box-def-absolute-curvature" class="thmbox thmbox-definition" title="עקמומיות אבסולוטית">
+<p><strong>הגדרה 2.4.2 — עקמומיות אבסולוטית.</strong></p>
+<p>תהי <span class="math inline">\(\alpha(s)\)</span> עקומה רגולרית הנתונה בפרמטריזציית אורך קשת, ויהי <span class="math inline">\(T(s)\)</span> וקטור היחידה המשיק לעקומה בנקודה <span class="math inline">\(s\)</span>. <strong>העקמומיות האבסולוטית</strong> מוגדרת כגודל של נגזרת הוקטור המשיק לפי אורך קשת: <span class="math display">\[.\kappa(s) = \left\| \frac{dT}{ds} \right\|\]</span> במילים אחרות, העקמומיות היא קצב השינוי של כיוון הוקטור המשיק ככל שמתקדמים מרחק יחידה לאורך העקומה.</p>
+</div>
+<div id="box-rem-curvature-taylor" class="thmbox thmbox-remark" title="מדוע דווקא הנגזרת השנייה">
+<p><strong>הערה 2.4.3 — מדוע דווקא הנגזרת השנייה.</strong></p>
+<p>העקמומיות אמורה למדוד עד כמה העקומה <strong>סוטה מהישר המשיק</strong>. נתבונן בהעתקה <span class="math display">\[,\Delta\alpha = \alpha(s + \Delta s) - \alpha(s)\]</span> ונשים לב שהמרחק של <span class="math inline">\(\alpha(s+\Delta s)\)</span> מהישר המשיק ב-<span class="math inline">\(\alpha(s)\)</span> הוא בדיוק גודל הרכיב של <span class="math inline">\(\Delta\alpha\)</span> בכיוון <span class="math inline">\(N\)</span>, כלומר <span class="math inline">\(\left| \Delta\alpha \cdot N \right|\)</span>, שכן הישר המשיק הוא הישר בכיוון <span class="math inline">\(T\)</span>, וההיטל על <span class="math inline">\(N\)</span> מודד את היציאה ממנו.</p>
+<p>לפי טיילור <span class="math display">\[,\Delta\alpha = \alpha'(s)\,\Delta s + \tfrac{1}{2}\alpha''(s)\left( \Delta s \right)^2 + o\left( \left( \Delta s \right)^2 \right)\]</span> ומכיוון ש-<span class="math inline">\(\alpha' = T\)</span> ניצב ל-<span class="math inline">\(N\)</span>, ההכפלה ב-<span class="math inline">\(N\)</span> <strong>מאפסת את האיבר מסדר ראשון</strong>, ונשאר <span class="math display">\[.\Delta\alpha \cdot N = \tfrac{1}{2}\left( \alpha''(s) \cdot N \right)\left( \Delta s \right)^2 + o\left( \left( \Delta s \right)^2 \right)\]</span></p>
+<p>הפרמטריזציה היא באורך קשת, ולכן <span class="math inline">\(\alpha'' \perp \alpha'\)</span>, כלומר <span class="math inline">\(\alpha''\)</span> מקבילה ל-<span class="math inline">\(N\)</span> ומתקיים <span class="math inline">\(\left| \alpha'' \cdot N \right| = \left\| \alpha'' \right\|\)</span>. לכן המרחק מהישר המשיק הוא בקירוב <span class="math inline">\(\tfrac{1}{2}\left\| \alpha''(s) \right\| \left( \Delta s \right)^2\)</span>, ו-<span class="math inline">\(\left\| \alpha'' \right\| = \left\| T' \right\|\)</span> הוא בדיוק המקדם המודד אותו — וזו הסיבה להגדרה.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/curvature-deviation.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:88.0%" alt="הסטייה של העקומה מהישר המשיק"></p>
+</figure>
+</div>
+</div>
+<div id="box-def-signed-curvature" class="thmbox thmbox-definition" title="עקמומיות מסומנת (מכוונת)">
+<p><strong>הגדרה 2.4.4 — עקמומיות מסומנת (מכוונת).</strong></p>
+<p>העקמומיות של עקומה מוגדרת להיות <span class="math display">\[,k = \frac{d\theta}{ds}\]</span> כאשר <span class="math display">\[.T = \begin{pmatrix} \cos(\theta(s)) \\ \sin(\theta(s)) \end{pmatrix}\]</span> מכאן מתקבל <span class="math display">\[,T' = \frac{dT}{ds} = \frac{d\theta}{ds} \begin{pmatrix} -\sin(\theta(s)) \\ \cos(\theta(s)) \end{pmatrix} = kN\]</span> ובאותו אופן <span class="math display">\[.N' = -kT\]</span></p>
+</div>
+<div id="box-rem-notation-kappa-k" class="thmbox thmbox-remark" title="שימו לב לסימון">
+<p><strong>הערה 2.4.5 — שימו לב לסימון.</strong></p>
+<p>האות <span class="math inline">\(\kappa\)</span> היא האות היוונית <strong>קאפא</strong>, ולא האות הלטינית <span class="math inline">\(k\)</span>. בפרק זה <span class="math inline">\(\kappa\)</span> מסמנת תמיד את העקמומיות ה<strong>אבסולוטית</strong>, ו-<span class="math inline">\(k\)</span> תמיד את העקמומיות ה<strong>מסומנת</strong>.</p>
+</div>
+<div id="box-rem-curvature-sign" class="thmbox thmbox-remark">
+<p><strong>הערה 2.4.6.</strong></p>
+<p>מ-<span class="math inline">\(T' = kN\)</span> ומכך ש-<span class="math inline">\(\left\| N \right\| = 1\)</span> נובע <span class="math display">\[,\kappa = \left\| T' \right\| = \left\| kN \right\| = |k|\]</span> כלומר <span class="math inline">\(\kappa\)</span> היא הגרסה הלא-מסומנת של <span class="math inline">\(k\)</span>: היא מודדת עד כמה העקומה מתעקלת, ו-<span class="math inline">\(k\)</span> מוסרת גם לאיזה כיוון היא פונה.</p>
+</div>
+<div id="box-def-frenet" class="thmbox thmbox-definition" title="מערכת משוואות פרנה־סרה">
+<p><strong>הגדרה 2.4.7 — מערכת משוואות פרנה־סרה.</strong></p>
+<p>הוקטור המשיק והוקטור הנורמלי לפי פרמטריזציית אורך קשת מקיימים את מערכת המשוואות הדיפרנציאליות <span class="math display">\[,\begin{cases} T' = kN \\ N' = -kT \end{cases}\]</span> כאשר <span class="math inline">\(k(s)\)</span> היא העקמומיות. בכתיב מטריציוני <span class="math display">\[.\begin{pmatrix} T' \\ N' \end{pmatrix} = \begin{pmatrix} 0 &amp; k(s) \\ -k(s) &amp; 0 \end{pmatrix} \begin{pmatrix} T \\ N \end{pmatrix}\]</span></p>
+</div>
+<section id="תרגילים-3" class="level3">
+<h3 class="anchored" data-anchor-id="תרגילים-3">תרגילים</h3>
+<div id="box-q-circle-curvature" class="thmbox thmbox-question">
+<p><strong>שאלה 2.4.8.</strong></p>
+<p>חשבו את העקמומיות של המעגל ברדיוס <span class="math inline">\(R\)</span> בשתי הדרכים — את <span class="math inline">\(\kappa\)</span> לפי ההגדרה האבסולוטית, ואת <span class="math inline">\(k\)</span> לפי העקמומיות המסומנת — וודאו ש-<span class="math inline">\(\kappa = |k|\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p>נשתמש בפרמטריזציה ובחישובים מהתרגיל על <span class="math inline">\(T\)</span> ו-<span class="math inline">\(N\)</span> של המעגל.</p>
+<p><strong>דרך א: העקמומיות האבסולוטית.</strong> גזרנו <span class="math inline">\(T(s) = \left( -\sin \frac{s}{R},\ \cos \frac{s}{R} \right)\)</span>. נגזור אותו שוב, רכיב-רכיב, לפי כלל השרשרת: <span class="math display">\[,\left( -\sin \frac{s}{R} \right)' = -\cos \frac{s}{R} \cdot \frac{1}{R} = -\frac{1}{R} \cos \frac{s}{R}\]</span> <span class="math display">\[,\left( \cos \frac{s}{R} \right)' = -\sin \frac{s}{R} \cdot \frac{1}{R} = -\frac{1}{R} \sin \frac{s}{R}\]</span> ולכן <span class="math display">\[.\frac{dT}{ds} = \left( -\frac{1}{R} \cos \frac{s}{R},\ -\frac{1}{R} \sin \frac{s}{R} \right)\]</span> שימו לב שכאן, בשונה מהגזירה הקודמת, אין גורם <span class="math inline">\(R\)</span> חיצוני שיצמצם את <span class="math inline">\(\frac{1}{R}\)</span>, וזה בדיוק מקור העקמומיות. מכאן <span class="math display">\[.\kappa(s) = \left\| \frac{dT}{ds} \right\| = \frac{1}{R} \sqrt{\cos^2 \frac{s}{R} + \sin^2 \frac{s}{R}} = \frac{1}{R}\]</span></p>
+<p><strong>דרך ב: העקמומיות המסומנת.</strong> ראינו ש-<span class="math inline">\(\theta(s) = \frac{s}{R} + \frac{\pi}{2}\)</span>, ולכן <span class="math display">\[.k = \frac{d\theta}{ds} = \frac{1}{R}\]</span></p>
+<p>קיבלנו <span class="math inline">\(\kappa = \frac{1}{R}\)</span> ו-<span class="math inline">\(k = \frac{1}{R}\)</span>, ואכן <span class="math inline">\(\kappa = |k|\)</span>. כאן הסימן של <span class="math inline">\(k\)</span> חיובי — כלומר המעגל בפרמטריזציה זו נסרק נגד כיוון השעון. אפשר לוודא זאת גם ישירות: <span class="math display">\[,\frac{dT}{ds} = \frac{1}{R}\left( -\cos \frac{s}{R},\ -\sin \frac{s}{R} \right) = \frac{1}{R} N\]</span> ולפי <span class="math inline">\(T' = kN\)</span> אכן <span class="math inline">\(k = \frac{1}{R}\)</span>.</p>
+<p><strong>פירוש.</strong> ככל שהרדיוס קטן יותר, העקמומיות גדולה יותר — בדיוק כפי שמצפים.</p>
+</div>
+<div id="box-q-catenary-curvature" class="thmbox thmbox-question">
+<p><strong>שאלה 2.4.9.</strong></p>
+<p>חשבו את העקמומיות המסומנת של קו השרשרת <span class="math inline">\(\gamma(t) = (t, \cosh t)\)</span>, והביעו אותה גם כפונקציה של אורך הקשת <span class="math inline">\(s\)</span> וגם כפונקציה של הפרמטר <span class="math inline">\(t\)</span>. שימו לב ש-<span class="math inline">\(t\)</span> <strong>אינו</strong> פרמטר אורך קשת.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p>נאסוף שתי תוצאות שכבר חישבנו עבור קו השרשרת. הראשונה היא <strong>פרמטר אורך הקשת</strong> <span class="math display">\[,s = \sinh t\]</span> שחושב ב<a href="#box-q-catenary-arclength">שאלה 2.2.12</a>. השנייה היא <strong>פונקציית הזווית</strong> של הוקטור המשיק <span class="math display">\[,\theta = \arctan \left( \sinh t \right)\]</span> שחושבה ב<a href="#box-q-catenary-tn">שאלה 2.3.6</a>. בהצבה ישירה מתקבל <span class="math display">\[.\theta = \arctan(s)\]</span> זהו הצעד המרכזי: פונקציית הזווית, כפונקציה של אורך הקשת, היא פשוט <span class="math inline">\(\arctan\)</span>.</p>
+<p>כעת נגזור לפי <span class="math inline">\(s\)</span>:<span id="k-of-s-catenary"></span> <span class="math display">\[.k = \frac{d\theta}{ds} = \frac{d}{ds} \arctan(s) = \frac{1}{1 + s^2}\]</span></p>
+<p>לבסוף נחזור לפרמטר <span class="math inline">\(t\)</span>: נציב <span class="math inline">\(s = \sinh t\)</span> ונשתמש שוב ב-<span class="math inline">\(1 + \sinh^2 t = \cosh^2 t\)</span>, ומתקבל <span class="math display">\[.k = \frac{1}{1 + \sinh^2 t} = \frac{1}{\cosh^2 t}\]</span></p>
+<p>שימו לב ש-<span class="math inline">\(k &gt; 0\)</span> תמיד, ושהעקמומיות שואפת ל-<span class="math inline">\(0\)</span> כאשר <span class="math inline">\(|s| \to \infty\)</span>, הזרועות של קו השרשרת נעשות ישרות יותר ויותר.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/straight-arms.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:44.0%" alt="קו השרשרת עם ישרים משיקים בקדקוד ובשתי הזרועות"></p>
+</figure>
+</div>
+<div style="text-align:center">
+<p>בשלוש הנקודות מצויר הישר המשיק, בכל אחת לאורך אותו אורך קשת. בקדקוד, שבו <span class="math inline">\(\kappa = 1\)</span>, העקומה נפרדת מהמשיק במהירות; בזרועות, שבהן <span class="math inline">\(\kappa \approx 0.01\)</span>, היא כמעט מתלכדת איתו — שם קו השרשרת כמעט ישר.</p>
+</div>
+</div>
+<div id="box-q-frenet-verify" class="thmbox thmbox-question">
+<p><strong>שאלה 2.4.10.</strong></p>
+<p>אמתו במישרין את משוואת פרנה־סרה השנייה, <span class="math inline">\(N' = -kT\)</span>, עבור מעגל היחידה <span class="math inline">\(\alpha(s) = (\cos s, \sin s)\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>הוקטור המשיק.</strong> <span class="math display">\[,\alpha'(s) = (-\sin s,\ \cos s)\]</span> ומתקיים <span class="math inline">\(\left\| \alpha'(s) \right\| = 1\)</span>, כלומר <span class="math inline">\(s\)</span> הוא פרמטר אורך קשת ו- <span class="math display">\[.T(s) = (-\sin s,\ \cos s)\]</span></p>
+<p><strong>הוקטור הנורמלי.</strong> <span class="math display">\[.N(s) = \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix} \begin{pmatrix} -\sin s \\ \cos s \end{pmatrix} = \begin{pmatrix} -\cos s \\ -\sin s \end{pmatrix}\]</span></p>
+<p><strong>העקמומיות.</strong> זהו המקרה <span class="math inline">\(R = 1\)</span> של התרגיל הקודם, ולכן <span class="math inline">\(k = 1\)</span>.</p>
+<p><strong>האגף השמאלי.</strong> נגזור את <span class="math inline">\(N\)</span>: <span class="math display">\[.N'(s) = \left( \sin s,\ -\cos s \right)\]</span></p>
+<p><strong>האגף הימני.</strong> <span class="math display">\[.-kT = -1 \cdot \left( -\sin s,\ \cos s \right) = \left( \sin s,\ -\cos s \right)\]</span></p>
+<p>שני האגפים שווים, ולכן <span class="math inline">\(N' = -kT\)</span> מתקיימת, כנדרש.</p>
+</div>
+</section>
+</section>
+<section id="משפטי-יחידות" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="משפטי-יחידות"><span class="header-section-number">2.5</span> משפטי יחידות</h2>
+<div id="box-thm-const-norm-perp" class="thmbox thmbox-theorem">
+<p><strong>משפט 2.5.1.</strong></p>
+<p>תהי <span class="math inline">\(v(s)\)</span> פונקציה וקטורית המקיימת <span class="math display">\[,\left\| v(s) \right\| = \text{const}\]</span> אזי <span class="math display">\[.\frac{dv}{ds} \perp v(s)\]</span></p>
+</div>
+<div id="box-rem-recover-curve" class="thmbox thmbox-remark">
+<p><strong>הערה 2.5.2.</strong></p>
+<p>נזכור כי <span class="math inline">\(T = \dfrac{d\alpha}{ds}\)</span>, ולכן <span class="math display">\[,\alpha = \int_0^s T\, du + \alpha_0\]</span> כאשר <span class="math inline">\(\alpha_0\)</span> הוא קבוע המציין את נקודת ההתחלה של המסלול.</p>
+</div>
+<div id="box-cor-tangent-determines-path" class="thmbox thmbox-corollary">
+<p><strong>מסקנה 2.5.3.</strong></p>
+<p>אם <span class="math inline">\(T(s)\)</span> ידוע וכן ידועה נקודת ההתחלה, אז המסלול ידוע.</p>
+</div>
+<div id="box-thm-curvature-determines-curve" class="thmbox thmbox-theorem">
+<p><strong>משפט 2.5.4.</strong></p>
+<p>תהי <span class="math inline">\(\alpha(s)\)</span> עקומה <strong>בפרמטריזציית אורך קשת</strong>. אם ידועה נקודת ההתחלה <span class="math inline">\(\alpha_0\)</span>, וכן ידוע הערך <span class="math inline">\(T(0)\)</span>, אז הפונקציה <span class="math inline">\(k(s)\)</span> מגדירה חד-ערכית את <span class="math inline">\(\alpha(s)\)</span>.</p>
+</div>
+<div id="box-cor-curvature-up-to-isometry" class="thmbox thmbox-corollary">
+<p><strong>מסקנה 2.5.5.</strong></p>
+<p><span class="math inline">\(k(s)\)</span> מגדירה עקומה יחידה <strong>בפרמטריזציית אורך קשת</strong>, עד כדי הזזה וסיבוב של המישור.</p>
+</div>
+<section id="תרגילים-4" class="level3">
+<h3 class="anchored" data-anchor-id="תרגילים-4">תרגילים</h3>
+<div id="box-q-constant-curvature" class="thmbox thmbox-question">
+<p><strong>שאלה 2.5.6.</strong></p>
+<p>תהי <span class="math inline">\(\alpha(s)\)</span> עקומה בפרמטריזציית אורך קשת שעקמומיותה המסומנת קבועה, <span class="math inline">\(k \equiv c\)</span>. הראו שאם <span class="math inline">\(c = 0\)</span> מדובר בישר, ושאם <span class="math inline">\(c \neq 0\)</span> מדובר במעגל ברדיוס <span class="math inline">\(\frac{1}{|c|}\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>שלב 1: פונקציית הזווית.</strong> לפי ההגדרה <span class="math inline">\(k = \frac{d\theta}{ds} = c\)</span>, ולכן באינטגרציה <span class="math display">\[,\theta(s) = cs + \theta_0\]</span> כאשר <span class="math inline">\(\theta_0 = \theta(0)\)</span>.</p>
+<p><strong>שלב 2: הוקטור המשיק.</strong> <span class="math display">\[.T(s) = \left( \cos(cs + \theta_0),\ \sin(cs + \theta_0) \right)\]</span></p>
+<p><strong>שלב 3: שחזור העקומה.</strong> לפי <a href="#box-rem-recover-curve">הערה 2.5.2</a>, <span class="math inline">\(\alpha(s) = \int_0^s T(u)\, du + \alpha_0\)</span>.</p>
+<p><strong>המקרה</strong> <span class="math inline">\(c = 0\)</span>. אז <span class="math inline">\(T\)</span> קבוע, <span class="math inline">\(T \equiv (\cos \theta_0, \sin \theta_0)\)</span>, ולכן <span class="math display">\[,\alpha(s) = \alpha_0 + s \left( \cos \theta_0,\ \sin \theta_0 \right)\]</span> וזו בדיוק המשוואה הפרמטרית של <strong>ישר</strong> העובר דרך <span class="math inline">\(\alpha_0\)</span> בכיוון קבוע.</p>
+<p><strong>המקרה</strong> <span class="math inline">\(c \neq 0\)</span>. נחשב את שני האינטגרלים בנפרד; בשניהם נשתמש בהצבה <span class="math inline">\(w = cu + \theta_0\)</span>, שעבורה <span class="math inline">\(dw = c\, du\)</span>, כלומר <span class="math inline">\(du = \frac{dw}{c}\)</span>: <span class="math display">\[,\int_0^s \cos(cu + \theta_0)\, du = \left. \frac{\sin(cu+\theta_0)}{c} \right|_0^s = \frac{1}{c} \left( \sin(cs+\theta_0) - \sin \theta_0 \right)\]</span> <span class="math display">\[.\int_0^s \sin(cu + \theta_0)\, du = \left. \frac{-\cos(cu+\theta_0)}{c} \right|_0^s = \frac{1}{c} \left( -\cos(cs+\theta_0) + \cos \theta_0 \right)\]</span> נציב ונפריד בין האיברים הקבועים לאיברים התלויים ב-<span class="math inline">\(s\)</span>: <span class="math display">\[.\alpha(s) = \underbrace{\left[ \alpha_0 + \frac{1}{c} \left( -\sin \theta_0,\ \cos \theta_0 \right) \right]}_{=: \ P} + \frac{1}{c} \left( \sin(cs+\theta_0),\ -\cos(cs+\theta_0) \right)\]</span></p>
+<p><strong>שלב 4: זיהוי.</strong> האיבר השני הוא וקטור שאורכו <span class="math display">\[,\left\| \frac{1}{c} \left( \sin(cs+\theta_0),\ -\cos(cs+\theta_0) \right) \right\| = \frac{1}{|c|} \sqrt{\sin^2 + \cos^2} = \frac{1}{|c|}\]</span> כלומר <span class="math display">\[,\left\| \alpha(s) - P \right\| = \frac{1}{|c|}\]</span> לכל <span class="math inline">\(s\)</span>. זהו בדיוק התנאי לכך שכל נקודות העקומה נמצאות במרחק קבוע <span class="math inline">\(\frac{1}{|c|}\)</span> מהנקודה <span class="math inline">\(P\)</span>, כלומר <strong>מעגל</strong> שמרכזו <span class="math inline">\(P\)</span> ורדיוסו <span class="math inline">\(\frac{1}{|c|}\)</span>.</p>
+<p>התוצאה עקבית עם התרגיל על המעגל: שם קיבלנו <span class="math inline">\(k = \frac{1}{R}\)</span>, וכאן <span class="math inline">\(R = \frac{1}{|c|}\)</span>. לפי <a href="#box-cor-curvature-up-to-isometry">מסקנה 2.5.5</a> אלה הן העקומות היחידות בעלות עקמומיות קבועה, עד כדי הזזה וסיבוב.</p>
+</div>
+<div id="box-q-reconstruct-catenary" class="thmbox thmbox-question">
+<p><strong>שאלה 2.5.7.</strong></p>
+<p>עקומה בפרמטריזציית אורך קשת מקיימת <span class="math inline">\(k(s) = \dfrac{1}{1+s^2}\)</span>, ונתון <span class="math inline">\(\alpha(0) = (0,1)\)</span> וכן <span class="math inline">\(T(0) = (1,0)\)</span>. שחזרו את העקומה.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p>לפי המשפט, הנתונים הללו קובעים את העקומה באופן יחיד; נשחזר אותה בפועל.</p>
+<p><strong>שלב 1: פונקציית הזווית.</strong> נשלב את <span class="math inline">\(k\)</span> לפי אורך הקשת: <span class="math display">\[,\theta(s) = \theta(0) + \int_0^s k(u)\, du = \theta(0) + \int_0^s \frac{du}{1+u^2}\]</span> והאינטגרל האחרון הוא <span class="math inline">\(\arctan\)</span>, ולכן <span class="math display">\[.\theta(s) = \theta(0) + \arctan(s)\]</span></p>
+<p>מהתנאי <span class="math inline">\(T(0) = (1,0) = \left( \cos \theta(0),\ \sin \theta(0) \right)\)</span> נובע <span class="math inline">\(\theta(0) = 0\)</span>, ולכן <span class="math display">\[.\theta(s) = \arctan(s)\]</span></p>
+<p><strong>שלב 2: הוקטור המשיק.</strong> נבנה משולש ישר-זווית עם ניצבים <span class="math inline">\(1\)</span> ו-<span class="math inline">\(s\)</span> ויתר <span class="math inline">\(\sqrt{1+s^2}\)</span>, ונקבל <span class="math display">\[.T(s) = \left( \cos \theta(s),\ \sin \theta(s) \right) = \left( \frac{1}{\sqrt{1+s^2}},\ \frac{s}{\sqrt{1+s^2}} \right)\]</span></p>
+<p><strong>שלב 3: אינטגרציה.</strong> נחשב כל רכיב בנפרד.</p>
+<p><strong>הרכיב הראשון.</strong> נציב <span class="math display">\[,u = \sinh w\]</span> ואז <span class="math display">\[,du = \cosh w\, dw\]</span> ולפי <span class="math inline">\(\cosh^2 = 1 + \sinh^2\)</span> <span class="math display">\[.\sqrt{1+u^2} = \sqrt{1 + \sinh^2 w} = \cosh w\]</span></p>
+<p>הגבולות עוברים מ-<span class="math inline">\(u = 0\)</span> ל-<span class="math inline">\(w = 0\)</span>, ומ-<span class="math inline">\(u = s\)</span> ל-<span class="math inline">\(w = \operatorname{arcsinh}(s)\)</span>. המונה והמכנה מצטמצמים, ונשאר <span class="math display">\[.\int_0^s \frac{du}{\sqrt{1+u^2}} = \int_0^{\operatorname{arcsinh}(s)} \frac{\cosh w\, dw}{\cosh w} = \int_0^{\operatorname{arcsinh}(s)} dw = \operatorname{arcsinh}(s)\]</span></p>
+<p><strong>הרכיב השני.</strong> כאן נוח להציב משתנה אחר, ולכן נסמן אותו <span class="math inline">\(v\)</span> כדי שלא יתבלבל עם <span class="math inline">\(w\)</span> שלמעלה: <span class="math display">\[,v = 1 + u^2\]</span> ואז <span class="math display">\[,dv = 2u\, du \qquad \Longleftrightarrow \qquad u\, du = \frac{dv}{2}\]</span></p>
+<p>הגבולות עוברים מ-<span class="math inline">\(u = 0\)</span> ל-<span class="math inline">\(v = 1\)</span>, ומ-<span class="math inline">\(u = s\)</span> ל-<span class="math inline">\(v = 1 + s^2\)</span>, ולכן <span class="math display">\[.\int_0^s \frac{u\, du}{\sqrt{1+u^2}} = \frac{1}{2} \int_1^{1+s^2} \frac{dv}{\sqrt{v}} = \left. \sqrt{v} \right|_1^{1+s^2} = \sqrt{1+s^2} - 1\]</span></p>
+<p><strong>שלב 4: הרכבה.</strong> <span class="math display">\[.\begin{aligned} \alpha(s) &amp;= \alpha_0 + \left( \operatorname{arcsinh}(s),\ \sqrt{1+s^2} - 1 \right) \\ &amp;= (0,1) + \left( \operatorname{arcsinh}(s),\ \sqrt{1+s^2} - 1 \right) \\ &amp;= \left( \operatorname{arcsinh}(s),\ \sqrt{1+s^2} \right) \end{aligned}\]</span></p>
+<p>בזה הסתיים למעשה הפתרון: מה שקיבלנו הוא פרמטריזציה במהירות יחידה, ולפי <a href="#box-cor-curvature-up-to-isometry">מסקנה 2.5.5</a> זו העקומה היחידה בעלת העקמומיות הנתונה, עד כדי הזזה וסיבוב. השלב הבא הוא רשות, והוא נועד לזהות את העקומה בשמה.</p>
+<p><strong>שלב 5: זיהוי (רשות).</strong> נסמן <span class="math inline">\(t = \operatorname{arcsinh}(s)\)</span>, כלומר <span class="math inline">\(s = \sinh t\)</span>. אז <span class="math display">\[,\sqrt{1+s^2} = \sqrt{1+\sinh^2 t} = \cosh t\]</span> ולכן <span class="math display">\[.\alpha = \left( t,\ \cosh t \right)\]</span> זהו בדיוק <strong>קו השרשרת</strong>, ומה שקיבלנו בשלב 4 הוא <a href="#natural-catenary">הפרמטריזציה הטבעית שחישבנו עבורו קודם</a>.</p>
+<p><strong>אפשר היה לקצר.</strong> ב<a href="#box-q-catenary-curvature">שאלה 2.4.9</a> כבר חישבנו שעקמומיות קו השרשרת, כפונקציה של אורך הקשת, היא <a href="#k-of-s-catenary"><span class="math inline">\(\frac{1}{1+s^2}\)</span></a>, וזו בדיוק העקמומיות הנתונה כאן. מכיוון שגם תנאי ההתחלה מתאימים, <a href="#box-thm-curvature-determines-curve">משפט 2.5.4</a> נותן מיד שהעקומה היא קו השרשרת, בלי לשחזר דבר. השחזור שלמעלה מראה כיצד המשפט עובד בפועל.</p>
+</div>
+</section>
+</section>
+<section id="עקומות-סגורות-ועקמומיות-כוללת" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="עקומות-סגורות-ועקמומיות-כוללת"><span class="header-section-number">2.6</span> עקומות סגורות ועקמומיות כוללת</h2>
+<div id="box-thm-closed-curve-index" class="thmbox thmbox-theorem">
+<p><strong>משפט 2.6.1.</strong></p>
+<p>בעקומה סגורה וחלקה מתקיים <span class="math display">\[.\oint k\, ds = 2\pi n, \qquad n \in \mathbb{Z}\]</span></p>
+</div>
+<div id="box-def-total-curvature" class="thmbox thmbox-definition" title="העקמומיות הכוללת">
+<p><strong>הגדרה 2.6.2 — העקמומיות הכוללת.</strong></p>
+<p>עבור עקומה פרמטרית חלקה <span class="math inline">\(\alpha(s)\)</span> הנתונה בפרמטריזציית אורך קשת, <span class="math inline">\(s \in [a,b]\)</span>, <strong>העקמומיות הכוללת</strong> מוגדרת כאינטגרל של העקמומיות <span class="math inline">\(k(s)\)</span> לפי אורך הקשת: <span class="math display">\[.\text{Total Curvature} = \int_a^b k(s)\, ds\]</span></p>
+</div>
+<div id="box-rem-total-curvature-angle" class="thmbox thmbox-remark">
+<p><strong>הערה 2.6.3.</strong></p>
+<p>כאשר העקומה היא מישורית, העקמומיות היא קצב השינוי של זווית המשיק <span class="math inline">\(\theta(s)\)</span>, ולכן לפי המשפט היסודי מתקיים <span class="math display">\[.\int_a^b k(s)\, ds = \theta(b) - \theta(a)\]</span> כלומר העקמומיות הכוללת מודדת במישור בדיוק את הזווית המצטברת שבה וקטור המשיק מסתובב.</p>
+</div>
+<section id="תרגילים-5" class="level3">
+<h3 class="anchored" data-anchor-id="תרגילים-5">תרגילים</h3>
+<div id="box-q-circle-total-curvature" class="thmbox thmbox-question">
+<p><strong>שאלה 2.6.4.</strong></p>
+<p>חשבו את העקמומיות הכוללת של מעגל היחידה, פעם כשהוא נסרק <strong>נגד</strong> כיוון השעון ופעם <strong>עם</strong> כיוון השעון, וודאו את המשפט <span class="math inline">\(\oint k\, ds = 2\pi n\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>נגד כיוון השעון.</strong> ניקח <span class="math inline">\(\alpha(s) = (\cos s, \sin s)\)</span>, <span class="math inline">\(s \in [0, 2\pi]\)</span>. ראינו כבר ש-<span class="math inline">\(s\)</span> הוא פרמטר אורך קשת ושהעקמומיות היא <span class="math inline">\(k = 1\)</span>. לכן <span class="math display">\[.\oint k\, ds = \int_0^{2\pi} 1 \, ds = 2\pi\]</span> כלומר <span class="math inline">\(n = 1\)</span>.</p>
+<p><strong>עם כיוון השעון.</strong> ניקח <span class="math inline">\(\beta(s) = (\cos s,\ -\sin s)\)</span>, <span class="math inline">\(s \in [0, 2\pi]\)</span>. נגזור: <span class="math display">\[,\beta'(s) = (-\sin s,\ -\cos s)\]</span> ומתקיים <span class="math inline">\(\left\| \beta'(s) \right\| = 1\)</span>, כלומר גם כאן <span class="math inline">\(s\)</span> הוא פרמטר אורך קשת ו-<span class="math inline">\(T = (-\sin s, -\cos s)\)</span>.</p>
+<p>נחשב את הנורמל: <span class="math display">\[.N = \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix} \begin{pmatrix} -\sin s \\ -\cos s \end{pmatrix} = \begin{pmatrix} \cos s \\ -\sin s \end{pmatrix}\]</span></p>
+<p>כעת נגזור את <span class="math inline">\(T\)</span>: <span class="math display">\[.T'(s) = \left( -\cos s,\ \sin s \right)\]</span> נשווה ל-<span class="math inline">\(kN\)</span>: <span class="math display">\[,kN = k \left( \cos s,\ -\sin s \right)\]</span> וכדי ששני האגפים יהיו שווים דרוש <span class="math inline">\(k = -1\)</span>. לכן <span class="math display">\[,\oint k\, ds = \int_0^{2\pi} (-1)\, ds = -2\pi\]</span> כלומר <span class="math inline">\(n = -1\)</span>.</p>
+<p><strong>מסקנה.</strong> אותה קבוצת נקודות במישור, אך שני כיווני סריקה, נותנת <span class="math inline">\(\pm 2\pi\)</span>. זו בדיוק המשמעות של הסימן בעקמומיות המסומנת, ובשני המקרים התקבל כפולה שלמה של <span class="math inline">\(2\pi\)</span> כנדרש במשפט.</p>
+<iframe class="widget-frame" src="widgets/ch02/curve-circle-ccw.html" loading="lazy" title="ציור: מעגל היחידה בשני כיווני סריקה"></iframe>
+<iframe class="widget-frame" src="widgets/ch02/curve-circle-cw.html" loading="lazy" title="ציור: מעגל היחידה בשני כיווני סריקה"></iframe>
+</div>
+<div id="box-q-catenary-total-curvature" class="thmbox thmbox-question">
+<p><strong>שאלה 2.6.5.</strong></p>
+<p>עבור קו השרשרת <span class="math inline">\(\gamma(t) = \left( t,\ \cosh t \right)\)</span> חישבנו קודם (בתרגילים על העקמומיות) שפונקציית הזווית ואורך הקשת מקיימים <span class="math inline">\(\theta = \arctan(s)\)</span>, ולכן העקמומיות המסומנת, כפונקציה של אורך הקשת, היא <span class="math display">\[.k(s) = \frac{1}{1+s^2}\]</span> חשבו את העקמומיות הכוללת של קשת קו השרשרת בין <span class="math inline">\(s = a\)</span> ל-<span class="math inline">\(s = b\)</span>, ואת העקמומיות הכוללת של קו השרשרת כולו.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<p><strong>חישוב ישיר.</strong> ראינו ש-<span class="math inline">\(k(s) = \dfrac{1}{1+s^2}\)</span>, ולכן <span class="math display">\[.\int_a^b k(s)\, ds = \int_a^b \frac{ds}{1+s^2} = \left. \arctan(s) \right|_a^b = \arctan(b) - \arctan(a)\]</span></p>
+<p><strong>אימות מול ההערה.</strong> ראינו גם ש-<span class="math inline">\(\theta(s) = \arctan(s)\)</span>, ולכן התוצאה שקיבלנו היא בדיוק <span class="math display">\[,\theta(b) - \theta(a)\]</span> בהתאמה מלאה לזהות <span class="math inline">\(\int_a^b k\, ds = \theta(b) - \theta(a)\)</span>.</p>
+<p><strong>קו השרשרת כולו.</strong> ניקח <span class="math inline">\(a \to -\infty\)</span> ו-<span class="math inline">\(b \to \infty\)</span>. מכיוון ש- <span class="math display">\[,\lim_{b \to \infty} \arctan(b) = \frac{\pi}{2}, \qquad \lim_{a \to -\infty} \arctan(a) = -\frac{\pi}{2}\]</span> נקבל <span class="math display">\[.\int_{-\infty}^{\infty} k(s)\, ds = \frac{\pi}{2} - \left( -\frac{\pi}{2} \right) = \pi\]</span></p>
+<p><strong>פירוש.</strong> לאורך קו השרשרת כולו וקטור המשיק מסתובב בסך הכול בזווית <span class="math inline">\(\pi\)</span>: הוא מתחיל כמעט אנכי כלפי מטה בזרוע השמאלית, עובר אופקי בנקודה הנמוכה, ומסיים כמעט אנכי כלפי מעלה בזרוע הימנית. שימו לב שהעקומה אינה סגורה, ולכן אין סתירה למשפט שלפיו בעקומה סגורה מתקבלת כפולה שלמה של <span class="math inline">\(2\pi\)</span>.</p>
+</div>
+</section>
+</section>
+<section id="מקורות" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="מקורות"><span class="header-section-number">2.7</span> מקורות</h2>
+<p>התרגילים בפרק זה מבוססים על, או מותאמים מתוך:</p>
+<ul>
+<li>Andrew Pressley, <em>Elementary Differential Geometry</em>, 2nd edition, Springer, 2010 — סעיפים 1.1–1.3 ו-2.1–2.2.</li>
+<li>Kristopher Tapp, <em>Differential Geometry of Curves and Surfaces</em>, Springer, 2016 — פרק 1.</li>
+</ul>
+<p>הפתרונות נכתבו במלואם כאן, ואינם מועתקים מספרי הפתרונות של המקורות.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "הועתק!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "הועתק!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/yuval-khachatryan\.github\.io\/Differential-Geometry-Recitations-Summer-2026");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-quadrics.html" class="pagination-link" aria-label="תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

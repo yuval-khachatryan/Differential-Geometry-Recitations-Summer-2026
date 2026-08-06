@@ -143,6 +143,8 @@
         '<div class="qv-hint">גררו את המחוון: משמאל העקומה בצורתה הקנונית סביב הראשית, ומימין במקומה לפי המשוואה הנתונה.</div>' +
       '</div>';
 
+    if (global.MathRender) global.MathRender.typeset(host);
+
     var cv = host.querySelector("canvas"),
         ctx = cv.getContext("2d"),
         slider = host.querySelector(".qv-slider"),

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>עקמומיות קו השרשרת</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/curve2d.js"></script>
+<script>
+Curve2D.mount({
+  f: function (t) { return [t, Math.cosh(t)]; },
+  /* t = +-3 puts the arms at 84 deg from horizontal, which reads as straight,
+     while the curve still fills about half the frame. Going further flattens
+     them a touch more but the picture turns into a sliver, because the widget
+     scales both axes equally -- it has to, or T and N would not look
+     perpendicular. */
+  tMin: -3, tMax: 3,
+  /* square canvas + tighter padding: brings the visible window to about
+     x, y in [-5, 5], so the whole curve shows without the wide empty margins
+     the default 0.68 aspect left on either side */
+  aspect: 1.0, pad: 0.8,
+  title: "קו השרשרת — עקמומיות",
+  show: { tn: true },
+  readout: ["s", "theta", "k"],
+  hint: "העקמומיות מקסימלית בנקודה הנמוכה ושואפת לאפס בזרועות, ושם העקומה נעשית כמעט ישרה."
+});
+</script>
+</body>
+</html>

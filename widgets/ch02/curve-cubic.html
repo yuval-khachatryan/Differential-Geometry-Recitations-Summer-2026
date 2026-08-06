@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>עקומה בעלת חיתוך עצמי</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/curve2d.js"></script>
+<script>
+Curve2D.mount({
+  f: function (t) { return [t*t*t - 4*t, t*t - 4]; },
+  tMin: -2.6, tMax: 2.6,
+  title: "$\\gamma(t) = (t^3 - 4t,\\ t^2 - 4)$",
+  show: { tn: false },
+  /* gamma(2) = gamma(-2) = (0,0): one point in the plane, so one marker.
+     Two markers landed on the same pixel and the labels overprinted. */
+  marks: [{ t: 2, label: "t = ±2" }],
+  readout: ["pos"],
+  hint: "גררו את המחוון: העקומה חוזרת לראשית פעמיים — ב-$t = -2$ וב-$t = 2$. הנקודה הכתומה מסומנת פעם אחת בלבד, משום ששני ערכי הפרמטר נותנים בדיוק את אותה נקודה במישור."
+});
+</script>
+</body>
+</html>

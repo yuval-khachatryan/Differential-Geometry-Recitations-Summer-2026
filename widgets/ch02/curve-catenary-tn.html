@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הוקטורים T ו-N של קו השרשרת</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/curve2d.js"></script>
+<script>
+Curve2D.mount({
+  f: function (t) { return [t, Math.cosh(t)]; },
+  tMin: -2, tMax: 2,
+  title: "קו השרשרת — הוקטורים T ו-N",
+  show: { tn: true },
+  readout: ["pos", "speed", "theta"],
+  hint: "$\\theta$ היא הזווית שהמשיק יוצר עם ציר ה-$x$. השוו לערך $\\arctan(\\sinh t)$ שחישבנו."
+});
+</script>
+</body>
+</html>

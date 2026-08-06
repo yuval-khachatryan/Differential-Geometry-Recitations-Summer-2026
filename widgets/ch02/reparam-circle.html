@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>אותה נקודה, שתי פרמטריזציות</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/reparam.js"></script>
+<script>
+var XMAX = Math.log(2 * Math.PI + 1);   /* phi(x) = e^x - 1 sends [0, XMAX] onto [0, 2pi] */
+
+Reparam.mount({
+  /* no title here: the .thmsim box in the chapter supplies it */
+  start: 0.9,
+  A: {
+    label: "θ", tag: "α",
+    min: 0, max: 2 * Math.PI,
+    loLabel: "0", hiLabel: "2π",
+    toAngle:   function (p) { return p; },
+    fromAngle: function (a) { return a; },
+    speed:     function () { return 1; }              /* natural: unit speed */
+  },
+  B: {
+    label: "x", tag: "β",
+    min: 0, max: XMAX,
+    loLabel: "0", hiLabel: "ln(2π+1)",
+    toAngle:   function (p) { return Math.exp(p) - 1; },
+    fromAngle: function (a) { return Math.log(a + 1); },
+    speed:     function (p) { return Math.exp(p); }   /* |phi'(x)| = e^x */
+  },
+  sweepA: "סרוק לפי θ",
+  sweepB: "סרוק לפי x",
+  /* Deliberately no math markup anywhere in this widget: the formulas are given
+     in the chapter text, where the book's own renderer handles them. Bare
+     letters only, so nothing can be reordered by the RTL bidi algorithm. */
+  hint: "הנקודה השחורה על המעגל היא נקודה אחת, ולה שתי כתובות — אחת על הפס של α ואחת על " +
+        "הפס של β. גררו כל אחת מהידיות, והשנייה תעקוב אחריה. לחצו על ״סרוק לפי θ״: " +
+        "הנקודה נעה על המעגל בקצב אחיד, והידית של β מאטה ומאיצה. לחצו על ״סרוק לפי x״ " +
+        "ותקבלו את ההפך — הידית נעה בקצב אחיד, והנקודה על המעגל מאיצה."
+});
+</script>
+</body>
+</html>

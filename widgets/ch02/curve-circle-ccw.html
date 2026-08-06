@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מעגל היחידה נגד כיוון השעון</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/curve2d.js"></script>
+<script>
+Curve2D.mount({
+  f: function (s) { return [Math.cos(s), Math.sin(s)]; },
+  tMin: 0, tMax: 2 * Math.PI,
+  paramLabel: "אורך הקשת s",
+  title: "מעגל היחידה — נגד כיוון השעון",
+  show: { tn: true },
+  readout: ["k", "theta", "turn"],
+  hint: "כאן k ≡ 1, והזווית המצטברת Δθ מגיעה בדיוק ל-2π בסוף ההקפה."
+});
+</script>
+</body>
+</html>

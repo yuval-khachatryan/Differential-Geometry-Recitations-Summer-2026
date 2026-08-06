@@ -274,6 +274,8 @@
         '<div class="qv-hint">גררו את הציור כדי לסובב את נקודת המבט; גררו את המחוון כדי להזיז את המשטח בין הצורה הקנונית למקומה המקורי.</div>' +
       '</div>';
 
+    if (global.MathRender) global.MathRender.typeset(host);
+
     var cv = host.querySelector("canvas"),
         ctx = cv.getContext("2d"),
         slider = host.querySelector(".qv-slider"),

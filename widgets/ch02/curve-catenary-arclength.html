@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>אורך קשת של קו השרשרת</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/curve2d.js"></script>
+<script>
+Curve2D.mount({
+  f: function (t) { return [t, Math.cosh(t)]; },
+  tMin: 0, tMax: 2.2,
+  viewMin: -2.2, viewMax: 2.2,   /* both arms are drawn; the slider stays on t >= 0 */
+  title: "קו השרשרת $\\gamma(t) = (t,\\ \\cosh t)$ — אורך קשת מ-$(0,1)$",
+  show: { tn: false },
+  readout: ["pos", "speed", "s"],
+  hint: "העקומה מצוירת בשלמותה, אך אורך הקשת נמדד מהנקודה $(0,1)$ ימינה, כלומר עבור $t \\geq 0$. המהירות הסקלרית היא $\\cosh t$, ואורך הקשת הוא $\\sinh t$ — השוו את הערך המוצג של $s(t)$ ל-$\\sinh t$."
+});
+</script>
+</body>
+</html>
