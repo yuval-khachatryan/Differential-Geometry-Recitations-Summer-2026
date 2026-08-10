@@ -18,9 +18,10 @@
 EvoInv.mount({
   mode: "involute",
   f: function (t) { return [t, Math.cosh(t)]; },
-  tMin: -2.2, tMax: 2.2,
+  tMin: -3.2, tMax: 3.2,
   sFrom: 0,
   aspect: 0.85,
+  view: { cx: 0, cy: 1.5, half: 2.9 },
   title: "γ(t) = (t, cosh t)",
   paramLabel: "הפרמטר t",
   hint: "החוט נפרם מהנקודה הנמוכה (0, 1) לשני הכיוונים. הקטע הכתום הוא החלק החופשי, ואורכו שווה לאורך הקשת שנפרמה; קצהו משרטט את הטרקטריקס. שימו לב לחוד שנוצר בנקודה (0, 1) עצמה, שם אורך החוט מתאפס."

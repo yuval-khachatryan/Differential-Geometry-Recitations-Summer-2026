@@ -114,6 +114,11 @@
         ya = Math.min.apply(null, ys), yb = Math.max.apply(null, ys),
         cx = (xa + xb) / 2, cy = (ya + yb) / 2,
         half = Math.max(xb - xa, yb - ya) / 2 * 1.15 || 1;
+    /* An explicit view, for curves that grow much faster than their trace: the
+       catenary reaches y = 12 over the range on which its involute stays under
+       y = 1, and framing on the bounding box would shrink the involute to a
+       smudge. The curve simply runs off the top instead. */
+    if (cfg.view) { cx = cfg.view.cx; cy = cfg.view.cy; half = cfg.view.half; }
 
     var traceLabel = evolute ? "האוולוט" : "האינוולוטה";
     host.innerHTML =

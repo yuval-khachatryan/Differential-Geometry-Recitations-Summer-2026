@@ -616,11 +616,31 @@ window.Quarto = {
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
 <p><strong>הזהויות ההיפרבוליות.</strong> נפתח את ההגדרות <span class="math inline">\(\cosh t = \frac{e^t + e^{-t}}{2}\)</span> ו-<span class="math inline">\(\sinh t = \frac{e^t - e^{-t}}{2}\)</span> ונקבל את שתי הזהויות שישמשו אותנו: <span class="math display">\[,\begin{aligned} \cosh^2 t - \sinh^2 t &amp;= \frac{\left( e^t + e^{-t} \right)^2 - \left( e^t - e^{-t} \right)^2}{4} \\ &amp;= \frac{\left( e^{2t} + 2 + e^{-2t} \right) - \left( e^{2t} - 2 + e^{-2t} \right)}{4} \\ &amp;= \frac{4}{4} = 1 \end{aligned}\]</span> <span class="math display">\[.\begin{aligned} \cosh^2 t + \sinh^2 t &amp;= \frac{\left( e^t + e^{-t} \right)^2 + \left( e^t - e^{-t} \right)^2}{4} \\ &amp;= \frac{\left( e^{2t} + 2 + e^{-2t} \right) + \left( e^{2t} - 2 + e^{-2t} \right)}{4} \\ &amp;= \frac{2e^{2t} + 2e^{-2t}}{4} = \frac{e^{2t} + e^{-2t}}{2} = \cosh(2t) \end{aligned}\]</span></p>
-<p><strong>שלב 1: הפרמטריזציה.</strong> הזהות הראשונה נותנת מיד את הפרמטריזציה <span class="math display">\[,\alpha(t) = \left( a\cosh t,\ a\sinh t \right), \qquad t \in \mathbb{R}\]</span> שכן <span class="math display">\[.\left( a\cosh t \right)^2 - \left( a\sinh t \right)^2 = a^2 \left( \cosh^2 t - \sinh^2 t \right) = a^2\]</span> מכיוון ש-<span class="math inline">\(\cosh t &gt; 0\)</span> לכל <span class="math inline">\(t\)</span>, מתקיים <span class="math inline">\(x = a\cosh t &gt; 0\)</span>, ולכן הפרמטריזציה נמצאת כולה בענף המבוקש. היא גם מכסה אותו כולו, שכן <span class="math inline">\(\sinh\)</span> מקבלת כל ערך ממשי, ולכן כל ערך אפשרי של <span class="math inline">\(y\)</span> מתקבל.</p>
-<p><strong>שלב 2: נגזרות.</strong> <span class="math display">\[,\alpha'(t) = \left( a\sinh t,\ a\cosh t \right)\]</span> <span class="math display">\[.\alpha''(t) = \left( a\cosh t,\ a\sinh t \right)\]</span></p>
-<p><strong>שלב 3: רגולריות והנורמה.</strong> לפי הזהות השנייה מתקבל <span class="math display">\[,\left\| \alpha'(t) \right\|^2 = a^2\sinh^2 t + a^2\cosh^2 t = a^2\cosh(2t)\]</span> ומכיוון ש-<span class="math inline">\(\cosh(2t) \geq 1\)</span> מתקיים <span class="math inline">\(\left\| \alpha'(t) \right\| \geq a &gt; 0\)</span>, כלומר הפרמטריזציה רגולרית. בנוסף <span class="math display">\[.\left\| \alpha'(t) \right\|^3 = a^3 \left( \sqrt{\cosh(2t)} \right)^3\]</span></p>
-<p><strong>שלב 4: הדטרמיננטה.</strong> נסדר את <span class="math inline">\(\alpha'\)</span> ואת <span class="math inline">\(\alpha''\)</span> כעמודות ונחשב: <span class="math display">\[.\begin{aligned} \det\left( \alpha', \alpha'' \right) &amp;= \det \begin{pmatrix} a\sinh t &amp; a\cosh t \\ a\cosh t &amp; a\sinh t \end{pmatrix} \\ &amp;= a\sinh t \cdot a\sinh t - a\cosh t \cdot a\cosh t \\ &amp;= a^2 \left( \sinh^2 t - \cosh^2 t \right) \\ &amp;= -a^2 \end{aligned}\]</span></p>
-<p><strong>שלב 5: העקמומיות.</strong> נציב ונקבל <span class="math display">\[.k(t) = \frac{\det\left( \alpha', \alpha'' \right)}{\left\| \alpha'(t) \right\|^3} = \frac{-a^2}{a^3 \left( \sqrt{\cosh(2t)} \right)^3} = \frac{-1}{a \left( \sqrt{\cosh(2t)} \right)^3}\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: הפרמטריזציה</summary>
+<div class="foldable" title="שלב 1: הפרמטריזציה">
+<p>הזהות הראשונה נותנת מיד את הפרמטריזציה <span class="math display">\[,\alpha(t) = \left( a\cosh t,\ a\sinh t \right), \qquad t \in \mathbb{R}\]</span> שכן <span class="math display">\[.\left( a\cosh t \right)^2 - \left( a\sinh t \right)^2 = a^2 \left( \cosh^2 t - \sinh^2 t \right) = a^2\]</span> מכיוון ש-<span class="math inline">\(\cosh t &gt; 0\)</span> לכל <span class="math inline">\(t\)</span>, מתקיים <span class="math inline">\(x = a\cosh t &gt; 0\)</span>, ולכן הפרמטריזציה נמצאת כולה בענף המבוקש. היא גם מכסה אותו כולו, שכן <span class="math inline">\(\sinh\)</span> מקבלת כל ערך ממשי, ולכן כל ערך אפשרי של <span class="math inline">\(y\)</span> מתקבל.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: נגזרות</summary>
+<div class="foldable" title="שלב 2: נגזרות">
+<p><span class="math display">\[,\alpha'(t) = \left( a\sinh t,\ a\cosh t \right)\]</span> <span class="math display">\[.\alpha''(t) = \left( a\cosh t,\ a\sinh t \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: רגולריות והנורמה</summary>
+<div class="foldable" title="שלב 3: רגולריות והנורמה">
+<p>לפי הזהות השנייה מתקבל <span class="math display">\[,\left\| \alpha'(t) \right\|^2 = a^2\sinh^2 t + a^2\cosh^2 t = a^2\cosh(2t)\]</span> ומכיוון ש-<span class="math inline">\(\cosh(2t) \geq 1\)</span> מתקיים <span class="math inline">\(\left\| \alpha'(t) \right\| \geq a &gt; 0\)</span>, כלומר הפרמטריזציה רגולרית. בנוסף <span class="math display">\[.\left\| \alpha'(t) \right\|^3 = a^3 \left( \sqrt{\cosh(2t)} \right)^3\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: הדטרמיננטה</summary>
+<div class="foldable" title="שלב 4: הדטרמיננטה">
+<p>נסדר את <span class="math inline">\(\alpha'\)</span> ואת <span class="math inline">\(\alpha''\)</span> כעמודות ונחשב: <span class="math display">\[.\begin{aligned} \det\left( \alpha', \alpha'' \right) &amp;= \det \begin{pmatrix} a\sinh t &amp; a\cosh t \\ a\cosh t &amp; a\sinh t \end{pmatrix} \\ &amp;= a\sinh t \cdot a\sinh t - a\cosh t \cdot a\cosh t \\ &amp;= a^2 \left( \sinh^2 t - \cosh^2 t \right) \\ &amp;= -a^2 \end{aligned}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: העקמומיות</summary>
+<div class="foldable" title="שלב 5: העקמומיות">
+<p>נציב ונקבל <span class="math display">\[.k(t) = \frac{\det\left( \alpha', \alpha'' \right)}{\left\| \alpha'(t) \right\|^3} = \frac{-a^2}{a^3 \left( \sqrt{\cosh(2t)} \right)^3} = \frac{-1}{a \left( \sqrt{\cosh(2t)} \right)^3}\]</span></p>
+</div>
+</details>
 <p><strong>פירוש.</strong> בקודקוד <span class="math inline">\(t = 0\)</span> מתקבל <span class="math inline">\(k = -\frac{1}{a}\)</span>, וזהו הערך הגדול ביותר בערך מוחלט, כלומר שם ההיפרבולה מתעקלת ביותר. כאשר <span class="math inline">\(t \to \pm\infty\)</span> מתקיים <span class="math inline">\(\cosh(2t) \to \infty\)</span> ולכן <span class="math inline">\(k \to 0\)</span>, בהתאם לכך שהענף מתיישר ומתקרב לאסימפטוטות <span class="math inline">\(y = \pm x\)</span>. הסימן שלילי לכל אורך הענף: ככל ש-<span class="math inline">\(t\)</span> גדל, וקטור המשיק פונה תחילה שמאלה ומעלה, בקודקוד הוא אנכי, ולאחר מכן ימינה ומעלה, כלומר הוא מסתובב עם כיוון השעון.</p>
 </div>
 <div id="box-q-constant-speed-curvature" class="thmbox thmbox-question">
@@ -630,10 +650,26 @@ window.Quarto = {
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
 <p><strong>שימו לב שהמהירות אינה</strong> <span class="math inline">\(1\)</span>, ולכן <span class="math inline">\(t\)</span> אינו פרמטר אורך קשת, ואי אפשר להשתמש ישירות בנוסחאות שנוסחו עבור פרמטריזציית אורך קשת.</p>
-<p><strong>שלב 1: המשיק.</strong> המהירות קבועה ושווה ל-<span class="math inline">\(4\)</span>, כלומר <span class="math inline">\(\left\| \alpha'(t) \right\| = 4\)</span>, ולכן <span class="math display">\[,\alpha'(t) = 4T(t) = 4\left( \cos \theta(t),\ \sin \theta(t) \right)\]</span> כאשר <span class="math inline">\(\theta(t)\)</span> היא פונקציית הזווית של וקטור המשיק היחידה.</p>
-<p><strong>שלב 2: פונקציית הזווית.</strong> לפי הגדרת העקמומיות המסומנת <span class="math inline">\(\frac{d\theta}{ds} = k\)</span>, ולפי <a href="#box-lem-derivative-by-arclength">למה 3.1.1</a> <span class="math display">\[.\frac{d\theta}{dt} = \frac{d\theta}{ds} \cdot \frac{ds}{dt} = k \cdot \left\| \alpha'(t) \right\| = (-3) \cdot 4 = -12\]</span> באינטגרציה נקבל <span class="math display">\[,\theta(t) = -12t + \theta_0\]</span> כאשר <span class="math inline">\(\theta_0\)</span> הוא קבוע.</p>
-<p><strong>שלב 3: אינטגרציה.</strong> נציב את <span class="math inline">\(\theta(t)\)</span> ונקבל <span class="math display">\[,\alpha'(t) = 4\left( \cos(-12t + \theta_0),\ \sin(-12t + \theta_0) \right)\]</span> ונבצע אינטגרציה רכיב-רכיב: <span class="math display">\[,\int 4\cos(-12t + \theta_0)\, dt = \frac{4}{-12}\sin(-12t + \theta_0) = -\frac{1}{3}\sin(-12t + \theta_0)\]</span> <span class="math display">\[.\int 4\sin(-12t + \theta_0)\, dt = \frac{-4}{-12}\cos(-12t + \theta_0) = \frac{1}{3}\cos(-12t + \theta_0)\]</span> ולכן <span class="math display">\[,\alpha(t) = \alpha_0 + \frac{1}{3}\left( -\sin(-12t + \theta_0),\ \cos(-12t + \theta_0) \right)\]</span> כאשר <span class="math inline">\(\alpha_0\)</span> הוא וקטור קבוע.</p>
-<p><strong>שלב 4: בחירת הקבועים.</strong> הקבועים <span class="math inline">\(\theta_0\)</span> ו-<span class="math inline">\(\alpha_0\)</span> הם כיוון ההתחלה ונקודת ההתחלה, וכל בחירה שלהם נותנת פתרון. נבחר <span class="math inline">\(\theta_0 = 0\)</span> ו-<span class="math inline">\(\alpha_0 = 0\)</span> ונקבל <span class="math display">\[.\alpha(t) = \frac{1}{3}\left( \sin(12t),\ \cos(12t) \right)\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: המשיק</summary>
+<div class="foldable" title="שלב 1: המשיק">
+<p>המהירות קבועה ושווה ל-<span class="math inline">\(4\)</span>, כלומר <span class="math inline">\(\left\| \alpha'(t) \right\| = 4\)</span>, ולכן <span class="math display">\[,\alpha'(t) = 4T(t) = 4\left( \cos \theta(t),\ \sin \theta(t) \right)\]</span> כאשר <span class="math inline">\(\theta(t)\)</span> היא פונקציית הזווית של וקטור המשיק היחידה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: פונקציית הזווית</summary>
+<div class="foldable" title="שלב 2: פונקציית הזווית">
+<p>לפי הגדרת העקמומיות המסומנת <span class="math inline">\(\frac{d\theta}{ds} = k\)</span>, ולפי <a href="#box-lem-derivative-by-arclength">למה 3.1.1</a> <span class="math display">\[.\frac{d\theta}{dt} = \frac{d\theta}{ds} \cdot \frac{ds}{dt} = k \cdot \left\| \alpha'(t) \right\| = (-3) \cdot 4 = -12\]</span> באינטגרציה נקבל <span class="math display">\[,\theta(t) = -12t + \theta_0\]</span> כאשר <span class="math inline">\(\theta_0\)</span> הוא קבוע.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: אינטגרציה</summary>
+<div class="foldable" title="שלב 3: אינטגרציה">
+<p>נציב את <span class="math inline">\(\theta(t)\)</span> ונקבל <span class="math display">\[,\alpha'(t) = 4\left( \cos(-12t + \theta_0),\ \sin(-12t + \theta_0) \right)\]</span> ונבצע אינטגרציה רכיב-רכיב: <span class="math display">\[,\int 4\cos(-12t + \theta_0)\, dt = \frac{4}{-12}\sin(-12t + \theta_0) = -\frac{1}{3}\sin(-12t + \theta_0)\]</span> <span class="math display">\[.\int 4\sin(-12t + \theta_0)\, dt = \frac{-4}{-12}\cos(-12t + \theta_0) = \frac{1}{3}\cos(-12t + \theta_0)\]</span> ולכן <span class="math display">\[,\alpha(t) = \alpha_0 + \frac{1}{3}\left( -\sin(-12t + \theta_0),\ \cos(-12t + \theta_0) \right)\]</span> כאשר <span class="math inline">\(\alpha_0\)</span> הוא וקטור קבוע.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: בחירת הקבועים</summary>
+<div class="foldable" title="שלב 4: בחירת הקבועים">
+<p>הקבועים <span class="math inline">\(\theta_0\)</span> ו-<span class="math inline">\(\alpha_0\)</span> הם כיוון ההתחלה ונקודת ההתחלה, וכל בחירה שלהם נותנת פתרון. נבחר <span class="math inline">\(\theta_0 = 0\)</span> ו-<span class="math inline">\(\alpha_0 = 0\)</span> ונקבל <span class="math display">\[.\alpha(t) = \frac{1}{3}\left( \sin(12t),\ \cos(12t) \right)\]</span></p>
+</div>
+</details>
 </div>
 <div id="box-q-parallel-curve" class="thmbox thmbox-question">
 <p><strong>שאלה 3.1.6.</strong></p>
@@ -643,19 +679,39 @@ window.Quarto = {
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
 <p>לאורך הפתרון נסמן את <strong>מהירות</strong> העקומה ב-<span class="math display">\[,v(t) = \left\| \frac{d\gamma}{dt}(t) \right\|\]</span> ומכיוון ש-<span class="math inline">\(\gamma\)</span> רגולרית מתקיים <span class="math inline">\(v(t) &gt; 0\)</span> לכל <span class="math inline">\(t\)</span>. שימו לב להבחנה בין שני סוגי הנגזרות: כל נגזרת המסומנת ב-<span class="math inline">\(\frac{d}{dt}\)</span> היא לפי הפרמטר, ואילו משוואות פרנה־סרה נוסחו לפי <strong>אורך הקשת</strong> <span class="math inline">\(s\)</span>. המעבר בין השניים נעשה תמיד דרך <a href="#box-lem-derivative-by-arclength">למה 3.1.1</a>.</p>
-<p><strong>שלב 1: גזירה.</strong> נגזור את <span class="math inline">\(\gamma_\lambda\)</span> לפי הפרמטר <span class="math inline">\(t\)</span>: <span class="math display">\[.\frac{d\gamma_\lambda}{dt} = \frac{d\gamma}{dt} + \lambda\, \frac{dN}{dt}\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: גזירה</summary>
+<div class="foldable" title="שלב 1: גזירה">
+<p>נגזור את <span class="math inline">\(\gamma_\lambda\)</span> לפי הפרמטר <span class="math inline">\(t\)</span>: <span class="math display">\[.\frac{d\gamma_\lambda}{dt} = \frac{d\gamma}{dt} + \lambda\, \frac{dN}{dt}\]</span></p>
 <p>את <span class="math inline">\(\frac{dN}{dt}\)</span> נחשב בשני צעדים. ראשית, לפי הלמה, <span class="math display">\[,\frac{dN}{dt} = v(t) \cdot \frac{dN}{ds}\]</span> ושנית, לפי משוואות פרנה־סרה, <span class="math inline">\(\frac{dN}{ds} = -k T\)</span>. נשלב את השניים ונקבל <span class="math display">\[.\frac{dN}{dt} = -v(t)\, k\, T\]</span></p>
 <p>בנוסף, מהגדרת הוקטור המשיק היחידה, <span class="math inline">\(\frac{d\gamma}{dt} = v(t)\, T\)</span>. נציב את שני הביטויים ונוציא גורם משותף: <span class="math display">\[.\frac{d\gamma_\lambda}{dt} = v T - \lambda v k T = v \left( 1 - \lambda k \right) T\]</span> כלומר הנגזרת מקבילה תמיד ל-<span class="math inline">\(T\)</span>, וכל המידע נמצא במקדם.</p>
-<p><strong>שלב 2: רגולריות.</strong> נסמן <span class="math display">\[.\sigma(t) = 1 - \lambda k(t)\]</span> מהשלב הקודם, ומכיוון ש-<span class="math inline">\(\left\| T \right\| = 1\)</span>, <span class="math display">\[.\left\| \frac{d\gamma_\lambda}{dt}(t) \right\| = v(t) \left| \sigma(t) \right|\]</span> מכיוון ש-<span class="math inline">\(v(t) &gt; 0\)</span>, הגודל הזה חיובי אם ורק אם <span class="math inline">\(\sigma(t) \neq 0\)</span>, כלומר אם ורק אם <span class="math inline">\(\lambda k(t) \neq 1\)</span>, וזו בדיוק ההנחה. לכן <span class="math inline">\(\gamma_\lambda\)</span> רגולרית.</p>
-<p><strong>שלב 3: הסימן של</strong> <span class="math inline">\(\sigma\)</span> <strong>קבוע.</strong> הפונקציה <span class="math inline">\(\sigma\)</span> רציפה, שכן <span class="math inline">\(k\)</span> רציפה, והראינו שאינה מתאפסת באף נקודה. לפי משפט ערך הביניים פונקציה רציפה שאינה מתאפסת בקטע שומרת על סימן קבוע, ולכן נוכל לסמן <span class="math display">\[,\varepsilon = \operatorname{sign}\left( \sigma \right) \in \left\{ +1, -1 \right\}\]</span> ומתקיים <span class="math inline">\(\sigma = \varepsilon \left| \sigma \right|\)</span>. נשתמש בכך בשלב האחרון: מכיוון ש-<span class="math inline">\(\varepsilon\)</span> קבוע, הנגזרת שלו היא אפס.</p>
-<p><strong>שלב 4: הוקטורים של העקומה המקבילה.</strong> מהשלב הראשון, <span class="math display">\[.T_\lambda = \frac{\dfrac{d\gamma_\lambda}{dt}}{\left\| \dfrac{d\gamma_\lambda}{dt} \right\|} = \frac{v\, \sigma\, T}{v \left| \sigma \right|} = \frac{\sigma}{\left| \sigma \right|}\, T = \varepsilon T\]</span> הוקטור הנורמלי מתקבל מהמשיק בסיבוב של <span class="math inline">\(90^\circ\)</span>, והסיבוב הוא העתקה לינארית, ולכן אפשר להוציא את הסקלר: <span class="math display">\[.N_\lambda = \varepsilon N\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: רגולריות</summary>
+<div class="foldable" title="שלב 2: רגולריות">
+<p>נסמן <span class="math display">\[.\sigma(t) = 1 - \lambda k(t)\]</span> מהשלב הקודם, ומכיוון ש-<span class="math inline">\(\left\| T \right\| = 1\)</span>, <span class="math display">\[.\left\| \frac{d\gamma_\lambda}{dt}(t) \right\| = v(t) \left| \sigma(t) \right|\]</span> מכיוון ש-<span class="math inline">\(v(t) &gt; 0\)</span>, הגודל הזה חיובי אם ורק אם <span class="math inline">\(\sigma(t) \neq 0\)</span>, כלומר אם ורק אם <span class="math inline">\(\lambda k(t) \neq 1\)</span>, וזו בדיוק ההנחה. לכן <span class="math inline">\(\gamma_\lambda\)</span> רגולרית.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הסימן קבוע</summary>
+<div class="foldable" title="שלב 3: הסימן קבוע">
+<p>הפונקציה <span class="math inline">\(\sigma\)</span> רציפה, שכן <span class="math inline">\(k\)</span> רציפה, והראינו שאינה מתאפסת באף נקודה. לפי משפט ערך הביניים פונקציה רציפה שאינה מתאפסת בקטע שומרת על סימן קבוע, ולכן נוכל לסמן <span class="math display">\[,\varepsilon = \operatorname{sign}\left( \sigma \right) \in \left\{ +1, -1 \right\}\]</span> ומתקיים <span class="math inline">\(\sigma = \varepsilon \left| \sigma \right|\)</span>. נשתמש בכך בשלב האחרון: מכיוון ש-<span class="math inline">\(\varepsilon\)</span> קבוע, הנגזרת שלו היא אפס.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: הוקטורים של העקומה המקבילה</summary>
+<div class="foldable" title="שלב 4: הוקטורים של העקומה המקבילה">
+<p>מהשלב הראשון, <span class="math display">\[.T_\lambda = \frac{\dfrac{d\gamma_\lambda}{dt}}{\left\| \dfrac{d\gamma_\lambda}{dt} \right\|} = \frac{v\, \sigma\, T}{v \left| \sigma \right|} = \frac{\sigma}{\left| \sigma \right|}\, T = \varepsilon T\]</span> הוקטור הנורמלי מתקבל מהמשיק בסיבוב של <span class="math inline">\(90^\circ\)</span>, והסיבוב הוא העתקה לינארית, ולכן אפשר להוציא את הסקלר: <span class="math display">\[.N_\lambda = \varepsilon N\]</span></p>
 <p>שימו לב שכאשר <span class="math inline">\(\varepsilon = -1\)</span> <strong>שני</strong> הוקטורים מתהפכים יחד, ולא רק אחד מהם. זו הסיבה שבסוף יתקבל ערך מוחלט.</p>
-<p><strong>שלב 5: העקמומיות.</strong> נחשב את <span class="math inline">\(\frac{dT_\lambda}{ds_\lambda}\)</span>, כלומר את הנגזרת של <span class="math inline">\(T_\lambda\)</span> לפי <strong>אורך הקשת של</strong> <span class="math inline">\(\gamma_\lambda\)</span>, שאותו נסמן <span class="math inline">\(s_\lambda\)</span>. שוב נשתמש בלמה, ונחשב בנפרד את המונה ואת המכנה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: העקמומיות</summary>
+<div class="foldable" title="שלב 5: העקמומיות">
+<p>נחשב את <span class="math inline">\(\frac{dT_\lambda}{ds_\lambda}\)</span>, כלומר את הנגזרת של <span class="math inline">\(T_\lambda\)</span> לפי <strong>אורך הקשת של</strong> <span class="math inline">\(\gamma_\lambda\)</span>, שאותו נסמן <span class="math inline">\(s_\lambda\)</span>. שוב נשתמש בלמה, ונחשב בנפרד את המונה ואת המכנה.</p>
 <p>במונה: מכיוון ש-<span class="math inline">\(\varepsilon\)</span> קבוע אפשר להוציא אותו מהגזירה, ואז לעבור לגזירה לפי אורך הקשת של <span class="math inline">\(\gamma\)</span> ולהשתמש בפרנה־סרה: <span class="math display">\[.\frac{dT_\lambda}{dt} = \varepsilon\, \frac{dT}{dt} = \varepsilon\, v(t)\, \frac{dT}{ds} = \varepsilon\, v(t)\, k N\]</span></p>
 <p>במכנה, לפי שלב 2, <span class="math display">\[.\frac{ds_\lambda}{dt} = \left\| \frac{d\gamma_\lambda}{dt}(t) \right\| = v(t) \left| \sigma(t) \right|\]</span></p>
 <p>נחלק, והמהירות <span class="math inline">\(v(t)\)</span> מצטמצמת: <span class="math display">\[.\frac{dT_\lambda}{ds_\lambda} = \frac{dT_\lambda/dt}{ds_\lambda/dt} = \frac{\varepsilon\, v\, k N}{v \left| \sigma \right|} = \frac{\varepsilon k}{\left| \sigma \right|}\, N\]</span></p>
 <p>מצד שני, לפי הגדרת העקמומיות המסומנת של <span class="math inline">\(\gamma_\lambda\)</span> ולפי שלב 4, <span class="math display">\[.\frac{dT_\lambda}{ds_\lambda} = k_\lambda N_\lambda = k_\lambda \varepsilon N\]</span></p>
 <p>שני הביטויים הם כפולות של אותו וקטור <span class="math inline">\(N\)</span>, ולכן אפשר להשוות את המקדמים: <span class="math display">\[,k_\lambda \varepsilon = \frac{\varepsilon k}{\left| \sigma \right|}\]</span> ובחלוקה ב-<span class="math inline">\(\varepsilon\)</span>, שאינו אפס, <span class="math display">\[.k_\lambda = \frac{k}{\left| \sigma \right|} = \frac{k}{\left| 1 - \lambda k \right|}\]</span></p>
+</div>
+</details>
 <p><strong>פירוש.</strong> התנאי <span class="math inline">\(\lambda k \neq 1\)</span> הוא בדיוק <span class="math inline">\(\lambda \neq \frac{1}{k}\)</span>: העקומה המקבילה מאבדת את הרגולריות כאשר המרחק <span class="math inline">\(\lambda\)</span> שווה ל-<span class="math inline">\(\frac{1}{k}\)</span>.</p>
 </div>
 </section>
@@ -734,14 +790,34 @@ window.Quarto = {
 </div>
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
-<p><strong>שלב 1: גזירת האוולוט.</strong> נגזור את <span class="math inline">\(E = \gamma + \frac{1}{k} N\)</span> לפי <span class="math inline">\(s\)</span>, אבר אבר. הנגזרת של המחובר הראשון היא <span class="math inline">\(\gamma' = T\)</span>. את המחובר השני נגזור לפי כלל המכפלה: <span class="math display">\[.\left( \frac{1}{k} N \right)' = \left( \frac{1}{k} \right)' N + \frac{1}{k} N'\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: גזירת האוולוט</summary>
+<div class="foldable" title="שלב 1: גזירת האוולוט">
+<p>נגזור את <span class="math inline">\(E = \gamma + \frac{1}{k} N\)</span> לפי <span class="math inline">\(s\)</span>, אבר אבר. הנגזרת של המחובר הראשון היא <span class="math inline">\(\gamma' = T\)</span>. את המחובר השני נגזור לפי כלל המכפלה: <span class="math display">\[.\left( \frac{1}{k} N \right)' = \left( \frac{1}{k} \right)' N + \frac{1}{k} N'\]</span></p>
 <p>לגורם הראשון, לפי כלל השרשרת, <span class="math display">\[,\left( \frac{1}{k} \right)' = -\frac{k'}{k^2}\]</span> ולגורם השני, לפי משוואות פרנה־סרה, <span class="math inline">\(N' = -kT\)</span>, ולכן <span class="math inline">\(\frac{1}{k} N' = -T\)</span>. נחבר את שלושת האיברים: <span class="math display">\[.E' = T - \frac{k'}{k^2} N - T = -\frac{k'}{k^2} N\]</span></p>
 <p>שימו לב שהאיבר <span class="math inline">\(T\)</span> הצטמצם. זהו הצעד המרכזי: <strong>האוולוט נע תמיד בכיוון</strong> <span class="math inline">\(N\)</span>, כלומר בכיוון הנורמלי לעקומה המקורית.</p>
-<p><strong>שלב 2: אורך הקשת.</strong> מכיוון ש-<span class="math inline">\(\left\| N \right\| = 1\)</span>, <span class="math display">\[,\left\| E' \right\| = \left| \frac{k'}{k^2} \right| = \frac{k'}{k^2}\]</span> שכן <span class="math inline">\(k' &gt; 0\)</span> לפי ההנחה ו-<span class="math inline">\(k^2 &gt; 0\)</span>. אורך הקשת של <span class="math inline">\(E\)</span> הוא לכן <span class="math display">\[.s_E = \int \left\| E' \right\| ds = \int \frac{k'}{k^2}\, ds\]</span> כדי לחשב את האינטגרל נשים לב ש-<span class="math display">\[,\frac{d}{ds}\left( -\frac{1}{k} \right) = \frac{k'}{k^2}\]</span> ולכן <span class="math display">\[.s_E = -\frac{1}{k} + \text{const}\]</span></p>
-<p><strong>שלב 3: הוקטורים של האוולוט.</strong> מהשלב הראשון <span class="math display">\[.T_E = \frac{E'}{\left\| E' \right\|} = \frac{-\frac{k'}{k^2} N}{\frac{k'}{k^2}} = -N\]</span> הוקטור הנורמלי מתקבל בסיבוב של <span class="math inline">\(90^\circ\)</span>, וסיבוב כזה מעביר את <span class="math inline">\(N\)</span> ל-<span class="math inline">\(-T\)</span>, ולכן <span class="math display">\[.N_E = -\left( -T \right) = T\]</span></p>
-<p><strong>שלב 4: העקמומיות.</strong> נחשב את <span class="math inline">\(\frac{dT_E}{ds_E}\)</span>. במונה, <span class="math display">\[,\frac{dT_E}{ds} = -N' = kT\]</span> ובמכנה, לפי שלב 2, <span class="math inline">\(\frac{ds_E}{ds} = \frac{k'}{k^2}\)</span>. לכן <span class="math display">\[.\frac{dT_E}{ds_E} = \frac{dT_E/ds}{ds_E/ds} = \frac{kT}{\frac{k'}{k^2}} = \frac{k^3}{k'}\, T\]</span> מצד שני <span class="math inline">\(\frac{dT_E}{ds_E} = k_E N_E = k_E T\)</span> לפי שלב 3, ולכן <span class="math display">\[.k_E = \frac{k^3}{k'}\]</span></p>
-<p><strong>שלב 5: הישרים הנורמליים.</strong> הישר הנורמלי ל-<span class="math inline">\(\gamma\)</span> בנקודה <span class="math inline">\(\gamma(s)\)</span> הוא הקבוצה <span class="math display">\[,\left\{ \gamma(s) + \lambda N(s) \ : \ \lambda \in \mathbb{R} \right\}\]</span> ובבחירה <span class="math inline">\(\lambda = \frac{1}{k(s)}\)</span> מתקבלת בדיוק הנקודה <span class="math inline">\(E(s)\)</span>. לכן <span class="math inline">\(E(s)\)</span> נמצאת על הישר הנורמלי.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: אורך הקשת</summary>
+<div class="foldable" title="שלב 2: אורך הקשת">
+<p>מכיוון ש-<span class="math inline">\(\left\| N \right\| = 1\)</span>, <span class="math display">\[,\left\| E' \right\| = \left| \frac{k'}{k^2} \right| = \frac{k'}{k^2}\]</span> שכן <span class="math inline">\(k' &gt; 0\)</span> לפי ההנחה ו-<span class="math inline">\(k^2 &gt; 0\)</span>. אורך הקשת של <span class="math inline">\(E\)</span> הוא לכן <span class="math display">\[.s_E = \int \left\| E' \right\| ds = \int \frac{k'}{k^2}\, ds\]</span> כדי לחשב את האינטגרל נשים לב ש-<span class="math display">\[,\frac{d}{ds}\left( -\frac{1}{k} \right) = \frac{k'}{k^2}\]</span> ולכן <span class="math display">\[.s_E = -\frac{1}{k} + \text{const}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הוקטורים של האוולוט</summary>
+<div class="foldable" title="שלב 3: הוקטורים של האוולוט">
+<p>מהשלב הראשון <span class="math display">\[.T_E = \frac{E'}{\left\| E' \right\|} = \frac{-\frac{k'}{k^2} N}{\frac{k'}{k^2}} = -N\]</span> הוקטור הנורמלי מתקבל בסיבוב של <span class="math inline">\(90^\circ\)</span>, וסיבוב כזה מעביר את <span class="math inline">\(N\)</span> ל-<span class="math inline">\(-T\)</span>, ולכן <span class="math display">\[.N_E = -\left( -T \right) = T\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: העקמומיות</summary>
+<div class="foldable" title="שלב 4: העקמומיות">
+<p>נחשב את <span class="math inline">\(\frac{dT_E}{ds_E}\)</span>. במונה, <span class="math display">\[,\frac{dT_E}{ds} = -N' = kT\]</span> ובמכנה, לפי שלב 2, <span class="math inline">\(\frac{ds_E}{ds} = \frac{k'}{k^2}\)</span>. לכן <span class="math display">\[.\frac{dT_E}{ds_E} = \frac{dT_E/ds}{ds_E/ds} = \frac{kT}{\frac{k'}{k^2}} = \frac{k^3}{k'}\, T\]</span> מצד שני <span class="math inline">\(\frac{dT_E}{ds_E} = k_E N_E = k_E T\)</span> לפי שלב 3, ולכן <span class="math display">\[.k_E = \frac{k^3}{k'}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: הישרים הנורמליים</summary>
+<div class="foldable" title="שלב 5: הישרים הנורמליים">
+<p>הישר הנורמלי ל-<span class="math inline">\(\gamma\)</span> בנקודה <span class="math inline">\(\gamma(s)\)</span> הוא הקבוצה <span class="math display">\[,\left\{ \gamma(s) + \lambda N(s) \ : \ \lambda \in \mathbb{R} \right\}\]</span> ובבחירה <span class="math inline">\(\lambda = \frac{1}{k(s)}\)</span> מתקבלת בדיוק הנקודה <span class="math inline">\(E(s)\)</span>. לכן <span class="math inline">\(E(s)\)</span> נמצאת על הישר הנורמלי.</p>
 <p>נותר לבדוק את הכיוון. הישר הנורמלי מקביל לוקטור <span class="math inline">\(N(s)\)</span>, ולפי שלב 3 הוקטור המשיק לאוולוט בנקודה זו הוא <span class="math inline">\(T_E = -N(s)\)</span>, שגם הוא מקביל ל-<span class="math inline">\(N(s)\)</span>. הישר עובר דרך <span class="math inline">\(E(s)\)</span> ומקביל למשיק ל-<span class="math inline">\(E\)</span> שם, ולכן הוא הישר המשיק ל-<span class="math inline">\(E\)</span> בנקודה <span class="math inline">\(E(s)\)</span>.</p>
+</div>
+</details>
 </div>
 <div id="box-q-evolute-cycloid" class="thmbox thmbox-question">
 <p><strong>שאלה 3.3.9.</strong></p>
@@ -750,11 +826,31 @@ window.Quarto = {
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
 <p>הפרמטריזציה כאן <strong>אינה</strong> באורך קשת, ולכן נסמן את המהירות ב-<span class="math inline">\(v(t) = \left\| \frac{d\gamma}{dt}(t) \right\|\)</span> ונעבור לאורך קשת דרך <a href="#box-lem-derivative-by-arclength">למה 3.1.1</a>.</p>
-<p><strong>שלב 1: הנגזרת והמהירות.</strong> <span class="math display">\[.\frac{d\gamma}{dt} = a\left( 1 - \cos t,\ \sin t \right)\]</span> נשתמש בזהויות <span class="math inline">\(1 - \cos t = 2\sin^2 \frac{t}{2}\)</span> ו-<span class="math inline">\(\sin t = 2 \sin \frac{t}{2} \cos \frac{t}{2}\)</span>, ונקבל <span class="math display">\[.\frac{d\gamma}{dt} = 2a \sin \frac{t}{2} \left( \sin \frac{t}{2},\ \cos \frac{t}{2} \right)\]</span> הוקטור בסוגריים הוא וקטור יחידה, ובתחום <span class="math inline">\(0 &lt; t &lt; 2\pi\)</span> מתקיים <span class="math inline">\(\sin \frac{t}{2} &gt; 0\)</span>, ולכן <span class="math display">\[.v(t) = 2a \sin \frac{t}{2}\]</span></p>
-<p><strong>שלב 2: הוקטורים.</strong> מהשלב הקודם <span class="math display">\[,T = \frac{1}{v} \cdot \frac{d\gamma}{dt} = \left( \sin \frac{t}{2},\ \cos \frac{t}{2} \right)\]</span> ובסיבוב של <span class="math inline">\(90^\circ\)</span> <span class="math display">\[.N = \left( -\cos \frac{t}{2},\ \sin \frac{t}{2} \right)\]</span></p>
-<p><strong>שלב 3: העקמומיות.</strong> נגזור את <span class="math inline">\(T\)</span> לפי <span class="math inline">\(t\)</span>: <span class="math display">\[,\frac{dT}{dt} = \frac{1}{2}\left( \cos \frac{t}{2},\ -\sin \frac{t}{2} \right)\]</span> ונשים לב שהוקטור בסוגריים הוא בדיוק <span class="math inline">\(-N\)</span>. לפי הלמה <span class="math display">\[.\frac{dT}{ds} = \frac{dT/dt}{ds/dt} = \frac{\frac{1}{2}\left( -N \right)}{2a \sin \frac{t}{2}} = -\frac{1}{4a \sin \frac{t}{2}}\, N\]</span> מצד שני <span class="math inline">\(\frac{dT}{ds} = kN\)</span>, ולכן <span class="math display">\[.k = -\frac{1}{4a \sin \frac{t}{2}}, \qquad \frac{1}{k} = -4a \sin \frac{t}{2}\]</span></p>
-<p><strong>שלב 4: האוולוט.</strong> נציב בהגדרה: <span class="math display">\[.\frac{1}{k} N = -4a \sin \frac{t}{2} \left( -\cos \frac{t}{2},\ \sin \frac{t}{2} \right) = \left( 4a \sin \frac{t}{2} \cos \frac{t}{2},\ -4a \sin^2 \frac{t}{2} \right)\]</span> נשתמש שוב באותן זהויות, בכיוון ההפוך: <span class="math inline">\(4a \sin \frac{t}{2} \cos \frac{t}{2} = 2a \sin t\)</span> וגם <span class="math inline">\(4a \sin^2 \frac{t}{2} = 2a\left( 1 - \cos t \right)\)</span>. לכן <span class="math display">\[.\frac{1}{k} N = \left( 2a \sin t,\ -2a\left( 1 - \cos t \right) \right)\]</span> נחבר ל-<span class="math inline">\(\gamma\)</span>: <span class="math display">\[.E = a\left( t - \sin t + 2\sin t,\ 1 - \cos t - 2 + 2\cos t \right) = a\left( t + \sin t,\ -1 + \cos t \right)\]</span></p>
-<p><strong>שלב 5: זיהוי הציקלואידה.</strong> נציב <span class="math inline">\(t = \tilde{t} - \pi\)</span>, כלומר נסמן מחדש את הפרמטר ב-<span class="math inline">\(\tilde{t} = t + \pi\)</span>. לפי נוסחאות ההזזה <span class="math inline">\(\sin\left( \tilde{t} - \pi \right) = -\sin \tilde{t}\)</span> ו-<span class="math inline">\(\cos\left( \tilde{t} - \pi \right) = -\cos \tilde{t}\)</span>, ולכן <span class="math display">\[.E = a\left( \tilde{t} - \pi - \sin \tilde{t},\ -1 - \cos \tilde{t} \right)\]</span> נפריד את האיברים הקבועים: <span class="math display">\[.E = a\left( \tilde{t} - \sin \tilde{t},\ 1 - \cos \tilde{t} \right) + a\left( -\pi,\ -2 \right)\]</span> המחובר הראשון הוא בדיוק <span class="math inline">\(\gamma(\tilde{t})\)</span>, ולכן האוולוט מתקבל מהציקלואידה המקורית על ידי הזזה בוקטור <span class="math inline">\(a(-\pi, -2)\)</span>.</p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: הנגזרת והמהירות</summary>
+<div class="foldable" title="שלב 1: הנגזרת והמהירות">
+<p><span class="math display">\[.\frac{d\gamma}{dt} = a\left( 1 - \cos t,\ \sin t \right)\]</span> נשתמש בזהויות <span class="math inline">\(1 - \cos t = 2\sin^2 \frac{t}{2}\)</span> ו-<span class="math inline">\(\sin t = 2 \sin \frac{t}{2} \cos \frac{t}{2}\)</span>, ונקבל <span class="math display">\[.\frac{d\gamma}{dt} = 2a \sin \frac{t}{2} \left( \sin \frac{t}{2},\ \cos \frac{t}{2} \right)\]</span> הוקטור בסוגריים הוא וקטור יחידה, ובתחום <span class="math inline">\(0 &lt; t &lt; 2\pi\)</span> מתקיים <span class="math inline">\(\sin \frac{t}{2} &gt; 0\)</span>, ולכן <span class="math display">\[.v(t) = 2a \sin \frac{t}{2}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: הוקטורים</summary>
+<div class="foldable" title="שלב 2: הוקטורים">
+<p>מהשלב הקודם <span class="math display">\[,T = \frac{1}{v} \cdot \frac{d\gamma}{dt} = \left( \sin \frac{t}{2},\ \cos \frac{t}{2} \right)\]</span> ובסיבוב של <span class="math inline">\(90^\circ\)</span> <span class="math display">\[.N = \left( -\cos \frac{t}{2},\ \sin \frac{t}{2} \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: העקמומיות</summary>
+<div class="foldable" title="שלב 3: העקמומיות">
+<p>נגזור את <span class="math inline">\(T\)</span> לפי <span class="math inline">\(t\)</span>: <span class="math display">\[,\frac{dT}{dt} = \frac{1}{2}\left( \cos \frac{t}{2},\ -\sin \frac{t}{2} \right)\]</span> ונשים לב שהוקטור בסוגריים הוא בדיוק <span class="math inline">\(-N\)</span>. לפי הלמה <span class="math display">\[.\frac{dT}{ds} = \frac{dT/dt}{ds/dt} = \frac{\frac{1}{2}\left( -N \right)}{2a \sin \frac{t}{2}} = -\frac{1}{4a \sin \frac{t}{2}}\, N\]</span> מצד שני <span class="math inline">\(\frac{dT}{ds} = kN\)</span>, ולכן <span class="math display">\[.k = -\frac{1}{4a \sin \frac{t}{2}}, \qquad \frac{1}{k} = -4a \sin \frac{t}{2}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: האוולוט</summary>
+<div class="foldable" title="שלב 4: האוולוט">
+<p>נציב בהגדרה: <span class="math display">\[.\frac{1}{k} N = -4a \sin \frac{t}{2} \left( -\cos \frac{t}{2},\ \sin \frac{t}{2} \right) = \left( 4a \sin \frac{t}{2} \cos \frac{t}{2},\ -4a \sin^2 \frac{t}{2} \right)\]</span> נשתמש שוב באותן זהויות, בכיוון ההפוך: <span class="math inline">\(4a \sin \frac{t}{2} \cos \frac{t}{2} = 2a \sin t\)</span> וגם <span class="math inline">\(4a \sin^2 \frac{t}{2} = 2a\left( 1 - \cos t \right)\)</span>. לכן <span class="math display">\[.\frac{1}{k} N = \left( 2a \sin t,\ -2a\left( 1 - \cos t \right) \right)\]</span> נחבר ל-<span class="math inline">\(\gamma\)</span>: <span class="math display">\[.E = a\left( t - \sin t + 2\sin t,\ 1 - \cos t - 2 + 2\cos t \right) = a\left( t + \sin t,\ -1 + \cos t \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: זיהוי הציקלואידה</summary>
+<div class="foldable" title="שלב 5: זיהוי הציקלואידה">
+<p>נציב <span class="math inline">\(t = \tilde{t} - \pi\)</span>, כלומר נסמן מחדש את הפרמטר ב-<span class="math inline">\(\tilde{t} = t + \pi\)</span>. לפי נוסחאות ההזזה <span class="math inline">\(\sin\left( \tilde{t} - \pi \right) = -\sin \tilde{t}\)</span> ו-<span class="math inline">\(\cos\left( \tilde{t} - \pi \right) = -\cos \tilde{t}\)</span>, ולכן <span class="math display">\[.E = a\left( \tilde{t} - \pi - \sin \tilde{t},\ -1 - \cos \tilde{t} \right)\]</span> נפריד את האיברים הקבועים: <span class="math display">\[.E = a\left( \tilde{t} - \sin \tilde{t},\ 1 - \cos \tilde{t} \right) + a\left( -\pi,\ -2 \right)\]</span> המחובר הראשון הוא בדיוק <span class="math inline">\(\gamma(\tilde{t})\)</span>, ולכן האוולוט מתקבל מהציקלואידה המקורית על ידי הזזה בוקטור <span class="math inline">\(a(-\pi, -2)\)</span>.</p>
+</div>
+</details>
 </div>
 <iframe class="widget-frame" src="widgets/ch03/evolute-cycloid.html" loading="lazy" title="האוולוט של הציקלואידה"></iframe>
 <div id="box-q-cycloid-involute-check" class="thmbox thmbox-question">
@@ -771,10 +867,18 @@ window.Quarto = {
 </div>
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
-<p><strong>חלק 1.</strong> נתאר את מצב החוט ברגע שבו הוא נכרך על העקומה עד הנקודה <span class="math inline">\(\gamma(s)\)</span>. החלק הכרוך מונח על העקומה מ-<span class="math inline">\(\gamma(0)\)</span> עד <span class="math inline">\(\gamma(s)\)</span>, והפרמטריזציה היא באורך קשת, ולכן אורכו הוא בדיוק <span class="math inline">\(s\)</span>. מכאן שאורך החלק החופשי הוא <span class="math inline">\(\ell - s\)</span>.</p>
+<details class="thmcollapse thmfoldable"><summary>חלק 1</summary>
+<div class="foldable" title="חלק 1">
+<p>נתאר את מצב החוט ברגע שבו הוא נכרך על העקומה עד הנקודה <span class="math inline">\(\gamma(s)\)</span>. החלק הכרוך מונח על העקומה מ-<span class="math inline">\(\gamma(0)\)</span> עד <span class="math inline">\(\gamma(s)\)</span>, והפרמטריזציה היא באורך קשת, ולכן אורכו הוא בדיוק <span class="math inline">\(s\)</span>. מכאן שאורך החלק החופשי הוא <span class="math inline">\(\ell - s\)</span>.</p>
 <p>החוט מתוח, ולכן החלק החופשי הוא קטע ישר. הוא יוצא מנקודת ההיפרדות <span class="math inline">\(\gamma(s)\)</span> בכיוון המשיק <span class="math inline">\(T(s)\)</span>: אילו היה יוצא בכיוון אחר, היה אפשר לקצר אותו, בסתירה למתיחות. לכן קצה החוט נמצא בנקודה <span class="math display">\[,I(s) = \gamma(s) + \left( \ell - s \right) T(s)\]</span> כנדרש.</p>
-<p><strong>חלק 2.</strong> נרשום את <span class="math inline">\(I\)</span> בצורה שבה מופיעה הלמה: <span class="math display">\[.I(s) = \gamma(s) - \left( s - \ell \right) T(s)\]</span> זו בדיוק הנוסחה של <a href="#box-lem-involute-frame">למה 3.3.6</a>, כאשר אורך הקשת נמדד מהנקודה שבה <span class="math inline">\(s = \ell\)</span>, כלומר עם <span class="math inline">\(\tilde{s} = s - \ell\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>חלק 2</summary>
+<div class="foldable" title="חלק 2">
+<p>נרשום את <span class="math inline">\(I\)</span> בצורה שבה מופיעה הלמה: <span class="math display">\[.I(s) = \gamma(s) - \left( s - \ell \right) T(s)\]</span> זו בדיוק הנוסחה של <a href="#box-lem-involute-frame">למה 3.3.6</a>, כאשר אורך הקשת נמדד מהנקודה שבה <span class="math inline">\(s = \ell\)</span>, כלומר עם <span class="math inline">\(\tilde{s} = s - \ell\)</span>.</p>
 <p>בתחום <span class="math inline">\(0 &lt; s &lt; \ell\)</span> מתקיים <span class="math inline">\(\tilde{s} &lt; 0\)</span>, ולפי ההנחה <span class="math inline">\(k &gt; 0\)</span>, ולכן <span class="math display">\[.\varepsilon = \operatorname{sign}\left( \tilde{s} k \right) = -1\]</span> לפי הלמה <span class="math display">\[.k_I = \frac{\varepsilon}{\tilde{s}} = \frac{-1}{s - \ell} = \frac{1}{\ell - s}\]</span></p>
+</div>
+</details>
 <p><strong>פירוש.</strong> ככל שהחוט מתקצר, כלומר <span class="math inline">\(s \to \ell\)</span>, העקמומיות של <span class="math inline">\(I\)</span> שואפת לאינסוף. זה מתאים לכך שבנקודה <span class="math inline">\(s = \ell\)</span> החוט נגמר, ושם לאינוולוטה יש נקודה סינגולרית.</p>
 </div>
 <div id="box-q-involute-catenary-tractrix" class="thmbox thmbox-question">
@@ -783,12 +887,32 @@ window.Quarto = {
 </div>
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
-<p><strong>שלב 1: פרמטריזציית אורך קשת.</strong> נחשב את המהירות: <span class="math inline">\(\frac{d\gamma}{dt} = \left( 1, \sinh t \right)\)</span>, ולכן <span class="math display">\[,\left\| \frac{d\gamma}{dt} \right\| = \sqrt{1 + \sinh^2 t} = \cosh t\]</span> לפי הזהות <span class="math inline">\(\cosh^2 - \sinh^2 = 1\)</span>. מכאן אורך הקשת, הנמדד מ-<span class="math inline">\(t = 0\)</span>, <span class="math display">\[.s = \int_0^t \cosh u\, du = \sinh t\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: פרמטריזציית אורך קשת</summary>
+<div class="foldable" title="שלב 1: פרמטריזציית אורך קשת">
+<p>נחשב את המהירות: <span class="math inline">\(\frac{d\gamma}{dt} = \left( 1, \sinh t \right)\)</span>, ולכן <span class="math display">\[,\left\| \frac{d\gamma}{dt} \right\| = \sqrt{1 + \sinh^2 t} = \cosh t\]</span> לפי הזהות <span class="math inline">\(\cosh^2 - \sinh^2 = 1\)</span>. מכאן אורך הקשת, הנמדד מ-<span class="math inline">\(t = 0\)</span>, <span class="math display">\[.s = \int_0^t \cosh u\, du = \sinh t\]</span></p>
 <p>נהפוך את הקשר: <span class="math inline">\(t = \operatorname{arcsinh} s\)</span>, ומכיוון ש-<span class="math inline">\(\cosh t = \sqrt{1 + \sinh^2 t} = \sqrt{1 + s^2}\)</span>, מתקבלת פרמטריזציית אורך הקשת <span class="math display">\[.\widetilde{\gamma}(s) = \left( \operatorname{arcsinh} s,\ \sqrt{1 + s^2} \right)\]</span></p>
-<p><strong>שלב 2: הוקטור המשיק.</strong> נגזור לפי <span class="math inline">\(s\)</span>, רכיב־רכיב: <span class="math display">\[,\frac{d}{ds} \operatorname{arcsinh} s = \frac{1}{\sqrt{1 + s^2}}, \qquad \frac{d}{ds} \sqrt{1 + s^2} = \frac{s}{\sqrt{1 + s^2}}\]</span> ולכן <span class="math display">\[.T(s) = \widetilde{\gamma}\,'(s) = \frac{1}{\sqrt{1 + s^2}}\left( 1,\ s \right)\]</span> נוודא שזו אכן פרמטריזציית אורך קשת: <span class="math display">\[.\left\| T \right\|^2 = \frac{1 + s^2}{1 + s^2} = 1\]</span></p>
-<p><strong>שלב 3: האינוולוטה.</strong> עבור <span class="math inline">\(\ell = 0\)</span> הנוסחה מ<a href="#box-q-involute-string">שאלה 3.3.11</a> היא <span class="math inline">\(I(s) = \widetilde{\gamma}(s) - s\, T(s)\)</span>. נציב ונחשב רכיב־רכיב. הרכיב הראשון: <span class="math display">\[.\operatorname{arcsinh} s - \frac{s}{\sqrt{1 + s^2}}\]</span> הרכיב השני: <span class="math display">\[.\sqrt{1 + s^2} - \frac{s^2}{\sqrt{1 + s^2}} = \frac{\left( 1 + s^2 \right) - s^2}{\sqrt{1 + s^2}} = \frac{1}{\sqrt{1 + s^2}}\]</span> ולכן <span class="math display">\[.I(s) = \left( \operatorname{arcsinh} s - \frac{s}{\sqrt{1 + s^2}},\ \frac{1}{\sqrt{1 + s^2}} \right)\]</span></p>
-<p><strong>שלב 4: מעבר לפרמטר נוח.</strong> נסמן <span class="math inline">\(u = \operatorname{arcsinh} s\)</span>, כלומר <span class="math inline">\(s = \sinh u\)</span>. אז <span class="math inline">\(\sqrt{1 + s^2} = \cosh u\)</span>, ומתקבל <span class="math display">\[,\frac{s}{\sqrt{1 + s^2}} = \frac{\sinh u}{\cosh u} = \tanh u, \qquad \frac{1}{\sqrt{1 + s^2}} = \frac{1}{\cosh u} = \operatorname{sech} u\]</span> ובסימונים אלה <span class="math display">\[.I = \left( u - \tanh u,\ \operatorname{sech} u \right)\]</span></p>
-<p><strong>שלב 5: סילוק הפרמטר.</strong> תהי <span class="math inline">\((x, y)\)</span> נקודה על האינוולוטה, כלומר <span class="math inline">\(x = u - \tanh u\)</span> ו-<span class="math inline">\(y = \operatorname{sech} u\)</span>. מהשוויון השני <span class="math inline">\(\cosh u = \frac{1}{y}\)</span>, ולכן <span class="math display">\[.u = \operatorname{arccosh}\left( \frac{1}{y} \right)\]</span> בנוסף, מהזהות <span class="math inline">\(\tanh^2 u = 1 - \operatorname{sech}^2 u\)</span> מתקבל <span class="math display">\[,\tanh u = \sqrt{1 - y^2}\]</span> כאשר בחרנו את השורש החיובי, המתאים לענף <span class="math inline">\(u \geq 0\)</span>. נציב את שני הביטויים בנוסחה של <span class="math inline">\(x\)</span>: <span class="math display">\[.x = \operatorname{arccosh}\left( \frac{1}{y} \right) - \sqrt{1 - y^2}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: הוקטור המשיק</summary>
+<div class="foldable" title="שלב 2: הוקטור המשיק">
+<p>נגזור לפי <span class="math inline">\(s\)</span>, רכיב־רכיב: <span class="math display">\[,\frac{d}{ds} \operatorname{arcsinh} s = \frac{1}{\sqrt{1 + s^2}}, \qquad \frac{d}{ds} \sqrt{1 + s^2} = \frac{s}{\sqrt{1 + s^2}}\]</span> ולכן <span class="math display">\[.T(s) = \widetilde{\gamma}\,'(s) = \frac{1}{\sqrt{1 + s^2}}\left( 1,\ s \right)\]</span> נוודא שזו אכן פרמטריזציית אורך קשת: <span class="math display">\[.\left\| T \right\|^2 = \frac{1 + s^2}{1 + s^2} = 1\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: האינוולוטה</summary>
+<div class="foldable" title="שלב 3: האינוולוטה">
+<p>עבור <span class="math inline">\(\ell = 0\)</span> הנוסחה מ<a href="#box-q-involute-string">שאלה 3.3.11</a> היא <span class="math inline">\(I(s) = \widetilde{\gamma}(s) - s\, T(s)\)</span>. נציב ונחשב רכיב־רכיב. הרכיב הראשון: <span class="math display">\[.\operatorname{arcsinh} s - \frac{s}{\sqrt{1 + s^2}}\]</span> הרכיב השני: <span class="math display">\[.\sqrt{1 + s^2} - \frac{s^2}{\sqrt{1 + s^2}} = \frac{\left( 1 + s^2 \right) - s^2}{\sqrt{1 + s^2}} = \frac{1}{\sqrt{1 + s^2}}\]</span> ולכן <span class="math display">\[.I(s) = \left( \operatorname{arcsinh} s - \frac{s}{\sqrt{1 + s^2}},\ \frac{1}{\sqrt{1 + s^2}} \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: מעבר לפרמטר נוח</summary>
+<div class="foldable" title="שלב 4: מעבר לפרמטר נוח">
+<p>נסמן <span class="math inline">\(u = \operatorname{arcsinh} s\)</span>, כלומר <span class="math inline">\(s = \sinh u\)</span>. אז <span class="math inline">\(\sqrt{1 + s^2} = \cosh u\)</span>, ומתקבל <span class="math display">\[,\frac{s}{\sqrt{1 + s^2}} = \frac{\sinh u}{\cosh u} = \tanh u, \qquad \frac{1}{\sqrt{1 + s^2}} = \frac{1}{\cosh u} = \operatorname{sech} u\]</span> ובסימונים אלה <span class="math display">\[.I = \left( u - \tanh u,\ \operatorname{sech} u \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: סילוק הפרמטר</summary>
+<div class="foldable" title="שלב 5: סילוק הפרמטר">
+<p>תהי <span class="math inline">\((x, y)\)</span> נקודה על האינוולוטה, כלומר <span class="math inline">\(x = u - \tanh u\)</span> ו-<span class="math inline">\(y = \operatorname{sech} u\)</span>. מהשוויון השני <span class="math inline">\(\cosh u = \frac{1}{y}\)</span>, ולכן <span class="math display">\[.u = \operatorname{arccosh}\left( \frac{1}{y} \right)\]</span> בנוסף, מהזהות <span class="math inline">\(\tanh^2 u = 1 - \operatorname{sech}^2 u\)</span> מתקבל <span class="math display">\[,\tanh u = \sqrt{1 - y^2}\]</span> כאשר בחרנו את השורש החיובי, המתאים לענף <span class="math inline">\(u \geq 0\)</span>. נציב את שני הביטויים בנוסחה של <span class="math inline">\(x\)</span>: <span class="math display">\[.x = \operatorname{arccosh}\left( \frac{1}{y} \right) - \sqrt{1 - y^2}\]</span></p>
+</div>
+</details>
 </div>
 <iframe class="widget-frame" src="widgets/ch03/involute-catenary.html" loading="lazy" title="האינוולוטה של קו השרשרת"></iframe>
 </section>
