@@ -11,17 +11,25 @@
 <script src="../shared/mathrender.js"></script>
 <script src="../shared/evoinv.js"></script>
 <script>
-/* The cycloid with a = 1. The endpoints t = 0 and t = 2*pi are cusps, where
-   gamma' = 0 and the curve is not regular, so the range stops just short of
-   them: neither the frame nor the curvature is defined there. */
+/* The cycloid with a = 1, over FOUR arches. The cusps at t = 0, 2*pi, 4*pi are not
+   regular points -- gamma' = 0 there, so neither the frame nor the curvature is
+   defined -- and the range stops just short of the outer two. The cusp at t = 2*pi
+   is interior to the range; the curve passes through it continuously (E and gamma
+   meet there), and no sample lands exactly on it.
+
+   Two arches, because over a single one the picture misleads: E has its cusp in
+   the MIDDLE of the range, at t = pi, so one arch of gamma buys only two half
+   arches of E and the congruence of the two curves is not visible. */
 EvoInv.mount({
   mode: "evolute",
   f: function (t) { return [t - Math.sin(t), 1 - Math.cos(t)]; },
-  tMin: 0.12, tMax: 2 * Math.PI - 0.12,
+  /* deliberately NOT symmetric about 2*pi: with equal trims the slider's
+     midpoint lands exactly on the interior cusp, where the frame is undefined */
+  tMin: 0.05, tMax: 8 * Math.PI - 0.13,
   title: "γ(t) = (t − sin t, 1 − cos t)",
   paramLabel: "הפרמטר t",
-  aspect: 0.62,
-  hint: "מרכז המעגל המשיק מסמן את נקודת האוולוט. הפעילו את המחוון: העקומה המצטברת היא ציקלואידה נוספת, החופפת למקורית עד כדי הזזה."
+  aspect: 0.26,
+  hint: "מרכז המעגל המשיק מסמן את נקודת האוולוט. הפעילו את המחוון: העקומה המצטברת היא ציקלואידה נוספת, החופפת למקורית עד כדי הזזה. שימו לב שהחודים של האוולוט נמצאים באמצע הקשתות של העקומה המקורית, ולהפך."
 });
 </script>
 </body>

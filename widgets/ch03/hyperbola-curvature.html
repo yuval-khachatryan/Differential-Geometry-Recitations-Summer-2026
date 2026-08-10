@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>העקמומיות של ההיפרבולה</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/curve2d.js"></script>
+<script>
+/* The right branch of x^2 - y^2 = 1, i.e. a = 1, in the parametrization of the
+   exercise. The osculating circle is what carries the point: tight at the vertex,
+   where |k| = 1/a is largest, and ballooning as the branch straightens towards
+   its asymptotes, where k -> 0. */
+Curve2D.mount({
+  f: function (t) { return [Math.cosh(t), Math.sinh(t)]; },
+  tMin: -1.4, tMax: 1.4,
+  pad: 1.4,
+  title: "$\\alpha(t) = (\\cosh t,\\ \\sinh t)$",
+  paramLabel: "הפרמטר $t$",
+  show: { tn: true, osc: true },
+  readout: ["pos", "k"],
+  hint: "גררו את המחוון לאורך הענף. בקודקוד המעגל המשיק הוא הקטן ביותר, ושם $|k|$ מקסימלי; ככל שמתרחקים, הענף מתיישר לעבר האסימפטוטות, המעגל גדל ו-$k$ שואף לאפס. שימו לב גם שהוקטור המשיק מסתובב לאורך כל הענף עם כיוון השעון, ולכן $k$ שלילי."
+});
+</script>
+</body>
+</html>

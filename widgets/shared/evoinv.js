@@ -86,8 +86,10 @@
     function target(t, lam) {
       var fr = frameAt(t), p = f(t);
       if (evolute) {
-        var k = curv(t);
-        if (!isFinite(k) || Math.abs(k) < 1e-9) return null;
+        var k = curv(t), sp = speed(t);
+        /* at a cusp gamma' = 0: no frame, no curvature. Drop the point rather
+           than draw whatever the finite differences happen to return. */
+        if (!isFinite(k) || Math.abs(k) < 1e-9 || sp < 1e-6) return null;
         return [p[0] + fr.N[0] / k, p[1] + fr.N[1] / k];
       }
       var s = arcAt(t) + lam;
@@ -110,15 +112,21 @@
       var w0 = target(ts[i], lam0Max);
       if (w0) { xs.push(w0[0]); ys.push(w0[1]); }
     }
+    /* Separate half-widths for the two axes. The SCALE stays equal -- one sc for
+       both -- but the view box now has the data's own proportions, so a wide flat
+       curve (several cycloid arches) fills the canvas instead of being squeezed
+       into a square and shrinking to a strip in the middle of it. */
     var xa = Math.min.apply(null, xs), xb = Math.max.apply(null, xs),
         ya = Math.min.apply(null, ys), yb = Math.max.apply(null, ys),
         cx = (xa + xb) / 2, cy = (ya + yb) / 2,
-        half = Math.max(xb - xa, yb - ya) / 2 * 1.15 || 1;
+        halfX = (xb - xa) / 2 * 1.15 || 1,
+        halfY = (yb - ya) / 2 * 1.15 || 1,
+        half = Math.max(halfX, halfY);
     /* An explicit view, for curves that grow much faster than their trace: the
        catenary reaches y = 12 over the range on which its involute stays under
        y = 1, and framing on the bounding box would shrink the involute to a
        smudge. The curve simply runs off the top instead. */
-    if (cfg.view) { cx = cfg.view.cx; cy = cfg.view.cy; half = cfg.view.half; }
+    if (cfg.view) { cx = cfg.view.cx; cy = cfg.view.cy; halfX = halfY = half = cfg.view.half; }
 
     var traceLabel = evolute ? "האוולוט" : "האינוולוטה";
     host.innerHTML =
@@ -127,7 +135,8 @@
         '<div class="qv-canvas-wrap"><canvas class="qv-canvas"></canvas></div>' +
         '<div class="qv-row">' +
           '<span class="qv-label">' + (cfg.paramLabel || "הפרמטר") + '</span>' +
-          '<input class="qv-slider qv-t" type="range" min="0" max="1000" value="260">' +
+          '<input class="qv-slider qv-t" type="range" min="0" max="1000" value="' +
+            (cfg.startAt === undefined ? 260 : cfg.startAt) + '">' +
           '<span class="qv-badge qv-tval"></span>' +
           '<button class="qv-btn qv-play" type="button">הפעל</button>' +
         '</div>' +
@@ -171,7 +180,7 @@
       ctx.lineJoin = "round";
 
       /* equal x/y scaling: N is on screen, so angles must be honest */
-      var sc = Math.min((w - 20) / (2 * half), (hgt - 20) / (2 * half)),
+      var sc = Math.min((w - 20) / (2 * halfX), (hgt - 20) / (2 * halfY)),
           ox = w / 2 - cx * sc, oy = hgt / 2 + cy * sc;
       function X(q) { return ox + q[0] * sc; }
       function Y(q) { return oy - q[1] * sc; }

@@ -643,6 +643,12 @@ window.Quarto = {
 </details>
 <p><strong>פירוש.</strong> בקודקוד <span class="math inline">\(t = 0\)</span> מתקבל <span class="math inline">\(k = -\frac{1}{a}\)</span>, וזהו הערך הגדול ביותר בערך מוחלט, כלומר שם ההיפרבולה מתעקלת ביותר. כאשר <span class="math inline">\(t \to \pm\infty\)</span> מתקיים <span class="math inline">\(\cosh(2t) \to \infty\)</span> ולכן <span class="math inline">\(k \to 0\)</span>, בהתאם לכך שהענף מתיישר ומתקרב לאסימפטוטות <span class="math inline">\(y = \pm x\)</span>. הסימן שלילי לכל אורך הענף: ככל ש-<span class="math inline">\(t\)</span> גדל, וקטור המשיק פונה תחילה שמאלה ומעלה, בקודקוד הוא אנכי, ולאחר מכן ימינה ומעלה, כלומר הוא מסתובב עם כיוון השעון.</p>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/hyperbola-curvature.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="הענף הימני של ההיפרבולה עם האסימפטוטות, והעקמומיות כפונקציה של t"></p>
+</figure>
+</div>
+<p><em>שתי התכונות שבפירוש, עבור <span class="math inline">\(a = 1\)</span>. משמאל: הענף מצויר בקנה מידה גדול דיו כדי שייראה כיצד הוא מתלכד עם האסימפטוטות <span class="math inline">\(y = \pm x\)</span>. כל העקמומיות מרוכזת בסביבת הקודקוד, ושם <span class="math inline">\(\frac{1}{\left| k \right|} = a\)</span>; הזרועות נראות ישרות לעין. מימין: העקמומיות עצמה, שלילית תמיד, מינימלית בקודקוד ושואפת לאפס במהירות. שני הפנלים אומרים אותו דבר.</em></p>
 <div id="box-q-constant-speed-curvature" class="thmbox thmbox-question">
 <p><strong>שאלה 3.1.5.</strong></p>
 <p>מצאו עקומה רגולרית במישור שמהירותה קבועה ושווה ל-<span class="math inline">\(4\)</span>, ושעקמומיותה המסומנת מקיימת <span class="math inline">\(k \equiv -3\)</span>.</p>
@@ -757,7 +763,7 @@ window.Quarto = {
 <p>שימו לב שאמרנו <strong>אינוולוטה</strong> ולא <strong>האינוולוטה</strong>: לכל בחירה של נקודת ההתחלה <span class="math inline">\(u_0\)</span> מתקבלת עקומה אחרת, ולכן לעקומה יש <strong>משפחה</strong> של אינוולוטות. אפשר לרשום את המשפחה במפורש בעזרת פרמטר <span class="math inline">\(\lambda_0\)</span>, <span class="math display">\[,I(t) = \alpha(t) - \left( t + \lambda_0 \right) \alpha'(t)\]</span> כאשר <span class="math inline">\(\alpha\)</span> נתונה בפרמטריזציית אורך קשת, ו-<span class="math inline">\(\lambda_0\)</span> הוא אורך ה”זנב” של החוט שטרם נפרם.</p>
 <p>במקרה קיצוני זה בולט במיוחד: עבור נקודה בודדת מקבלים את כל המעגלים שמרכזם בנקודה.</p>
 </div>
-<p>שתי ההגדרות שראינו — האוולוט כאוסף מרכזי המעגלים המשיקים, והאינוולוטה כעקומה שהאוולוט שלה הוא <span class="math inline">\(\alpha\)</span> — עדיין אינן מחוברות זו לזו. כדי לחבר ביניהן נחשב את הוקטורים ואת העקמומיות של האינוולוטה.</p>
+<p>למעשה יש בידינו <strong>שתי</strong> הגדרות שונות לאינוולוטה. <a href="#box-def-involute">הגדרה 3.3.2</a> מגדירה אותה על ידי <strong>תכונה</strong>: עקומה שהאוולוט שלה הוא <span class="math inline">\(\alpha\)</span>. לעומת זאת <a href="#box-def-involute-explicit">הגדרה 3.3.3</a> נותנת <strong>נוסחה</strong> מפורשת. עדיין לא ראינו ששתי ההגדרות מתלכדות, וזה מה שנעשה כעת. הכלי לכך הוא חישוב הוקטורים והעקמומיות של העקומה שהנוסחה מגדירה.</p>
 <div id="box-lem-involute-frame" class="thmbox thmbox-lemma" title="הוקטורים והעקמומיות של האינוולוטה">
 <p><strong>למה 3.3.6 — הוקטורים והעקמומיות של האינוולוטה.</strong></p>
 <p>תהי <span class="math inline">\(\alpha\)</span> עקומה רגולרית שעקמומיותה המסומנת <span class="math inline">\(k\)</span>, ותהי <span class="math display">\[,I(u) = \alpha(u) - s(u)\, T(u)\]</span> אינוולוטה שלה, כאשר <span class="math inline">\(s\)</span> הוא אורך הקשת של <span class="math inline">\(\alpha\)</span> הנמדד מ-<span class="math inline">\(\alpha(u_0)\)</span>. נסמן <span class="math inline">\(\varepsilon = \operatorname{sign}(sk)\)</span>. אז בכל נקודה שבה <span class="math inline">\(sk \neq 0\)</span> מתקיים <span class="math display">\[,T_I = -\varepsilon N, \qquad N_I = \varepsilon T\]</span> והעקמומיות המסומנת של <span class="math inline">\(I\)</span> היא <span class="math display">\[.k_I = \frac{\varepsilon}{s}\]</span></p>
@@ -768,13 +774,14 @@ window.Quarto = {
 <p><strong>הוקטורים.</strong> מהשוויון האחרון <span class="math inline">\(\left\| I' \right\| = \left| sk \right| \left\| \alpha' \right\|\)</span>, ולכן <span class="math display">\[.T_I = \frac{I'}{\left\| I' \right\|} = -\varepsilon N\]</span> הוקטור <span class="math inline">\(N_I\)</span> מתקבל מ-<span class="math inline">\(T_I\)</span> בסיבוב של <span class="math inline">\(90^\circ\)</span>, וסיבוב כזה מעביר את <span class="math inline">\(N\)</span> ל-<span class="math inline">\(-T\)</span>, ולכן <span class="math display">\[.N_I = -\varepsilon \cdot \left( -T \right) = \varepsilon T\]</span></p>
 <p><strong>העקמומיות.</strong> נגזור את <span class="math inline">\(T_I = -\varepsilon N\)</span> לפי <span class="math inline">\(u\)</span>, ונשתמש ב-<span class="math inline">\(N' = -\left\| \alpha' \right\| k T\)</span>: <span class="math display">\[.\frac{dT_I}{du} = -\varepsilon N' = \varepsilon k \left\| \alpha' \right\| T\]</span> יהי <span class="math inline">\(s_I\)</span> אורך הקשת של <span class="math inline">\(I\)</span>. לפי <a href="#box-lem-derivative-by-arclength">למה 3.1.1</a> <span class="math display">\[,\frac{dT_I}{ds_I} = \frac{dT_I/du}{ds_I/du} = \frac{\varepsilon k \left\| \alpha' \right\| T}{\left| sk \right| \left\| \alpha' \right\|} = \frac{\varepsilon k}{\left| s \right| \left| k \right|}\, T = \frac{1}{s}\, T\]</span> שכן <span class="math inline">\(\varepsilon k = \operatorname{sign}(s) \left| k \right|\)</span>. מצד שני, לפי הגדרת העקמומיות המסומנת <span class="math inline">\(\frac{dT_I}{ds_I} = k_I N_I = k_I \varepsilon T\)</span>, והשוואת שני הביטויים נותנת <span class="math inline">\(k_I \varepsilon = \frac{1}{s}\)</span>, כלומר <span class="math inline">\(k_I = \frac{\varepsilon}{s}\)</span>.</p>
 </div>
-<div id="box-prp-involute-evolute" class="thmbox thmbox-proposition">
-<p><strong>טענה 3.3.7.</strong></p>
-<p>אם <span class="math inline">\(I\)</span> היא אינוולוטה של עקומה רגולרית <span class="math inline">\(\alpha\)</span>, אז <span class="math inline">\(\alpha\)</span> היא האוולוט של <span class="math inline">\(I\)</span>.</p>
+<div id="box-prp-involute-evolute" class="thmbox thmbox-proposition" title="שתי ההגדרות מתלכדות">
+<p><strong>טענה 3.3.7 — שתי ההגדרות מתלכדות.</strong></p>
+<p>תהי <span class="math inline">\(\alpha\)</span> עקומה רגולרית, ותהי <span class="math inline">\(I = \alpha - s\,T\)</span> העקומה שמגדירה <a href="#box-def-involute-explicit">הגדרה 3.3.3</a>. אז האוולוט של <span class="math inline">\(I\)</span> הוא <span class="math inline">\(\alpha\)</span>, כלומר <span class="math inline">\(I\)</span> היא אינוולוטה של <span class="math inline">\(\alpha\)</span> גם במובן של <a href="#box-def-involute">הגדרה 3.3.2</a>.</p>
 </div>
 <div class="thmbox thmbox-proof">
 <p><strong>הוכחה.</strong></p>
-<p>מהגדרת האינוולוטה <span class="math inline">\(I = \alpha - sT\)</span>, כלומר <span class="math display">\[.\alpha = I + s\,T\]</span> לפי <a href="#box-lem-involute-frame">למה 3.3.6</a> מתקיים <span class="math inline">\(N_I = \varepsilon T\)</span> וגם <span class="math inline">\(k_I = \frac{\varepsilon}{s}\)</span>, ולכן <span class="math display">\[,\frac{1}{k_I} N_I = \frac{s}{\varepsilon} \cdot \varepsilon T = s\,T\]</span> שכן <span class="math inline">\(\varepsilon^2 = 1\)</span>. בהצבה מתקבל <span class="math display">\[,\alpha = I + \frac{1}{k_I} N_I\]</span> וזוהי בדיוק ההגדרה של האוולוט של <span class="math inline">\(I\)</span>.</p>
+<p>מהנוסחה <span class="math inline">\(I = \alpha - s\,T\)</span> נובע מיד <span class="math display">\[.\alpha = I + s\,T\]</span> נותר להראות שהמחובר <span class="math inline">\(s\,T\)</span> הוא בדיוק <span class="math inline">\(\frac{1}{k_I} N_I\)</span>, שכן אז אגף ימין הוא האוולוט של <span class="math inline">\(I\)</span> לפי <a href="#box-def-evolute">הגדרה 3.3.1</a>.</p>
+<p>לפי <a href="#box-lem-involute-frame">למה 3.3.6</a> מתקיים <span class="math inline">\(N_I = \varepsilon T\)</span> וגם <span class="math inline">\(k_I = \frac{\varepsilon}{s}\)</span>, ולכן <span class="math display">\[,\frac{1}{k_I} N_I = \frac{s}{\varepsilon} \cdot \varepsilon T = s\,T\]</span> שכן <span class="math inline">\(\varepsilon\)</span> מצטמצם. בהצבה מתקבל <span class="math display">\[,\alpha = I + \frac{1}{k_I} N_I\]</span> כלומר <span class="math inline">\(\alpha\)</span> היא בדיוק האוולוט של <span class="math inline">\(I\)</span>, כנדרש.</p>
 </div>
 <iframe class="widget-frame" src="widgets/ch03/involute.html" loading="lazy" title="האינוולוטה של המעגל"></iframe>
 <section id="תרגילים-1" class="level3">
@@ -851,11 +858,43 @@ window.Quarto = {
 <p>נציב <span class="math inline">\(t = \tilde{t} - \pi\)</span>, כלומר נסמן מחדש את הפרמטר ב-<span class="math inline">\(\tilde{t} = t + \pi\)</span>. לפי נוסחאות ההזזה <span class="math inline">\(\sin\left( \tilde{t} - \pi \right) = -\sin \tilde{t}\)</span> ו-<span class="math inline">\(\cos\left( \tilde{t} - \pi \right) = -\cos \tilde{t}\)</span>, ולכן <span class="math display">\[.E = a\left( \tilde{t} - \pi - \sin \tilde{t},\ -1 - \cos \tilde{t} \right)\]</span> נפריד את האיברים הקבועים: <span class="math display">\[.E = a\left( \tilde{t} - \sin \tilde{t},\ 1 - \cos \tilde{t} \right) + a\left( -\pi,\ -2 \right)\]</span> המחובר הראשון הוא בדיוק <span class="math inline">\(\gamma(\tilde{t})\)</span>, ולכן האוולוט מתקבל מהציקלואידה המקורית על ידי הזזה בוקטור <span class="math inline">\(a(-\pi, -2)\)</span>.</p>
 </div>
 </details>
+<p><strong>הערה על תחום הפרמטר.</strong> בשאלה נתון <span class="math inline">\(0 &lt; t &lt; 2\pi\)</span>, כלומר קשת <strong>אחת</strong> של הציקלואידה, אך הפרמטריזציה מחדש <span class="math inline">\(\tilde{t} = t + \pi\)</span> מזיזה את חלון הפרמטר ל-<span class="math inline">\(\pi &lt; \tilde{t} &lt; 3\pi\)</span>. לכן מה שהראינו הוא שהאוולוט הוא ההזזה של הציקלואידה <strong>בחלון הזה</strong>, ולא של הקשת הנתונה עצמה.</p>
+<p>אפשר לראות זאת גם ישירות: לקשת של <span class="math inline">\(\gamma\)</span> יש חודים בשני קצותיה, ואילו ל-<span class="math inline">\(E\)</span> יש חוד יחיד באמצע, ב-<span class="math inline">\(t = \pi\)</span>, ולכן בתחום הנתון <span class="math inline">\(E\)</span> מורכבת משתי <strong>חצאי</strong> קשתות. כדי לומר “האוולוט של הציקלואידה הוא אותה ציקלואידה מוזזת” יש להתייחס לציקלואידה כולה, <span class="math inline">\(t \in \mathbb{R}\)</span>, ולא לקשת בודדת. בציור שלהלן מצוירות כמה קשתות, ושם החפיפה נראית מיד.</p>
 </div>
 <iframe class="widget-frame" src="widgets/ch03/evolute-cycloid.html" loading="lazy" title="האוולוט של הציקלואידה"></iframe>
 <div id="box-q-cycloid-involute-check" class="thmbox thmbox-question">
 <p><strong>שאלה 3.3.10.</strong></p>
 <p>בסימוני התרגיל הקודם, ודאו ישירות שהציקלואידה היא <strong>אינוולוטה</strong> של האוולוט שלה: חשבו את הוקטור המשיק <span class="math inline">\(T_E\)</span> ואת פונקציית אורך הקשת <span class="math inline">\(s_E\)</span> של <span class="math inline">\(E\)</span>, ובדקו שעבור בחירה מתאימה של קבוע האינטגרציה מתקיים <span class="math display">\[.E(t) - s_E(t)\, T_E(t) = \gamma(t)\]</span></p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: מה צריך להראות</summary>
+<div class="foldable" title="שלב 1: מה צריך להראות">
+<p>לפי <a href="#box-def-involute-explicit">הגדרה 3.3.3</a>, אינוולוטה של עקומה מתקבלת מהנוסחה “העקומה, פחות אורך הקשת שלה כפול הוקטור המשיק שלה”. כאן העקומה שממנה יוצאים היא האוולוט <span class="math inline">\(E\)</span>, ולכן עלינו לחשב שני גדלים של <span class="math inline">\(E\)</span> עצמו: את הוקטור המשיק <span class="math inline">\(T_E\)</span> ואת פונקציית אורך הקשת <span class="math inline">\(s_E\)</span>, ורק אז לבדוק את השוויון.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: תחום העבודה</summary>
+<div class="foldable" title="שלב 2: תחום העבודה">
+<p>התוצאות של <a href="#box-q-evolute-properties">שאלה 3.3.8</a> נוסחו תחת ההנחה <span class="math inline">\(k' \neq 0\)</span>, ולכן נבדוק היכן היא מתקיימת כאן. מהתרגיל הקודם <span class="math display">\[,k = -\frac{1}{4a \sin \frac{t}{2}}\]</span> ובגזירה לפי <span class="math inline">\(t\)</span> מתקבל <span class="math display">\[.\frac{dk}{dt} = \frac{\cos \frac{t}{2}}{8a \sin^2 \frac{t}{2}}\]</span></p>
+<p>כדי לעבור לגזירה לפי אורך הקשת נחלק במהירות <span class="math inline">\(\frac{ds}{dt} = 2a \sin \frac{t}{2}\)</span>, שהיא חיובית בתחום, ולכן הסימן נשמר: <span class="math display">\[.k' = \frac{dk/dt}{ds/dt} = \frac{\cos \frac{t}{2}}{16 a^2 \sin^3 \frac{t}{2}}\]</span></p>
+<p>הביטוי חיובי עבור <span class="math inline">\(0 &lt; t &lt; \pi\)</span> ומתאפס ב-<span class="math inline">\(t = \pi\)</span>, שם ל-<span class="math inline">\(E\)</span> יש חוד. לכן נעבוד בתחום <span class="math inline">\(0 &lt; t &lt; \pi\)</span>, ובתחום <span class="math inline">\(\pi &lt; t &lt; 2\pi\)</span> החישוב זהה עד להיפוך סימן.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: המשיק ואורך הקשת של האוולוט</summary>
+<div class="foldable" title="שלב 3: המשיק ואורך הקשת של האוולוט">
+<p>לפי <a href="#box-q-evolute-properties">שאלה 3.3.8</a>, <span class="math display">\[.T_E = -N, \qquad s_E = -\frac{1}{k} + \text{const}\]</span> את שני הגדלים של הציקלואידה כבר חישבנו בתרגיל הקודם: <span class="math display">\[,N = \left( -\cos \frac{t}{2},\ \sin \frac{t}{2} \right)\]</span> <span class="math display">\[.-\frac{1}{k} = 4a \sin \frac{t}{2}\]</span></p>
+<p>נבחר את קבוע האינטגרציה להיות אפס ונקבל <span class="math display">\[,T_E = \left( \cos \frac{t}{2},\ -\sin \frac{t}{2} \right)\]</span> <span class="math display">\[.s_E = 4a \sin \frac{t}{2}\]</span> שימו לב ש-<span class="math inline">\(s_E(0) = 0\)</span>: זו בדיוק “הבחירה המתאימה” שבניסוח השאלה, ופירושה שאורך הקשת של <span class="math inline">\(E\)</span> נמדד מהנקודה <span class="math inline">\(E(0)\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: הצבה</summary>
+<div class="foldable" title="שלב 4: הצבה">
+<p>נחשב תחילה את המכפלה <span class="math display">\[.s_E T_E = 4a \sin \frac{t}{2} \left( \cos \frac{t}{2},\ -\sin \frac{t}{2} \right) = \left( 4a \sin \frac{t}{2} \cos \frac{t}{2},\ -4a \sin^2 \frac{t}{2} \right)\]</span></p>
+<p>נשתמש באותן זהויות חצי־זווית מהתרגיל הקודם, <span class="math inline">\(4a \sin \frac{t}{2} \cos \frac{t}{2} = 2a \sin t\)</span> וגם <span class="math inline">\(4a \sin^2 \frac{t}{2} = 2a\left( 1 - \cos t \right)\)</span>, ונקבל <span class="math display">\[.s_E T_E = \left( 2a \sin t,\ -2a\left( 1 - \cos t \right) \right)\]</span></p>
+<p>כעת נחסר מ-<span class="math inline">\(E(t) = a\left( t + \sin t,\ -1 + \cos t \right)\)</span> רכיב־רכיב. הרכיב הראשון: <span class="math display">\[,at + a\sin t - 2a \sin t = a\left( t - \sin t \right)\]</span> והרכיב השני: <span class="math display">\[.-a + a\cos t - \left( -2a + 2a\cos t \right) = a - a\cos t = a\left( 1 - \cos t \right)\]</span></p>
+<p>יחד: <span class="math display">\[.E(t) - s_E(t)\, T_E(t) = a\left( t - \sin t,\ 1 - \cos t \right) = \gamma(t)\]</span></p>
+</div>
+</details>
+<p><strong>מסקנה.</strong> הציקלואידה היא אינוולוטה של האוולוט שלה, כשהפרימה מתחילה בנקודה <span class="math inline">\(E(0)\)</span>. יחד עם <a href="#box-prp-involute-evolute">טענה 3.3.7</a>, שלפיו האוולוט של אינוולוטה הוא העקומה המקורית, מתקבלת התמונה המלאה: שתי הפעולות הפוכות זו לזו.</p>
 </div>
 <div id="box-q-involute-string" class="thmbox thmbox-question">
 <p><strong>שאלה 3.3.11.</strong></p>
@@ -883,36 +922,42 @@ window.Quarto = {
 </div>
 <div id="box-q-involute-catenary-tractrix" class="thmbox thmbox-question">
 <p><strong>שאלה 3.3.12.</strong></p>
-<p>הראו שהאינוולוטה של קו השרשרת <span class="math display">\[,\gamma(t) = \left( t,\ \cosh t \right)\]</span> עבור <span class="math inline">\(\ell = 0\)</span>, היא הטרקטריקס <span class="math display">\[.x = \operatorname{arccosh}\left( \frac{1}{y} \right) - \sqrt{1 - y^2}\]</span></p>
+<p>נתון קו השרשרת <span class="math display">\[,\gamma(t) = \left( t,\ \cosh t \right)\]</span> ונתבונן באינוולוטה שלו עבור <span class="math inline">\(\ell = 0\)</span>, כלומר באינוולוטה שבה אורך הקשת נמדד מהנקודה הנמוכה <span class="math inline">\(\gamma(0) = (0,1)\)</span>.</p>
+<ol type="1">
+<li>הסיקו שבפרמטר <span class="math inline">\(t\)</span> עצמו האינוולוטה נתונה על ידי <span class="math display">\[.I(t) = \gamma(t) - \sinh(t)\, T(t)\]</span></li>
+<li>הראו שמכאן מתקבלת <strong>הטרקטריקס</strong> <span class="math display">\[.x = t - \tanh t, \qquad y = \frac{1}{\cosh t}\]</span></li>
+</ol>
 </div>
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: פרמטריזציית אורך קשת</summary>
-<div class="foldable" title="שלב 1: פרמטריזציית אורך קשת">
-<p>נחשב את המהירות: <span class="math inline">\(\frac{d\gamma}{dt} = \left( 1, \sinh t \right)\)</span>, ולכן <span class="math display">\[,\left\| \frac{d\gamma}{dt} \right\| = \sqrt{1 + \sinh^2 t} = \cosh t\]</span> לפי הזהות <span class="math inline">\(\cosh^2 - \sinh^2 = 1\)</span>. מכאן אורך הקשת, הנמדד מ-<span class="math inline">\(t = 0\)</span>, <span class="math display">\[.s = \int_0^t \cosh u\, du = \sinh t\]</span></p>
-<p>נהפוך את הקשר: <span class="math inline">\(t = \operatorname{arcsinh} s\)</span>, ומכיוון ש-<span class="math inline">\(\cosh t = \sqrt{1 + \sinh^2 t} = \sqrt{1 + s^2}\)</span>, מתקבלת פרמטריזציית אורך הקשת <span class="math display">\[.\widetilde{\gamma}(s) = \left( \operatorname{arcsinh} s,\ \sqrt{1 + s^2} \right)\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: המהירות ואורך הקשת</summary>
+<div class="foldable" title="שלב 1: המהירות ואורך הקשת">
+<p>נגזור: <span class="math display">\[,\frac{d\gamma}{dt} = \left( 1,\ \sinh t \right)\]</span> ולפי הזהות <span class="math inline">\(\cosh^2 - \sinh^2 = 1\)</span> מתקבל <span class="math display">\[.\left\| \frac{d\gamma}{dt} \right\| = \sqrt{1 + \sinh^2 t} = \cosh t\]</span></p>
+<p>אורך הקשת הנמדד מהנקודה הנמוכה, כלומר מ-<span class="math inline">\(t = 0\)</span>, הוא לכן <span class="math display">\[.s(t) = \int_0^t \cosh u\, du = \sinh t\]</span></p>
+<p>זהו בדיוק התוכן של התנאי <span class="math inline">\(\ell = 0\)</span>: אורך החוט שכבר נפרם, כשמתחילים מהנקודה הנמוכה, הוא <span class="math inline">\(\sinh t\)</span>.</p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: הוקטור המשיק</summary>
-<div class="foldable" title="שלב 2: הוקטור המשיק">
-<p>נגזור לפי <span class="math inline">\(s\)</span>, רכיב־רכיב: <span class="math display">\[,\frac{d}{ds} \operatorname{arcsinh} s = \frac{1}{\sqrt{1 + s^2}}, \qquad \frac{d}{ds} \sqrt{1 + s^2} = \frac{s}{\sqrt{1 + s^2}}\]</span> ולכן <span class="math display">\[.T(s) = \widetilde{\gamma}\,'(s) = \frac{1}{\sqrt{1 + s^2}}\left( 1,\ s \right)\]</span> נוודא שזו אכן פרמטריזציית אורך קשת: <span class="math display">\[.\left\| T \right\|^2 = \frac{1 + s^2}{1 + s^2} = 1\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: הנוסחה בפרמטר t</summary>
+<div class="foldable" title="שלב 2: הנוסחה בפרמטר t">
+<p>כאן נמצאת הנקודה המעניינת. ההגדרה ב<a href="#box-def-involute-explicit">הגדרה 3.3.3</a> <strong>אינה</strong> מניחה פרמטריזציית אורך קשת: היא נוסחה עבור עקומה רגולרית כלשהי, ואומרת <span class="math display">\[.I = \gamma - s\, T\]</span></p>
+<p>לכן אין צורך לעבור לפרמטריזציית אורך קשת, ודי להציב את <span class="math inline">\(s(t) = \sinh t\)</span> שחישבנו בשלב הקודם: <span class="math display">\[.I(t) = \gamma(t) - \sinh(t)\, T(t)\]</span></p>
+<p>מעבר לפרמטר אחר היה רק מאריך את החישוב, בלי לשנות דבר בתוצאה.</p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: האינוולוטה</summary>
-<div class="foldable" title="שלב 3: האינוולוטה">
-<p>עבור <span class="math inline">\(\ell = 0\)</span> הנוסחה מ<a href="#box-q-involute-string">שאלה 3.3.11</a> היא <span class="math inline">\(I(s) = \widetilde{\gamma}(s) - s\, T(s)\)</span>. נציב ונחשב רכיב־רכיב. הרכיב הראשון: <span class="math display">\[.\operatorname{arcsinh} s - \frac{s}{\sqrt{1 + s^2}}\]</span> הרכיב השני: <span class="math display">\[.\sqrt{1 + s^2} - \frac{s^2}{\sqrt{1 + s^2}} = \frac{\left( 1 + s^2 \right) - s^2}{\sqrt{1 + s^2}} = \frac{1}{\sqrt{1 + s^2}}\]</span> ולכן <span class="math display">\[.I(s) = \left( \operatorname{arcsinh} s - \frac{s}{\sqrt{1 + s^2}},\ \frac{1}{\sqrt{1 + s^2}} \right)\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הוקטור המשיק</summary>
+<div class="foldable" title="שלב 3: הוקטור המשיק">
+<p>מהשלב הראשון <span class="math display">\[.T(t) = \frac{1}{\left\| \frac{d\gamma}{dt} \right\|} \cdot \frac{d\gamma}{dt} = \frac{1}{\cosh t}\left( 1,\ \sinh t \right)\]</span></p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: מעבר לפרמטר נוח</summary>
-<div class="foldable" title="שלב 4: מעבר לפרמטר נוח">
-<p>נסמן <span class="math inline">\(u = \operatorname{arcsinh} s\)</span>, כלומר <span class="math inline">\(s = \sinh u\)</span>. אז <span class="math inline">\(\sqrt{1 + s^2} = \cosh u\)</span>, ומתקבל <span class="math display">\[,\frac{s}{\sqrt{1 + s^2}} = \frac{\sinh u}{\cosh u} = \tanh u, \qquad \frac{1}{\sqrt{1 + s^2}} = \frac{1}{\cosh u} = \operatorname{sech} u\]</span> ובסימונים אלה <span class="math display">\[.I = \left( u - \tanh u,\ \operatorname{sech} u \right)\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: הצבה</summary>
+<div class="foldable" title="שלב 4: הצבה">
+<p>נחשב תחילה את המחובר השני: <span class="math display">\[.\sinh(t)\, T(t) = \frac{\sinh t}{\cosh t}\left( 1,\ \sinh t \right) = \left( \tanh t,\ \frac{\sinh^2 t}{\cosh t} \right)\]</span></p>
+<p>כעת נחסר מ-<span class="math inline">\(\gamma(t)\)</span> רכיב־רכיב. הרכיב הראשון מיידי: <span class="math display">\[.t - \tanh t\]</span></p>
+<p>ברכיב השני נאחד למכנה משותף ונשתמש שוב באותה זהות: <span class="math display">\[.\cosh t - \frac{\sinh^2 t}{\cosh t} = \frac{\cosh^2 t - \sinh^2 t}{\cosh t} = \frac{1}{\cosh t}\]</span></p>
+<p>ולכן <span class="math display">\[.I(t) = \left( t - \tanh t,\ \frac{1}{\cosh t} \right)\]</span></p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>שלב 5: סילוק הפרמטר</summary>
-<div class="foldable" title="שלב 5: סילוק הפרמטר">
-<p>תהי <span class="math inline">\((x, y)\)</span> נקודה על האינוולוטה, כלומר <span class="math inline">\(x = u - \tanh u\)</span> ו-<span class="math inline">\(y = \operatorname{sech} u\)</span>. מהשוויון השני <span class="math inline">\(\cosh u = \frac{1}{y}\)</span>, ולכן <span class="math display">\[.u = \operatorname{arccosh}\left( \frac{1}{y} \right)\]</span> בנוסף, מהזהות <span class="math inline">\(\tanh^2 u = 1 - \operatorname{sech}^2 u\)</span> מתקבל <span class="math display">\[,\tanh u = \sqrt{1 - y^2}\]</span> כאשר בחרנו את השורש החיובי, המתאים לענף <span class="math inline">\(u \geq 0\)</span>. נציב את שני הביטויים בנוסחה של <span class="math inline">\(x\)</span>: <span class="math display">\[.x = \operatorname{arccosh}\left( \frac{1}{y} \right) - \sqrt{1 - y^2}\]</span></p>
-</div>
-</details>
+<p><strong>הערה.</strong> בנקודה <span class="math inline">\(t = 0\)</span> אורך החוט מתאפס, ולכן <span class="math inline">\(I(0) = \gamma(0) = (0,1)\)</span>. שם יש לטרקטריקס חוד, כפי שרואים בציור שלהלן.</p>
 </div>
 <iframe class="widget-frame" src="widgets/ch03/involute-catenary.html" loading="lazy" title="האינוולוטה של קו השרשרת"></iframe>
 </section>
