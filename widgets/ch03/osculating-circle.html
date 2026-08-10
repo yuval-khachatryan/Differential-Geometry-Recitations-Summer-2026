@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>המעגל המשיק כגבול של מעגלים דרך שלוש נקודות</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/osculating.js"></script>
+<script>
+/* The catenary at t = 0. Which curve it is does not matter -- the statement is
+   about local behaviour -- so this one is chosen for being easy to read: at the
+   vertex T is already horizontal and the picture is symmetric, and k = 1/2 there,
+   so the limiting radius is exactly 2. The scale factor matters: on (t, cosh t)
+   the radius would be 1, exactly the length of N, and the radius segment would
+   hide underneath the N arrow. */
+Osculating.mount({
+  f: function (t) { return [t, 2 * Math.cosh(t / 2)]; },
+  tMin: -3.6, tMax: 3.6,
+  t0: 0,
+  dMax: 1.8,
+  title: "\u03b3(t) = (t, 2 cosh(t/2)),   t\u2080 = 0"
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>האינוולוטה של המעגל</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/evoinv.js"></script>
+<script>
+/* The unit circle, as in the lecture's figure: the string unwinds from t = 0. */
+EvoInv.mount({
+  mode: "involute",
+  f: function (t) { return [Math.cos(t), Math.sin(t)]; },
+  tMin: 0, tMax: 2 * Math.PI,
+  lam0Max: 2.0,
+  title: "γ(t) = (cos t, sin t)",
+  paramLabel: "הפרמטר t",
+  hint: "הקטע הכתום הוא החוט המתוח: אורכו שווה לאורך הקשת שכבר נפרמה ועוד האורך ההתחלתי, וקצהו משרטט את האינוולוטה. שנו את האורך ההתחלתי כדי לקבל אינוולוטות שונות של אותו מעגל."
+});
+</script>
+</body>
+</html>

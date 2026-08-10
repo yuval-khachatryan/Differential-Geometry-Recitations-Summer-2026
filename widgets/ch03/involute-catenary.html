@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>האינוולוטה של קו השרשרת</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/evoinv.js"></script>
+<script>
+/* The catenary, with the arc length measured from t = 0 -- that is the l = 0 of
+   the exercise, so the string starts with no free length at the lowest point
+   (0, 1). The range is symmetric about 0 so that both branches of the tractrix
+   are drawn and the cusp where they meet, at (0, 1), is on screen. */
+EvoInv.mount({
+  mode: "involute",
+  f: function (t) { return [t, Math.cosh(t)]; },
+  tMin: -2.2, tMax: 2.2,
+  sFrom: 0,
+  aspect: 0.85,
+  title: "γ(t) = (t, cosh t)",
+  paramLabel: "הפרמטר t",
+  hint: "החוט נפרם מהנקודה הנמוכה (0, 1) לשני הכיוונים. הקטע הכתום הוא החלק החופשי, ואורכו שווה לאורך הקשת שנפרמה; קצהו משרטט את הטרקטריקס. שימו לב לחוד שנוצר בנקודה (0, 1) עצמה, שם אורך החוט מתאפס."
+});
+</script>
+</body>
+</html>

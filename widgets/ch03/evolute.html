@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>האוולוט של האליפסה</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/evoinv.js"></script>
+<script>
+/* The ellipse, as in the lecture's figure. Its evolute is the astroid. */
+EvoInv.mount({
+  mode: "evolute",
+  f: function (t) { return [2 * Math.cos(t), Math.sin(t)]; },
+  tMin: 0, tMax: 2 * Math.PI,
+  title: "γ(t) = (2 cos t, sin t)",
+  paramLabel: "הפרמטר t",
+  hint: "בכל נקודה מצוייר המעגל המשיק, ומרכזו הוא נקודת האוולוט. הפעילו את המחוון וראו את אוסף המרכזים מצטבר."
+});
+</script>
+</body>
+</html>

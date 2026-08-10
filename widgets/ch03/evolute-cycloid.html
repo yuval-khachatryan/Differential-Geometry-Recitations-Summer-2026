@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>האוולוט של הציקלואידה</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/evoinv.js"></script>
+<script>
+/* The cycloid with a = 1. The endpoints t = 0 and t = 2*pi are cusps, where
+   gamma' = 0 and the curve is not regular, so the range stops just short of
+   them: neither the frame nor the curvature is defined there. */
+EvoInv.mount({
+  mode: "evolute",
+  f: function (t) { return [t - Math.sin(t), 1 - Math.cos(t)]; },
+  tMin: 0.12, tMax: 2 * Math.PI - 0.12,
+  title: "γ(t) = (t − sin t, 1 − cos t)",
+  paramLabel: "הפרמטר t",
+  aspect: 0.62,
+  hint: "מרכז המעגל המשיק מסמן את נקודת האוולוט. הפעילו את המחוון: העקומה המצטברת היא ציקלואידה נוספת, החופפת למקורית עד כדי הזזה."
+});
+</script>
+</body>
+</html>
