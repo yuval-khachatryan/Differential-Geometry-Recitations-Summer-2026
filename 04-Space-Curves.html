@@ -228,6 +228,32 @@ iframe.widget-frame {
 .thmbox-proof > p:first-child > strong { font-weight: 600; color: #64748b; }
 .thmbox-remark      { border-color: #cbd5e1; background: #f8fafc; }
 .thmbox-remark > p:first-child > strong { font-weight: 600; color: #64748b; }
+/* ---------------------------------------------------------------------------
+   Math must never inherit the page's RTL direction. <html dir="rtl"> makes the
+   whole document a right-to-left bidi context, and two things go wrong inside it:
+
+   1. The renderer's own output boxes lay out right-to-left, so a formula mixed
+      into a Hebrew sentence reads backwards.
+   2. Until MathJax runs, the page literally contains the raw source \( ... \).
+      If the CDN is slow or unreachable that source is what stays on screen, and
+      the bidi algorithm reorders it -- the same failure the widgets have with
+      KaTeX (see mathrender.js).
+
+   `unicode-bidi: isolate` makes every formula its own bidi context: it can
+   neither be reordered by the Hebrew around it nor reorder that Hebrew.
+   --------------------------------------------------------------------------- */
+span.math,
+mjx-container,
+.katex,
+.katex-display {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+mjx-container *,
+.katex * {
+  direction: ltr;
+}
+
 /* Optional box (.optional): foldable, collapsed by default; same gray look as .extra,
    but the gray bar is the clickable <summary>. */
 details.thmoptional {
@@ -1012,11 +1038,6 @@ window.Quarto = {
 <p><span class="math display">\[.k = \frac{\left\| \alpha' \times \alpha'' \right\|}{\left\| \alpha' \right\|^3} = \frac{\sqrt{2}\,\cosh u}{\left( \sqrt{2}\,\cosh u \right)^3} = \frac{\sqrt{2}\,\cosh u}{2\sqrt{2}\,\cosh^3 u} = \frac{1}{2\cosh^2 u}\]</span></p>
 <p>עבור הפיתול, המונה הוא <span class="math display">\[,\left\langle \left( -\sinh u,\ \cosh u,\ -1 \right),\ \left( \sinh u,\ \cosh u,\ 0 \right) \right\rangle = -\sinh^2 u + \cosh^2 u = 1\]</span> והמכנה חושב בשלב הקודם, ולכן <span class="math display">\[.\tau = \frac{1}{2\cosh^2 u}\]</span></p>
 <p>בפרט <span class="math inline">\(\frac{\tau}{k} = 1\)</span> קבוע, ולכן גם עקומה זו היא סליל כללי לפי <a href="#box-q-generalized-helix">שאלה 4.4.3</a>, והזווית בין המשיק לציר הקבוע היא <span class="math inline">\(45^\circ\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 5: הערה על הסימן</summary>
-<div class="foldable" title="שלב 5: הערה על הסימן">
-<p>בספרם של וודוורד ובולטון מופיעה עקומה זו עם <span class="math inline">\(\tau = -\frac{1}{2\cosh^2 u}\)</span>. אין כאן סתירה אלא מוסכמה שונה: שם הפיתול מוגדר על ידי <span class="math inline">\(B' = +\tau N\)</span>, בעוד שאצלנו, כמו אצל פרסלי ובהרצאה, ההגדרה היא <span class="math display">\[.B' = -\tau N\]</span> שתי המוסכמות נבדלות בסימן של <span class="math inline">\(\tau\)</span> בלבד, וכל הגדלים הגיאומטריים האחרים זהים.</p>
 </div>
 </details>
 </div>
