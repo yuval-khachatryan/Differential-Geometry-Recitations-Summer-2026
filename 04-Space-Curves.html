@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="he" xml:lang="he" dir="rtl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; תרגול 4: עקומות במרחב – גיאומטריה דיפרנציאלית — תרגולים</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03-Curvature-and-Space-Curves.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "אין תוצאות",
+    "search-matching-documents-text": "מסמכים תואמים",
+    "search-copy-link-title": "העתק קישור לחיפוש",
+    "search-hide-matches-text": "הסתר התאמות נוספות",
+    "search-more-match-text": "התאמה נוספת במסמך זה",
+    "search-more-matches-text": "התאמות נוספות במסמך זה",
+    "search-clear-button-title": "נקה",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "בטל",
+    "search-submit-button-title": "שלח",
+    "search-label": "חפש"
+  }
+}</script>
+<style>
+.todo {
+  color: #8a8a8a;
+  font-style: italic;
+  background: #fafafa;
+  border: 1px dashed #cccccc;
+  border-radius: 4px;
+  padding: 1.2rem 1rem;
+  margin: 0.4rem 0 1.2rem;
+}
+.tf-quiz {
+  margin: 0.6rem 0 1rem;
+}
+.tf-quiz .tf-opt {
+  margin: 0 0 0 0.5rem;
+  padding: 0.35rem 1.4rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.tf-quiz .tf-opt:hover {
+  background: #ececec;
+}
+.tf-quiz .tf-opt.correct {
+  background: #d4edda;
+  border-color: #28a745;
+}
+.tf-quiz .tf-opt.incorrect {
+  background: #f8d7da;
+  border-color: #dc3545;
+}
+.tf-quiz .tf-feedback {
+  margin-top: 0.45rem;
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.set-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.set-quiz .set-label {
+  min-width: 5rem;
+}
+.set-quiz .set-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 12rem;
+}
+.set-quiz .set-input.correct {
+  border-color: #28a745;
+  background: #d4edda;
+}
+.set-quiz .set-input.incorrect {
+  border-color: #dc3545;
+  background: #f8d7da;
+}
+.set-quiz .set-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.set-quiz .set-check:hover {
+  background: #ececec;
+}
+.set-quiz .set-feedback {
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.seq-quiz, .formula-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.seq-quiz .seq-label, .formula-quiz .seq-label { min-width: 12rem; }
+.seq-quiz .seq-input, .formula-quiz .seq-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 16rem;
+}
+.seq-quiz .seq-input.correct, .formula-quiz .seq-input.correct { border-color: #28a745; background: #d4edda; }
+.seq-quiz .seq-input.incorrect, .formula-quiz .seq-input.incorrect { border-color: #dc3545; background: #f8d7da; }
+.seq-quiz .seq-check, .formula-quiz .seq-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.seq-quiz .seq-check:hover, .formula-quiz .seq-check:hover { background: #ececec; }
+.seq-quiz .seq-feedback, .formula-quiz .seq-feedback { font-weight: bold; min-height: 1.2em; }
+/* Interactive widgets embedded from widgets/<chapter>/*.html.
+   They live in an iframe so their CSS (which styles body/table/button
+   unscoped) cannot leak into the page, and so several copies on one
+   page do not collide on element ids. The height below is a first guess;
+   each widget posts its real height and the listener at the bottom of this
+   file applies it. */
+iframe.widget-frame {
+  display: block;
+  width: 100%;
+  height: 440px;      /* replaced by the widget's own reported height */
+  border: 0;          /* the widget draws its own frame */
+  background: transparent;
+  margin: 1.2rem 0 0;
+}
+/* Inside a .thmsim box the frame sits flush; the box supplies the padding. */
+.thmbox-simulation iframe.widget-frame { margin: 0.5rem 0 0.2rem; }
+.thmbox {
+  border-inline-start: 4px solid #9ca3af;
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  margin: 1rem 0;
+}
+.thmbox > :first-child { margin-top: 0; }
+.thmbox > :last-child { margin-bottom: 0; }
+.thmbox-definition  { border-color: #3b82f6; background: #eff6ff; }
+.thmbox-theorem     { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-proposition { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-lemma       { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-corollary   { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-example     { border-color: #d97706; background: #fffbeb; }
+/* Question: kin to .thmbox-example, so same hue family, one shade deeper. Its
+   solution reuses the proof's slate — a solution is to a question what a proof
+   is to a theorem, and the reader already reads that grey as "the working". */
+.thmbox-question    { border-color: #b45309; background: #fef6e7; }
+.thmbox-solution    { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-solution > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-simulation  { border-color: #7c3aed; background: #f7f5ff; }
+.thmbox-proof       { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-proof > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-remark      { border-color: #cbd5e1; background: #f8fafc; }
+.thmbox-remark > p:first-child > strong { font-weight: 600; color: #64748b; }
+/* Optional box (.optional): foldable, collapsed by default; same gray look as .extra,
+   but the gray bar is the clickable <summary>. */
+details.thmoptional {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+details.thmoptional > summary {
+  background: #d1d5db;
+  color: #374151;
+  font-weight: 700;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+}
+details.thmoptional[open] > summary { border-bottom: 1px solid #9ca3af; }
+details.thmoptional > .optional { padding: 0.7rem 0.9rem; }
+details.thmoptional > .optional > :first-child { margin-top: 0; }
+details.thmoptional > .optional > :last-child { margin-bottom: 0; }
+/* .foldable: hidden calculations / derivations. Distinct from .optional (which is a
+   whole gray-boxed aside) — this is a light inline disclosure inside the running text. */
+details.thmfoldable {
+  margin: 1rem 0;
+  border-inline-start: 3px solid #cbd5e1;
+  padding-inline-start: 0.8rem;
+}
+details.thmfoldable > summary {
+  cursor: pointer;
+  color: #475569;
+  font-weight: 600;
+}
+details.thmfoldable[open] > summary { margin-bottom: 0.5rem; }
+details.thmcollapse { margin: 1rem 0; }
+details.thmcollapse > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #475569;
+  padding: 0.2rem 0;
+}
+details.thmcollapse[open] > summary { margin-bottom: 0.4rem; }
+/* Enrichment box (.extra): non-foldable, gray box; the section heading becomes a gray
+   header bar. Quarto merges the div into <section class="... extra">, so we style .extra. */
+.extra {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  padding: 0.7rem 0.9rem;
+}
+.extra > h2, .extra > h3, .extra > .extra-title {
+  background: #d1d5db;
+  color: #374151;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: -0.7rem -0.9rem 0.8rem;
+  padding: 0.45rem 0.8rem;
+  border-bottom: 1px solid #9ca3af;
+}
+.extra > :last-child { margin-bottom: 0; }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".tf-quiz").forEach(function (quiz) {
+    var correct = quiz.getAttribute("data-correct");
+    var feedback = quiz.querySelector(".tf-feedback");
+    quiz.querySelectorAll(".tf-opt").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        quiz.querySelectorAll(".tf-opt").forEach(function (b) {
+          b.classList.remove("correct", "incorrect");
+        });
+        if (btn.getAttribute("data-val") === correct) {
+          btn.classList.add("correct");
+          if (feedback) feedback.textContent = "✓ נכון!";
+        } else {
+          btn.classList.add("incorrect");
+          if (feedback) feedback.textContent = "✗ לא מדויק — נסו שוב, או פתחו את הפתרון.";
+        }
+      });
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function normSet(str) {
+    if (!str) return [];
+    return Array.from(new Set(
+      str.split(/[\s,;]+/).filter(function (s) { return s.length; }).map(Number)
+    )).filter(function (n) { return !Number.isNaN(n); }).sort(function (a, b) { return a - b; });
+  }
+  function eqSet(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) { if (a[i] !== b[i]) return false; }
+    return true;
+  }
+  document.querySelectorAll(".set-quiz").forEach(function (q) {
+    var answer = normSet(q.getAttribute("data-answer"));
+    var input = q.querySelector(".set-input");
+    var feedback = q.querySelector(".set-feedback");
+    var btn = q.querySelector(".set-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSet(normSet(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Evaluate one entered term as arithmetic (whitelisted chars only: digits + - * / ^ ( ) . )
+  function evalTerm(s) {
+    s = String(s).trim();
+    if (!s) return null;
+    if (!/^[0-9+\-*/^().\s]+$/.test(s)) return null;
+    try {
+      var v = Function('"use strict"; return (' + s.replace(/\^/g, "**") + ');')();
+      return (typeof v === "number" && isFinite(v)) ? v : null;
+    } catch (e) { return null; }
+  }
+  function parseSeq(str) { return String(str || "").split(",").map(evalTerm); }
+  function eqSeq(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] == null || b[i] == null || Math.abs(a[i] - b[i]) > 1e-9) return false;
+    }
+    return true;
+  }
+  document.querySelectorAll(".seq-quiz").forEach(function (q) {
+    var answer = parseSeq(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSeq(parseSeq(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Build n -> value from a formula in n (whitelisted: digits, n, + - * / ^ ! ( ) . )
+  function makeFormula(s) {
+    s = String(s || "").trim();
+    if (!s || !/^[0-9n+\-*/^!().\s]+$/.test(s)) return null;
+    s = s.replace(/(\d)\s*([n(])/g, "$1*$2")             // 2n, 2(  -> 2*n, 2*(
+         .replace(/([n)])\s*([n(])/g, "$1*$2")           // )n, )(, n(  -> insert *
+         .replace(/(\([^()]*\)|\d+|n)!/g, "fact($1)")    // n!, 5!, (n+1)!  -> fact(...)
+         .replace(/\^/g, "**");
+    try {
+      var f = Function("n", '"use strict"; var fact=function(k){k=Math.round(k);var r=1;for(var i=2;i<=k;i++)r*=i;return r;}; return (' + s + ");");
+      var t = f(1);
+      return (typeof t === "number" && isFinite(t)) ? f : null;
+    } catch (e) { return null; }
+  }
+  function parseTargets(str) {
+    return String(str || "").split(",").map(function (t) {
+      t = t.trim();
+      if (!/^-?[0-9]+(?:\/[0-9]+)?$/.test(t)) return NaN;
+      var p = t.split("/");
+      return p.length === 2 ? Number(p[0]) / Number(p[1]) : Number(p[0]);
+    });
+  }
+  document.querySelectorAll(".formula-quiz").forEach(function (q) {
+    var targets = parseTargets(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      var f = makeFormula(input.value), ok = !!f;
+      for (var i = 0; ok && i < targets.length; i++) {
+        var v; try { v = f(i + 1); } catch (e) { ok = false; break; }
+        if (typeof v !== "number" || !isFinite(v) || Math.abs(v - targets[i]) > 1e-9) ok = false;
+      }
+      if (ok) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+// Widgets embedded from widgets/<chapter>/ report their own height, so the
+// iframe does not need a hard-coded one (which breaks on narrow screens,
+// where the control panel stacks above the plot).
+window.addEventListener("message", function (e) {
+  var d = e.data;
+  if (!d || d.type !== "widget-height" || typeof d.height !== "number") return;
+  var frames = document.querySelectorAll("iframe.widget-frame");
+  for (var i = 0; i < frames.length; i++) {
+    if (frames[i].contentWindow === e.source) {
+      frames[i].style.height = Math.max(320, Math.min(2000, d.height)) + "px";
+      return;
+    }
+  }
+});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-Space-Curves.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">תרגול 4: עקומות במרחב</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="חפש" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">גיאומטריה דיפרנציאלית — תרגולים</a> 
+        <div class="sidebar-tools-main">
+    <a href="./Differential-Geometry-Tirgulim.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="הצג/הסתר מצב קריאה">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="חפש"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">פתח דבר</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Quadrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Plane-Curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">תרגול 2: גיאומטריה דיפרנציאלית של עקומות במישור</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Curvature-and-Space-Curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">תרגול 3: עקמומיות בפרמטריזציה כללית, המעגל המשיק והאוולוט</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Space-Curves.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">תרגול 4: עקומות במרחב</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">תוכן העניינים</h2>
+   
+  <ul>
+  <li><a href="#מכפלה-וקטורית" id="toc-מכפלה-וקטורית" class="nav-link active" data-scroll-target="#מכפלה-וקטורית"><span class="header-section-number">4.1</span> מכפלה וקטורית</a>
+  <ul>
+  <li><a href="#תרגילים" id="toc-תרגילים" class="nav-link" data-scroll-target="#תרגילים">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#עקומות-במרחב" id="toc-עקומות-במרחב" class="nav-link" data-scroll-target="#עקומות-במרחב"><span class="header-section-number">4.2</span> עקומות במרחב</a></li>
+  <li><a href="#מערכת-פרנהסרה" id="toc-מערכת-פרנהסרה" class="nav-link" data-scroll-target="#מערכת-פרנהסרה"><span class="header-section-number">4.3</span> מערכת פרנה־סרה</a>
+  <ul>
+  <li><a href="#תרגילים-1" id="toc-תרגילים-1" class="nav-link" data-scroll-target="#תרגילים-1">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#חישוב-עקמומיות-ופיתול" id="toc-חישוב-עקמומיות-ופיתול" class="nav-link" data-scroll-target="#חישוב-עקמומיות-ופיתול"><span class="header-section-number">4.4</span> חישוב עקמומיות ופיתול</a>
+  <ul>
+  <li><a href="#תרגילים-2" id="toc-תרגילים-2" class="nav-link" data-scroll-target="#תרגילים-2">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#מקורות" id="toc-מקורות" class="nav-link" data-scroll-target="#מקורות"><span class="header-section-number">4.5</span> מקורות</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">תרגול 4: עקומות במרחב</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="מכפלה-וקטורית" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="מכפלה-וקטורית"><span class="header-section-number">4.1</span> מכפלה וקטורית</h2>
+<p>המכפלה הווקטורית היא הכלי שבו נבנה את המסגרת הנעה של עקומה במרחב, ולכן נאסוף כאן את התכונות שישמשו אותנו.</p>
+<div id="box-def-cross-product" class="thmbox thmbox-definition" title="מכפלה וקטורית">
+<p><strong>הגדרה 4.1.1 — מכפלה וקטורית.</strong></p>
+<p>עבור <span class="math inline">\(a = \left( a_1, a_2, a_3 \right)\)</span> ו-<span class="math inline">\(b = \left( b_1, b_2, b_3 \right)\)</span> ב-<span class="math inline">\(\mathbb{R}^3\)</span>, <strong>המכפלה הווקטורית</strong> שלהם מוגדרת על ידי <span class="math display">\[.a \times b = \left( a_2 b_3 - a_3 b_2,\ a_3 b_1 - a_1 b_3,\ a_1 b_2 - a_2 b_1 \right)\]</span></p>
+</div>
+<div id="box-rem-cross-mnemonic" class="thmbox thmbox-remark" title="כלל הזיכרון">
+<p><strong>הערה 4.1.2 — כלל הזיכרון.</strong></p>
+<p>נוח לזכור את ההגדרה כפיתוח פורמלי של דטרמיננטה לפי השורה הראשונה, <span class="math display">\[,a \times b = \det \begin{pmatrix} e_1 &amp; e_2 &amp; e_3 \\ a_1 &amp; a_2 &amp; a_3 \\ b_1 &amp; b_2 &amp; b_3 \end{pmatrix}\]</span> כאשר <span class="math inline">\(e_1, e_2, e_3\)</span> הם וקטורי הבסיס הסטנדרטי. זהו כלל זיכרון בלבד, שכן בשורה הראשונה יושבים וקטורים ולא סקלרים, אך המקדמים שהוא מייצר הם בדיוק אלה שבהגדרה.</p>
+</div>
+<div id="box-prp-cross-basic" class="thmbox thmbox-proposition" title="תכונות יסודיות">
+<p><strong>טענה 4.1.3 — תכונות יסודיות.</strong></p>
+<p>לכל <span class="math inline">\(a, b, c \in \mathbb{R}^3\)</span> ולכל סקלר <span class="math inline">\(\lambda\)</span> מתקיים:</p>
+<ol type="1">
+<li><strong>אנטי-סימטריה:</strong> <span class="math inline">\(b \times a = -\left( a \times b \right)\)</span>, ובפרט <span class="math inline">\(a \times a = 0\)</span>.</li>
+<li><strong>בילינאריות:</strong> <span class="math inline">\(\left( a + \lambda c \right) \times b = a \times b + \lambda \left( c \times b \right)\)</span>, ובאותו אופן ברכיב השני.</li>
+<li><strong>ניצבות:</strong> <span class="math inline">\(\left\langle a \times b,\ a \right\rangle = \left\langle a \times b,\ b \right\rangle = 0\)</span>.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p><strong>אנטי-סימטריה.</strong> בהחלפת התפקידים של <span class="math inline">\(a\)</span> ו-<span class="math inline">\(b\)</span> כל אחד משלושת הרכיבים בהגדרה מחליף סימן. למשל הרכיב הראשון הופך מ-<span class="math inline">\(a_2 b_3 - a_3 b_2\)</span> ל-<span class="math inline">\(b_2 a_3 - b_3 a_2\)</span>, שהוא נגדי לו. עבור <span class="math inline">\(a \times a\)</span> נציב <span class="math inline">\(b = a\)</span> ונקבל <span class="math inline">\(a \times a = -\left( a \times a \right)\)</span>, ולכן <span class="math inline">\(a \times a = 0\)</span>.</p>
+<p><strong>בילינאריות.</strong> כל רכיב בהגדרה הוא צירוף של מכפלות שבהן מופיע רכיב אחד של <span class="math inline">\(a\)</span> ורכיב אחד של <span class="math inline">\(b\)</span>, ולכן הוא לינארי בכל אחד מהם בנפרד.</p>
+<p><strong>ניצבות.</strong> נחשב ישירות: <span class="math display">\[.\left\langle a \times b,\ a \right\rangle = a_1\left( a_2 b_3 - a_3 b_2 \right) + a_2\left( a_3 b_1 - a_1 b_3 \right) + a_3\left( a_1 b_2 - a_2 b_1 \right)\]</span> נפתח את הסוגריים ונקבל שישה מחוברים, <span class="math display">\[,a_1 a_2 b_3 - a_1 a_3 b_2 + a_2 a_3 b_1 - a_1 a_2 b_3 + a_1 a_3 b_2 - a_2 a_3 b_1\]</span> והם מצטמצמים בזוגות. עבור <span class="math inline">\(b\)</span> החישוב זהה, או לחלופין נשתמש באנטי-סימטריה.</p>
+</div>
+<div id="box-prp-cross-triple" class="thmbox thmbox-proposition" title="המכפלה המעורבת">
+<p><strong>טענה 4.1.4 — המכפלה המעורבת.</strong></p>
+<p>לכל <span class="math inline">\(a, b, c \in \mathbb{R}^3\)</span> מתקיים <span class="math display">\[,\left\langle a \times b,\ c \right\rangle = \det \left( a, b, c \right)\]</span> כאשר <span class="math inline">\(\det(a,b,c)\)</span> היא הדטרמיננטה של המטריצה ששורותיה <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> ו-<span class="math inline">\(c\)</span>.</p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p>נפתח את הדטרמיננטה לפי השורה השלישית: <span class="math display">\[.\det(a,b,c) = c_1 \det \begin{pmatrix} a_2 &amp; a_3 \\ b_2 &amp; b_3 \end{pmatrix} - c_2 \det \begin{pmatrix} a_1 &amp; a_3 \\ b_1 &amp; b_3 \end{pmatrix} + c_3 \det \begin{pmatrix} a_1 &amp; a_2 \\ b_1 &amp; b_2 \end{pmatrix}\]</span></p>
+<p>שלושת המינורים הם <span class="math display">\[,a_2 b_3 - a_3 b_2, \qquad a_1 b_3 - a_3 b_1, \qquad a_1 b_2 - a_2 b_1\]</span> ולכן, עם הסימנים המתחלפים, <span class="math display">\[,\det(a,b,c) = c_1 \left( a_2 b_3 - a_3 b_2 \right) + c_2 \left( a_3 b_1 - a_1 b_3 \right) + c_3 \left( a_1 b_2 - a_2 b_1 \right)\]</span> וזו בדיוק המכפלה הפנימית של <span class="math inline">\(c\)</span> עם הווקטור שבהגדרת <span class="math inline">\(a \times b\)</span>.</p>
+</div>
+<div id="box-cor-cross-norm" class="thmbox thmbox-corollary" title="אורך המכפלה">
+<p><strong>מסקנה 4.1.5 — אורך המכפלה.</strong></p>
+<p>לכל <span class="math inline">\(a, b \in \mathbb{R}^3\)</span> מתקיימת זהות לגראנז’ <span class="math display">\[,\left\| a \times b \right\|^2 = \left\| a \right\|^2 \left\| b \right\|^2 - \left\langle a, b \right\rangle^2\]</span> ולכן, אם <span class="math inline">\(\theta\)</span> היא הזווית בין <span class="math inline">\(a\)</span> ל-<span class="math inline">\(b\)</span>, <span class="math display">\[.\left\| a \times b \right\| = \left\| a \right\| \left\| b \right\| \sin \theta\]</span> בפרט <span class="math inline">\(a \times b = 0\)</span> אם ורק אם <span class="math inline">\(a\)</span> ו-<span class="math inline">\(b\)</span> תלויים לינארית.</p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p>את זהות לגראנז’ מקבלים בפתיחה ישירה של שני האגפים; שניהם מסתכמים באותם מחוברים. מכאן, לפי <span class="math inline">\(\left\langle a, b \right\rangle = \left\| a \right\| \left\| b \right\| \cos \theta\)</span>, <span class="math display">\[,\left\| a \times b \right\|^2 = \left\| a \right\|^2 \left\| b \right\|^2 \left( 1 - \cos^2 \theta \right) = \left\| a \right\|^2 \left\| b \right\|^2 \sin^2 \theta\]</span> ומכיוון ש-<span class="math inline">\(0 \leq \theta \leq \pi\)</span> מתקיים <span class="math inline">\(\sin \theta \geq 0\)</span>, ואפשר להוציא שורש בלי ערך מוחלט.</p>
+<p>לבסוף, <span class="math inline">\(a \times b = 0\)</span> אם ורק אם <span class="math inline">\(\left\| a \right\| \left\| b \right\| \sin\theta = 0\)</span>, כלומר אם אחד הווקטורים הוא אפס או <span class="math inline">\(\theta \in \{0, \pi\}\)</span>, וזה בדיוק תנאי התלות הלינארית.</p>
+</div>
+<div id="box-prp-bac-cab" class="thmbox thmbox-proposition" title="פיתוח המכפלה המשולשת">
+<p><strong>טענה 4.1.6 — פיתוח המכפלה המשולשת.</strong></p>
+<p>לכל <span class="math inline">\(a, b, c \in \mathbb{R}^3\)</span> מתקיים <span class="math display">\[.a \times \left( b \times c \right) = \left\langle a, c \right\rangle b - \left\langle a, b \right\rangle c\]</span></p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p>שני האגפים לינאריים בכל אחד משלושת המשתנים, ולכן די לבדוק את הזהות על וקטורי הבסיס הסטנדרטי <span class="math inline">\(e_1, e_2, e_3\)</span>. נבדוק את הרכיב הראשון של האגף השמאלי ישירות מההגדרה.</p>
+<p>נסמן <span class="math inline">\(u = b \times c\)</span>, כלומר <span class="math inline">\(u_1 = b_2 c_3 - b_3 c_2\)</span> וכן הלאה. הרכיב הראשון של <span class="math inline">\(a \times u\)</span> הוא <span class="math display">\[.a_2 u_3 - a_3 u_2 = a_2 \left( b_1 c_2 - b_2 c_1 \right) - a_3 \left( b_3 c_1 - b_1 c_3 \right)\]</span></p>
+<p>נפתח ונאסוף לפי <span class="math inline">\(b_1\)</span> ולפי <span class="math inline">\(c_1\)</span>: <span class="math display">\[.a_2 b_1 c_2 - a_2 b_2 c_1 - a_3 b_3 c_1 + a_3 b_1 c_3 = b_1 \left( a_2 c_2 + a_3 c_3 \right) - c_1 \left( a_2 b_2 + a_3 b_3 \right)\]</span></p>
+<p>נוסיף ונחסר את המחובר החסר <span class="math inline">\(a_1 b_1 c_1\)</span> בכל אחד מהסוגריים: <span class="math display">\[,b_1 \left( a_1 c_1 + a_2 c_2 + a_3 c_3 \right) - c_1 \left( a_1 b_1 + a_2 b_2 + a_3 b_3 \right)\]</span> שכן התוספות <span class="math inline">\(b_1 a_1 c_1\)</span> ו-<span class="math inline">\(c_1 a_1 b_1\)</span> שוות ומבטלות זו את זו. הביטוי האחרון הוא בדיוק הרכיב הראשון של <span class="math inline">\(\left\langle a, c \right\rangle b - \left\langle a, b \right\rangle c\)</span>. עבור הרכיבים השני והשלישי החישוב זהה, בהחלפה מעגלית של האינדקסים.</p>
+</div>
+<div id="box-prp-cross-derivative" class="thmbox thmbox-proposition" title="כלל המכפלה לגזירה">
+<p><strong>טענה 4.1.7 — כלל המכפלה לגזירה.</strong></p>
+<p>תהיינה <span class="math inline">\(u(t)\)</span> ו-<span class="math inline">\(v(t)\)</span> פונקציות וקטוריות גזירות ב-<span class="math inline">\(\mathbb{R}^3\)</span>. אז <span class="math display">\[.\frac{d}{dt}\left( u \times v \right) = \frac{du}{dt} \times v + u \times \frac{dv}{dt}\]</span></p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p>נבדוק רכיב-רכיב. הרכיב הראשון של <span class="math inline">\(u \times v\)</span> הוא <span class="math inline">\(u_2 v_3 - u_3 v_2\)</span>, ולפי כלל המכפלה לפונקציות סקלריות <span class="math display">\[.\frac{d}{dt}\left( u_2 v_3 - u_3 v_2 \right) = \left( u_2' v_3 - u_3' v_2 \right) + \left( u_2 v_3' - u_3 v_2' \right)\]</span> המחובר הראשון הוא הרכיב הראשון של <span class="math inline">\(u' \times v\)</span>, והשני הוא הרכיב הראשון של <span class="math inline">\(u \times v'\)</span>. שני הרכיבים הנותרים מתקבלים באותו אופן.</p>
+<p>שימו לב שהסדר נשמר: מכיוון שהמכפלה הווקטורית אנטי-סימטרית, אסור להחליף את סדר הגורמים באגף ימין.</p>
+</div>
+<section id="תרגילים" class="level3">
+<h3 class="anchored" data-anchor-id="תרגילים">תרגילים</h3>
+<div id="box-q-cross-orthonormal" class="thmbox thmbox-question">
+<p><strong>שאלה 4.1.8.</strong></p>
+<p>תהי <span class="math inline">\(\{u, v\}\)</span> זוג וקטורים אורתונורמליים ב-<span class="math inline">\(\mathbb{R}^3\)</span>. הראו ש-<span class="math inline">\(\left\{ u, v, u \times v \right\}\)</span> הוא בסיס אורתונורמלי של <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: ניצבות</summary>
+<div class="foldable" title="שלב 1: ניצבות">
+<p>לפי <a href="#box-prp-cross-basic">טענה 4.1.3</a> הווקטור <span class="math inline">\(u \times v\)</span> ניצב ל-<span class="math inline">\(u\)</span> ול-<span class="math inline">\(v\)</span>, ולפי ההנחה <span class="math inline">\(u\)</span> ו-<span class="math inline">\(v\)</span> ניצבים זה לזה. לכן שלושת הווקטורים ניצבים בזוגות.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: אורך</summary>
+<div class="foldable" title="שלב 2: אורך">
+<p>לפי <a href="#box-cor-cross-norm">מסקנה 4.1.5</a> <span class="math display">\[,\left\| u \times v \right\|^2 = \left\| u \right\|^2 \left\| v \right\|^2 - \left\langle u, v \right\rangle^2 = 1 \cdot 1 - 0 = 1\]</span> ולכן <span class="math inline">\(\left\| u \times v \right\| = 1\)</span>. יחד עם ההנחה שגם <span class="math inline">\(u\)</span> ו-<span class="math inline">\(v\)</span> הם וקטורי יחידה, שלושת הווקטורים אורתונורמליים.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: בסיס</summary>
+<div class="foldable" title="שלב 3: בסיס">
+<p>קבוצה אורתונורמלית היא בפרט בלתי תלויה לינארית: אם <span class="math inline">\(\alpha u + \beta v + \gamma \left( u \times v \right) = 0\)</span>, נכפול סקלרית ב-<span class="math inline">\(u\)</span> ונקבל <span class="math inline">\(\alpha = 0\)</span>, ובאותו אופן <span class="math inline">\(\beta = \gamma = 0\)</span>. שלושה וקטורים בלתי תלויים ב-<span class="math inline">\(\mathbb{R}^3\)</span> מהווים בסיס.</p>
+</div>
+</details>
+</div>
+<div id="box-q-cross-not-associative" class="thmbox thmbox-question">
+<p><strong>שאלה 4.1.9.</strong></p>
+<p>הראו שהמכפלה הווקטורית <strong>אינה</strong> אסוציאטיבית, כלומר שקיימים <span class="math inline">\(a, b, c\)</span> שעבורם <span class="math display">\[.\left( a \times b \right) \times c \neq a \times \left( b \times c \right)\]</span></p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>דוגמה נגדית</summary>
+<div class="foldable" title="דוגמה נגדית">
+<p>ניקח <span class="math inline">\(a = b = e_1\)</span> ו-<span class="math inline">\(c = e_2\)</span>. באגף שמאל <span class="math display">\[,\left( e_1 \times e_1 \right) \times e_2 = 0 \times e_2 = 0\]</span> שכן <span class="math inline">\(a \times a = 0\)</span> לפי <a href="#box-prp-cross-basic">טענה 4.1.3</a>.</p>
+<p>באגף ימין נשתמש ב<a href="#box-prp-bac-cab">טענה 4.1.6</a>: <span class="math display">\[.e_1 \times \left( e_1 \times e_2 \right) = \left\langle e_1, e_2 \right\rangle e_1 - \left\langle e_1, e_1 \right\rangle e_2 = 0 \cdot e_1 - 1 \cdot e_2 = -e_2\]</span></p>
+<p>שני האגפים שונים, ולכן אין אסוציאטיביות.</p>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="עקומות-במרחב" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="עקומות-במרחב"><span class="header-section-number">4.2</span> עקומות במרחב</h2>
+<div id="box-def-space-curve" class="thmbox thmbox-definition" title="עקומה במרחב">
+<p><strong>הגדרה 4.2.1 — עקומה במרחב.</strong></p>
+<p>עקומה ב-<span class="math inline">\(\mathbb{R}^3\)</span> היא פונקציה <span class="math display">\[,\gamma(t) = \left( \gamma^1(t),\ \gamma^2(t),\ \gamma^3(t) \right)\]</span> והיא <strong>רגולרית</strong> בנקודה <span class="math inline">\(t_0\)</span> אם <span class="math inline">\(\gamma'(t_0)\)</span> קיימת ושונה מאפס. במקרה זה <span class="math inline">\(\gamma'(t_0)\)</span> הוא הוקטור המשיק לעקומה בנקודה.</p>
+</div>
+<div id="box-def-space-arclength" class="thmbox thmbox-definition" title="אורך קשת במרחב">
+<p><strong>הגדרה 4.2.2 — אורך קשת במרחב.</strong></p>
+<p>תהי <span class="math inline">\(\gamma : [a,b] \to \mathbb{R}^3\)</span> עקומה רגולרית. אורכה הוא <span class="math display">\[,L = \int_a^b \left\| \gamma'(t) \right\| dt = \int_a^b \sqrt{\left( \gamma^{1\prime}(t) \right)^2 + \left( \gamma^{2\prime}(t) \right)^2 + \left( \gamma^{3\prime}(t) \right)^2}\, dt\]</span> ופרמטר אורך הקשת מוגדר על ידי <span class="math display">\[.s(t) = \int_0^t \left\| \gamma'(u) \right\| du\]</span></p>
+</div>
+<div id="box-def-space-frame" class="thmbox thmbox-definition" title="המסגרת הנעה">
+<p><strong>הגדרה 4.2.3 — המסגרת הנעה.</strong></p>
+<p>תהי <span class="math inline">\(\gamma(s)\)</span> עקומה במרחב בפרמטריזציית אורך קשת, שעקמומיותה <span class="math display">\[,k(s) = \left\| T'(s) \right\|\]</span> אינה מתאפסת. אז מוגדרים</p>
+<ul>
+<li><strong>הוקטור המשיק</strong> <span class="math display">\[,T(s) = \gamma'(s)\]</span></li>
+<li><strong>הוקטור הנורמלי הראשי</strong> <span class="math display">\[,N(s) = \frac{1}{k(s)} T'(s)\]</span></li>
+<li><strong>הוקטור הבי-נורמלי</strong> <span class="math display">\[.B(s) = T(s) \times N(s)\]</span></li>
+</ul>
+<p>בפרמטריזציה כללית <span class="math inline">\(T = \dfrac{\gamma'}{\left\| \gamma' \right\|}\)</span> ו-<span class="math inline">\(N = \dfrac{T'}{\left\| T' \right\|}\)</span>.</p>
+</div>
+<div id="box-rem-space-k-nonneg" class="thmbox thmbox-remark" title="שימו לב לשינוי בהגדרות">
+<p><strong>הערה 4.2.4 — שימו לב לשינוי בהגדרות.</strong></p>
+<p>שתי נקודות שבהן ההגדרה במרחב שונה מזו שבמישור.</p>
+<p>ראשית, במישור הגדרנו את <span class="math inline">\(N\)</span> כסיבוב של <span class="math inline">\(T\)</span> בזווית <span class="math inline">\(90^\circ\)</span>, וסיבוב כזה אינו קיים במרחב. לכן <span class="math inline">\(N\)</span> מוגדר כאן דרך <span class="math inline">\(T'\)</span> עצמו, ומכאן שהוא מוגדר רק היכן ש-<span class="math inline">\(T' \neq 0\)</span>.</p>
+<p>שנית, ומאותה סיבה, העקמומיות במרחב היא <span class="math inline">\(k = \left\| T' \right\|\)</span> ולכן <strong>אי-שלילית תמיד</strong>, בעוד שבמישור <span class="math inline">\(k\)</span> הייתה מסומנת. הסימן היה תלוי בבחירת הכיוון של <span class="math inline">\(N\)</span>, ובמרחב אין בחירה כזו.</p>
+</div>
+<div id="box-prp-frame-orthonormal" class="thmbox thmbox-proposition" title="המסגרת אורתונורמלית וימנית">
+<p><strong>טענה 4.2.5 — המסגרת אורתונורמלית וימנית.</strong></p>
+<p>בכל נקודה שבה <span class="math inline">\(k \neq 0\)</span>, השלישייה <span class="math inline">\(\left\{ T, N, B \right\}\)</span> היא בסיס אורתונורמלי ימני של <span class="math inline">\(\mathbb{R}^3\)</span>, ומתקיים <span class="math display">\[.T \times N = B, \qquad N \times B = T, \qquad B \times T = N\]</span></p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p><span class="math inline">\(T\)</span> הוא וקטור יחידה לפי ההגדרה, ו-<span class="math inline">\(N\)</span> הוא וקטור יחידה שכן חילקנו את <span class="math inline">\(T'\)</span> באורכו.</p>
+<p>הניצבות של <span class="math inline">\(T\)</span> ו-<span class="math inline">\(N\)</span> נובעת מכך ש-<span class="math inline">\(\left\| T \right\| \equiv 1\)</span>: בגזירת <span class="math inline">\(\left\langle T, T \right\rangle = 1\)</span> מתקבל <span class="math inline">\(2\left\langle T', T \right\rangle = 0\)</span>, ומכיוון ש-<span class="math inline">\(N\)</span> מקביל ל-<span class="math inline">\(T'\)</span> גם <span class="math inline">\(\left\langle N, T \right\rangle = 0\)</span>.</p>
+<p>מכאן, לפי <a href="#box-q-cross-orthonormal">שאלה 4.1.8</a>, <span class="math inline">\(\left\{ T, N, T \times N \right\}\)</span> הוא בסיס אורתונורמלי, וזה בדיוק <span class="math inline">\(\left\{ T, N, B \right\}\)</span>. הזהויות המחזוריות הן התכונה הסטנדרטית של בסיס אורתונורמלי ימני.</p>
+</div>
+</section>
+<section id="מערכת-פרנהסרה" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="מערכת-פרנהסרה"><span class="header-section-number">4.3</span> מערכת פרנה־סרה</h2>
+<div id="box-def-torsion" class="thmbox thmbox-definition" title="פיתול">
+<p><strong>הגדרה 4.3.1 — פיתול.</strong></p>
+<p>תהי <span class="math inline">\(\gamma(s)\)</span> עקומה במרחב בפרמטריזציית אורך קשת שעקמומיותה אינה מתאפסת. אז קיים סקלר <span class="math inline">\(\tau(s)\)</span>, הנקרא <strong>הפיתול</strong> של <span class="math inline">\(\gamma\)</span>, כך ש-<span class="math display">\[.B'(s) = -\tau(s) N(s)\]</span></p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p>צריך להראות ש-<span class="math inline">\(B'\)</span> אכן מקביל ל-<span class="math inline">\(N\)</span>; הסקלר <span class="math inline">\(\tau\)</span> מוגדר אז כמקדם, והסימן המינוס הוא מוסכמה שתחסוך סימנים בהמשך.</p>
+<p><strong><span class="math inline">\(B'\)</span> ניצב ל-<span class="math inline">\(B\)</span>.</strong> הווקטור <span class="math inline">\(B\)</span> הוא וקטור יחידה, ולכן בגזירת <span class="math inline">\(\left\langle B, B \right\rangle = 1\)</span> מתקבל <span class="math inline">\(\left\langle B', B \right\rangle = 0\)</span>.</p>
+<p><strong><span class="math inline">\(B'\)</span> ניצב ל-<span class="math inline">\(T\)</span>.</strong> נגזור את <span class="math inline">\(B = T \times N\)</span> לפי <a href="#box-prp-cross-derivative">טענה 4.1.7</a>: <span class="math display">\[.B' = T' \times N + T \times N'\]</span> המחובר הראשון מתאפס, שכן <span class="math inline">\(T' = kN\)</span> ולכן <span class="math inline">\(T' \times N = k \left( N \times N \right) = 0\)</span>. נשאר <span class="math display">\[,B' = T \times N'\]</span> ולפי <a href="#box-prp-cross-basic">טענה 4.1.3</a> הביטוי הזה ניצב ל-<span class="math inline">\(T\)</span>.</p>
+<p><strong>מסקנה.</strong> <span class="math inline">\(B'\)</span> ניצב גם ל-<span class="math inline">\(B\)</span> וגם ל-<span class="math inline">\(T\)</span>, ומכיוון ש-<span class="math inline">\(\left\{ T, N, B \right\}\)</span> בסיס אורתונורמלי, המשלים הניצב ל-<span class="math inline">\(\operatorname{span}\{T, B\}\)</span> נפרש על ידי <span class="math inline">\(N\)</span>. לכן <span class="math inline">\(B'\)</span> מקביל ל-<span class="math inline">\(N\)</span>, כלומר <span class="math inline">\(B' = -\tau N\)</span> עבור סקלר <span class="math inline">\(\tau\)</span> מתאים.</p>
+</div>
+<div id="box-thm-frenet-serret" class="thmbox thmbox-theorem" title="משוואות פרנה־סרה">
+<p><strong>משפט 4.3.2 — משוואות פרנה־סרה.</strong></p>
+<p>תהי <span class="math inline">\(\gamma(s)\)</span> עקומה במרחב בפרמטריזציית אורך קשת שעקמומיותה אינה מתאפסת. אז <span class="math display">\[,\begin{cases} T' = kN \\ N' = -kT + \tau B \\ B' = -\tau N \end{cases}\]</span> ובכתיב מטריציוני <span class="math display">\[.\begin{pmatrix} T' \\ N' \\ B' \end{pmatrix} = \begin{pmatrix} 0 &amp; k &amp; 0 \\ -k &amp; 0 &amp; \tau \\ 0 &amp; -\tau &amp; 0 \end{pmatrix} \begin{pmatrix} T \\ N \\ B \end{pmatrix}\]</span></p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p>המשוואה הראשונה היא הגדרת <span class="math inline">\(N\)</span>, והשלישית היא <a href="#box-def-torsion">הגדרה 4.3.1</a>. נותרה השנייה.</p>
+<p>נשתמש בזהות <span class="math inline">\(N = B \times T\)</span> מ<a href="#box-prp-frame-orthonormal">טענה 4.2.5</a> ונגזור אותה לפי <a href="#box-prp-cross-derivative">טענה 4.1.7</a>: <span class="math display">\[.N' = B' \times T + B \times T'\]</span></p>
+<p>נציב את שתי המשוואות הידועות, <span class="math inline">\(B' = -\tau N\)</span> ו-<span class="math inline">\(T' = kN\)</span>: <span class="math display">\[.N' = \left( -\tau N \right) \times T + B \times \left( kN \right) = -\tau \left( N \times T \right) + k \left( B \times N \right)\]</span></p>
+<p>לפי הזהויות המחזוריות <span class="math inline">\(N \times T = -B\)</span> וגם <span class="math inline">\(B \times N = -T\)</span>, ולכן <span class="math display">\[.N' = -\tau \left( -B \right) + k \left( -T \right) = -kT + \tau B\]</span></p>
+</div>
+<div id="box-rem-frenet-skew" class="thmbox thmbox-remark">
+<p><strong>הערה 4.3.3.</strong></p>
+<p>המטריצה במשפט היא <strong>אנטי-סימטרית</strong>, כלומר שווה למינוס המשוחלפת שלה. זו אינה מקריות: היא הביטוי לכך שהמסגרת נשארת אורתונורמלית לאורך העקומה. גם קל יותר לזכור כך את המערכת, שכן די לזכור את שני המקדמים <span class="math inline">\(k\)</span> ו-<span class="math inline">\(\tau\)</span> ואת מקומם.</p>
+</div>
+<div id="box-prp-planar-iff-tau-zero" class="thmbox thmbox-proposition" title="פיתול מודד יציאה ממישור">
+<p><strong>טענה 4.3.4 — פיתול מודד יציאה ממישור.</strong></p>
+<p>תהי <span class="math inline">\(\gamma\)</span> עקומה רגולרית ב-<span class="math inline">\(\mathbb{R}^3\)</span> שעקמומיותה אינה מתאפסת. אז התמונה של <span class="math inline">\(\gamma\)</span> מוכלת במישור אם ורק אם <span class="math inline">\(\tau \equiv 0\)</span>.</p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p>נניח שהפרמטריזציה היא באורך קשת; זה אינו משנה לא את הפיתול ולא את השאלה אם העקומה מישורית.</p>
+<p><strong>כיוון ראשון.</strong> נניח שהעקומה מוכלת במישור <span class="math inline">\(\left\langle v, N_0 \right\rangle = d\)</span>, כאשר <span class="math inline">\(N_0\)</span> וקטור יחידה קבוע. נגזור את <span class="math inline">\(\left\langle \gamma, N_0 \right\rangle = d\)</span> לפי <span class="math inline">\(s\)</span> ונקבל <span class="math display">\[,\left\langle T, N_0 \right\rangle = 0\]</span> ובגזירה נוספת, מכיוון ש-<span class="math inline">\(N_0\)</span> קבוע, <span class="math display">\[.\left\langle T', N_0 \right\rangle = 0\]</span> אבל <span class="math inline">\(T' = kN\)</span> ו-<span class="math inline">\(k \neq 0\)</span>, ולכן גם <span class="math display">\[.\left\langle N, N_0 \right\rangle = 0\]</span></p>
+<p>שני הווקטורים <span class="math inline">\(T\)</span> ו-<span class="math inline">\(N\)</span> ניצבים ל-<span class="math inline">\(N_0\)</span>, ולכן <span class="math inline">\(B = T \times N\)</span> מקביל ל-<span class="math inline">\(N_0\)</span>. שניהם וקטורי יחידה ו-<span class="math inline">\(B\)</span> רציף, ולכן <span class="math inline">\(B \equiv N_0\)</span> או <span class="math inline">\(B \equiv -N_0\)</span>; בשני המקרים <span class="math inline">\(B\)</span> קבוע, ומכאן <span class="math inline">\(B' = 0\)</span> ולכן <span class="math inline">\(\tau = 0\)</span>.</p>
+<p><strong>כיוון שני.</strong> נניח <span class="math inline">\(\tau \equiv 0\)</span>. אז <span class="math inline">\(B' = 0\)</span>, כלומר <span class="math inline">\(B\)</span> וקטור קבוע. נגזור את המכפלה <span class="math inline">\(\left\langle \gamma, B \right\rangle\)</span>: <span class="math display">\[,\frac{d}{ds}\left\langle \gamma, B \right\rangle = \left\langle \gamma', B \right\rangle = \left\langle T, B \right\rangle = 0\]</span> ולכן <span class="math inline">\(\left\langle \gamma, B \right\rangle\)</span> קבועה, נאמר <span class="math inline">\(d\)</span>. משמעות הדבר היא ש-<span class="math inline">\(\gamma\)</span> מוכלת במישור <span class="math inline">\(\left\langle v, B \right\rangle = d\)</span>.</p>
+</div>
+<div id="box-prp-const-k-zero-tau" class="thmbox thmbox-proposition" title="עקמומיות קבועה ופיתול אפס">
+<p><strong>טענה 4.3.5 — עקמומיות קבועה ופיתול אפס.</strong></p>
+<p>תהי <span class="math inline">\(\gamma(s)\)</span> עקומה במרחב בפרמטריזציית אורך קשת שעקמומיותה <span class="math inline">\(k\)</span> קבועה ופיתולה <span class="math inline">\(\tau \equiv 0\)</span>. אז <span class="math inline">\(\gamma\)</span> היא פרמטריזציה של קשת מעגל ברדיוס <span class="math inline">\(\frac{1}{k}\)</span>.</p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p>לפי <a href="#box-prp-planar-iff-tau-zero">טענה 4.3.4</a> העקומה מוכלת במישור <span class="math inline">\(\Pi\)</span> הניצב ל-<span class="math inline">\(B\)</span> הקבוע.</p>
+<p>נתבונן בביטוי <span class="math inline">\(\gamma + \frac{1}{k} N\)</span> ונגזור אותו. מכיוון ש-<span class="math inline">\(k\)</span> קבועה, <span class="math display">\[.\frac{d}{ds}\left( \gamma + \frac{1}{k} N \right) = T + \frac{1}{k} N'\]</span> לפי פרנה־סרה, ומכיוון ש-<span class="math inline">\(\tau = 0\)</span>, <span class="math display">\[,N' = -kT + \tau B = -kT\]</span> ולכן <span class="math display">\[.T + \frac{1}{k}\left( -kT \right) = T - T = 0\]</span></p>
+<p>לכן <span class="math inline">\(\gamma + \frac{1}{k} N\)</span> הוא וקטור קבוע, נסמנו <span class="math inline">\(a\)</span>. מכאן <span class="math display">\[,\left\| \gamma - a \right\| = \left\| -\frac{1}{k} N \right\| = \frac{1}{k}\]</span> כלומר כל נקודות העקומה נמצאות במרחק קבוע <span class="math inline">\(\frac{1}{k}\)</span> מהנקודה <span class="math inline">\(a\)</span>. יחד עם ההכלה במישור <span class="math inline">\(\Pi\)</span> מתקבל שהעקומה מוכלת במעגל ברדיוס <span class="math inline">\(\frac{1}{k}\)</span> שמרכזו <span class="math inline">\(a\)</span>.</p>
+</div>
+<section id="תרגילים-1" class="level3">
+<h3 class="anchored" data-anchor-id="תרגילים-1">תרגילים</h3>
+<div id="box-q-frenet-circle-in-space" class="thmbox thmbox-question">
+<p><strong>שאלה 4.3.6.</strong></p>
+<p>חשבו את <span class="math inline">\(T\)</span>, <span class="math inline">\(N\)</span>, <span class="math inline">\(B\)</span>, את העקמומיות ואת הפיתול של העקומה <span class="math display">\[,\gamma(t) = \left( \frac{4}{5}\cos t,\ 1 - \sin t,\ -\frac{3}{5}\cos t \right)\]</span> והראו שהיא מעגל. מצאו את מרכזו, את רדיוסו ואת המישור שבו הוא מונח.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: הפרמטריזציה היא באורך קשת</summary>
+<div class="foldable" title="שלב 1: הפרמטריזציה היא באורך קשת">
+<p>נגזור: <span class="math display">\[.\gamma'(t) = \left( -\frac{4}{5}\sin t,\ -\cos t,\ \frac{3}{5}\sin t \right)\]</span> נחשב את האורך בריבוע: <span class="math display">\[,\left\| \gamma' \right\|^2 = \frac{16}{25}\sin^2 t + \cos^2 t + \frac{9}{25}\sin^2 t = \left( \frac{16}{25} + \frac{9}{25} \right)\sin^2 t + \cos^2 t = \sin^2 t + \cos^2 t = 1\]</span> ולכן <span class="math inline">\(\left\| \gamma' \right\| = 1\)</span> והפרמטריזציה היא באורך קשת. בפרט <span class="math inline">\(T = \gamma'\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: עקמומיות ונורמל</summary>
+<div class="foldable" title="שלב 2: עקמומיות ונורמל">
+<p>נגזור שוב: <span class="math display">\[.T'(t) = \left( -\frac{4}{5}\cos t,\ \sin t,\ \frac{3}{5}\cos t \right)\]</span> באותו חישוב כמו קודם <span class="math inline">\(\left\| T' \right\| = 1\)</span>, ולכן <span class="math display">\[,k = 1\]</span> והנורמל הראשי הוא <span class="math display">\[.N = \frac{1}{k}T' = \left( -\frac{4}{5}\cos t,\ \sin t,\ \frac{3}{5}\cos t \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הבי-נורמל והפיתול</summary>
+<div class="foldable" title="שלב 3: הבי-נורמל והפיתול">
+<p>נחשב <span class="math inline">\(B = T \times N\)</span> לפי ההגדרה. הרכיב הראשון: <span class="math display">\[.T_2 N_3 - T_3 N_2 = \left( -\cos t \right)\left( \frac{3}{5}\cos t \right) - \left( \frac{3}{5}\sin t \right)\left( \sin t \right) = -\frac{3}{5}\left( \cos^2 t + \sin^2 t \right) = -\frac{3}{5}\]</span></p>
+<p>הרכיב השני: <span class="math display">\[.T_3 N_1 - T_1 N_3 = \left( \frac{3}{5}\sin t \right)\left( -\frac{4}{5}\cos t \right) - \left( -\frac{4}{5}\sin t \right)\left( \frac{3}{5}\cos t \right) = 0\]</span></p>
+<p>הרכיב השלישי: <span class="math display">\[.T_1 N_2 - T_2 N_1 = \left( -\frac{4}{5}\sin t \right)\left( \sin t \right) - \left( -\cos t \right)\left( -\frac{4}{5}\cos t \right) = -\frac{4}{5}\]</span></p>
+<p>לכן <span class="math display">\[,B = \left( -\frac{3}{5},\ 0,\ -\frac{4}{5} \right)\]</span> וזהו וקטור <strong>קבוע</strong>. מכאן <span class="math inline">\(B' = 0\)</span>, ולפי <a href="#box-def-torsion">הגדרה 4.3.1</a> <span class="math display">\[.\tau = 0\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: זיהוי המעגל</summary>
+<div class="foldable" title="שלב 4: זיהוי המעגל">
+<p>העקמומיות קבועה, <span class="math inline">\(k = 1\)</span>, והפיתול מתאפס, ולכן לפי <a href="#box-prp-const-k-zero-tau">טענה 4.3.5</a> העקומה היא קשת מעגל ברדיוס <span class="math inline">\(\frac{1}{k} = 1\)</span>. מרכזו הוא הווקטור הקבוע <span class="math display">\[,a = \gamma + \frac{1}{k}N = \left( \frac{4}{5}\cos t - \frac{4}{5}\cos t,\ 1 - \sin t + \sin t,\ -\frac{3}{5}\cos t + \frac{3}{5}\cos t \right) = \left( 0, 1, 0 \right)\]</span> כפי שאכן יצא קבוע.</p>
+<p>המישור הוא זה שעובר דרך <span class="math inline">\(a\)</span> וניצב ל-<span class="math inline">\(B\)</span>, כלומר <span class="math display">\[,\left\langle v - a,\ B \right\rangle = 0\]</span> ובהצבה <span class="math inline">\(-\frac{3}{5}x - \frac{4}{5}z = 0\)</span>, כלומר <span class="math display">\[.3x + 4z = 0\]</span></p>
+</div>
+</details>
+</div>
+<iframe class="widget-frame" src="widgets/ch04/circle-in-plane.html" loading="lazy" title="מעגל היחידה במישור 3x + 4z = 0"></iframe>
+<p><em>העקומה של התרגיל: מעגל היחידה שמרכזו <span class="math inline">\((0,1,0)\)</span>, המונח במישור <span class="math inline">\(3x + 4z = 0\)</span>. המסגרת הנעה מצוירת בשלוש נקודות. שימו לב ש-<span class="math inline">\(T\)</span> ו-<span class="math inline">\(N\)</span> מסתובבים לאורך המעגל, ואילו <span class="math inline">\(B\)</span> מצביע תמיד לאותו כיוון: זהו הביטוי הגרפי ל-<span class="math inline">\(B' = 0\)</span>, כלומר <span class="math inline">\(\tau = 0\)</span>. הגרסה האינטראקטיבית, שבה אפשר לסובב את המבט, זמינה בגרסה המקוונת.</em></p>
+</section>
+</section>
+<section id="חישוב-עקמומיות-ופיתול" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="חישוב-עקמומיות-ופיתול"><span class="header-section-number">4.4</span> חישוב עקמומיות ופיתול</h2>
+<div id="box-thm-k-tau-general" class="thmbox thmbox-theorem" title="נוסחאות בפרמטריזציה כללית">
+<p><strong>משפט 4.4.1 — נוסחאות בפרמטריזציה כללית.</strong></p>
+<p>תהי <span class="math inline">\(\gamma(t)\)</span> עקומה רגולרית ב-<span class="math inline">\(\mathbb{R}^3\)</span> שעקמומיותה אינה מתאפסת. אז <span class="math display">\[,k = \frac{\left\| \gamma' \times \gamma'' \right\|}{\left\| \gamma' \right\|^3}\]</span> <span class="math display">\[.\tau = \frac{\left\langle \gamma' \times \gamma'',\ \gamma''' \right\rangle}{\left\| \gamma' \times \gamma'' \right\|^2}\]</span> בפרמטריזציית אורך קשת הנוסחאות מתפשטות ל-<span class="math display">\[,k = \left\| \gamma'' \right\|\]</span> <span class="math display">\[.\tau = \frac{\det \left( \gamma', \gamma'', \gamma''' \right)}{k^2}\]</span></p>
+</div>
+<div class="thmbox thmbox-proof">
+<p><strong>הוכחה.</strong></p>
+<p>נוכיח תחילה את הנוסחה לפיתול בפרמטריזציית אורך קשת, ואז נסביר מדוע היא נשמרת בפרמטריזציה כללית.</p>
+<p><strong>המקרה של אורך קשת.</strong> מהגדרת הפיתול <span class="math inline">\(\tau = -\left\langle N, B' \right\rangle\)</span>, ולכן <span class="math display">\[.\tau = -\left\langle N,\ \left( T \times N \right)' \right\rangle = -\left\langle N,\ T' \times N + T \times N' \right\rangle = -\left\langle N,\ T \times N' \right\rangle\]</span> שכן <span class="math inline">\(T' \times N = kN \times N = 0\)</span>.</p>
+<p>כעת נציב <span class="math inline">\(N = \frac{1}{k}\gamma''\)</span> ו-<span class="math inline">\(T = \gamma'\)</span>, ונשים לב ש-<span class="math display">\[,N' = \frac{1}{k}\gamma''' - \frac{k'}{k^2}\gamma''\]</span> ולכן <span class="math display">\[.\tau = -\left\langle \frac{1}{k}\gamma'',\ \gamma' \times \left( \frac{1}{k}\gamma''' - \frac{k'}{k^2}\gamma'' \right) \right\rangle\]</span></p>
+<p>המחובר השני מתאפס: הוא כפולה של <span class="math inline">\(\gamma' \times \gamma''\)</span>, שניצב ל-<span class="math inline">\(\gamma''\)</span>. נשאר <span class="math display">\[,\tau = -\frac{1}{k^2}\left\langle \gamma'',\ \gamma' \times \gamma''' \right\rangle = \frac{1}{k^2}\left\langle \gamma''',\ \gamma' \times \gamma'' \right\rangle\]</span> כאשר בשוויון האחרון השתמשנו ב<a href="#box-prp-cross-triple">טענה 4.1.4</a> ובכך שהחלפת שתי שורות בדטרמיננטה הופכת את סימנה. זו בדיוק הנוסחה המבוקשת, שכן בפרמטריזציית אורך קשת <span class="math inline">\(\gamma'\)</span> ו-<span class="math inline">\(\gamma''\)</span> ניצבים ולכן <span class="math inline">\(\left\| \gamma' \times \gamma'' \right\| = \left\| \gamma'' \right\| = k\)</span>.</p>
+<p><strong>המקרה הכללי.</strong> יהי <span class="math inline">\(s\)</span> אורך הקשת. לפי כלל השרשרת <span class="math display">\[,\frac{d\gamma}{dt} = \frac{ds}{dt}\frac{d\gamma}{ds}\]</span> ובגזירות נוספות מתקבל <span class="math display">\[,\gamma' \times \gamma'' = \left( \frac{ds}{dt} \right)^3 \left( \frac{d\gamma}{ds} \times \frac{d^2\gamma}{ds^2} \right)\]</span> שכן כל האיברים הנוספים הם כפולות של <span class="math inline">\(\frac{d\gamma}{ds} \times \frac{d\gamma}{ds} = 0\)</span>. באותו אופן <span class="math display">\[.\left\langle \gamma' \times \gamma'',\ \gamma''' \right\rangle = \left( \frac{ds}{dt} \right)^6 \left\langle \frac{d\gamma}{ds} \times \frac{d^2\gamma}{ds^2},\ \frac{d^3\gamma}{ds^3} \right\rangle\]</span></p>
+<p>במנה שבנוסחת הפיתול המונה נושא <span class="math inline">\(\left( \frac{ds}{dt} \right)^6\)</span> והמכנה <span class="math inline">\(\left( \frac{ds}{dt} \right)^6\)</span>, ולכן הגורם מצטמצם והביטוי אינו תלוי בפרמטריזציה. עבור העקמומיות, <span class="math inline">\(\left\| \gamma' \times \gamma'' \right\| = \left( \frac{ds}{dt} \right)^3 k\)</span> ו-<span class="math inline">\(\left\| \gamma' \right\|^3 = \left( \frac{ds}{dt} \right)^3\)</span>, ובחלוקה מתקבל <span class="math inline">\(k\)</span>.</p>
+</div>
+<section id="תרגילים-2" class="level3">
+<h3 class="anchored" data-anchor-id="תרגילים-2">תרגילים</h3>
+<div id="box-q-helix-k-tau" class="thmbox thmbox-question">
+<p><strong>שאלה 4.4.2.</strong></p>
+<p>חשבו את העקמומיות ואת הפיתול של הסליל <span class="math display">\[,\gamma(\theta) = \left( a\cos\theta,\ a\sin\theta,\ b\theta \right)\]</span> כאשר <span class="math inline">\(a &gt; 0\)</span> ו-<span class="math inline">\(b\)</span> קבועים.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: נגזרות</summary>
+<div class="foldable" title="שלב 1: נגזרות">
+<p><span class="math display">\[,\gamma'(\theta) = \left( -a\sin\theta,\ a\cos\theta,\ b \right)\]</span> <span class="math display">\[,\gamma''(\theta) = \left( -a\cos\theta,\ -a\sin\theta,\ 0 \right)\]</span> <span class="math display">\[.\gamma'''(\theta) = \left( a\sin\theta,\ -a\cos\theta,\ 0 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: המכפלה הווקטורית</summary>
+<div class="foldable" title="שלב 2: המכפלה הווקטורית">
+<p>נחשב <span class="math inline">\(\gamma' \times \gamma''\)</span> רכיב-רכיב. הרכיב הראשון: <span class="math display">\[.\left( a\cos\theta \right)\cdot 0 - b\left( -a\sin\theta \right) = ab\sin\theta\]</span> הרכיב השני: <span class="math display">\[.b\left( -a\cos\theta \right) - \left( -a\sin\theta \right)\cdot 0 = -ab\cos\theta\]</span> הרכיב השלישי: <span class="math display">\[.\left( -a\sin\theta \right)\left( -a\sin\theta \right) - \left( a\cos\theta \right)\left( -a\cos\theta \right) = a^2\sin^2\theta + a^2\cos^2\theta = a^2\]</span></p>
+<p>לכן <span class="math display">\[.\gamma' \times \gamma'' = \left( ab\sin\theta,\ -ab\cos\theta,\ a^2 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: העקמומיות</summary>
+<div class="foldable" title="שלב 3: העקמומיות">
+<p>נחשב את האורכים: <span class="math display">\[,\left\| \gamma' \right\|^2 = a^2\sin^2\theta + a^2\cos^2\theta + b^2 = a^2 + b^2\]</span> <span class="math display">\[.\left\| \gamma' \times \gamma'' \right\|^2 = a^2b^2\sin^2\theta + a^2b^2\cos^2\theta + a^4 = a^2b^2 + a^4 = a^2\left( a^2 + b^2 \right)\]</span></p>
+<p>מכאן <span class="math inline">\(\left\| \gamma' \times \gamma'' \right\| = a\sqrt{a^2+b^2}\)</span> ו-<span class="math inline">\(\left\| \gamma' \right\|^3 = \left( a^2+b^2 \right)^{3/2}\)</span>, ולכן <span class="math display">\[.k = \frac{a\sqrt{a^2+b^2}}{\left( a^2+b^2 \right)^{3/2}} = \frac{a}{a^2+b^2}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: הפיתול</summary>
+<div class="foldable" title="שלב 4: הפיתול">
+<p>נחשב את המונה: <span class="math display">\[.\left\langle \gamma' \times \gamma'',\ \gamma''' \right\rangle = ab\sin\theta \cdot a\sin\theta + \left( -ab\cos\theta \right)\left( -a\cos\theta \right) + a^2 \cdot 0 = a^2 b\]</span></p>
+<p>המכנה חושב בשלב הקודם, <span class="math inline">\(\left\| \gamma' \times \gamma'' \right\|^2 = a^2\left( a^2+b^2 \right)\)</span>, ולכן <span class="math display">\[.\tau = \frac{a^2 b}{a^2\left( a^2+b^2 \right)} = \frac{b}{a^2+b^2}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: בדיקות שפיות</summary>
+<div class="foldable" title="שלב 5: בדיקות שפיות">
+<p>שני הגדלים קבועים, ואינם תלויים ב-<span class="math inline">\(\theta\)</span>, כפי שמתבקש מהסימטריה של הסליל.</p>
+<p>כאשר <span class="math inline">\(b = 0\)</span> מתקבל <span class="math inline">\(\tau = 0\)</span> וגם <span class="math inline">\(k = \frac{1}{a}\)</span>, והעקומה היא אכן מעגל ברדיוס <span class="math inline">\(a\)</span> במישור <span class="math inline">\(z = 0\)</span>, בהתאם ל<a href="#box-prp-planar-iff-tau-zero">טענה 4.3.4</a>.</p>
+<p>היחס <span class="math inline">\(\frac{\tau}{k} = \frac{b}{a}\)</span> קבוע גם הוא, ולכן הסליל הוא מקרה פרטי של הסעיף הבא.</p>
+</div>
+</details>
+</div>
+<iframe class="widget-frame" src="widgets/ch04/helix-frame.html" loading="lazy" title="המסגרת הנעה של הסליל"></iframe>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/helix-k-tau.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:92.0%" alt="העקמומיות והפיתול של הסליל כפונקציות של b"></p>
+</figure>
+</div>
+<p><em>העקמומיות והפיתול של הסליל כפונקציות של <span class="math inline">\(b\)</span>, עבור <span class="math inline">\(a = 1\)</span> קבוע. ב-<span class="math inline">\(b = 0\)</span> מתקבל <span class="math inline">\(\tau = 0\)</span> והעקומה היא מעגל ברדיוס <span class="math inline">\(a\)</span>, בהתאם ל<a href="#box-prp-planar-iff-tau-zero">טענה 4.3.4</a>. ככל שמותחים את הסליל העקמומיות יורדת, ואילו הפיתול עולה עד למקסימום ב-<span class="math inline">\(b = a\)</span> ואז יורד.</em></p>
+<div id="box-q-generalized-helix" class="thmbox thmbox-question">
+<p><strong>שאלה 4.4.3.</strong></p>
+<p>עקומה רגולרית <span class="math inline">\(\gamma\)</span> ב-<span class="math inline">\(\mathbb{R}^3\)</span> שעקמומיותה חיובית נקראת <strong>סליל כללי</strong> אם הוקטור המשיק שלה יוצר זווית קבועה <span class="math inline">\(\theta\)</span> עם וקטור יחידה קבוע <span class="math inline">\(a\)</span>.</p>
+<ol type="1">
+<li>הראו שאם <span class="math inline">\(\gamma\)</span> היא סליל כללי, אז <span class="math inline">\(\tau = \pm k \cot\theta\)</span>; בפרט היחס <span class="math inline">\(\frac{\tau}{k}\)</span> קבוע.</li>
+<li>הראו את הכיוון ההפוך: אם <span class="math inline">\(\tau = \lambda k\)</span> עבור קבוע <span class="math inline">\(\lambda\)</span>, אז <span class="math inline">\(\gamma\)</span> היא סליל כללי.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: מהתנאי לזהות בין הוקטורים</summary>
+<div class="foldable" title="שלב 1: מהתנאי לזהות בין הוקטורים">
+<p>נניח <span class="math inline">\(\left\langle T, a \right\rangle = \cos\theta\)</span> קבוע. נגזור לפי <span class="math inline">\(s\)</span>: <span class="math display">\[,\left\langle T', a \right\rangle = 0\]</span> ומכיוון ש-<span class="math inline">\(T' = kN\)</span> ו-<span class="math inline">\(k &gt; 0\)</span>, <span class="math display">\[.\left\langle N, a \right\rangle = 0\]</span></p>
+<p>הווקטור <span class="math inline">\(a\)</span> ניצב ל-<span class="math inline">\(N\)</span>, ולכן בבסיס האורתונורמלי <span class="math inline">\(\left\{ T, N, B \right\}\)</span> הוא נפרש רק על ידי <span class="math inline">\(T\)</span> ו-<span class="math inline">\(B\)</span>: <span class="math display">\[.a = \left\langle a, T \right\rangle T + \left\langle a, B \right\rangle B = \cos\theta\, T + \mu B\]</span></p>
+<p>מכיוון ש-<span class="math inline">\(a\)</span> וקטור יחידה, <span class="math inline">\(\cos^2\theta + \mu^2 = 1\)</span>, ולכן <span class="math inline">\(\mu = \pm\sin\theta\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: גזירה שנייה</summary>
+<div class="foldable" title="שלב 2: גזירה שנייה">
+<p>נגזור את <span class="math inline">\(a = \cos\theta\, T \pm \sin\theta\, B\)</span>, שבו המקדמים קבועים: <span class="math display">\[.0 = \cos\theta\, T' \pm \sin\theta\, B'\]</span></p>
+<p>נציב פרנה־סרה, <span class="math inline">\(T' = kN\)</span> ו-<span class="math inline">\(B' = -\tau N\)</span>: <span class="math display">\[,0 = \cos\theta\, kN \mp \sin\theta\, \tau N = \left( k\cos\theta \mp \tau \sin\theta \right) N\]</span> ומכיוון ש-<span class="math inline">\(N \neq 0\)</span> המקדם מתאפס: <span class="math display">\[.\tau = \pm k \frac{\cos\theta}{\sin\theta} = \pm k \cot\theta\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הכיוון ההפוך</summary>
+<div class="foldable" title="שלב 3: הכיוון ההפוך">
+<p>נניח <span class="math inline">\(\tau = \lambda k\)</span> עבור קבוע <span class="math inline">\(\lambda\)</span>. נבחר <span class="math inline">\(\theta\)</span> כך ש-<span class="math inline">\(\cot\theta = \lambda\)</span>, למשל <span class="math inline">\(\theta = \operatorname{arccot}\lambda\)</span>, ונגדיר <span class="math display">\[.a = \cos\theta\, T + \sin\theta\, B\]</span></p>
+<p>נגזור ונשתמש בפרנה־סרה: <span class="math display">\[.a' = \cos\theta\, kN + \sin\theta\left( -\tau N \right) = \left( k\cos\theta - \tau\sin\theta \right) N\]</span> נציב <span class="math inline">\(\tau = \lambda k = k\cot\theta\)</span>: <span class="math display">\[,k\cos\theta - k\cot\theta \sin\theta = k\cos\theta - k\cos\theta = 0\]</span> ולכן <span class="math inline">\(a' = 0\)</span>, כלומר <span class="math inline">\(a\)</span> וקטור קבוע.</p>
+<p>הוא וקטור יחידה, שכן <span class="math inline">\(\cos^2\theta + \sin^2\theta = 1\)</span> ו-<span class="math inline">\(T\)</span>, <span class="math inline">\(B\)</span> אורתונורמליים, ומתקיים <span class="math inline">\(\left\langle T, a \right\rangle = \cos\theta\)</span>. לכן הזווית בין המשיק לבין <span class="math inline">\(a\)</span> קבועה, כלומר <span class="math inline">\(\gamma\)</span> היא סליל כללי.</p>
+</div>
+</details>
+</div>
+<div id="box-q-conical-spiral" class="thmbox thmbox-question">
+<p><strong>שאלה 4.4.4.</strong></p>
+<p>תהי <span class="math inline">\(\alpha\)</span> העקומה <span class="math display">\[,\alpha(u) = e^u \left( \cos u,\ \sin u,\ 1 \right), \qquad u \in \mathbb{R}\]</span></p>
+<ol type="1">
+<li>הראו שהעקומה מונחת על החרוט <span class="math inline">\(x^2 + y^2 = z^2\)</span> בחלק שבו <span class="math inline">\(z &gt; 0\)</span>.</li>
+<li>יהיו <span class="math inline">\(0 &lt; \lambda_0 &lt; \lambda_1\)</span>. חשבו את אורך הקטע של <span class="math inline">\(\alpha\)</span> הכלוא בין המישורים <span class="math inline">\(z = \lambda_0\)</span> ו-<span class="math inline">\(z = \lambda_1\)</span>.</li>
+<li>חשבו את העקמומיות ואת הפיתול, והראו ששניהם פרופורציוניים ל-<span class="math inline">\(e^{-u}\)</span>.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: ההכלה בחרוט</summary>
+<div class="foldable" title="שלב 1: ההכלה בחרוט">
+<p>נסמן <span class="math inline">\(x = e^u \cos u\)</span>, <span class="math inline">\(y = e^u \sin u\)</span> ו-<span class="math inline">\(z = e^u\)</span>. אז <span class="math display">\[,x^2 + y^2 = e^{2u}\left( \cos^2 u + \sin^2 u \right) = e^{2u} = z^2\]</span> ומכיוון ש-<span class="math inline">\(e^u &gt; 0\)</span> תמיד, העקומה נמצאת כולה בחלק שבו <span class="math inline">\(z &gt; 0\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: המהירות</summary>
+<div class="foldable" title="שלב 2: המהירות">
+<p>נגזור רכיב-רכיב, לפי כלל המכפלה: <span class="math display">\[.\frac{d}{du}\left( e^u \cos u \right) = e^u \left( \cos u - \sin u \right), \qquad \frac{d}{du}\left( e^u \sin u \right) = e^u \left( \sin u + \cos u \right)\]</span> ולכן <span class="math display">\[.\alpha'(u) = e^u \left( \cos u - \sin u,\ \sin u + \cos u,\ 1 \right)\]</span></p>
+<p>נחשב את האורך בריבוע. שני הריבועים הראשונים הם <span class="math display">\[,\left( \cos u - \sin u \right)^2 + \left( \sin u + \cos u \right)^2 = \left( 1 - 2\sin u \cos u \right) + \left( 1 + 2\sin u \cos u \right) = 2\]</span> שכן המחוברים המעורבים מתבטלים. לכן <span class="math display">\[,\left\| \alpha'(u) \right\|^2 = e^{2u}\left( 2 + 1 \right) = 3e^{2u}\]</span> ומכאן <span class="math inline">\(\left\| \alpha' \right\| = \sqrt{3}\, e^u\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: האורך בין שני המישורים</summary>
+<div class="foldable" title="שלב 3: האורך בין שני המישורים">
+<p>הרכיב השלישי הוא <span class="math inline">\(z = e^u\)</span>, ולכן המישור <span class="math inline">\(z = \lambda\)</span> נחתך בדיוק בערך הפרמטר <span class="math inline">\(u = \ln \lambda\)</span>. הקטע המבוקש מתאים אפוא ל-<span class="math inline">\(\ln \lambda_0 \leq u \leq \ln \lambda_1\)</span>, ואורכו <span class="math display">\[.L = \int_{\ln \lambda_0}^{\ln \lambda_1} \sqrt{3}\, e^u\, du = \sqrt{3}\left[ e^u \right]_{\ln \lambda_0}^{\ln \lambda_1} = \sqrt{3}\left( \lambda_1 - \lambda_0 \right)\]</span></p>
+<p>התוצאה תלויה רק בהפרש הגבהים, וזו תכונה של החרוט: אורך הקשת פרופורציוני לגובה שנעבר.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: הנגזרות הגבוהות</summary>
+<div class="foldable" title="שלב 4: הנגזרות הגבוהות">
+<p>נגזור שוב, ושוב לפי כלל המכפלה. ברכיב הראשון <span class="math display">\[,\frac{d}{du}\left[ e^u\left( \cos u - \sin u \right) \right] = e^u\left( \cos u - \sin u \right) + e^u\left( -\sin u - \cos u \right) = -2e^u \sin u\]</span> וברכיב השני <span class="math display">\[.\frac{d}{du}\left[ e^u\left( \sin u + \cos u \right) \right] = e^u\left( \sin u + \cos u \right) + e^u\left( \cos u - \sin u \right) = 2e^u \cos u\]</span></p>
+<p>לכן <span class="math display">\[,\alpha''(u) = e^u\left( -2\sin u,\ 2\cos u,\ 1 \right)\]</span> ובאותו אופן, בגזירה נוספת, <span class="math display">\[.\alpha'''(u) = e^u\left( -2\left( \sin u + \cos u \right),\ 2\left( \cos u - \sin u \right),\ 1 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: המכפלה הווקטורית</summary>
+<div class="foldable" title="שלב 5: המכפלה הווקטורית">
+<p>נחשב <span class="math inline">\(\alpha' \times \alpha''\)</span>. הגורם <span class="math inline">\(e^u\)</span> מופיע בשני הווקטורים, ולכן אפשר להוציא <span class="math inline">\(e^{2u}\)</span> ולעבוד עם <span class="math inline">\(\left( \cos u - \sin u,\ \sin u + \cos u,\ 1 \right)\)</span> ו-<span class="math inline">\(\left( -2\sin u,\ 2\cos u,\ 1 \right)\)</span>.</p>
+<p><strong>הרכיב הראשון:</strong> <span class="math display">\[.\left( \sin u + \cos u \right) \cdot 1 - 1 \cdot 2\cos u = \sin u - \cos u\]</span></p>
+<p><strong>הרכיב השני:</strong> <span class="math display">\[.1 \cdot \left( -2\sin u \right) - \left( \cos u - \sin u \right) \cdot 1 = -\left( \sin u + \cos u \right)\]</span></p>
+<p><strong>הרכיב השלישי:</strong> <span class="math display">\[.\left( \cos u - \sin u \right) 2\cos u - \left( \sin u + \cos u \right)\left( -2\sin u \right) = 2\cos^2 u + 2\sin^2 u = 2\]</span></p>
+<p>לכן <span class="math display">\[,\alpha' \times \alpha'' = e^{2u}\left( \sin u - \cos u,\ -\left( \sin u + \cos u \right),\ 2 \right)\]</span> ובאותו צמצום כמו בשלב 2, <span class="math display">\[.\left\| \alpha' \times \alpha'' \right\|^2 = e^{4u}\left( 2 + 4 \right) = 6e^{4u}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 6: העקמומיות והפיתול</summary>
+<div class="foldable" title="שלב 6: העקמומיות והפיתול">
+<p>לפי <a href="#box-thm-k-tau-general">משפט 4.4.1</a> <span class="math display">\[.k = \frac{\sqrt{6}\, e^{2u}}{\left( \sqrt{3}\, e^u \right)^3} = \frac{\sqrt{6}\, e^{2u}}{3\sqrt{3}\, e^{3u}} = \frac{\sqrt{2}}{3}\, e^{-u}\]</span></p>
+<p>עבור הפיתול נחשב את המונה. הגורם המשותף הוא <span class="math inline">\(e^{2u} \cdot e^u = e^{3u}\)</span>, והסוגריים הם <span class="math display">\[.-2\left( \sin u - \cos u \right)\left( \sin u + \cos u \right) + 2\left( \sin u + \cos u \right)\left( \sin u - \cos u \right) + 2 = 2\]</span> שני המחוברים הראשונים נגדיים זה לזה, שכן <span class="math inline">\(\cos u - \sin u = -\left( \sin u - \cos u \right)\)</span>. לכן <span class="math display">\[.\tau = \frac{2e^{3u}}{6e^{4u}} = \frac{1}{3}\, e^{-u}\]</span></p>
+<p>שניהם אכן פרופורציוניים ל-<span class="math inline">\(e^{-u}\)</span>, כנדרש.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 7: הערה</summary>
+<div class="foldable" title="שלב 7: הערה">
+<p>היחס <span class="math display">\[\frac{\tau}{k} = \frac{\frac{1}{3}e^{-u}}{\frac{\sqrt{2}}{3}e^{-u}} = \frac{1}{\sqrt{2}}\]</span> קבוע, ולכן לפי <a href="#box-q-generalized-helix">שאלה 4.4.3</a> העקומה היא סליל כללי. אפשר לראות זאת גם ישירות: <span class="math display">\[,T = \frac{1}{\sqrt{3}}\left( \cos u - \sin u,\ \sin u + \cos u,\ 1 \right)\]</span> ולכן <span class="math inline">\(\left\langle T,\ e_3 \right\rangle = \frac{1}{\sqrt{3}}\)</span> קבוע, כלומר המשיק יוצר זווית קבועה עם ציר <span class="math inline">\(z\)</span>.</p>
+</div>
+</details>
+</div>
+<div id="box-q-hyperbolic-cylinder" class="thmbox thmbox-question">
+<p><strong>שאלה 4.4.5.</strong></p>
+<p>תהי <span class="math inline">\(\alpha\)</span> העקומה <span class="math display">\[.\alpha(u) = \left( \cosh u,\ \sinh u,\ u \right), \qquad u \in \mathbb{R}\]</span></p>
+<ol type="1">
+<li>הראו שהעקומה מונחת על הגליל <span class="math inline">\(x^2 - y^2 = 1\)</span>.</li>
+<li>הראו שהעקמומיות והפיתול הם <span class="math display">\[.k = \tau = \frac{1}{2\cosh^2 u}\]</span></li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: ההכלה בגליל</summary>
+<div class="foldable" title="שלב 1: ההכלה בגליל">
+<p>מיידית מהזהות ההיפרבולית <span class="math display">\[.x^2 - y^2 = \cosh^2 u - \sinh^2 u = 1\]</span> העקומה מטפסת על הגליל ההיפרבולי הזה בקצב אחיד בכיוון <span class="math inline">\(z\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: נגזרות ומהירות</summary>
+<div class="foldable" title="שלב 2: נגזרות ומהירות">
+<p><span class="math display">\[,\alpha'(u) = \left( \sinh u,\ \cosh u,\ 1 \right)\]</span> <span class="math display">\[,\alpha''(u) = \left( \cosh u,\ \sinh u,\ 0 \right)\]</span> <span class="math display">\[.\alpha'''(u) = \left( \sinh u,\ \cosh u,\ 0 \right)\]</span></p>
+<p>לחישוב המהירות נציב <span class="math inline">\(\sinh^2 u = \cosh^2 u - 1\)</span>: <span class="math display">\[,\left\| \alpha' \right\|^2 = \sinh^2 u + \cosh^2 u + 1 = \left( \cosh^2 u - 1 \right) + \cosh^2 u + 1 = 2\cosh^2 u\]</span> ולכן <span class="math inline">\(\left\| \alpha' \right\| = \sqrt{2}\,\cosh u\)</span>, שכן <span class="math inline">\(\cosh u &gt; 0\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: המכפלה הווקטורית</summary>
+<div class="foldable" title="שלב 3: המכפלה הווקטורית">
+<p><strong>הרכיב הראשון:</strong> <span class="math inline">\(\cosh u \cdot 0 - 1 \cdot \sinh u = -\sinh u\)</span>.</p>
+<p><strong>הרכיב השני:</strong> <span class="math inline">\(1 \cdot \cosh u - \sinh u \cdot 0 = \cosh u\)</span>.</p>
+<p><strong>הרכיב השלישי:</strong> <span class="math inline">\(\sinh^2 u - \cosh^2 u = -1\)</span>.</p>
+<p>לכן <span class="math display">\[,\alpha' \times \alpha'' = \left( -\sinh u,\ \cosh u,\ -1 \right)\]</span> ובאותו חישוב כמו בשלב הקודם <span class="math display">\[.\left\| \alpha' \times \alpha'' \right\|^2 = \sinh^2 u + \cosh^2 u + 1 = 2\cosh^2 u\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: העקמומיות והפיתול</summary>
+<div class="foldable" title="שלב 4: העקמומיות והפיתול">
+<p><span class="math display">\[.k = \frac{\left\| \alpha' \times \alpha'' \right\|}{\left\| \alpha' \right\|^3} = \frac{\sqrt{2}\,\cosh u}{\left( \sqrt{2}\,\cosh u \right)^3} = \frac{\sqrt{2}\,\cosh u}{2\sqrt{2}\,\cosh^3 u} = \frac{1}{2\cosh^2 u}\]</span></p>
+<p>עבור הפיתול, המונה הוא <span class="math display">\[,\left\langle \left( -\sinh u,\ \cosh u,\ -1 \right),\ \left( \sinh u,\ \cosh u,\ 0 \right) \right\rangle = -\sinh^2 u + \cosh^2 u = 1\]</span> והמכנה חושב בשלב הקודם, ולכן <span class="math display">\[.\tau = \frac{1}{2\cosh^2 u}\]</span></p>
+<p>בפרט <span class="math inline">\(\frac{\tau}{k} = 1\)</span> קבוע, ולכן גם עקומה זו היא סליל כללי לפי <a href="#box-q-generalized-helix">שאלה 4.4.3</a>, והזווית בין המשיק לציר הקבוע היא <span class="math inline">\(45^\circ\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: הערה על הסימן</summary>
+<div class="foldable" title="שלב 5: הערה על הסימן">
+<p>בספרם של וודוורד ובולטון מופיעה עקומה זו עם <span class="math inline">\(\tau = -\frac{1}{2\cosh^2 u}\)</span>. אין כאן סתירה אלא מוסכמה שונה: שם הפיתול מוגדר על ידי <span class="math inline">\(B' = +\tau N\)</span>, בעוד שאצלנו, כמו אצל פרסלי ובהרצאה, ההגדרה היא <span class="math display">\[.B' = -\tau N\]</span> שתי המוסכמות נבדלות בסימן של <span class="math inline">\(\tau\)</span> בלבד, וכל הגדלים הגיאומטריים האחרים זהים.</p>
+</div>
+</details>
+</div>
+<iframe class="widget-frame" src="widgets/ch04/conical-spiral.html" loading="lazy" title="הספירלה החרוטית"></iframe>
+<iframe class="widget-frame" src="widgets/ch04/hyperbolic-cylinder.html" loading="lazy" title="עקומה על גליל היפרבולי"></iframe>
+<p><em>שתי העקומות של התרגילים, כל אחת על המשטח שעליו היא מונחת. משמאל הספירלה החרוטית על החרוט <span class="math inline">\(x^2 + y^2 = z^2\)</span>, ומימין העקומה <span class="math inline">\((\cosh u, \sinh u, u)\)</span> על הגליל ההיפרבולי <span class="math inline">\(x^2 - y^2 = 1\)</span>. שתיהן סלילים כלליים: היחס <span class="math inline">\(\frac{\tau}{k}\)</span> קבוע לאורך כל אחת מהן. הגרסאות האינטראקטיביות זמינות בגרסה המקוונת.</em></p>
+<div id="box-q-viviani" class="thmbox thmbox-question">
+<p><strong>שאלה 4.4.6.</strong></p>
+<p><strong>עקומת ויויאני</strong> היא החיתוך של הספירה <span class="math inline">\(x^2 + y^2 + z^2 = 4\)</span> עם הגליל <span class="math inline">\(\left( x - 1 \right)^2 + y^2 = 1\)</span>. אפשר לפרמט אותה על ידי <span class="math display">\[.\gamma(t) = \left( 1 + \cos t,\ \sin t,\ 2\sin\frac{t}{2} \right)\]</span></p>
+<ol type="1">
+<li>ודאו שהעקומה אכן מונחת על הספירה ועל הגליל.</li>
+<li>חשבו את העקמומיות ואת הפיתול שלה.</li>
+<li>היכן מתאפס הפיתול, ומה המשמעות של כך.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: ההכלה בספירה ובגליל</summary>
+<div class="foldable" title="שלב 1: ההכלה בספירה ובגליל">
+<p>נחשב את ריבוע המרחק מהראשית, ונשתמש בזהות <span class="math inline">\(\sin^2 \frac{t}{2} = \frac{1 - \cos t}{2}\)</span>: <span class="math display">\[.\left( 1 + \cos t \right)^2 + \sin^2 t + 4\sin^2 \frac{t}{2} = 1 + 2\cos t + \cos^2 t + \sin^2 t + 2\left( 1 - \cos t \right)\]</span></p>
+<p>האיברים <span class="math inline">\(\cos^2 t + \sin^2 t\)</span> נותנים <span class="math inline">\(1\)</span>, והאיברים ב-<span class="math inline">\(\cos t\)</span> מצטמצמים: <span class="math display">\[.1 + 2\cos t + 1 + 2 - 2\cos t = 4\]</span> כלומר העקומה מונחת על הספירה שרדיוסה <span class="math inline">\(2\)</span> ומרכזה בראשית.</p>
+<p>עבור הגליל החישוב מיידי: <span class="math display">\[.\left( x - 1 \right)^2 + y^2 = \cos^2 t + \sin^2 t = 1\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: שלוש נגזרות</summary>
+<div class="foldable" title="שלב 2: שלוש נגזרות">
+<p><span class="math display">\[,\gamma'(t) = \left( -\sin t,\ \cos t,\ \cos\frac{t}{2} \right)\]</span> <span class="math display">\[,\gamma''(t) = \left( -\cos t,\ -\sin t,\ -\tfrac{1}{2}\sin\frac{t}{2} \right)\]</span> <span class="math display">\[.\gamma'''(t) = \left( \sin t,\ -\cos t,\ -\tfrac{1}{4}\cos\frac{t}{2} \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: המהירות</summary>
+<div class="foldable" title="שלב 3: המהירות">
+<p><span class="math display">\[,\left\| \gamma' \right\|^2 = \sin^2 t + \cos^2 t + \cos^2 \frac{t}{2} = 1 + \cos^2 \frac{t}{2}\]</span> ולפי <span class="math inline">\(\cos^2 \frac{t}{2} = \frac{1 + \cos t}{2}\)</span> מתקבל <span class="math display">\[.\left\| \gamma' \right\|^2 = \frac{3 + \cos t}{2}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: המכפלה הווקטורית</summary>
+<div class="foldable" title="שלב 4: המכפלה הווקטורית">
+<p>נחשב את <span class="math inline">\(\gamma' \times \gamma''\)</span> רכיב-רכיב, ונשתמש שוב ושוב בזהויות חצי-הזווית.</p>
+<p><strong>הרכיב הראשון.</strong> <span class="math display">\[,\cos t \left( -\tfrac{1}{2}\sin\tfrac{t}{2} \right) - \cos\tfrac{t}{2}\left( -\sin t \right) = -\tfrac{1}{2}\cos t \sin\tfrac{t}{2} + 2\sin\tfrac{t}{2}\cos^2\tfrac{t}{2}\]</span> שכן <span class="math inline">\(\sin t = 2\sin\frac{t}{2}\cos\frac{t}{2}\)</span>. נוציא <span class="math inline">\(\sin\frac{t}{2}\)</span> ונציב <span class="math inline">\(\cos^2\frac{t}{2} = \frac{1+\cos t}{2}\)</span>: <span class="math display">\[.\sin\tfrac{t}{2}\left[ -\tfrac{1}{2}\cos t + 1 + \cos t \right] = \tfrac{1}{2}\sin\tfrac{t}{2}\left( 2 + \cos t \right)\]</span></p>
+<p><strong>הרכיב השני.</strong> <span class="math display">\[.\cos\tfrac{t}{2}\left( -\cos t \right) - \left( -\sin t \right)\left( -\tfrac{1}{2}\sin\tfrac{t}{2} \right) = -\cos\tfrac{t}{2}\left[ \cos t + \sin^2\tfrac{t}{2} \right]\]</span> בסוגריים <span class="math inline">\(\cos t + \frac{1 - \cos t}{2} = \frac{1 + \cos t}{2} = \cos^2\frac{t}{2}\)</span>, ולכן הרכיב הוא <span class="math inline">\(-\cos^3\frac{t}{2}\)</span>.</p>
+<p><strong>הרכיב השלישי.</strong> <span class="math display">\[.\left( -\sin t \right)\left( -\sin t \right) - \cos t \left( -\cos t \right) = \sin^2 t + \cos^2 t = 1\]</span></p>
+<p>יחד <span class="math display">\[.\gamma' \times \gamma'' = \left( \tfrac{1}{2}\sin\tfrac{t}{2}\left( 2 + \cos t \right),\ -\cos^3\tfrac{t}{2},\ 1 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: אורך המכפלה</summary>
+<div class="foldable" title="שלב 5: אורך המכפלה">
+<p>נסמן <span class="math inline">\(c = \cos t\)</span>, ואז <span class="math inline">\(\sin^2 \frac{t}{2} = \frac{1-c}{2}\)</span> וגם <span class="math inline">\(\cos^2 \frac{t}{2} = \frac{1+c}{2}\)</span>. נחשב <span class="math display">\[.\left\| \gamma' \times \gamma'' \right\|^2 = \tfrac{1}{4}\cdot\tfrac{1-c}{2}\left( 2 + c \right)^2 + \left( \tfrac{1+c}{2} \right)^3 + 1\]</span></p>
+<p>נכניס למכנה משותף <span class="math inline">\(8\)</span>: <span class="math display">\[.\frac{\left( 1 - c \right)\left( 2 + c \right)^2 + \left( 1 + c \right)^3 + 8}{8}\]</span></p>
+<p>נפתח את שני המחוברים הראשונים, <span class="math display">\[,\left( 1 - c \right)\left( 4 + 4c + c^2 \right) = 4 - 3c^2 - c^3\]</span> <span class="math display">\[,\left( 1 + c \right)^3 = 1 + 3c + 3c^2 + c^3\]</span> ובחיבורם החזקות <span class="math inline">\(c^2\)</span> ו-<span class="math inline">\(c^3\)</span> מצטמצמות: <span class="math display">\[.\left\| \gamma' \times \gamma'' \right\|^2 = \frac{13 + 3c}{8}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 6: העקמומיות</summary>
+<div class="foldable" title="שלב 6: העקמומיות">
+<p>נציב בנוסחה של <a href="#box-thm-k-tau-general">משפט 4.4.1</a>: <span class="math display">\[.k = \frac{\left\| \gamma' \times \gamma'' \right\|}{\left\| \gamma' \right\|^3} = \frac{\sqrt{\dfrac{13 + 3\cos t}{8}}}{\left( \dfrac{3 + \cos t}{2} \right)^{3/2}}\]</span></p>
+<p>המונה הוא <span class="math inline">\(\dfrac{\sqrt{13+3\cos t}}{2\sqrt{2}}\)</span> והמכנה הוא <span class="math inline">\(\dfrac{\left( 3 + \cos t \right)^{3/2}}{2\sqrt{2}}\)</span>, והגורם <span class="math inline">\(2\sqrt{2}\)</span> מצטמצם: <span class="math display">\[.k = \frac{\sqrt{13 + 3\cos t}}{\left( 3 + \cos t \right)^{3/2}}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 7: הפיתול</summary>
+<div class="foldable" title="שלב 7: הפיתול">
+<p>נחשב את המונה <span class="math inline">\(\left\langle \gamma' \times \gamma'',\ \gamma''' \right\rangle\)</span>: <span class="math display">\[.\tfrac{1}{2}\sin\tfrac{t}{2}\left( 2 + c \right)\sin t + \left( -\cos^3\tfrac{t}{2} \right)\left( -\cos t \right) + 1 \cdot \left( -\tfrac{1}{4}\cos\tfrac{t}{2} \right)\]</span></p>
+<p>נציב <span class="math inline">\(\sin t = 2\sin\frac{t}{2}\cos\frac{t}{2}\)</span> ונוציא <span class="math inline">\(\cos\frac{t}{2}\)</span> מכל המחוברים: <span class="math display">\[.\cos\tfrac{t}{2}\left[ \sin^2\tfrac{t}{2}\left( 2 + c \right) + \cos^2\tfrac{t}{2}\, c - \tfrac{1}{4} \right]\]</span></p>
+<p>בסוגריים נציב את זהויות חצי-הזווית, ושני המחוברים הראשונים מצטמצמים יפה: <span class="math display">\[,\frac{\left( 1 - c \right)\left( 2 + c \right)}{2} + \frac{\left( 1 + c \right)c}{2} = \frac{2 - c - c^2 + c + c^2}{2} = 1\]</span> ולכן הסוגריים שווים ל-<span class="math inline">\(1 - \frac{1}{4} = \frac{3}{4}\)</span>, והמונה הוא <span class="math inline">\(\frac{3}{4}\cos\frac{t}{2}\)</span>.</p>
+<p>נחלק במכנה שחושב בשלב 5: <span class="math display">\[.\tau = \frac{\tfrac{3}{4}\cos\tfrac{t}{2}}{\tfrac{13 + 3\cos t}{8}} = \frac{6\cos\frac{t}{2}}{13 + 3\cos t}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 8: היכן מתאפס הפיתול</summary>
+<div class="foldable" title="שלב 8: היכן מתאפס הפיתול">
+<p>המכנה חיובי תמיד, שכן <span class="math inline">\(13 + 3\cos t \geq 10\)</span>, ולכן <span class="math inline">\(\tau = 0\)</span> אם ורק אם <span class="math inline">\(\cos\frac{t}{2} = 0\)</span>, כלומר <span class="math display">\[.t = \pi \pmod{2\pi}\]</span></p>
+<p>שם <span class="math inline">\(\gamma(\pi) = (0, 0, 2)\)</span>, כלומר הקוטב העליון של הספירה. בנקודה זו ההנחה <span class="math inline">\(\tau \neq 0\)</span> של התרגיל הבא אינה מתקיימת, וגם <span class="math inline">\(\sigma = \frac{1}{\tau}\)</span> אינו מוגדר, ולכן כל דיון המשתמש ב-<span class="math inline">\(\sigma\)</span> מוגבל לתחומים שאינם כוללים אותה.</p>
+</div>
+</details>
+</div>
+<iframe class="widget-frame" src="widgets/ch04/viviani.html" loading="lazy" title="עקומת ויויאני"></iframe>
+<p><em>עקומת ויויאני על הספירה שרדיוסה <span class="math inline">\(2\)</span>. העקומה היא חיתוך הספירה עם הגליל המשורטט בקו דק, ולכן כל נקודותיה במרחק קבוע מהראשית.</em></p>
+<div id="box-q-spherical-curve" class="thmbox thmbox-question">
+<p><strong>שאלה 4.4.7.</strong></p>
+<p>תהי <span class="math inline">\(\gamma(s)\)</span> עקומה במרחב בפרמטריזציית אורך קשת, שעבורה <span class="math inline">\(k(s) &gt; 0\)</span> וגם <span class="math inline">\(\tau(s) \neq 0\)</span> לכל <span class="math inline">\(s\)</span>. נסמן <span class="math display">\[.\rho = \frac{1}{k}, \qquad \sigma = \frac{1}{\tau}\]</span></p>
+<ol type="1">
+<li>נניח ש-<span class="math inline">\(\gamma\)</span> <strong>כדורית</strong>, כלומר שהיא מונחת על ספירה שמרכזה <span class="math inline">\(a\)</span> ורדיוסה <span class="math inline">\(r\)</span>. חשבו את שלוש המכפלות <span class="math inline">\(\left\langle T, \gamma - a \right\rangle\)</span>, <span class="math inline">\(\left\langle N, \gamma - a \right\rangle\)</span> ו-<span class="math inline">\(\left\langle B, \gamma - a \right\rangle\)</span>, והסיקו ש-<span class="math display">\[.\frac{\tau}{k} = \left( \frac{k'}{\tau k^2} \right)'\]</span></li>
+<li>הסיקו גם ש-<span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = r^2\]</span></li>
+<li>הראו את הכיוון ההפוך: אם מתקיים השוויון שבסעיף 1, אז <span class="math inline">\(\gamma\)</span> מונחת על ספירה. מצאו את מרכזה ואת רדיוסה.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: שרשרת של ארבע גזירות</summary>
+<div class="foldable" title="שלב 1: שרשרת של ארבע גזירות">
+<p>נקודת המוצא היא שהעקומה מונחת על הספירה, כלומר <span class="math display">\[.\left\langle \gamma - a,\ \gamma - a \right\rangle = r^2\]</span> נגזור לפי <span class="math inline">\(s\)</span> ונקבל <span class="math inline">\(2\left\langle T,\ \gamma - a \right\rangle = 0\)</span>, כלומר <span class="math display">\[.\left\langle T,\ \gamma - a \right\rangle = 0\]</span></p>
+<p>נגזור שוב. לפי כלל המכפלה <span class="math display">\[,\left\langle T',\ \gamma - a \right\rangle + \left\langle T,\ T \right\rangle = 0\]</span> ומכיוון ש-<span class="math inline">\(T' = kN\)</span> ו-<span class="math inline">\(\left\| T \right\| = 1\)</span> מתקבל <span class="math inline">\(k\left\langle N,\ \gamma - a \right\rangle + 1 = 0\)</span>, כלומר <span class="math display">\[.\left\langle N,\ \gamma - a \right\rangle = -\frac{1}{k} = -\rho\]</span></p>
+<p>נגזור בשלישית: <span class="math display">\[.\left\langle N',\ \gamma - a \right\rangle + \left\langle N,\ T \right\rangle = \left( -\frac{1}{k} \right)' = \frac{k'}{k^2}\]</span> המחובר השני מתאפס, ולפי פרנה־סרה <span class="math inline">\(N' = -kT + \tau B\)</span>, ולכן <span class="math display">\[,-k\left\langle T,\ \gamma - a \right\rangle + \tau \left\langle B,\ \gamma - a \right\rangle = \frac{k'}{k^2}\]</span> ומכיוון שהמכפלה הראשונה מתאפסת, <span class="math display">\[.\left\langle B,\ \gamma - a \right\rangle = \frac{k'}{\tau k^2}\]</span></p>
+<p>נגזור ברביעית: <span class="math display">\[.\left\langle B',\ \gamma - a \right\rangle + \left\langle B,\ T \right\rangle = \left( \frac{k'}{\tau k^2} \right)'\]</span> שוב המחובר השני מתאפס, ולפי <span class="math inline">\(B' = -\tau N\)</span> ולפי מה שחישבנו בשלב השני, <span class="math display">\[.-\tau \left\langle N,\ \gamma - a \right\rangle = -\tau \left( -\rho \right) = \tau \rho = \frac{\tau}{k}\]</span> בהשוואה מתקבל בדיוק השוויון המבוקש.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: פירוק הוקטור והרדיוס</summary>
+<div class="foldable" title="שלב 2: פירוק הוקטור והרדיוס">
+<p>השלישייה <span class="math inline">\(\left\{ T, N, B \right\}\)</span> היא בסיס אורתונורמלי, ולכן כל וקטור מתפרק לפי המכפלות הפנימיות שלו איתה. משלושת החישובים בשלב הקודם <span class="math display">\[.\gamma - a = 0 \cdot T + \left( -\rho \right) N + \frac{k'}{\tau k^2} B\]</span></p>
+<p>נפשט את המקדם האחרון. מכיוון ש-<span class="math inline">\(\rho = \frac{1}{k}\)</span> מתקיים <span class="math inline">\(\rho' = -\frac{k'}{k^2}\)</span>, ולכן <span class="math display">\[,\frac{k'}{\tau k^2} = -\rho' \sigma\]</span> ומכאן <span class="math display">\[.\gamma - a = -\rho N - \rho' \sigma B\]</span></p>
+<p>הרדיוס מתקבל כעת מיד: שני הווקטורים <span class="math inline">\(N\)</span> ו-<span class="math inline">\(B\)</span> אורתונורמליים, ולכן <span class="math display">\[.r^2 = \left\| \gamma - a \right\|^2 = \rho^2 + \left( \rho' \sigma \right)^2\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הכיוון ההפוך</summary>
+<div class="foldable" title="שלב 3: הכיוון ההפוך">
+<p>נניח כעת רק את השוויון <span class="math inline">\(\frac{\tau}{k} = \left( \frac{k'}{\tau k^2} \right)'\)</span>, כלומר, בסימונים של השלב הקודם, <span class="math display">\[.\tau \rho = -\left( \rho' \sigma \right)'\]</span></p>
+<p>הפירוק שקיבלנו קודם מציע מיהו המרכז, ולכן <strong>נגדיר</strong> <span class="math display">\[,a = \gamma + \rho N + \rho' \sigma B\]</span> ונראה שזהו וקטור קבוע. נגזור לפי <span class="math inline">\(s\)</span> ונשתמש בפרנה־סרה: <span class="math display">\[.a' = T + \rho' N + \rho \left( -kT + \tau B \right) + \left( \rho' \sigma \right)' B + \rho' \sigma \left( -\tau N \right)\]</span></p>
+<p>נאסוף לפי שלושת וקטורי הבסיס: <span class="math display">\[.a' = \left( 1 - \rho k \right) T + \left( \rho' - \tau \rho' \sigma \right) N + \left( \rho \tau + \left( \rho' \sigma \right)' \right) B\]</span></p>
+<p>שלושת המקדמים מתאפסים. הראשון, שכן <span class="math inline">\(\rho k = 1\)</span> לפי ההגדרה. השני, שכן <span class="math inline">\(\tau \sigma = 1\)</span> ולכן <span class="math inline">\(\rho' - \rho' = 0\)</span>. השלישי, שכן זו בדיוק ההנחה. לכן <span class="math inline">\(a' = 0\)</span> ו-<span class="math inline">\(a\)</span> קבוע.</p>
+<p>נותר לראות שהמרחק קבוע. נגזור את <span class="math inline">\(\left\| \gamma - a \right\|^2 = \rho^2 + \left( \rho'\sigma \right)^2\)</span>: <span class="math display">\[,\left( \rho^2 + \left( \rho'\sigma \right)^2 \right)' = 2\rho\rho' + 2\left( \rho'\sigma \right)\left( \rho'\sigma \right)' = 2\rho\rho' + 2\left( \rho'\sigma \right)\left( -\tau\rho \right)\]</span> ובהצבת <span class="math inline">\(\tau = \frac{1}{\sigma}\)</span> מתקבל <span class="math display">\[.2\rho\rho' - 2\rho\rho' \sigma \tau = 2\rho\rho'\left( 1 - \tau\sigma \right) = 0\]</span></p>
+<p>לכן <span class="math inline">\(\left\| \gamma - a \right\|^2\)</span> קבוע, נסמנו <span class="math inline">\(r^2\)</span>, והעקומה מונחת על הספירה שמרכזה <span class="math inline">\(a\)</span> ורדיוסה <span class="math inline">\(r\)</span>.</p>
+</div>
+</details>
+</div>
+<div id="box-q-viviani-sphere-check" class="thmbox thmbox-question">
+<p><strong>שאלה 4.4.8.</strong></p>
+<p>היעזרו ב<a href="#box-q-spherical-curve">שאלה 4.4.7</a> ובחישובים של <a href="#box-q-viviani">שאלה 4.4.6</a> כדי לוודא את הקריטריון עבור עקומת ויויאני: הראו במפורש ש-<span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = 4\]</span></p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: הרעיון</summary>
+<div class="foldable" title="שלב 1: הרעיון">
+<p>מרכז הספירה הוא הראשית, כלומר <span class="math inline">\(a = 0\)</span> ולכן <span class="math inline">\(\gamma - a = \gamma\)</span>. לפי הפירוק שקיבלנו בשלב 2 של <a href="#box-q-spherical-curve">שאלה 4.4.7</a>, <span class="math display">\[,\gamma = -\rho N - \rho' \sigma B\]</span> ולכן <span class="math display">\[.\rho' \sigma = -\left\langle B,\ \gamma \right\rangle\]</span></p>
+<p>זהו הצעד שחוסך את העבודה: במקום לגזור את <span class="math inline">\(\rho\)</span> ולהסתבך בשברים, די לחשב מכפלה פנימית אחת, ואת <span class="math inline">\(\gamma' \times \gamma''\)</span> כבר חישבנו.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: חישוב המכפלה הפנימית</summary>
+<div class="foldable" title="שלב 2: חישוב המכפלה הפנימית">
+<p>נסמן שוב <span class="math inline">\(c = \cos t\)</span>, ונחשב <span class="math display">\[.\left\langle \gamma' \times \gamma'',\ \gamma \right\rangle = \tfrac{1}{2}\sin\tfrac{t}{2}\left( 2 + c \right)\left( 1 + c \right) - \cos^3\tfrac{t}{2}\sin t + 2\sin\tfrac{t}{2}\]</span></p>
+<p>נציב <span class="math inline">\(\sin t = 2\sin\frac{t}{2}\cos\frac{t}{2}\)</span> ונוציא <span class="math inline">\(\sin\frac{t}{2}\)</span>: <span class="math display">\[.\sin\tfrac{t}{2}\left[ \tfrac{1}{2}\left( 2 + c \right)\left( 1 + c \right) - 2\cos^4\tfrac{t}{2} + 2 \right]\]</span></p>
+<p>בסוגריים נציב <span class="math inline">\(\cos^4\frac{t}{2} = \frac{\left( 1+c \right)^2}{4}\)</span>: <span class="math display">\[,\frac{2 + 3c + c^2}{2} - \frac{1 + 2c + c^2}{2} + 2 = \frac{1 + c}{2} + 2 = \frac{5 + c}{2}\]</span> ולכן <span class="math display">\[.\left\langle \gamma' \times \gamma'',\ \gamma \right\rangle = \frac{\sin\frac{t}{2}\left( 5 + c \right)}{2}\]</span></p>
+<p>נחלק ב-<span class="math inline">\(\left\| \gamma' \times \gamma'' \right\| = \dfrac{\sqrt{13 + 3c}}{2\sqrt{2}}\)</span> ונקבל <span class="math display">\[.\left\langle B,\ \gamma \right\rangle = \frac{\sqrt{2}\,\sin\frac{t}{2}\left( 5 + c \right)}{\sqrt{13 + 3c}}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: ההצבה</summary>
+<div class="foldable" title="שלב 3: ההצבה">
+<p>משלב 6 של <a href="#box-q-viviani">שאלה 4.4.6</a> <span class="math display">\[,\rho = \frac{1}{k} = \frac{\left( 3 + c \right)^{3/2}}{\sqrt{13 + 3c}}\]</span> ומהשלב הקודם <span class="math display">\[.\left( \rho' \sigma \right)^2 = \left\langle B, \gamma \right\rangle^2 = \frac{2\sin^2\frac{t}{2}\left( 5 + c \right)^2}{13 + 3c}\]</span></p>
+<p>נציב <span class="math inline">\(2\sin^2\frac{t}{2} = 1 - c\)</span> ונחבר מעל מכנה משותף: <span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = \frac{\left( 3 + c \right)^3 + \left( 1 - c \right)\left( 5 + c \right)^2}{13 + 3c}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: הצמצום</summary>
+<div class="foldable" title="שלב 4: הצמצום">
+<p>נפתח את המונה. ראשית <span class="math display">\[,\left( 3 + c \right)^3 = 27 + 27c + 9c^2 + c^3\]</span> ושנית <span class="math display">\[.\left( 1 - c \right)\left( 25 + 10c + c^2 \right) = 25 - 15c - 9c^2 - c^3\]</span></p>
+<p>בחיבורם האיברים ב-<span class="math inline">\(c^2\)</span> וב-<span class="math inline">\(c^3\)</span> מצטמצמים לגמרי, ונשאר <span class="math display">\[,52 + 12c = 4\left( 13 + 3c \right)\]</span> ולכן <span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = \frac{4\left( 13 + 3c \right)}{13 + 3c} = 4\]</span></p>
+<p>זהו בדיוק <span class="math inline">\(r^2\)</span> עבור <span class="math inline">\(r = 2\)</span>, כפי שמתחייב מ<a href="#box-q-spherical-curve">שאלה 4.4.7</a>. הקריטריון אומת.</p>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="מקורות" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="מקורות"><span class="header-section-number">4.5</span> מקורות</h2>
+<ul>
+<li>Andrew Pressley, <em>Elementary Differential Geometry</em>, 2nd edition, Springer, 2010.</li>
+<li>L. M. Woodward and J. Bolton, <em>A First Course in Differential Geometry: Surfaces in Euclidean Space</em>, Cambridge University Press, 2018.</li>
+<li>Kristopher Tapp, <em>Differential Geometry of Curves and Surfaces</em>, Springer, 2016.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "הועתק!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "הועתק!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/yuval-khachatryan\.github\.io\/Differential-Geometry-Recitations-Summer-2026");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03-Curvature-and-Space-Curves.html" class="pagination-link" aria-label="תרגול 3: עקמומיות בפרמטריזציה כללית, המעגל המשיק והאוולוט">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">תרגול 3: עקמומיות בפרמטריזציה כללית, המעגל המשיק והאוולוט</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

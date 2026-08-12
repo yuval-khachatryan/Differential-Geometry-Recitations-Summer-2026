@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>עקומת ויויאני</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/space3d.js"></script>
+<script>
+/* Viviani's curve on the sphere of radius 2. The readouts are computed from the
+   curve, so k and tau can be compared against the closed forms of the exercise;
+   in particular tau passes through 0 at t = pi, at the top of the sphere. */
+Space3D.mount({
+  f: function (t) { return [1 + Math.cos(t), Math.sin(t), 2 * Math.sin(t / 2)]; },
+  tMin: 0.02, tMax: 4 * Math.PI - 0.02,
+  sphere: 2,
+  aspect: 0.95,
+  paramLabel: "הפרמטר t",
+  title: "γ(t) = (1 + cos t, sin t, 2 sin(t/2))",
+  hint: "גררו את הציור כדי לסובב את המבט. כל נקודות העקומה נמצאות על הספירה שרדיוסה 2. שימו לב לפיתול: הוא מתאפס כאשר t = π, בנקודה הגבוהה של העקומה."
+});
+</script>
+</body>
+</html>

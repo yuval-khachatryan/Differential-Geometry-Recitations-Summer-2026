@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הספירלה החרוטית</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/space3d.js"></script>
+<script>
+/* alpha(u) = e^u (cos u, sin u, 1), on the cone x^2 + y^2 = z^2. The readouts show
+   k and tau both decaying like e^{-u} while their ratio stays at 1/sqrt(2). */
+Space3D.mount({
+  f: function (u) { var e = Math.exp(u); return [e * Math.cos(u), e * Math.sin(u), e]; },
+  tMin: -3.0, tMax: 1.6,
+  aspect: 0.9,
+  paramLabel: "הפרמטר u",
+  title: "α(u) = e^u (cos u, sin u, 1)",
+  hint: "גררו את הציור כדי לסובב את המבט. העקומה מטפסת על החרוט x² + y² = z². שימו לב ש-k ו-τ קטנים שניהם כמו e^(−u), אך היחס τ/k נשאר קבוע: זהו סליל כללי."
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>עקומה על גליל היפרבולי</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/space3d.js"></script>
+<script>
+/* alpha(u) = (cosh u, sinh u, u), on the hyperbolic cylinder x^2 - y^2 = 1.
+   Here k and tau are equal, so the tau/k readout sits at exactly 1. */
+Space3D.mount({
+  f: function (u) { return [Math.cosh(u), Math.sinh(u), u]; },
+  tMin: -2.0, tMax: 2.0,
+  aspect: 0.9,
+  paramLabel: "הפרמטר u",
+  title: "α(u) = (cosh u, sinh u, u)",
+  hint: "גררו את הציור כדי לסובב את המבט. העקומה מונחת על הגליל ההיפרבולי x² − y² = 1. כאן k = τ בכל נקודה, ולכן היחס τ/k שווה ל-1 והזווית עם הציר הקבוע היא 45°."
+});
+</script>
+</body>
+</html>

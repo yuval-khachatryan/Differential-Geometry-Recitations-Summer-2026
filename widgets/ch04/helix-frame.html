@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>המסגרת הנעה של הסליל</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/space3d.js"></script>
+<script>
+/* The circular helix with a = 1. The second slider is b: at b = 0 the curve
+   collapses onto the circle in the xy-plane and the torsion readout drops to 0,
+   which is the content of the planarity proposition. */
+Space3D.mount({
+  f: function (t, b) { return [Math.cos(t), Math.sin(t), b * t]; },
+  tMin: 0, tMax: 4 * Math.PI,
+  param: { label: "b", min: 0, max: 1.0, value: 0.35 },
+  paramLabel: "הפרמטר t",
+  title: "γ(θ) = (cos θ, sin θ, bθ)",
+  hint: "גררו את הציור כדי לסובב את המבט. הזיזו את b: כשהוא מתאפס הסליל נעשה מעגל במישור, והפיתול יורד לאפס. שימו לב שהיחס τ/k נשאר קבוע לאורך העקומה לכל ערך של b, שכן הסליל הוא סליל כללי."
+});
+</script>
+</body>
+</html>

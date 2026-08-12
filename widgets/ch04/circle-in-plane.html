@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מעגל היחידה במישור 3x + 4z = 0</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/space3d.js"></script>
+<script>
+/* The curve of the exercise. The plane's normal is exactly the binormal
+   B = (-3/5, 0, -4/5), which is why the plane can be drawn at all: B is constant
+   precisely because the curve is planar. */
+Space3D.mount({
+  f: function (t) { return [0.8 * Math.cos(t), 1 - Math.sin(t), -0.6 * Math.cos(t)]; },
+  tMin: 0, tMax: 2 * Math.PI,
+  plane: { point: [0, 1, 0], normal: [-0.6, 0, -0.8], size: 1.7 },
+  aspect: 0.9,
+  title: "γ(t) = (4/5·cos t,  1 − sin t,  −3/5·cos t)",
+  paramLabel: "הפרמטר t",
+  hint: "גררו את הציור כדי לסובב את המבט. T ו-N מסתובבים לאורך המעגל, אך B מצביע תמיד לאותו כיוון והוא הנורמל של המישור המצויר. זו המשמעות של τ = 0."
+});
+</script>
+</body>
+</html>
