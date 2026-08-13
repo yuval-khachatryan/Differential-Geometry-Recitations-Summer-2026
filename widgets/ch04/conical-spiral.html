@@ -15,11 +15,13 @@
    k and tau both decaying like e^{-u} while their ratio stays at 1/sqrt(2). */
 Space3D.mount({
   f: function (u) { var e = Math.exp(u); return [e * Math.cos(u), e * Math.sin(u), e]; },
-  tMin: -3.0, tMax: 1.6,
+  tMin: 0, tMax: 2 * Math.PI,
+  cone: { slope: 1, zMax: Math.exp(2 * Math.PI) },
+  axisNumbers: false,
   aspect: 0.9,
   paramLabel: "הפרמטר u",
   title: "α(u) = e^u (cos u, sin u, 1)",
-  hint: "גררו את הציור כדי לסובב את המבט. העקומה מטפסת על החרוט x² + y² = z². שימו לב ש-k ו-τ קטנים שניהם כמו e^(−u), אך היחס τ/k נשאר קבוע: זהו סליל כללי."
+  hint: "גררו את הציור כדי לסובב את המבט. העקומה מטפסת על החרוט x² + y² = z², המצויר בטורקיז. שימו לב ש-k ו-τ קטנים שניהם כמו e^(−u), אך היחס τ/k נשאר קבוע: זהו סליל כללי."
 });
 </script>
 </body>

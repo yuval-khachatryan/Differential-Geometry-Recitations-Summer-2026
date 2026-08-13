@@ -18,10 +18,12 @@ Space3D.mount({
   f: function (t) { return [1 + Math.cos(t), Math.sin(t), 2 * Math.sin(t / 2)]; },
   tMin: 0.02, tMax: 4 * Math.PI - 0.02,
   sphere: 2,
+  cylinder: { center: [1, 0], radius: 1, zMin: -2, zMax: 2 },
+  axisNumbers: false,
   aspect: 0.95,
   paramLabel: "הפרמטר t",
   title: "γ(t) = (1 + cos t, sin t, 2 sin(t/2))",
-  hint: "גררו את הציור כדי לסובב את המבט. כל נקודות העקומה נמצאות על הספירה שרדיוסה 2. שימו לב לפיתול: הוא מתאפס כאשר t = π, בנקודה הגבוהה של העקומה."
+  hint: "גררו את הציור כדי לסובב את המבט. העקומה היא החיתוך של הספירה שרדיוסה 2 (בכחול) עם הגליל (בטורקיז). שימו לב לפיתול: הוא מתאפס כאשר t = π, בנקודה הגבוהה של העקומה."
 });
 </script>
 </body>

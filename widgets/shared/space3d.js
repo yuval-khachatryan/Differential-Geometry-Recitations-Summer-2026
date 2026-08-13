@@ -18,6 +18,8 @@
 
   var COL = {
     curve: "#c0392b",
+    sphere:"#7c9fc4",      // the sphere a curve may live on
+    cyl:   "#0d9488",      // the cylinder it may also live on
     T:     "#1f4e79",
     N:     "#16a34a",
     B:     "#9333ea",
@@ -138,6 +140,27 @@
       var xs = [], ys = [], q;
       for (i = 0; i <= NS; i += 3) { q = project(P[i]); xs.push(q[0]); ys.push(q[1]); }
       if (cfg.sphere) { xs.push(-cfg.sphere, cfg.sphere); ys.push(-cfg.sphere, cfg.sphere); }
+      if (cfg.cone) {
+        var cn = cfg.cone, sl = cn.slope === undefined ? 1 : cn.slope;
+        for (var ck = 0; ck < 8; ck++) {
+          var ag = 2 * Math.PI * ck / 8,
+              cpt = [sl * cn.zMax * Math.cos(ag), sl * cn.zMax * Math.sin(ag), cn.zMax],
+              cpq = project(cpt);
+          xs.push(cpq[0]); ys.push(cpq[1]);
+        }
+      }
+      if (cfg.cylinder) {
+        var cc = cfg.cylinder;
+        [cc.zMin, cc.zMax].forEach(function (zl) {
+          for (var ca = 0; ca < 8; ca++) {
+            var ang2 = 2 * Math.PI * ca / 8,
+                pt = [cc.center[0] + cc.radius * Math.cos(ang2),
+                      cc.center[1] + cc.radius * Math.sin(ang2), zl],
+                pq2 = project(pt);
+            xs.push(pq2[0]); ys.push(pq2[1]);
+          }
+        });
+      }
       if (cfg.plane) {
         /* the plane patch must be inside the frame too, or it would be clipped
            to a sliver and read as a stray line */
@@ -161,18 +184,40 @@
       function X(p3) { return ox + project(p3)[0] * sc; }
       function Y(p3) { return oy - project(p3)[1] * sc; }
 
-      /* the coordinate axes */
-      var ext = Math.max(halfX, halfY) * 0.85;
+      /* The coordinate axes, with ticks and numbers. A "nice" step is chosen from
+         the extent so the labels stay readable at any zoom, and ticks are drawn as
+         short screen-space marks: a tick in world space would foreshorten to
+         nothing whenever its axis points towards the viewer. */
+      var ext = Math.max(halfX, halfY) * 0.85,
+          rawStep = ext / 4,
+          mag = Math.pow(10, Math.floor(Math.log(rawStep) / Math.LN10)),
+          mant = rawStep / mag,
+          step = (mant >= 5 ? 5 : mant >= 2 ? 2 : 1) * mag,
+          dec = Math.max(0, -Math.floor(Math.log(step) / Math.LN10 + 1e-9));
       ctx.lineWidth = 1.2; ctx.strokeStyle = COL.axis;
-      ctx.font = "bold 12px Arial, sans-serif";
       ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      [[[ext, 0, 0], "x"], [[0, ext, 0], "y"], [[0, 0, ext], "z"]].forEach(function (ax) {
+      [[[1, 0, 0], "x"], [[0, 1, 0], "y"], [[0, 0, 1], "z"]].forEach(function (ax) {
+        var dir = ax[0], tip = mul(dir, ext);
+        ctx.strokeStyle = COL.axis; ctx.lineWidth = 1.2;
         ctx.beginPath();
-        ctx.moveTo(X([0, 0, 0]), Y([0, 0, 0]));
-        ctx.lineTo(X(ax[0]), Y(ax[0]));
+        ctx.moveTo(X(mul(dir, -ext)), Y(mul(dir, -ext)));
+        ctx.lineTo(X(tip), Y(tip));
         ctx.stroke();
+        ctx.font = "bold 13px Arial, sans-serif";
+        ctx.fillStyle = "#475569";
+        ctx.fillText(ax[1], X(tip) + 11, Y(tip) - 8);
+
+        ctx.font = "10px Arial, sans-serif";
         ctx.fillStyle = "#64748b";
-        ctx.fillText(ax[1], X(ax[0]) + 9, Y(ax[0]) - 6);
+        for (var v = -Math.floor(ext / step) * step; v <= ext; v += step) {
+          if (Math.abs(v) < step / 2) continue;              /* skip the origin */
+          var at = mul(dir, v), px = X(at), py = Y(at);
+          ctx.strokeStyle = COL.axis; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(px - 4, py); ctx.lineTo(px + 4, py); ctx.stroke();
+          /* the notches always; the values only where they mean something --
+             on the cone they run to 535 and are pure clutter */
+          if (cfg.axisNumbers !== false) ctx.fillText(v.toFixed(dec), px, py + 11);
+        }
       });
 
       /* an optional plane, for curves that lie in one: drawn as a grid so that
@@ -195,10 +240,58 @@
         }
       }
 
+      /* an optional cone z = radius/slope, for curves that climb one */
+      if (cfg.cone) {
+        var co = cfg.cone, slope = co.slope === undefined ? 1 : co.slope,
+            zt = co.zMax, oi, oj, op;
+        ctx.strokeStyle = COL.cyl; ctx.lineWidth = 0.8;
+        for (oi = 1; oi <= 5; oi++) {                        /* rings */
+          var zc2 = zt * oi / 5, rc = slope * zc2;
+          ctx.beginPath();
+          for (oj = 0; oj <= 72; oj++) {
+            op = [rc * Math.cos(2 * Math.PI * oj / 72), rc * Math.sin(2 * Math.PI * oj / 72), zc2];
+            if (oj === 0) ctx.moveTo(X(op), Y(op)); else ctx.lineTo(X(op), Y(op));
+          }
+          ctx.stroke();
+        }
+        for (oi = 0; oi < 16; oi++) {                        /* rulings */
+          var an = 2 * Math.PI * oi / 16,
+              tip2 = [slope * zt * Math.cos(an), slope * zt * Math.sin(an), zt];
+          ctx.beginPath();
+          ctx.moveTo(X([0, 0, 0]), Y([0, 0, 0]));
+          ctx.lineTo(X(tip2), Y(tip2));
+          ctx.stroke();
+        }
+      }
+
+      /* an optional wireframe cylinder, drawn in its own colour so that the
+         curve can be seen as the intersection of two named surfaces */
+      if (cfg.cylinder) {
+        var cy0 = cfg.cylinder, ccx = cy0.center[0], ccy = cy0.center[1],
+            crr = cy0.radius, cz0 = cy0.zMin, cz1 = cy0.zMax, ci, cj, cp;
+        ctx.strokeStyle = COL.cyl; ctx.lineWidth = 0.8;
+        for (ci = 0; ci <= 4; ci++) {                        /* rings */
+          var zl = cz0 + (cz1 - cz0) * ci / 4;
+          ctx.beginPath();
+          for (cj = 0; cj <= 72; cj++) {
+            cp = [ccx + crr * Math.cos(2 * Math.PI * cj / 72),
+                  ccy + crr * Math.sin(2 * Math.PI * cj / 72), zl];
+            if (cj === 0) ctx.moveTo(X(cp), Y(cp)); else ctx.lineTo(X(cp), Y(cp));
+          }
+          ctx.stroke();
+        }
+        for (ci = 0; ci < 16; ci++) {                        /* rulings */
+          var al2 = 2 * Math.PI * ci / 16,
+              b0 = [ccx + crr * Math.cos(al2), ccy + crr * Math.sin(al2), cz0],
+              b1 = [ccx + crr * Math.cos(al2), ccy + crr * Math.sin(al2), cz1];
+          ctx.beginPath(); ctx.moveTo(X(b0), Y(b0)); ctx.lineTo(X(b1), Y(b1)); ctx.stroke();
+        }
+      }
+
       /* an optional wireframe sphere, for curves that live on one */
       if (cfg.sphere) {
         var R = cfg.sphere, m, n, ring;
-        ctx.strokeStyle = "#cbd5e1"; ctx.lineWidth = 0.7;
+        ctx.strokeStyle = COL.sphere; ctx.lineWidth = 0.7;
         for (m = 1; m < 8; m++) {                 /* latitudes */
           var ph = Math.PI * m / 8, rr = R * Math.sin(ph), zz = R * Math.cos(ph);
           ctx.beginPath();
@@ -251,9 +344,12 @@
 
       tval.textContent = fmt(t, 2);
       if (pval) pval.textContent = par.label + " = " + fmt(pVal, 2);
-      set("k", fr ? "= " + fmt(fr.k) : "= —");
-      set("tau", fr ? "= " + fmt(fr.tau) : "= —");
-      set("ratio", fr && Math.abs(fr.k) > 1e-9 ? "= " + fmt(fr.tau / fr.k) : "= —");
+      /* four decimals, not three: on the conical spiral both k and tau decay like
+         e^-u and are already down to ~6e-4 by the end of a single turn, where
+         three decimals round them to 0.001 and the decay stops being readable. */
+      set("k", fr ? "= " + fmt(fr.k, 4) : "= —");
+      set("tau", fr ? "= " + fmt(fr.tau, 4) : "= —");
+      set("ratio", fr && Math.abs(fr.k) > 1e-9 ? "= " + fmt(fr.tau / fr.k, 4) : "= —");
       report();
     }
 

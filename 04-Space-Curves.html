@@ -603,7 +603,6 @@ window.Quarto = {
   <ul>
   <li><a href="#תרגילים-2" id="toc-תרגילים-2" class="nav-link" data-scroll-target="#תרגילים-2">תרגילים</a></li>
   </ul></li>
-  <li><a href="#מקורות" id="toc-מקורות" class="nav-link" data-scroll-target="#מקורות"><span class="header-section-number">4.5</span> מקורות</a></li>
   </ul>
 </nav>
     </div>
@@ -872,7 +871,7 @@ window.Quarto = {
 <p>במנה שבנוסחת הפיתול המונה נושא <span class="math inline">\(\left( \frac{ds}{dt} \right)^6\)</span> והמכנה <span class="math inline">\(\left( \frac{ds}{dt} \right)^6\)</span>, ולכן הגורם מצטמצם והביטוי אינו תלוי בפרמטריזציה. עבור העקמומיות, <span class="math inline">\(\left\| \gamma' \times \gamma'' \right\| = \left( \frac{ds}{dt} \right)^3 k\)</span> ו-<span class="math inline">\(\left\| \gamma' \right\|^3 = \left( \frac{ds}{dt} \right)^3\)</span>, ובחלוקה מתקבל <span class="math inline">\(k\)</span>.</p>
 </div>
 <section id="תרגילים-2" class="level3">
-<h3 class="anchored" data-anchor-id="תרגילים-2">תרגילים</h3>
+<h3 class="anchored">תרגילים</h3>
 <div id="box-q-helix-k-tau" class="thmbox thmbox-question">
 <p><strong>שאלה 4.4.2.</strong></p>
 <p>חשבו את העקמומיות ואת הפיתול של הסליל <span class="math display">\[,\gamma(\theta) = \left( a\cos\theta,\ a\sin\theta,\ b\theta \right)\]</span> כאשר <span class="math inline">\(a &gt; 0\)</span> ו-<span class="math inline">\(b\)</span> קבועים.</p>
@@ -1004,6 +1003,8 @@ window.Quarto = {
 </div>
 </details>
 </div>
+<iframe class="widget-frame" src="widgets/ch04/conical-spiral.html" loading="lazy" title="הספירלה החרוטית"></iframe>
+<p><em>הספירלה החרוטית על החרוט <span class="math inline">\(x^2 + y^2 = z^2\)</span>. המשטח מצויר בשקיפות, כדי שאפשר יהיה לראות שהעקומה מונחת עליו ולא רק לידו. הגרסה האינטראקטיבית זמינה בגרסה המקוונת.</em></p>
 <div id="box-q-hyperbolic-cylinder" class="thmbox thmbox-question">
 <p><strong>שאלה 4.4.5.</strong></p>
 <p>תהי <span class="math inline">\(\alpha\)</span> העקומה <span class="math display">\[.\alpha(u) = \left( \cosh u,\ \sinh u,\ u \right), \qquad u \in \mathbb{R}\]</span></p>
@@ -1041,16 +1042,53 @@ window.Quarto = {
 </div>
 </details>
 </div>
-<iframe class="widget-frame" src="widgets/ch04/conical-spiral.html" loading="lazy" title="הספירלה החרוטית"></iframe>
 <iframe class="widget-frame" src="widgets/ch04/hyperbolic-cylinder.html" loading="lazy" title="עקומה על גליל היפרבולי"></iframe>
-<p><em>שתי העקומות של התרגילים, כל אחת על המשטח שעליו היא מונחת. משמאל הספירלה החרוטית על החרוט <span class="math inline">\(x^2 + y^2 = z^2\)</span>, ומימין העקומה <span class="math inline">\((\cosh u, \sinh u, u)\)</span> על הגליל ההיפרבולי <span class="math inline">\(x^2 - y^2 = 1\)</span>. שתיהן סלילים כלליים: היחס <span class="math inline">\(\frac{\tau}{k}\)</span> קבוע לאורך כל אחת מהן. הגרסאות האינטראקטיביות זמינות בגרסה המקוונת.</em></p>
-<div id="box-q-viviani" class="thmbox thmbox-question">
+<p><em>העקומה <span class="math inline">\(\\left( \\cosh u, \\sinh u, u \\right)\)</span> על הגליל ההיפרבולי <span class="math inline">\(x^2 - y^2 = 1\)</span>, המצויר אף הוא בשקיפות. הגרסה האינטראקטיבית זמינה בגרסה המקוונת.</em></p>
+<div id="box-q-spherical-curve" class="thmbox thmbox-question">
 <p><strong>שאלה 4.4.6.</strong></p>
+<p>תהי <span class="math inline">\(\gamma(s)\)</span> עקומה במרחב בפרמטריזציית אורך קשת, שעבורה <span class="math inline">\(k(s) &gt; 0\)</span> וגם <span class="math inline">\(\tau(s) \neq 0\)</span> לכל <span class="math inline">\(s\)</span>. נסמן <span class="math display">\[.\rho = \frac{1}{k}, \qquad \sigma = \frac{1}{\tau}\]</span></p>
+<ol type="1">
+<li>נניח ש-<span class="math inline">\(\gamma\)</span> <strong>כדורית</strong>, כלומר שהיא מונחת על ספירה שמרכזה <span class="math inline">\(a\)</span> ורדיוסה <span class="math inline">\(r\)</span>. חשבו את שלוש המכפלות <span class="math inline">\(\left\langle T, \gamma - a \right\rangle\)</span>, <span class="math inline">\(\left\langle N, \gamma - a \right\rangle\)</span> ו-<span class="math inline">\(\left\langle B, \gamma - a \right\rangle\)</span>, והסיקו ש-<span class="math display">\[.\frac{\tau}{k} = \left( \frac{k'}{\tau k^2} \right)'\]</span></li>
+<li>הסיקו גם ש-<span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = r^2\]</span></li>
+<li>הראו את הכיוון ההפוך: אם מתקיים השוויון שבסעיף 1, אז <span class="math inline">\(\gamma\)</span> מונחת על ספירה. מצאו את מרכזה ואת רדיוסה.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: שרשרת של ארבע גזירות</summary>
+<div class="foldable" title="שלב 1: שרשרת של ארבע גזירות">
+<p>נקודת המוצא היא שהעקומה מונחת על הספירה, כלומר <span class="math display">\[.\left\langle \gamma - a,\ \gamma - a \right\rangle = r^2\]</span> נגזור לפי <span class="math inline">\(s\)</span> ונקבל <span class="math inline">\(2\left\langle T,\ \gamma - a \right\rangle = 0\)</span>, כלומר <span class="math display">\[.\left\langle T,\ \gamma - a \right\rangle = 0\]</span></p>
+<p>נגזור שוב. לפי כלל המכפלה <span class="math display">\[,\left\langle T',\ \gamma - a \right\rangle + \left\langle T,\ T \right\rangle = 0\]</span> ומכיוון ש-<span class="math inline">\(T' = kN\)</span> ו-<span class="math inline">\(\left\| T \right\| = 1\)</span> מתקבל <span class="math inline">\(k\left\langle N,\ \gamma - a \right\rangle + 1 = 0\)</span>, כלומר <span class="math display">\[.\left\langle N,\ \gamma - a \right\rangle = -\frac{1}{k} = -\rho\]</span></p>
+<p>נגזור בשלישית: <span class="math display">\[.\left\langle N',\ \gamma - a \right\rangle + \left\langle N,\ T \right\rangle = \left( -\frac{1}{k} \right)' = \frac{k'}{k^2}\]</span> המחובר השני מתאפס, ולפי פרנה־סרה <span class="math inline">\(N' = -kT + \tau B\)</span>, ולכן <span class="math display">\[,-k\left\langle T,\ \gamma - a \right\rangle + \tau \left\langle B,\ \gamma - a \right\rangle = \frac{k'}{k^2}\]</span> ומכיוון שהמכפלה הראשונה מתאפסת, <span class="math display">\[.\left\langle B,\ \gamma - a \right\rangle = \frac{k'}{\tau k^2}\]</span></p>
+<p>נגזור ברביעית: <span class="math display">\[.\left\langle B',\ \gamma - a \right\rangle + \left\langle B,\ T \right\rangle = \left( \frac{k'}{\tau k^2} \right)'\]</span> שוב המחובר השני מתאפס, ולפי <span class="math inline">\(B' = -\tau N\)</span> ולפי מה שחישבנו בשלב השני, <span class="math display">\[.-\tau \left\langle N,\ \gamma - a \right\rangle = -\tau \left( -\rho \right) = \tau \rho = \frac{\tau}{k}\]</span> בהשוואה מתקבל בדיוק השוויון המבוקש.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: פירוק הוקטור והרדיוס</summary>
+<div class="foldable" title="שלב 2: פירוק הוקטור והרדיוס">
+<p>השלישייה <span class="math inline">\(\left\{ T, N, B \right\}\)</span> היא בסיס אורתונורמלי, ולכן כל וקטור מתפרק לפי המכפלות הפנימיות שלו איתה. משלושת החישובים בשלב הקודם <span class="math display">\[.\gamma - a = 0 \cdot T + \left( -\rho \right) N + \frac{k'}{\tau k^2} B\]</span></p>
+<p>נפשט את המקדם האחרון. מכיוון ש-<span class="math inline">\(\rho = \frac{1}{k}\)</span> מתקיים <span class="math inline">\(\rho' = -\frac{k'}{k^2}\)</span>, ולכן <span class="math display">\[,\frac{k'}{\tau k^2} = -\rho' \sigma\]</span> ומכאן <span class="math display">\[.\gamma - a = -\rho N - \rho' \sigma B\]</span></p>
+<p>הרדיוס מתקבל כעת מיד: שני הווקטורים <span class="math inline">\(N\)</span> ו-<span class="math inline">\(B\)</span> אורתונורמליים, ולכן <span class="math display">\[.r^2 = \left\| \gamma - a \right\|^2 = \rho^2 + \left( \rho' \sigma \right)^2\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הכיוון ההפוך</summary>
+<div class="foldable" title="שלב 3: הכיוון ההפוך">
+<p>נניח כעת רק את השוויון <span class="math inline">\(\frac{\tau}{k} = \left( \frac{k'}{\tau k^2} \right)'\)</span>, כלומר, בסימונים של השלב הקודם, <span class="math display">\[.\tau \rho = -\left( \rho' \sigma \right)'\]</span></p>
+<p>הפירוק שקיבלנו קודם מציע מיהו המרכז, ולכן <strong>נגדיר</strong> <span class="math display">\[,a = \gamma + \rho N + \rho' \sigma B\]</span> ונראה שזהו וקטור קבוע. נגזור לפי <span class="math inline">\(s\)</span> ונשתמש בפרנה־סרה: <span class="math display">\[.a' = T + \rho' N + \rho \left( -kT + \tau B \right) + \left( \rho' \sigma \right)' B + \rho' \sigma \left( -\tau N \right)\]</span></p>
+<p>נאסוף לפי שלושת וקטורי הבסיס: <span class="math display">\[.a' = \left( 1 - \rho k \right) T + \left( \rho' - \tau \rho' \sigma \right) N + \left( \rho \tau + \left( \rho' \sigma \right)' \right) B\]</span></p>
+<p>שלושת המקדמים מתאפסים. הראשון, שכן <span class="math inline">\(\rho k = 1\)</span> לפי ההגדרה. השני, שכן <span class="math inline">\(\tau \sigma = 1\)</span> ולכן <span class="math inline">\(\rho' - \rho' = 0\)</span>. השלישי, שכן זו בדיוק ההנחה. לכן <span class="math inline">\(a' = 0\)</span> ו-<span class="math inline">\(a\)</span> קבוע.</p>
+<p>נותר לראות שהמרחק קבוע. נגזור את <span class="math inline">\(\left\| \gamma - a \right\|^2 = \rho^2 + \left( \rho'\sigma \right)^2\)</span>: <span class="math display">\[,\left( \rho^2 + \left( \rho'\sigma \right)^2 \right)' = 2\rho\rho' + 2\left( \rho'\sigma \right)\left( \rho'\sigma \right)' = 2\rho\rho' + 2\left( \rho'\sigma \right)\left( -\tau\rho \right)\]</span> ובהצבת <span class="math inline">\(\tau = \frac{1}{\sigma}\)</span> מתקבל <span class="math display">\[.2\rho\rho' - 2\rho\rho' \sigma \tau = 2\rho\rho'\left( 1 - \tau\sigma \right) = 0\]</span></p>
+<p>לכן <span class="math inline">\(\left\| \gamma - a \right\|^2\)</span> קבוע, נסמנו <span class="math inline">\(r^2\)</span>, והעקומה מונחת על הספירה שמרכזה <span class="math inline">\(a\)</span> ורדיוסה <span class="math inline">\(r\)</span>.</p>
+</div>
+</details>
+</div>
+<div id="box-q-viviani" class="thmbox thmbox-question">
+<p><strong>שאלה 4.4.7.</strong></p>
 <p><strong>עקומת ויויאני</strong> היא החיתוך של הספירה <span class="math inline">\(x^2 + y^2 + z^2 = 4\)</span> עם הגליל <span class="math inline">\(\left( x - 1 \right)^2 + y^2 = 1\)</span>. אפשר לפרמט אותה על ידי <span class="math display">\[.\gamma(t) = \left( 1 + \cos t,\ \sin t,\ 2\sin\frac{t}{2} \right)\]</span></p>
 <ol type="1">
 <li>ודאו שהעקומה אכן מונחת על הספירה ועל הגליל.</li>
 <li>חשבו את העקמומיות ואת הפיתול שלה.</li>
 <li>היכן מתאפס הפיתול, ומה המשמעות של כך.</li>
+<li>היעזרו ב<a href="#box-q-spherical-curve">שאלה 4.4.6</a> וודאו במפורש ש-<span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = 4\]</span></li>
 </ol>
 </div>
 <div class="thmbox thmbox-solution">
@@ -1108,82 +1146,35 @@ window.Quarto = {
 <p>שם <span class="math inline">\(\gamma(\pi) = (0, 0, 2)\)</span>, כלומר הקוטב העליון של הספירה. בנקודה זו ההנחה <span class="math inline">\(\tau \neq 0\)</span> של התרגיל הבא אינה מתקיימת, וגם <span class="math inline">\(\sigma = \frac{1}{\tau}\)</span> אינו מוגדר, ולכן כל דיון המשתמש ב-<span class="math inline">\(\sigma\)</span> מוגבל לתחומים שאינם כוללים אותה.</p>
 </div>
 </details>
-</div>
-<iframe class="widget-frame" src="widgets/ch04/viviani.html" loading="lazy" title="עקומת ויויאני"></iframe>
-<p><em>עקומת ויויאני על הספירה שרדיוסה <span class="math inline">\(2\)</span>. העקומה היא חיתוך הספירה עם הגליל המשורטט בקו דק, ולכן כל נקודותיה במרחק קבוע מהראשית.</em></p>
-<div id="box-q-spherical-curve" class="thmbox thmbox-question">
-<p><strong>שאלה 4.4.7.</strong></p>
-<p>תהי <span class="math inline">\(\gamma(s)\)</span> עקומה במרחב בפרמטריזציית אורך קשת, שעבורה <span class="math inline">\(k(s) &gt; 0\)</span> וגם <span class="math inline">\(\tau(s) \neq 0\)</span> לכל <span class="math inline">\(s\)</span>. נסמן <span class="math display">\[.\rho = \frac{1}{k}, \qquad \sigma = \frac{1}{\tau}\]</span></p>
-<ol type="1">
-<li>נניח ש-<span class="math inline">\(\gamma\)</span> <strong>כדורית</strong>, כלומר שהיא מונחת על ספירה שמרכזה <span class="math inline">\(a\)</span> ורדיוסה <span class="math inline">\(r\)</span>. חשבו את שלוש המכפלות <span class="math inline">\(\left\langle T, \gamma - a \right\rangle\)</span>, <span class="math inline">\(\left\langle N, \gamma - a \right\rangle\)</span> ו-<span class="math inline">\(\left\langle B, \gamma - a \right\rangle\)</span>, והסיקו ש-<span class="math display">\[.\frac{\tau}{k} = \left( \frac{k'}{\tau k^2} \right)'\]</span></li>
-<li>הסיקו גם ש-<span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = r^2\]</span></li>
-<li>הראו את הכיוון ההפוך: אם מתקיים השוויון שבסעיף 1, אז <span class="math inline">\(\gamma\)</span> מונחת על ספירה. מצאו את מרכזה ואת רדיוסה.</li>
-</ol>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: שרשרת של ארבע גזירות</summary>
-<div class="foldable" title="שלב 1: שרשרת של ארבע גזירות">
-<p>נקודת המוצא היא שהעקומה מונחת על הספירה, כלומר <span class="math display">\[.\left\langle \gamma - a,\ \gamma - a \right\rangle = r^2\]</span> נגזור לפי <span class="math inline">\(s\)</span> ונקבל <span class="math inline">\(2\left\langle T,\ \gamma - a \right\rangle = 0\)</span>, כלומר <span class="math display">\[.\left\langle T,\ \gamma - a \right\rangle = 0\]</span></p>
-<p>נגזור שוב. לפי כלל המכפלה <span class="math display">\[,\left\langle T',\ \gamma - a \right\rangle + \left\langle T,\ T \right\rangle = 0\]</span> ומכיוון ש-<span class="math inline">\(T' = kN\)</span> ו-<span class="math inline">\(\left\| T \right\| = 1\)</span> מתקבל <span class="math inline">\(k\left\langle N,\ \gamma - a \right\rangle + 1 = 0\)</span>, כלומר <span class="math display">\[.\left\langle N,\ \gamma - a \right\rangle = -\frac{1}{k} = -\rho\]</span></p>
-<p>נגזור בשלישית: <span class="math display">\[.\left\langle N',\ \gamma - a \right\rangle + \left\langle N,\ T \right\rangle = \left( -\frac{1}{k} \right)' = \frac{k'}{k^2}\]</span> המחובר השני מתאפס, ולפי פרנה־סרה <span class="math inline">\(N' = -kT + \tau B\)</span>, ולכן <span class="math display">\[,-k\left\langle T,\ \gamma - a \right\rangle + \tau \left\langle B,\ \gamma - a \right\rangle = \frac{k'}{k^2}\]</span> ומכיוון שהמכפלה הראשונה מתאפסת, <span class="math display">\[.\left\langle B,\ \gamma - a \right\rangle = \frac{k'}{\tau k^2}\]</span></p>
-<p>נגזור ברביעית: <span class="math display">\[.\left\langle B',\ \gamma - a \right\rangle + \left\langle B,\ T \right\rangle = \left( \frac{k'}{\tau k^2} \right)'\]</span> שוב המחובר השני מתאפס, ולפי <span class="math inline">\(B' = -\tau N\)</span> ולפי מה שחישבנו בשלב השני, <span class="math display">\[.-\tau \left\langle N,\ \gamma - a \right\rangle = -\tau \left( -\rho \right) = \tau \rho = \frac{\tau}{k}\]</span> בהשוואה מתקבל בדיוק השוויון המבוקש.</p>
+<details class="thmcollapse thmfoldable"><summary>שלב 9: רעיון האימות</summary>
+<div class="foldable" title="שלב 9: רעיון האימות">
+<p>מרכז הספירה הוא הראשית, כלומר <span class="math inline">\(a = 0\)</span> ולכן <span class="math inline">\(\gamma - a = \gamma\)</span>. לפי הפירוק שבשלב 2 של <a href="#box-q-spherical-curve">שאלה 4.4.6</a>, <span class="math display">\[,\gamma = -\rho N - \rho' \sigma B\]</span> ולכן <span class="math display">\[.\rho' \sigma = -\left\langle B,\ \gamma \right\rangle\]</span></p>
+<p>זהו הצעד שחוסך את העבודה: במקום לגזור את <span class="math inline">\(\rho\)</span> ולהסתבך בשברים, די לחשב מכפלה פנימית אחת, ואת <span class="math inline">\(\gamma' \times \gamma''\)</span> כבר חישבנו בשלב 4.</p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: פירוק הוקטור והרדיוס</summary>
-<div class="foldable" title="שלב 2: פירוק הוקטור והרדיוס">
-<p>השלישייה <span class="math inline">\(\left\{ T, N, B \right\}\)</span> היא בסיס אורתונורמלי, ולכן כל וקטור מתפרק לפי המכפלות הפנימיות שלו איתה. משלושת החישובים בשלב הקודם <span class="math display">\[.\gamma - a = 0 \cdot T + \left( -\rho \right) N + \frac{k'}{\tau k^2} B\]</span></p>
-<p>נפשט את המקדם האחרון. מכיוון ש-<span class="math inline">\(\rho = \frac{1}{k}\)</span> מתקיים <span class="math inline">\(\rho' = -\frac{k'}{k^2}\)</span>, ולכן <span class="math display">\[,\frac{k'}{\tau k^2} = -\rho' \sigma\]</span> ומכאן <span class="math display">\[.\gamma - a = -\rho N - \rho' \sigma B\]</span></p>
-<p>הרדיוס מתקבל כעת מיד: שני הווקטורים <span class="math inline">\(N\)</span> ו-<span class="math inline">\(B\)</span> אורתונורמליים, ולכן <span class="math display">\[.r^2 = \left\| \gamma - a \right\|^2 = \rho^2 + \left( \rho' \sigma \right)^2\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: הכיוון ההפוך</summary>
-<div class="foldable" title="שלב 3: הכיוון ההפוך">
-<p>נניח כעת רק את השוויון <span class="math inline">\(\frac{\tau}{k} = \left( \frac{k'}{\tau k^2} \right)'\)</span>, כלומר, בסימונים של השלב הקודם, <span class="math display">\[.\tau \rho = -\left( \rho' \sigma \right)'\]</span></p>
-<p>הפירוק שקיבלנו קודם מציע מיהו המרכז, ולכן <strong>נגדיר</strong> <span class="math display">\[,a = \gamma + \rho N + \rho' \sigma B\]</span> ונראה שזהו וקטור קבוע. נגזור לפי <span class="math inline">\(s\)</span> ונשתמש בפרנה־סרה: <span class="math display">\[.a' = T + \rho' N + \rho \left( -kT + \tau B \right) + \left( \rho' \sigma \right)' B + \rho' \sigma \left( -\tau N \right)\]</span></p>
-<p>נאסוף לפי שלושת וקטורי הבסיס: <span class="math display">\[.a' = \left( 1 - \rho k \right) T + \left( \rho' - \tau \rho' \sigma \right) N + \left( \rho \tau + \left( \rho' \sigma \right)' \right) B\]</span></p>
-<p>שלושת המקדמים מתאפסים. הראשון, שכן <span class="math inline">\(\rho k = 1\)</span> לפי ההגדרה. השני, שכן <span class="math inline">\(\tau \sigma = 1\)</span> ולכן <span class="math inline">\(\rho' - \rho' = 0\)</span>. השלישי, שכן זו בדיוק ההנחה. לכן <span class="math inline">\(a' = 0\)</span> ו-<span class="math inline">\(a\)</span> קבוע.</p>
-<p>נותר לראות שהמרחק קבוע. נגזור את <span class="math inline">\(\left\| \gamma - a \right\|^2 = \rho^2 + \left( \rho'\sigma \right)^2\)</span>: <span class="math display">\[,\left( \rho^2 + \left( \rho'\sigma \right)^2 \right)' = 2\rho\rho' + 2\left( \rho'\sigma \right)\left( \rho'\sigma \right)' = 2\rho\rho' + 2\left( \rho'\sigma \right)\left( -\tau\rho \right)\]</span> ובהצבת <span class="math inline">\(\tau = \frac{1}{\sigma}\)</span> מתקבל <span class="math display">\[.2\rho\rho' - 2\rho\rho' \sigma \tau = 2\rho\rho'\left( 1 - \tau\sigma \right) = 0\]</span></p>
-<p>לכן <span class="math inline">\(\left\| \gamma - a \right\|^2\)</span> קבוע, נסמנו <span class="math inline">\(r^2\)</span>, והעקומה מונחת על הספירה שמרכזה <span class="math inline">\(a\)</span> ורדיוסה <span class="math inline">\(r\)</span>.</p>
-</div>
-</details>
-</div>
-<div id="box-q-viviani-sphere-check" class="thmbox thmbox-question">
-<p><strong>שאלה 4.4.8.</strong></p>
-<p>היעזרו ב<a href="#box-q-spherical-curve">שאלה 4.4.7</a> ובחישובים של <a href="#box-q-viviani">שאלה 4.4.6</a> כדי לוודא את הקריטריון עבור עקומת ויויאני: הראו במפורש ש-<span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = 4\]</span></p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: הרעיון</summary>
-<div class="foldable" title="שלב 1: הרעיון">
-<p>מרכז הספירה הוא הראשית, כלומר <span class="math inline">\(a = 0\)</span> ולכן <span class="math inline">\(\gamma - a = \gamma\)</span>. לפי הפירוק שקיבלנו בשלב 2 של <a href="#box-q-spherical-curve">שאלה 4.4.7</a>, <span class="math display">\[,\gamma = -\rho N - \rho' \sigma B\]</span> ולכן <span class="math display">\[.\rho' \sigma = -\left\langle B,\ \gamma \right\rangle\]</span></p>
-<p>זהו הצעד שחוסך את העבודה: במקום לגזור את <span class="math inline">\(\rho\)</span> ולהסתבך בשברים, די לחשב מכפלה פנימית אחת, ואת <span class="math inline">\(\gamma' \times \gamma''\)</span> כבר חישבנו.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: חישוב המכפלה הפנימית</summary>
-<div class="foldable" title="שלב 2: חישוב המכפלה הפנימית">
+<details class="thmcollapse thmfoldable"><summary>שלב 10: חישוב המכפלה הפנימית</summary>
+<div class="foldable" title="שלב 10: חישוב המכפלה הפנימית">
 <p>נסמן שוב <span class="math inline">\(c = \cos t\)</span>, ונחשב <span class="math display">\[.\left\langle \gamma' \times \gamma'',\ \gamma \right\rangle = \tfrac{1}{2}\sin\tfrac{t}{2}\left( 2 + c \right)\left( 1 + c \right) - \cos^3\tfrac{t}{2}\sin t + 2\sin\tfrac{t}{2}\]</span></p>
 <p>נציב <span class="math inline">\(\sin t = 2\sin\frac{t}{2}\cos\frac{t}{2}\)</span> ונוציא <span class="math inline">\(\sin\frac{t}{2}\)</span>: <span class="math display">\[.\sin\tfrac{t}{2}\left[ \tfrac{1}{2}\left( 2 + c \right)\left( 1 + c \right) - 2\cos^4\tfrac{t}{2} + 2 \right]\]</span></p>
 <p>בסוגריים נציב <span class="math inline">\(\cos^4\frac{t}{2} = \frac{\left( 1+c \right)^2}{4}\)</span>: <span class="math display">\[,\frac{2 + 3c + c^2}{2} - \frac{1 + 2c + c^2}{2} + 2 = \frac{1 + c}{2} + 2 = \frac{5 + c}{2}\]</span> ולכן <span class="math display">\[.\left\langle \gamma' \times \gamma'',\ \gamma \right\rangle = \frac{\sin\frac{t}{2}\left( 5 + c \right)}{2}\]</span></p>
 <p>נחלק ב-<span class="math inline">\(\left\| \gamma' \times \gamma'' \right\| = \dfrac{\sqrt{13 + 3c}}{2\sqrt{2}}\)</span> ונקבל <span class="math display">\[.\left\langle B,\ \gamma \right\rangle = \frac{\sqrt{2}\,\sin\frac{t}{2}\left( 5 + c \right)}{\sqrt{13 + 3c}}\]</span></p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: ההצבה</summary>
-<div class="foldable" title="שלב 3: ההצבה">
-<p>משלב 6 של <a href="#box-q-viviani">שאלה 4.4.6</a> <span class="math display">\[,\rho = \frac{1}{k} = \frac{\left( 3 + c \right)^{3/2}}{\sqrt{13 + 3c}}\]</span> ומהשלב הקודם <span class="math display">\[.\left( \rho' \sigma \right)^2 = \left\langle B, \gamma \right\rangle^2 = \frac{2\sin^2\frac{t}{2}\left( 5 + c \right)^2}{13 + 3c}\]</span></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 11: ההצבה</summary>
+<div class="foldable" title="שלב 11: ההצבה">
+<p>משלב 6 <span class="math display">\[,\rho = \frac{1}{k} = \frac{\left( 3 + c \right)^{3/2}}{\sqrt{13 + 3c}}\]</span> ומהשלב הקודם <span class="math display">\[.\left( \rho' \sigma \right)^2 = \left\langle B, \gamma \right\rangle^2 = \frac{2\sin^2\frac{t}{2}\left( 5 + c \right)^2}{13 + 3c}\]</span></p>
 <p>נציב <span class="math inline">\(2\sin^2\frac{t}{2} = 1 - c\)</span> ונחבר מעל מכנה משותף: <span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = \frac{\left( 3 + c \right)^3 + \left( 1 - c \right)\left( 5 + c \right)^2}{13 + 3c}\]</span></p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: הצמצום</summary>
-<div class="foldable" title="שלב 4: הצמצום">
+<details class="thmcollapse thmfoldable"><summary>שלב 12: הצמצום</summary>
+<div class="foldable" title="שלב 12: הצמצום">
 <p>נפתח את המונה. ראשית <span class="math display">\[,\left( 3 + c \right)^3 = 27 + 27c + 9c^2 + c^3\]</span> ושנית <span class="math display">\[.\left( 1 - c \right)\left( 25 + 10c + c^2 \right) = 25 - 15c - 9c^2 - c^3\]</span></p>
 <p>בחיבורם האיברים ב-<span class="math inline">\(c^2\)</span> וב-<span class="math inline">\(c^3\)</span> מצטמצמים לגמרי, ונשאר <span class="math display">\[,52 + 12c = 4\left( 13 + 3c \right)\]</span> ולכן <span class="math display">\[.\rho^2 + \left( \rho' \sigma \right)^2 = \frac{4\left( 13 + 3c \right)}{13 + 3c} = 4\]</span></p>
-<p>זהו בדיוק <span class="math inline">\(r^2\)</span> עבור <span class="math inline">\(r = 2\)</span>, כפי שמתחייב מ<a href="#box-q-spherical-curve">שאלה 4.4.7</a>. הקריטריון אומת.</p>
+<p>זהו בדיוק <span class="math inline">\(r^2\)</span> עבור <span class="math inline">\(r = 2\)</span>, כפי שמתחייב מ<a href="#box-q-spherical-curve">שאלה 4.4.6</a>. הקריטריון אומת.</p>
 </div>
 </details>
-</div>
-</section>
-</section>
+<iframe class="widget-frame" src="widgets/ch04/viviani.html" loading="lazy" title="עקומת ויויאני"></iframe>
+<p><em>עקומת ויויאני על הספירה שרדיוסה <span class="math inline">\(2\)</span>. העקומה היא חיתוך הספירה עם הגליל המשורטט בקו דק, ולכן כל נקודותיה במרחק קבוע מהראשית.</em></p>
 <section id="מקורות" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="מקורות"><span class="header-section-number">4.5</span> מקורות</h2>
 <ul>
@@ -1193,6 +1184,9 @@ window.Quarto = {
 </ul>
 
 
+</section>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
