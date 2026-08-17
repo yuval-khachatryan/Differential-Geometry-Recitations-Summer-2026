@@ -36,6 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./05-Einstein-and-Surfaces.html" rel="next">
 <link href="./03-Curvature-and-Space-Curves.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -580,6 +581,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">תרגול 4: עקומות במרחב</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Einstein-and-Surfaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין ומשטחים</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -692,8 +699,8 @@ window.Quarto = {
 <p>נבדוק רכיב-רכיב. הרכיב הראשון של <span class="math inline">\(u \times v\)</span> הוא <span class="math inline">\(u_2 v_3 - u_3 v_2\)</span>, ולפי כלל המכפלה לפונקציות סקלריות <span class="math display">\[.\frac{d}{dt}\left( u_2 v_3 - u_3 v_2 \right) = \left( u_2' v_3 - u_3' v_2 \right) + \left( u_2 v_3' - u_3 v_2' \right)\]</span> המחובר הראשון הוא הרכיב הראשון של <span class="math inline">\(u' \times v\)</span>, והשני הוא הרכיב הראשון של <span class="math inline">\(u \times v'\)</span>. שני הרכיבים הנותרים מתקבלים באותו אופן.</p>
 <p>שימו לב שהסדר נשמר: מכיוון שהמכפלה הווקטורית אנטי-סימטרית, אסור להחליף את סדר הגורמים באגף ימין.</p>
 </div>
-<section id="תרגילים" class="level3">
-<h3 class="anchored" data-anchor-id="תרגילים">תרגילים</h3>
+<section id="תרגילים" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="תרגילים">תרגילים</h3>
 <div id="box-q-cross-orthonormal" class="thmbox thmbox-question">
 <p><strong>שאלה 4.1.8.</strong></p>
 <p>תהי <span class="math inline">\(\{u, v\}\)</span> זוג וקטורים אורתונורמליים ב-<span class="math inline">\(\mathbb{R}^3\)</span>. הראו ש-<span class="math inline">\(\left\{ u, v, u \times v \right\}\)</span> הוא בסיס אורתונורמלי של <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
@@ -818,8 +825,8 @@ window.Quarto = {
 <p>נתבונן בביטוי <span class="math inline">\(\gamma + \frac{1}{k} N\)</span> ונגזור אותו. מכיוון ש-<span class="math inline">\(k\)</span> קבועה, <span class="math display">\[.\frac{d}{ds}\left( \gamma + \frac{1}{k} N \right) = T + \frac{1}{k} N'\]</span> לפי פרנה־סרה, ומכיוון ש-<span class="math inline">\(\tau = 0\)</span>, <span class="math display">\[,N' = -kT + \tau B = -kT\]</span> ולכן <span class="math display">\[.T + \frac{1}{k}\left( -kT \right) = T - T = 0\]</span></p>
 <p>לכן <span class="math inline">\(\gamma + \frac{1}{k} N\)</span> הוא וקטור קבוע, נסמנו <span class="math inline">\(a\)</span>. מכאן <span class="math display">\[,\left\| \gamma - a \right\| = \left\| -\frac{1}{k} N \right\| = \frac{1}{k}\]</span> כלומר כל נקודות העקומה נמצאות במרחק קבוע <span class="math inline">\(\frac{1}{k}\)</span> מהנקודה <span class="math inline">\(a\)</span>. יחד עם ההכלה במישור <span class="math inline">\(\Pi\)</span> מתקבל שהעקומה מוכלת במעגל ברדיוס <span class="math inline">\(\frac{1}{k}\)</span> שמרכזו <span class="math inline">\(a\)</span>.</p>
 </div>
-<section id="תרגילים-1" class="level3">
-<h3 class="anchored" data-anchor-id="תרגילים-1">תרגילים</h3>
+<section id="תרגילים-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="תרגילים-1">תרגילים</h3>
 <div id="box-q-frenet-circle-in-space" class="thmbox thmbox-question">
 <p><strong>שאלה 4.3.6.</strong></p>
 <p>חשבו את <span class="math inline">\(T\)</span>, <span class="math inline">\(N\)</span>, <span class="math inline">\(B\)</span>, את העקמומיות ואת הפיתול של העקומה <span class="math display">\[,\gamma(t) = \left( \frac{4}{5}\cos t,\ 1 - \sin t,\ -\frac{3}{5}\cos t \right)\]</span> והראו שהיא מעגל. מצאו את מרכזו, את רדיוסו ואת המישור שבו הוא מונח.</p>
@@ -870,8 +877,8 @@ window.Quarto = {
 <p><strong>המקרה הכללי.</strong> יהי <span class="math inline">\(s\)</span> אורך הקשת. לפי כלל השרשרת <span class="math display">\[,\frac{d\gamma}{dt} = \frac{ds}{dt}\frac{d\gamma}{ds}\]</span> ובגזירות נוספות מתקבל <span class="math display">\[,\gamma' \times \gamma'' = \left( \frac{ds}{dt} \right)^3 \left( \frac{d\gamma}{ds} \times \frac{d^2\gamma}{ds^2} \right)\]</span> שכן כל האיברים הנוספים הם כפולות של <span class="math inline">\(\frac{d\gamma}{ds} \times \frac{d\gamma}{ds} = 0\)</span>. באותו אופן <span class="math display">\[.\left\langle \gamma' \times \gamma'',\ \gamma''' \right\rangle = \left( \frac{ds}{dt} \right)^6 \left\langle \frac{d\gamma}{ds} \times \frac{d^2\gamma}{ds^2},\ \frac{d^3\gamma}{ds^3} \right\rangle\]</span></p>
 <p>במנה שבנוסחת הפיתול המונה נושא <span class="math inline">\(\left( \frac{ds}{dt} \right)^6\)</span> והמכנה <span class="math inline">\(\left( \frac{ds}{dt} \right)^6\)</span>, ולכן הגורם מצטמצם והביטוי אינו תלוי בפרמטריזציה. עבור העקמומיות, <span class="math inline">\(\left\| \gamma' \times \gamma'' \right\| = \left( \frac{ds}{dt} \right)^3 k\)</span> ו-<span class="math inline">\(\left\| \gamma' \right\|^3 = \left( \frac{ds}{dt} \right)^3\)</span>, ובחלוקה מתקבל <span class="math inline">\(k\)</span>.</p>
 </div>
-<section id="תרגילים-2" class="level3">
-<h3 class="anchored">תרגילים</h3>
+<section id="תרגילים-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored">תרגילים</h3>
 <div id="box-q-helix-k-tau" class="thmbox thmbox-question">
 <p><strong>שאלה 4.4.2.</strong></p>
 <p>חשבו את העקמומיות ואת הפיתול של הסליל <span class="math display">\[,\gamma(\theta) = \left( a\cos\theta,\ a\sin\theta,\ b\theta \right)\]</span> כאשר <span class="math inline">\(a &gt; 0\)</span> ו-<span class="math inline">\(b\)</span> קבועים.</p>
@@ -1597,6 +1604,9 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./05-Einstein-and-Surfaces.html" class="pagination-link" aria-label="תרגול 5: סכימת איינשטיין ומשטחים">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין ומשטחים</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
