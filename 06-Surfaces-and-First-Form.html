@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="he" xml:lang="he" dir="rtl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; תרגול 6: משטחים, המישור המשיק והתבנית היסודית הראשונה – גיאומטריה דיפרנציאלית — תרגולים</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05-Einstein-Summation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "אין תוצאות",
+    "search-matching-documents-text": "מסמכים תואמים",
+    "search-copy-link-title": "העתק קישור לחיפוש",
+    "search-hide-matches-text": "הסתר התאמות נוספות",
+    "search-more-match-text": "התאמה נוספת במסמך זה",
+    "search-more-matches-text": "התאמות נוספות במסמך זה",
+    "search-clear-button-title": "נקה",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "בטל",
+    "search-submit-button-title": "שלח",
+    "search-label": "חפש"
+  }
+}</script>
+<style>
+.todo {
+  color: #8a8a8a;
+  font-style: italic;
+  background: #fafafa;
+  border: 1px dashed #cccccc;
+  border-radius: 4px;
+  padding: 1.2rem 1rem;
+  margin: 0.4rem 0 1.2rem;
+}
+.tf-quiz {
+  margin: 0.6rem 0 1rem;
+}
+.tf-quiz .tf-opt {
+  margin: 0 0 0 0.5rem;
+  padding: 0.35rem 1.4rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.tf-quiz .tf-opt:hover {
+  background: #ececec;
+}
+.tf-quiz .tf-opt.correct {
+  background: #d4edda;
+  border-color: #28a745;
+}
+.tf-quiz .tf-opt.incorrect {
+  background: #f8d7da;
+  border-color: #dc3545;
+}
+.tf-quiz .tf-feedback {
+  margin-top: 0.45rem;
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.set-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.set-quiz .set-label {
+  min-width: 5rem;
+}
+.set-quiz .set-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 12rem;
+}
+.set-quiz .set-input.correct {
+  border-color: #28a745;
+  background: #d4edda;
+}
+.set-quiz .set-input.incorrect {
+  border-color: #dc3545;
+  background: #f8d7da;
+}
+.set-quiz .set-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.set-quiz .set-check:hover {
+  background: #ececec;
+}
+.set-quiz .set-feedback {
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.seq-quiz, .formula-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.seq-quiz .seq-label, .formula-quiz .seq-label { min-width: 12rem; }
+.seq-quiz .seq-input, .formula-quiz .seq-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 16rem;
+}
+.seq-quiz .seq-input.correct, .formula-quiz .seq-input.correct { border-color: #28a745; background: #d4edda; }
+.seq-quiz .seq-input.incorrect, .formula-quiz .seq-input.incorrect { border-color: #dc3545; background: #f8d7da; }
+.seq-quiz .seq-check, .formula-quiz .seq-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.seq-quiz .seq-check:hover, .formula-quiz .seq-check:hover { background: #ececec; }
+.seq-quiz .seq-feedback, .formula-quiz .seq-feedback { font-weight: bold; min-height: 1.2em; }
+/* Interactive widgets embedded from widgets/<chapter>/*.html.
+   They live in an iframe so their CSS (which styles body/table/button
+   unscoped) cannot leak into the page, and so several copies on one
+   page do not collide on element ids. The height below is a first guess;
+   each widget posts its real height and the listener at the bottom of this
+   file applies it. */
+iframe.widget-frame {
+  display: block;
+  width: 100%;
+  height: 440px;      /* replaced by the widget's own reported height */
+  border: 0;          /* the widget draws its own frame */
+  background: transparent;
+  margin: 1.2rem 0 0;
+}
+/* Inside a .thmsim box the frame sits flush; the box supplies the padding. */
+.thmbox-simulation iframe.widget-frame { margin: 0.5rem 0 0.2rem; }
+.thmbox {
+  border-inline-start: 4px solid #9ca3af;
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  margin: 1rem 0;
+}
+.thmbox > :first-child { margin-top: 0; }
+.thmbox > :last-child { margin-bottom: 0; }
+.thmbox-definition  { border-color: #3b82f6; background: #eff6ff; }
+.thmbox-theorem     { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-proposition { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-lemma       { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-corollary   { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-example     { border-color: #d97706; background: #fffbeb; }
+/* Question: kin to .thmbox-example, so same hue family, one shade deeper. Its
+   solution reuses the proof's slate — a solution is to a question what a proof
+   is to a theorem, and the reader already reads that grey as "the working". */
+.thmbox-question    { border-color: #b45309; background: #fef6e7; }
+.thmbox-solution    { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-solution > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-simulation  { border-color: #7c3aed; background: #f7f5ff; }
+.thmbox-proof       { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-proof > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-remark      { border-color: #cbd5e1; background: #f8fafc; }
+.thmbox-remark > p:first-child > strong { font-weight: 600; color: #64748b; }
+/* ---------------------------------------------------------------------------
+   Math must never inherit the page's RTL direction. <html dir="rtl"> makes the
+   whole document a right-to-left bidi context, and two things go wrong inside it:
+
+   1. The renderer's own output boxes lay out right-to-left, so a formula mixed
+      into a Hebrew sentence reads backwards.
+   2. Until MathJax runs, the page literally contains the raw source \( ... \).
+      If the CDN is slow or unreachable that source is what stays on screen, and
+      the bidi algorithm reorders it -- the same failure the widgets have with
+      KaTeX (see mathrender.js).
+
+   `unicode-bidi: isolate` makes every formula its own bidi context: it can
+   neither be reordered by the Hebrew around it nor reorder that Hebrew.
+   --------------------------------------------------------------------------- */
+span.math,
+mjx-container,
+.katex,
+.katex-display {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+mjx-container *,
+.katex * {
+  direction: ltr;
+}
+
+/* Keep inline math on one line. This backs up the MathJax linebreak config
+   below; see the comment there for why v4 needs it at all. Display math is
+   left alone -- MathJax gives it its own scroll box. */
+mjx-container:not([display="true"]),
+.katex:not(.katex-display) {
+  white-space: nowrap;
+}
+
+/* Optional box (.optional): foldable, collapsed by default; same gray look as .extra,
+   but the gray bar is the clickable <summary>. */
+details.thmoptional {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+details.thmoptional > summary {
+  background: #d1d5db;
+  color: #374151;
+  font-weight: 700;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+}
+details.thmoptional[open] > summary { border-bottom: 1px solid #9ca3af; }
+details.thmoptional > .optional { padding: 0.7rem 0.9rem; }
+details.thmoptional > .optional > :first-child { margin-top: 0; }
+details.thmoptional > .optional > :last-child { margin-bottom: 0; }
+/* .foldable: hidden calculations / derivations. Distinct from .optional (which is a
+   whole gray-boxed aside) — this is a light inline disclosure inside the running text. */
+details.thmfoldable {
+  margin: 1rem 0;
+  border-inline-start: 3px solid #cbd5e1;
+  padding-inline-start: 0.8rem;
+}
+details.thmfoldable > summary {
+  cursor: pointer;
+  color: #475569;
+  font-weight: 600;
+}
+details.thmfoldable[open] > summary { margin-bottom: 0.5rem; }
+details.thmcollapse { margin: 1rem 0; }
+details.thmcollapse > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #475569;
+  padding: 0.2rem 0;
+}
+details.thmcollapse[open] > summary { margin-bottom: 0.4rem; }
+/* Enrichment box (.extra): non-foldable, gray box; the section heading becomes a gray
+   header bar. Quarto merges the div into <section class="... extra">, so we style .extra. */
+.extra {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  padding: 0.7rem 0.9rem;
+}
+.extra > h2, .extra > h3, .extra > .extra-title {
+  background: #d1d5db;
+  color: #374151;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: -0.7rem -0.9rem 0.8rem;
+  padding: 0.45rem 0.8rem;
+  border-bottom: 1px solid #9ca3af;
+}
+.extra > :last-child { margin-bottom: 0; }
+</style>
+<script>
+/* ---------------------------------------------------------------------------
+   MathJax line breaking.
+
+   Quarto now loads mathjax@4, and v4 switched on automatic line breaking that
+   v3 did not do:
+
+     * inline math may be broken at a relation or a binary operator, so a short
+       formula such as \( \phi : U \to V \) comes out split after the U;
+     * display math wider than the column is broken instead of being left to
+       run on.
+
+   Inside an RTL paragraph a break in the middle of a formula does not read as
+   a wrap, it reads as a mistake. So turn the AUTOMATIC breaking off:
+   `linebreaks.inline = false` for inline math, and `displayOverflow = scroll`
+   so that over-wide display math gets a scroll box rather than being chopped.
+
+   Breaks we wrote ourselves are unaffected: `\\` inside aligned/cases/matrix
+   still starts a new row, which is the "unless specifically required" case.
+
+   Both `output` and `chtml` are set because v4 accepts these keys on the
+   generic output block and on the specific output jax, and tex-chtml.js loads
+   CHTML. The more specific one wins; setting both costs nothing.
+
+   This has to run before the MathJax script does. That script carries `defer`,
+   so it runs after parsing, while this inline script runs during parsing --
+   hence anywhere in the head is early enough.
+   --------------------------------------------------------------------------- */
+window.MathJax = {
+  output: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  },
+  chtml: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  }
+};
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".tf-quiz").forEach(function (quiz) {
+    var correct = quiz.getAttribute("data-correct");
+    var feedback = quiz.querySelector(".tf-feedback");
+    quiz.querySelectorAll(".tf-opt").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        quiz.querySelectorAll(".tf-opt").forEach(function (b) {
+          b.classList.remove("correct", "incorrect");
+        });
+        if (btn.getAttribute("data-val") === correct) {
+          btn.classList.add("correct");
+          if (feedback) feedback.textContent = "✓ נכון!";
+        } else {
+          btn.classList.add("incorrect");
+          if (feedback) feedback.textContent = "✗ לא מדויק — נסו שוב, או פתחו את הפתרון.";
+        }
+      });
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function normSet(str) {
+    if (!str) return [];
+    return Array.from(new Set(
+      str.split(/[\s,;]+/).filter(function (s) { return s.length; }).map(Number)
+    )).filter(function (n) { return !Number.isNaN(n); }).sort(function (a, b) { return a - b; });
+  }
+  function eqSet(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) { if (a[i] !== b[i]) return false; }
+    return true;
+  }
+  document.querySelectorAll(".set-quiz").forEach(function (q) {
+    var answer = normSet(q.getAttribute("data-answer"));
+    var input = q.querySelector(".set-input");
+    var feedback = q.querySelector(".set-feedback");
+    var btn = q.querySelector(".set-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSet(normSet(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Evaluate one entered term as arithmetic (whitelisted chars only: digits + - * / ^ ( ) . )
+  function evalTerm(s) {
+    s = String(s).trim();
+    if (!s) return null;
+    if (!/^[0-9+\-*/^().\s]+$/.test(s)) return null;
+    try {
+      var v = Function('"use strict"; return (' + s.replace(/\^/g, "**") + ');')();
+      return (typeof v === "number" && isFinite(v)) ? v : null;
+    } catch (e) { return null; }
+  }
+  function parseSeq(str) { return String(str || "").split(",").map(evalTerm); }
+  function eqSeq(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] == null || b[i] == null || Math.abs(a[i] - b[i]) > 1e-9) return false;
+    }
+    return true;
+  }
+  document.querySelectorAll(".seq-quiz").forEach(function (q) {
+    var answer = parseSeq(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSeq(parseSeq(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Build n -> value from a formula in n (whitelisted: digits, n, + - * / ^ ! ( ) . )
+  function makeFormula(s) {
+    s = String(s || "").trim();
+    if (!s || !/^[0-9n+\-*/^!().\s]+$/.test(s)) return null;
+    s = s.replace(/(\d)\s*([n(])/g, "$1*$2")             // 2n, 2(  -> 2*n, 2*(
+         .replace(/([n)])\s*([n(])/g, "$1*$2")           // )n, )(, n(  -> insert *
+         .replace(/(\([^()]*\)|\d+|n)!/g, "fact($1)")    // n!, 5!, (n+1)!  -> fact(...)
+         .replace(/\^/g, "**");
+    try {
+      var f = Function("n", '"use strict"; var fact=function(k){k=Math.round(k);var r=1;for(var i=2;i<=k;i++)r*=i;return r;}; return (' + s + ");");
+      var t = f(1);
+      return (typeof t === "number" && isFinite(t)) ? f : null;
+    } catch (e) { return null; }
+  }
+  function parseTargets(str) {
+    return String(str || "").split(",").map(function (t) {
+      t = t.trim();
+      if (!/^-?[0-9]+(?:\/[0-9]+)?$/.test(t)) return NaN;
+      var p = t.split("/");
+      return p.length === 2 ? Number(p[0]) / Number(p[1]) : Number(p[0]);
+    });
+  }
+  document.querySelectorAll(".formula-quiz").forEach(function (q) {
+    var targets = parseTargets(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      var f = makeFormula(input.value), ok = !!f;
+      for (var i = 0; ok && i < targets.length; i++) {
+        var v; try { v = f(i + 1); } catch (e) { ok = false; break; }
+        if (typeof v !== "number" || !isFinite(v) || Math.abs(v - targets[i]) > 1e-9) ok = false;
+      }
+      if (ok) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+// Widgets embedded from widgets/<chapter>/ report their own height, so the
+// iframe does not need a hard-coded one (which breaks on narrow screens,
+// where the control panel stacks above the plot).
+window.addEventListener("message", function (e) {
+  var d = e.data;
+  if (!d || d.type !== "widget-height" || typeof d.height !== "number") return;
+  var frames = document.querySelectorAll("iframe.widget-frame");
+  for (var i = 0; i < frames.length; i++) {
+    if (frames[i].contentWindow === e.source) {
+      frames[i].style.height = Math.max(320, Math.min(2000, d.height)) + "px";
+      return;
+    }
+  }
+});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-Surfaces-and-First-Form.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">תרגול 6: משטחים, המישור המשיק והתבנית היסודית הראשונה</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="חפש" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">גיאומטריה דיפרנציאלית — תרגולים</a> 
+        <div class="sidebar-tools-main">
+    <a href="./Differential-Geometry-Tirgulim.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="הצג/הסתר מצב קריאה">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="חפש"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">פתח דבר</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Quadrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Plane-Curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">תרגול 2: גיאומטריה דיפרנציאלית של עקומות במישור</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Curvature-and-Space-Curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">תרגול 3: עקמומיות בפרמטריזציה כללית, המעגל המשיק והאוולוט</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Space-Curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">תרגול 4: עקומות במרחב</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Einstein-Summation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Surfaces-and-First-Form.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">תרגול 6: משטחים, המישור המשיק והתבנית היסודית הראשונה</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">תוכן העניינים</h2>
+   
+  <ul>
+  <li><a href="#משטחים" id="toc-משטחים" class="nav-link active" data-scroll-target="#משטחים"><span class="header-section-number">6.1</span> משטחים</a>
+  <ul>
+  <li><a href="#שלוש-הצגות-מקומיות-של-משטח" id="toc-שלוש-הצגות-מקומיות-של-משטח" class="nav-link" data-scroll-target="#שלוש-הצגות-מקומיות-של-משטח"><span class="header-section-number">6.1.1</span> שלוש הצגות מקומיות של משטח</a></li>
+  <li><a href="#דוגמאות" id="toc-דוגמאות" class="nav-link" data-scroll-target="#דוגמאות"><span class="header-section-number">6.1.2</span> דוגמאות</a></li>
+  <li><a href="#משטחי-סיבוב" id="toc-משטחי-סיבוב" class="nav-link" data-scroll-target="#משטחי-סיבוב"><span class="header-section-number">6.1.3</span> משטחי סיבוב</a></li>
+  <li><a href="#משטחים-ישרים" id="toc-משטחים-ישרים" class="nav-link" data-scroll-target="#משטחים-ישרים"><span class="header-section-number">6.1.4</span> משטחים ישרים</a></li>
+  <li><a href="#תרגילים" id="toc-תרגילים" class="nav-link" data-scroll-target="#תרגילים">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#המישור-המשיק" id="toc-המישור-המשיק" class="nav-link" data-scroll-target="#המישור-המשיק"><span class="header-section-number">6.2</span> המישור המשיק</a>
+  <ul>
+  <li><a href="#תרגילים-1" id="toc-תרגילים-1" class="nav-link" data-scroll-target="#תרגילים-1">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#התבנית-היסודית-הראשונה" id="toc-התבנית-היסודית-הראשונה" class="nav-link" data-scroll-target="#התבנית-היסודית-הראשונה"><span class="header-section-number">6.3</span> התבנית היסודית הראשונה</a>
+  <ul>
+  <li><a href="#שימושים-של-התבנית-היסודית-הראשונה" id="toc-שימושים-של-התבנית-היסודית-הראשונה" class="nav-link" data-scroll-target="#שימושים-של-התבנית-היסודית-הראשונה"><span class="header-section-number">6.3.1</span> שימושים של התבנית היסודית הראשונה</a></li>
+  <li><a href="#תרגילים-2" id="toc-תרגילים-2" class="nav-link" data-scroll-target="#תרגילים-2">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#מקורות" id="toc-מקורות" class="nav-link" data-scroll-target="#מקורות"><span class="header-section-number">6.4</span> מקורות</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">תרגול 6: משטחים, המישור המשיק והתבנית היסודית הראשונה</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="משטחים" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="משטחים"><span class="header-section-number">6.1</span> משטחים</h2>
+<p>עד כה עסקנו בעקומות, שהן אובייקטים חד־מימדיים, ומכאן ואילך נעסוק במשטחים, שהם דו־מימדיים. נתחיל בהגדרות הכלליות, ולאחר מכן נצטמצם למקרה שמעניין אותנו בקורס.</p>
+<div id="box-def-homeomorphism" class="thmbox thmbox-definition" title="הומאומורפיזם">
+<p><strong>הגדרה 6.1.1 — הומאומורפיזם.</strong></p>
+<p>יהיו <span class="math inline">\(X\)</span> ו-<span class="math inline">\(Y\)</span> שני מרחבים טופולוגיים. פונקציה <span class="math inline">\(f : X \to Y\)</span> נקראת <strong>הומאומורפיזם</strong> אם היא מקיימת את שלוש התכונות הבאות:</p>
+<ol type="1">
+<li><span class="math inline">\(f\)</span> היא חד־חד־ערכית ועל, כלומר היא התאמה חד־חד־ערכית בין נקודות <span class="math inline">\(X\)</span> לנקודות <span class="math inline">\(Y\)</span>.</li>
+<li><span class="math inline">\(f\)</span> רציפה.</li>
+<li>הפונקציה ההופכית <span class="math inline">\(f^{-1} : Y \to X\)</span> רציפה אף היא.</li>
+</ol>
+<p>אם קיים הומאומורפיזם בין <span class="math inline">\(X\)</span> ל-<span class="math inline">\(Y\)</span>, אומרים ש-<span class="math inline">\(X\)</span> ו-<span class="math inline">\(Y\)</span> <strong>הומאומורפיים</strong> ומסמנים <span class="math inline">\(X \cong Y\)</span>.</p>
+</div>
+<div id="box-rem-homeomorphism-meaning" class="thmbox thmbox-remark" title="מה הומאומורפיזם מזהה">
+<p><strong>הערה 6.1.2 — מה הומאומורפיזם מזהה.</strong></p>
+<p>הומאומורפיזם מגדיר מתי שני מרחבים שקולים מבחינה טופולוגית, כלומר מתי ניתן לעוות, למתוח או לצמצם מרחב אחד כדי לקבל את האחר, בלי לקרוע אותו ובלי להדביק חלקים נפרדים.</p>
+</div>
+<div id="box-def-manifold" class="thmbox thmbox-definition" title="יריעה">
+<p><strong>הגדרה 6.1.3 — יריעה.</strong></p>
+<p><strong>יריעה</strong> ממדית <span class="math inline">\(n\)</span> היא מרחב טופולוגי <span class="math inline">\(M\)</span> שלכל נקודה בו יש סביבה פתוחה הומאומורפית למרחב <span class="math inline">\(\mathbb{R}^n\)</span>. באופן פורמלי, לכל נקודה <span class="math inline">\(p \in M\)</span> קיימת סביבה פתוחה <span class="math inline">\(U\)</span> והומאומורפיזם <span class="math inline">\(\phi : U \to V\)</span>, כאשר <span class="math inline">\(V\)</span> היא קבוצה פתוחה ב-<span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+</div>
+<div id="box-rem-manifold-intuition" class="thmbox thmbox-remark" title="יריעה נראית מקומית אוקלידית">
+<p><strong>הערה 6.1.4 — יריעה נראית מקומית אוקלידית.</strong></p>
+<p>אינטואיטיבית, יריעה היא מרחב שכאשר מסתכלים עליו מקרוב, כלומר בסביבה המקומית של כל נקודה, הוא נראה ומתנהג כמו מרחב אוקלידי <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+</div>
+<div id="box-def-chart-atlas" class="thmbox thmbox-definition" title="מפה ואטלס">
+<p><strong>הגדרה 6.1.5 — מפה ואטלס.</strong></p>
+<p>תהי <span class="math inline">\(M \subseteq \mathbb{R}^3\)</span>. <strong>מפה</strong> היא פונקציה <span class="math inline">\(r : U \to M\)</span> חד־חד־ערכית מקבוצה פתוחה <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> אל <span class="math inline">\(M\)</span>. <strong>אטלס</strong> הוא אוסף של מפות שמכסות את <span class="math inline">\(M\)</span> כולה.</p>
+</div>
+<div id="box-def-differentiable-manifold" class="thmbox thmbox-definition" title="יריעה דיפרנציאבילית">
+<p><strong>הגדרה 6.1.6 — יריעה דיפרנציאבילית.</strong></p>
+<p><strong>יריעה דיפרנציאבילית</strong> היא יריעה המצוידת באטלס שבו לכל שתי מפות <span class="math inline">\(\phi_i\)</span> ו-<span class="math inline">\(\phi_j\)</span> ההרכבה <span class="math inline">\(\phi_i^{-1} \circ \phi_j\)</span> היא חלקה מסוג <span class="math inline">\(C^k\)</span> עבור <span class="math inline">\(k\)</span> כלשהו. במשפטים שלנו נדרוש <span class="math inline">\(k = 2\)</span>.</p>
+</div>
+<div id="box-rem-surface-vs-manifold" class="thmbox thmbox-remark" title="ההבדל בין משטח ליריעה">
+<p><strong>הערה 6.1.7 — ההבדל בין משטח ליריעה.</strong></p>
+<p>משטח הוא מקרה פרטי של יריעה, ושני הבדלים מבחינים ביניהם:</p>
+<ol type="1">
+<li>משטח מוגבל למימד <span class="math inline">\(2\)</span> בלבד, בעוד שיריעה יכולה להיות מכל מימד.</li>
+<li>משטח משוכן במרחב <span class="math inline">\(\mathbb{R}^3\)</span>, ואילו יריעה מוגדרת בפני עצמה, ללא תלות במרחב חיצוני העוטף אותה. לכן ביריעה אפשר לחקור תכונות פנימיות בלבד.</li>
+</ol>
+</div>
+<p>עתה נגיע להגדרה המרכזית. נאמר בקצרה שמשטח רגולרי הוא קבוצה ב-<span class="math inline">\(\mathbb{R}^3\)</span> שנראית מקומית כמו מישור דו־מימדי, וההגדרה המדויקת מפרטת מה בדיוק נדרש.</p>
+<div id="box-def-regular-surface" class="thmbox thmbox-definition" title="משטח רגולרי">
+<p><strong>הגדרה 6.1.8 — משטח רגולרי.</strong></p>
+<p>תת־קבוצה <span class="math inline">\(S \subseteq \mathbb{R}^3\)</span> נקראת <strong>משטח רגולרי</strong> ממימד <span class="math inline">\(2\)</span> אם לכל נקודה <span class="math inline">\(p \in S\)</span> קיימות סביבה פתוחה <span class="math inline">\(V \subseteq \mathbb{R}^3\)</span> המכילה את <span class="math inline">\(p\)</span>, קבוצה פתוחה <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span>, והעתקה <span class="math inline">\(\overline{x} : U \to V \cap S\)</span> המקיימת את שלושת התנאים הבאים:</p>
+<ol type="1">
+<li>ההעתקה <span class="math display">\[,\overline{x}\left( u, v \right) = \left( x \left( u, v \right), y \left( u, v \right), z \left( u, v \right) \right)\]</span> היא מסוג <span class="math inline">\(C^\infty\)</span>, כלומר כל הנגזרות החלקיות שלה מכל סדר קיימות ורציפות.</li>
+<li>ההעתקה <span class="math inline">\(\overline{x}\)</span> היא חד־חד־ערכית ועל <span class="math inline">\(V \cap S\)</span>, רציפה, ובעלת פונקציה הופכית רציפה <span class="math inline">\(\overline{x}^{-1} : V \cap S \to U\)</span>.</li>
+<li>לכל נקודה <span class="math inline">\(q \in U\)</span> הנגזרות החלקיות <span class="math display">\[\overline{x}_u = \frac{\partial \overline{x}}{\partial u}, \qquad \overline{x}_v = \frac{\partial \overline{x}}{\partial v}\]</span> הן בלתי תלויות לינארית.</li>
+</ol>
+</div>
+<div id="box-def-regularity-condition" class="thmbox thmbox-definition" title="תנאי הרגולריות">
+<p><strong>הגדרה 6.1.9 — תנאי הרגולריות.</strong></p>
+<p>התנאי השלישי, שלפיו <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span> בלתי תלויות לינארית, שקול לתנאי <span class="math display">\[,\overline{x}_u \times \overline{x}_v \neq 0\]</span> שכן המכפלה הווקטורית של שני וקטורים מתאפסת אם ורק אם הם תלויים לינארית.</p>
+</div>
+<div id="box-rem-coordinate-system" class="thmbox thmbox-remark" title="מערכת קואורדינטות וסביבה קואורדינטית">
+<p><strong>הערה 6.1.10 — מערכת קואורדינטות וסביבה קואורדינטית.</strong></p>
+<p>שני שמות שכדאי להכיר. ההעתקה <span class="math inline">\(\overline{x}\)</span> נקראת <strong>מערכת קואורדינטות מקומית</strong> בסביבה של <span class="math inline">\(p\)</span>, והקבוצה <span class="math inline">\(V \cap S\)</span> נקראת <strong>סביבה קואורדינטית</strong> של <span class="math inline">\(p\)</span>.</p>
+<p>בקצרה, משטח רגולרי הוא משטח שניתן לכסות אותו במפות חלקות ורגולריות. שני דגשים בהגדרה. הראשון, הכיסוי הוא באטלס, כלומר באוסף של מפות מקומיות, ולא בהכרח במפה אחת. השני, המפות חייבות להיות חלקות, כלומר בלי קצוות חדים, וגם רגולריות, שכן הנגזרות אינן מתאפסות ולכן אין למשטח נקודות חוד, שפיצים או קיפולים.</p>
+</div>
+<section id="שלוש-הצגות-מקומיות-של-משטח" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="שלוש-הצגות-מקומיות-של-משטח"><span class="header-section-number">6.1.1</span> שלוש הצגות מקומיות של משטח</h3>
+<p>בהגדרת המשטח הרגולרי הופיעה פרמטריזציה מקומית. בפועל, משטחים מגיעים אלינו בשלוש צורות שונות, ומשפט הפונקציה הסתומה מלמד שהשלוש שקולות מקומית.</p>
+<div id="box-thm-three-presentations" class="thmbox thmbox-theorem" title="שלוש הצגות מקומיות">
+<p><strong>משפט 6.1.11 — שלוש הצגות מקומיות.</strong></p>
+<p>תהי <span class="math inline">\(S \subseteq \mathbb{R}^3\)</span> ותהי <span class="math inline">\(p \in S\)</span>. שלושת התנאים הבאים שקולים בסביבה מקומית של <span class="math inline">\(p\)</span>:</p>
+<ol type="1">
+<li><strong>גרף.</strong> לאחר שינוי שמות הצירים במידת הצורך, <span class="math inline">\(S\)</span> היא מקומית הגרף של פונקציה חלקה, למשל <span class="math inline">\(z = f \left( x, y \right)\)</span>.</li>
+<li><strong>פרמטריזציה רגולרית.</strong> קיימת קבוצה פתוחה <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> והעתקה חלקה <span class="math inline">\(\overline{x} : U \to \mathbb{R}^3\)</span>, חד־חד־ערכית עם הופכית רציפה, שדרגת המטריצה היעקובית שלה היא <span class="math inline">\(2\)</span>.</li>
+<li><strong>קבוצת אפסים.</strong> קיימת סביבה פתוחה <span class="math inline">\(W \subseteq \mathbb{R}^3\)</span> של <span class="math inline">\(p\)</span> ופונקציה חלקה <span class="math inline">\(F : W \to \mathbb{R}\)</span> כך ש-<span class="math inline">\(S \cap W = \left\{ F = 0 \right\}\)</span> ומתקיים <span class="math inline">\(\nabla F \neq 0\)</span> בכל נקודה של <span class="math inline">\(S \cap W\)</span>.</li>
+</ol>
+</div>
+<div id="box-thm-implicit-function" class="thmbox thmbox-theorem" title="משפט הפונקציה הסתומה">
+<p><strong>משפט 6.1.12 — משפט הפונקציה הסתומה.</strong></p>
+<p>תהי <span class="math inline">\(F : W \to \mathbb{R}\)</span> פונקציה חלקה על קבוצה פתוחה <span class="math inline">\(W \subseteq \mathbb{R}^3\)</span>, ותהי <span class="math inline">\(p \in W\)</span> נקודה שבה <span class="math inline">\(F \left( p \right) = 0\)</span> ו-<span class="math inline">\(\nabla F \left( p \right) \neq 0\)</span>.</p>
+<p>מכיוון ש-<span class="math inline">\(\nabla F \left( p \right) \neq 0\)</span>, לפחות אחת הנגזרות החלקיות אינה מתאפסת, ואת המשתנה המתאים לה אפשר לחלץ בסביבה של <span class="math inline">\(p\)</span> כפונקציה חלקה של שני האחרים. כלומר, <strong>עד כדי סדר הקואורדינטות</strong>, קיימת <span class="math inline">\(f\)</span> חלקה כך ש-<span class="math display">\[.\left\{ F = 0 \right\} = \left\{ z = f \left( x, y \right) \right\}\]</span></p>
+</div>
+<div id="box-prp-jacobian-minors" class="thmbox thmbox-proposition" title="דרגה שתיים ובחירת הקואורדינטות">
+<p><strong>טענה 6.1.13 — דרגה שתיים ובחירת הקואורדינטות.</strong></p>
+<p>תהי <span class="math inline">\(\overline{x} \left( u, v \right) = \left( x, y, z \right)\)</span> העתקה חלקה מ-<span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> ל-<span class="math inline">\(\mathbb{R}^3\)</span>, ותהי <span class="math inline">\(D \overline{x}\)</span> המטריצה היעקובית שלה, מסדר <span class="math inline">\(3 \times 2\)</span>. אז הדרגה של <span class="math inline">\(D \overline{x}\)</span> היא <span class="math inline">\(2\)</span> אם ורק אם <span class="math inline">\(\overline{x}_u \times \overline{x}_v \neq 0\)</span>, שכן שלושת רכיבי המכפלה הווקטורית הם בדיוק שלושת המינורים מסדר <span class="math inline">\(2 \times 2\)</span>, עד כדי סימן.</p>
+<p>יתרה מזו, אם מינור מסוים אינו מתאפס, אז לפי משפט הפונקציה ההופכית אפשר לקחת את שתי הקואורדינטות המתאימות לו כקואורדינטות מקומיות על המשטח, והקואורדינטה השלישית נעשית פונקציה חלקה שלהן.</p>
+</div>
+<p>השימוש הראשון שלנו במשפט יהיה דווקא כדי לשלול, כלומר להראות שקבוצה מסוימת <strong>אינה</strong> משטח רגולרי.</p>
+<div id="box-q-cone-not-surface" class="thmbox thmbox-question">
+<p><strong>שאלה 6.1.14.</strong></p>
+<p>יהי הקונוס <span class="math display">\[.C = \left\{ \left( x, y, z \right) \in \mathbb{R}^3 : z = \sqrt{x^2 + y^2} \right\}\]</span> הוכיחו ש-<span class="math inline">\(C\)</span> אינו משטח רגולרי.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>הערה מקדימה: מה צריך להוכיח</summary>
+<div class="foldable" title="הערה מקדימה: מה צריך להוכיח">
+<p>כדי להוכיח שקבוצה אינה משטח רגולרי לא די להראות שפרמטריזציה אחת נכשלת, שכן ייתכן שפרמטריזציה אחרת תצליח. יש לשלול את <strong>כל</strong> הפרמטריזציות האפשריות בבת אחת, והכלי לכך הוא <a href="#box-thm-three-presentations">משפט 6.1.11</a>: אילו <span class="math inline">\(C\)</span> היה משטח רגולרי, אז בסביבת הראשית הוא היה מקומית גרף של פונקציה חלקה מעל אחד משלושת מישורי הקואורדינטות.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>דרך א, שלב 1: הקונוס אינו גרף מעל מישורי yz ו-xz</summary>
+<div class="foldable" title="דרך א, שלב 1: הקונוס אינו גרף מעל מישורי yz ו-xz">
+<p>נניח בשלילה שבסביבת הראשית <span class="math inline">\(C\)</span> הוא גרף מן הצורה <span class="math inline">\(x = h \left( y, z \right)\)</span>. יהי <span class="math inline">\(t &gt; 0\)</span> קטן. שתי הנקודות <span class="math display">\[\left( t, 0, t \right) \in C \qquad \text{ו} \qquad \left( -t, 0, t \right) \in C\]</span> נמצאות שתיהן על הקונוס, שכן <span class="math inline">\(\sqrt{t^2 + 0^2} = t\)</span> בשני המקרים. לשתיהן אותם <span class="math inline">\(\left( y, z \right) = \left( 0, t \right)\)</span> אך רכיבי <span class="math inline">\(x\)</span> שונים, ולכן <span class="math inline">\(x\)</span> אינו פונקציה של <span class="math inline">\(y\)</span> ושל <span class="math inline">\(z\)</span>.</p>
+<p>החישוב עבור מישור <span class="math inline">\(xz\)</span> סימטרי לחלוטין, בהחלפת התפקידים של <span class="math inline">\(x\)</span> ושל <span class="math inline">\(y\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>דרך א, שלב 2: הפונקציה שנותרה אינה דיפרנציאבילית</summary>
+<div class="foldable" title="דרך א, שלב 2: הפונקציה שנותרה אינה דיפרנציאבילית">
+<p>נותרה רק האפשרות <span class="math inline">\(z = f \left( x, y \right)\)</span>, ומן הקבוצה נובע <span class="math inline">\(f \left( x, y \right) = \sqrt{x^2 + y^2}\)</span>. נניח בשלילה ש-<span class="math inline">\(f\)</span> דיפרנציאבילית ב-<span class="math inline">\(\left( 0, 0 \right)\)</span>, ונסמן ב-<span class="math inline">\(df_0\)</span> את הדיפרנציאל. מתקיים <span class="math inline">\(f \left( 0, 0 \right) = 0\)</span>, ולכן <span class="math display">\[.f \left( w \right) = df_0 \left( w \right) + o \left( \left\| w \right\| \right)\]</span></p>
+<p>יהי <span class="math inline">\(v \neq 0\)</span> ונציב <span class="math inline">\(w = tv\)</span> עבור <span class="math inline">\(t &gt; 0\)</span>. מן הנוסחה של <span class="math inline">\(f\)</span> מתקבל <span class="math inline">\(f \left( tv \right) = t \left\| v \right\|\)</span>, ומן הדיפרנציאביליות <span class="math inline">\(f \left( tv \right) = t \cdot df_0 \left( v \right) + o \left( t \right)\)</span>. נחלק ב-<span class="math inline">\(t\)</span> ונשאיף <span class="math inline">\(t \to 0^{+}\)</span>: <span class="math display">\[.df_0 \left( v \right) = \left\| v \right\|\]</span></p>
+<p>אותו חישוב בכיוון <span class="math inline">\(-v\)</span> נותן <span class="math inline">\(df_0 \left( -v \right) = \left\| v \right\|\)</span>, אך מלינאריות <span class="math inline">\(df_0 \left( -v \right) = -\left\| v \right\|\)</span>. לכן <span class="math inline">\(\left\| v \right\| = 0\)</span>, בסתירה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>דרך ב: יחידות הגרף</summary>
+<div class="foldable" title="דרך ב: יחידות הגרף">
+<p>דרך קצרה ומאירה יותר. אם משטח רגולרי הוא מקומית גרף מן הצורה <span class="math inline">\(\left( x, y, f \left( x, y \right) \right)\)</span> בסביבה קטנה מספיק של <span class="math inline">\(p\)</span>, אז <span class="math inline">\(f\)</span> <strong>יחידה</strong>: הקבוצה עצמה קובעת אותה, שכן לכל <span class="math inline">\(\left( x, y \right)\)</span> יש בדיוק נקודה אחת של המשטח מעליה.</p>
+<p>במקרה שלנו הקבוצה נתונה מלכתחילה כ-<span class="math inline">\(z = \sqrt{x^2 + y^2}\)</span>, ולכן אין אפשרות אחרת: בהכרח <span class="math display">\[.f \left( x, y \right) = \sqrt{x^2 + y^2}\]</span> הפונקציה הזו אינה גזירה בראשית, ודי לראות זאת בחתך <span class="math inline">\(y = 0\)</span>, שבו מתקבל <span class="math inline">\(z = \left| x \right|\)</span>. לכן זו אינה מפה חלקה, ו-<span class="math inline">\(C\)</span> אינו משטח רגולרי בראשית.</p>
+<p>נשים לב שדרך זו מסתמכת על כך שהגרף הוא מעל מישור <span class="math inline">\(xy\)</span>, וזה בדיוק מה ששלב 1 של דרך א מבסס.</p>
+</div>
+</details>
+</div>
+<div id="box-rem-cone-minus-apex" class="thmbox thmbox-remark" title="הקונוס בלי הקודקוד">
+<p><strong>הערה 6.1.15 — הקונוס בלי הקודקוד.</strong></p>
+<p>הקושי הוא <strong>רק</strong> בראשית. הקבוצה <span class="math display">\[C \setminus \left\{ \left( 0, 0, 0 \right) \right\}\]</span> היא משטח רגולרי לכל דבר, ובה נשתמש בהמשך בדוגמאות רבות. במילים פשוטות, לקונוס יש חוד בקודקודו, ולחוד אין מישור משיק, אך בכל נקודה אחרת המשטח חלק לגמרי.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/cone-not-surface.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:88.0%" alt="הקונוס וחוד הקודקוד שלו"></p>
+</figure>
+</div>
+<p><em>הקונוס <span class="math inline">\(z = \sqrt{x^2+y^2}\)</span>. מימין המשטח, והנקודה המסומנת היא הקודקוד. משמאל החתך במישור <span class="math inline">\(y = 0\)</span>, שהוא <span class="math inline">\(z = \left| x \right|\)</span>, ובו רואים את החוד: השיפוע מימין לראשית הוא <span class="math inline">\(+1\)</span> ומשמאלה <span class="math inline">\(-1\)</span>, ולכן אין ישר משיק אחד.</em></p>
+</section>
+<section id="דוגמאות" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="דוגמאות"><span class="header-section-number">6.1.2</span> דוגמאות</h3>
+<div id="box-prp-graph-is-surface" class="thmbox thmbox-proposition" title="גרף של פונקציה חלקה הוא משטח רגולרי">
+<p><strong>טענה 6.1.16 — גרף של פונקציה חלקה הוא משטח רגולרי.</strong></p>
+<p>תהי <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> קבוצה פתוחה ותהי <span class="math inline">\(g : U \to \mathbb{R}\)</span> פונקציה חלקה. אז הגרף <span class="math display">\[\Gamma \left( g \right) = \left\{ \left( u, v, g \left( u, v \right) \right) : \left( u, v \right) \in U \right\}\]</span> הוא משטח רגולרי ב-<span class="math inline">\(\mathbb{R}^3\)</span>, עם הפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, v, g \left( u, v \right) \right)\)</span> שעבורה <span class="math display">\[.\overline{x}_u \times \overline{x}_v = \left( -g_u, -g_v, 1 \right) \neq 0\]</span></p>
+</div>
+<div id="box-rem-graph-single-chart" class="thmbox thmbox-remark" title="גרף מתכסה במפה אחת">
+<p><strong>הערה 6.1.17 — גרף מתכסה במפה אחת.</strong></p>
+<p>גרפים הם הדוגמאות הפשוטות ביותר למשטחים, שכן אפשר לכסות אותם בסביבה קואורדינטית <strong>אחת</strong>. אין זה המצב עבור משטחים אחרים.</p>
+</div>
+<p>שתי הדוגמאות הראשונות הן גרפים, ולכן לפי הטענה הן משטחים רגולריים ללא כל בדיקה נוספת.</p>
+<div id="box-rem-elliptic-paraboloid" class="thmbox thmbox-remark" title="פרבולואיד אליפטי">
+<p><strong>הערה 6.1.18 — פרבולואיד אליפטי.</strong></p>
+<p>יהיו <span class="math inline">\(a, b &gt; 0\)</span> ותהי <span class="math display">\[.g \left( u, v \right) = \frac{u^2}{a^2} + \frac{v^2}{b^2}, \qquad \left( u, v \right) \in \mathbb{R}^2\]</span> הגרף של <span class="math inline">\(g\)</span> נקרא <strong>פרבולואיד אליפטי</strong>. חתכיו במישורים <span class="math inline">\(z = c\)</span> עבור <span class="math inline">\(c &gt; 0\)</span> הם אליפסות, וחתכיו במישורים <span class="math inline">\(x = 0\)</span> ו-<span class="math inline">\(y = 0\)</span> הם פרבולות.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/elliptic-paraboloid.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:76.0%" alt="פרבולואיד אליפטי"></p>
+</figure>
+</div>
+<p><em>הפרבולואיד האליפטי עבור <span class="math inline">\(a = b = 1\)</span>, עם חתך אופקי אחד המראה אליפסה וחתך אנכי אחד המראה פרבולה.</em></p>
+<div id="box-rem-hyperbolic-paraboloid" class="thmbox thmbox-remark" title="פרבולואיד היפרבולי">
+<p><strong>הערה 6.1.19 — פרבולואיד היפרבולי.</strong></p>
+<p>יהיו <span class="math inline">\(a, b &gt; 0\)</span> ותהי <span class="math display">\[.g \left( u, v \right) = \frac{u^2}{a^2} - \frac{v^2}{b^2}, \qquad \left( u, v \right) \in \mathbb{R}^2\]</span> הגרף של <span class="math inline">\(g\)</span> נקרא <strong>פרבולואיד היפרבולי</strong>, וצורתו צורת אוכף. בכיוון אחד הוא נראה כפרבולה הפונה למעלה ובכיוון האחר כפרבולה הפונה למטה, ולכן בראשית הצירים אין לו מינימום ואין לו מקסימום.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/hyperbolic-paraboloid.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:76.0%" alt="פרבולואיד היפרבולי בצורת אוכף"></p>
+</figure>
+</div>
+<p><em>הפרבולואיד ההיפרבולי עבור <span class="math inline">\(a = b = 1\)</span>. שני החתכים האנכיים דרך הראשית מראים את שתי הפרבולות הפונות לכיוונים מנוגדים.</em></p>
+<p>הדוגמה הבאה מגיעה בהצגה השלישית, כקבוצת אפסים, והיא מראה כמה משטחים בבת אחת.</p>
+<div id="box-rem-hyperboloids" class="thmbox thmbox-remark" title="היפרבולואידים וקונוס אליפטי">
+<p><strong>הערה 6.1.20 — היפרבולואידים וקונוס אליפטי.</strong></p>
+<p>יהיו <span class="math inline">\(a, b, c &gt; 0\)</span> ותהי <span class="math display">\[.F \left( x, y, z \right) = \frac{x^2}{a^2} + \frac{y^2}{b^2} - \frac{z^2}{c^2}\]</span> הגרדיאנט הוא <span class="math display">\[,\nabla F = \left( \frac{2x}{a^2}, \frac{2y}{b^2}, -\frac{2z}{c^2} \right)\]</span> והוא מתאפס אם ורק אם <span class="math inline">\(x = y = z = 0\)</span>. מכיוון ש-<span class="math inline">\(F \left( 0, 0, 0 \right) = 0\)</span>, נובע מ<a href="#box-thm-three-presentations">משפט 6.1.11</a> שלכל <span class="math inline">\(k \neq 0\)</span> הקבוצה <span class="math inline">\(\left\{ F = k \right\}\)</span> היא משטח רגולרי, שכן היא אינה מכילה את הראשית.</p>
+<p>מתקבלים שני משטחים שונים לפי סימן <span class="math inline">\(k\)</span>. עבור <span class="math inline">\(k &gt; 0\)</span> הקבוצה היא <strong>היפרבולואיד חד־יריעתי</strong>, ועבור <span class="math inline">\(k &lt; 0\)</span> היא <strong>היפרבולואיד דו־יריעתי</strong>.</p>
+<p>המקרה <span class="math inline">\(k = 0\)</span> שונה במהותו. הקבוצה <span class="math inline">\(\left\{ F = 0 \right\}\)</span> היא <strong>קונוס אליפטי</strong>, והיא כן מכילה את הראשית, שבה הגרדיאנט מתאפס. לכן המשפט אינו חל בנקודה זו, והקונוס אכן אינו משטח רגולרי בראשית, כפי שנראה ב<a href="#box-q-cone-not-surface">שאלה 6.1.14</a>.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/hyperboloids-cone.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:94.0%" alt="היפרבולואיד חד־יריעתי, דו־יריעתי וקונוס אליפטי"></p>
+</figure>
+</div>
+<p><em>שלוש רמות של אותה פונקציה <span class="math inline">\(F\)</span> עבור <span class="math inline">\(a = b = c = 1\)</span>. משמאל <span class="math inline">\(k &gt; 0\)</span>, היפרבולואיד חד־יריעתי; באמצע <span class="math inline">\(k = 0\)</span>, הקונוס האליפטי, והנקודה המסומנת היא הראשית שבה הגרדיאנט מתאפס; מימין <span class="math inline">\(k &lt; 0\)</span>, היפרבולואיד דו־יריעתי.</em></p>
+<div id="box-rem-non-examples" class="thmbox thmbox-remark" title="שתי משוואות שאינן מגדירות משטח">
+<p><strong>הערה 6.1.21 — שתי משוואות שאינן מגדירות משטח.</strong></p>
+<p>לא כל משוואה מגדירה משטח, והתנאי על הגרדיאנט אינו מיותר. שתי דוגמאות:</p>
+<ol type="1">
+<li>המשוואה <span class="math inline">\(xy = 0\)</span> מגדירה את <strong>איחוד שני מישורי הקואורדינטות</strong> <span class="math inline">\(x = 0\)</span> ו-<span class="math inline">\(y = 0\)</span>. הקבוצה אינה משטח רגולרי בנקודות החיתוך שלהם, שכן שם היא נראית כשני דפים הנחתכים ולא כמישור בודד.</li>
+<li>המשוואה <span class="math inline">\(x^2 + y^2 = 0\)</span> מגדירה את <strong>ציר <span class="math inline">\(z\)</span></strong> בלבד, שהוא ישר. זו אינה קבוצה דו־מימדית כלל.</li>
+</ol>
+</div>
+</section>
+<section id="משטחי-סיבוב" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="משטחי-סיבוב"><span class="header-section-number">6.1.3</span> משטחי סיבוב</h3>
+<p>מקור נוח למשפחות שלמות של דוגמאות הוא סיבוב של עקומה סביב ציר.</p>
+<div id="box-def-surface-of-revolution" class="thmbox thmbox-definition" title="משטח סיבוב">
+<p><strong>הגדרה 6.1.22 — משטח סיבוב.</strong></p>
+<p><strong>משטח סיבוב</strong> נוצר כאשר מסובבים עקומה דו־מימדית סביב אחד הצירים.</p>
+</div>
+<div id="box-def-revolution-parametrisation" class="thmbox thmbox-definition" title="הפרמטריזציה של משטח סיבוב">
+<p><strong>הגדרה 6.1.23 — הפרמטריזציה של משטח סיבוב.</strong></p>
+<p>נניח שאנו מסובבים עקומה במישור <span class="math inline">\(xz\)</span> סביב ציר <span class="math inline">\(z\)</span>, ונגדיר עקומה חלקה במישור <span class="math inline">\(xz\)</span> <span class="math display">\[.\gamma \left( u \right) = \left( f \left( u \right), \; 0, \; g \left( u \right) \right)\]</span></p>
+<p>נניח לגבי <span class="math inline">\(\gamma\)</span> שני דברים:</p>
+<ol type="1">
+<li>העקומה מונחת בצד אחד של ציר הסיבוב.</li>
+<li>העקומה רגולרית, כלומר <span class="math inline">\(\gamma' \left( u \right) \neq 0\)</span>.</li>
+</ol>
+<p>הסיבוב בזווית <span class="math inline">\(v\)</span> מתקבל על ידי הכפלה במטריצת סיבוב סביב ציר <span class="math inline">\(z\)</span>: <span class="math display">\[,\overline{x} \left( u, v \right) = \begin{pmatrix} \cos v &amp; -\sin v &amp; 0 \\ \sin v &amp; \cos v &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{pmatrix} \begin{pmatrix} f \left( u \right) \\ 0 \\ g \left( u \right) \end{pmatrix} = \left( f \left( u \right) \cos v, \; f \left( u \right) \sin v, \; g \left( u \right) \right)\]</span> כאשר <span class="math inline">\(0 &lt; v &lt; 2\pi\)</span>.</p>
+</div>
+<div id="box-rem-revolution-uv" class="thmbox thmbox-remark" title="הערה על הסימון">
+<p><strong>הערה 6.1.24 — הערה על הסימון.</strong></p>
+<p>בדרך כלל נהוג לסמן <span class="math inline">\(u = \theta\)</span> ו-<span class="math inline">\(v = \phi\)</span>. שימו לב ש-<span class="math inline">\(u\)</span> הוא הפרמטר של העקומה היוצרת ו-<span class="math inline">\(v\)</span> היא זווית הסיבוב.</p>
+</div>
+<div id="box-def-parallels-meridians" class="thmbox thmbox-definition" title="מקבילים ומרידיאנים">
+<p><strong>הגדרה 6.1.25 — מקבילים ומרידיאנים.</strong></p>
+<p>העקומה <span class="math inline">\(\gamma\)</span> נקראת <strong>העקומה היוצרת</strong> של המשטח. המעגל הנסרק על ידי נקודה בודדת של העקומה היוצרת נקרא <strong>מקביל</strong>, והעקומה המתקבלת מסיבוב העקומה היוצרת בזווית קבועה נקראת <strong>מרידיאן</strong>. כל מקביל הוא חיתוך של המשטח עם מישור אופקי <span class="math inline">\(z = \text{const}\)</span>, וכל מרידיאן הוא חיתוך של המשטח עם חצי מישור ששפתו ציר הסיבוב.</p>
+</div>
+<div id="box-rem-sphere-latitude" class="thmbox thmbox-remark" title="קווי רוחב וקווי אורך">
+<p><strong>הערה 6.1.26 — קווי רוחב וקווי אורך.</strong></p>
+<p>עבור הספירה, המקבילים והמרידיאנים הם בדיוק קווי הרוחב וקווי האורך המשמשים בגיאוגרפיה של כדור הארץ.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/surface-of-revolution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:82.0%" alt="משטח סיבוב עם העקומה היוצרת, מקביל ומרידיאן"></p>
+</figure>
+</div>
+<p><em>משטח סיבוב כללי. העקומה היוצרת מסומנת בכהה, מקביל אחד ומרידיאן אחד מסומנים אף הם, וציר הסיבוב הוא ציר <span class="math inline">\(z\)</span>.</em></p>
+<div id="box-prp-revolution-derivatives" class="thmbox thmbox-proposition" title="הנגזרות החלקיות של משטח סיבוב">
+<p><strong>טענה 6.1.27 — הנגזרות החלקיות של משטח סיבוב.</strong></p>
+<p>בסימוני <a href="#box-def-revolution-parametrisation">הגדרה 6.1.23</a> מתקיים <span class="math display">\[,\overline{x}_u = \left( f' \left( u \right) \cos v, \; f' \left( u \right) \sin v, \; g' \left( u \right) \right)\]</span> וכן <span class="math display">\[.\overline{x}_v = \left( -f \left( u \right) \sin v, \; f \left( u \right) \cos v, \; 0 \right)\]</span></p>
+</div>
+<p>עתה שתי דוגמאות. שתיהן מתקבלות מסיבוב עקומות שכבר פגשנו או שקל לתאר.</p>
+<div id="box-rem-catenoid" class="thmbox thmbox-remark" title="קטנואיד">
+<p><strong>הערה 6.1.28 — קטנואיד.</strong></p>
+<p><strong>הקטנואיד</strong> מתקבל מסיבוב קו שרשרת סביב ציר <span class="math inline">\(z\)</span>. יהי <span class="math inline">\(k &gt; 0\)</span> קבוע, ותהי העקומה היוצרת <span class="math display">\[,\gamma \left( u \right) = \left( k \cosh \frac{u}{k}, \; 0, \; u \right), \qquad u \in \mathbb{R}\]</span> ואז הפרמטריזציה של המשטח היא <span class="math display">\[.\overline{x} \left( u, v \right) = \left( k \cosh \frac{u}{k} \cos v, \; k \cosh \frac{u}{k} \sin v, \; u \right)\]</span></p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/catenoid.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:72.0%" alt="קטנואיד, משטח הסיבוב של קו שרשרת"></p>
+</figure>
+</div>
+<p><em>הקטנואיד עבור <span class="math inline">\(k = 1\)</span>. העקומה היוצרת, קו שרשרת, מסומנת בכהה במישור <span class="math inline">\(y = 0\)</span>.</em></p>
+<div id="box-rem-pseudosphere" class="thmbox thmbox-remark" title="פסאודוספירה">
+<p><strong>הערה 6.1.29 — פסאודוספירה.</strong></p>
+<p><strong>הפסאודוספירה</strong> מתקבלת מסיבוב הטרקטריסה סביב ציר <span class="math inline">\(z\)</span>. העקומה היוצרת היא <span class="math display">\[.\gamma \left( u \right) = \left( \operatorname{sech} u, \; 0, \; u - \tanh u \right), \qquad u &gt; 0\]</span></p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/pseudosphere.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:72.0%" alt="פסאודוספירה, משטח הסיבוב של הטרקטריסה"></p>
+</figure>
+</div>
+<p><em>הפסאודוספירה. העקומה היוצרת, הטרקטריסה, מסומנת בכהה במישור <span class="math inline">\(y = 0\)</span>.</em></p>
+<div id="box-rem-cylinder-cone-revolution" class="thmbox thmbox-remark" title="שתי דוגמאות נפוצות">
+<p><strong>הערה 6.1.30 — שתי דוגמאות נפוצות.</strong></p>
+<p>שני משטחי סיבוב שנחזור אליהם:</p>
+<ol type="1">
+<li><strong>גליל ברדיוס <span class="math inline">\(R\)</span>.</strong> ניקח את העקומה <span class="math inline">\(\gamma \left( u \right) = \left( R, 0, u \right)\)</span>, ולאחר סיבוב סביב ציר <span class="math inline">\(z\)</span> נקבל <span class="math display">\[,\overline{x} \left( u, v \right) = \left( R \cos v, \; R \sin v, \; u \right)\]</span> כאשר <span class="math inline">\(0 &lt; v &lt; 2\pi\)</span> ו-<span class="math inline">\(-\infty &lt; u &lt; \infty\)</span>.</li>
+<li><strong>חרוט.</strong> ניקח את העקומה <span class="math inline">\(\gamma \left( u \right) = \left( u, 0, au \right)\)</span>, ולאחר סיבוב סביב ציר <span class="math inline">\(z\)</span> נקבל <span class="math display">\[,\overline{x} \left( u, v \right) = \left( u \cos v, \; u \sin v, \; au \right)\]</span> כאשר <span class="math inline">\(0 &lt; v &lt; 2\pi\)</span> ו-<span class="math inline">\(0 &lt; u &lt; \infty\)</span>.</li>
+</ol>
+</div>
+<div id="box-rem-revolution-meets-axis" class="thmbox thmbox-remark" title="כאשר העקומה היוצרת פוגשת את הציר">
+<p><strong>הערה 6.1.31 — כאשר העקומה היוצרת פוגשת את הציר.</strong></p>
+<p>ההנחה שהעקומה היוצרת מונחת בצד אחד של הציר אינה קוסמטית. אם העקומה כן פוגשת את ציר הסיבוב, עלולות להיווצר נקודות שבהן המשטח אינו רגולרי. זהו בדיוק המצב של החרוט בקודקודו, שכבר ראינו.</p>
+</div>
+<iframe class="widget-frame" src="widgets/ch06/surface-of-revolution.html" loading="lazy" title="משטח סיבוב אינטראקטיבי"></iframe>
+</section>
+<section id="משטחים-ישרים" class="level3" data-number="6.1.4">
+<h3 data-number="6.1.4" class="anchored" data-anchor-id="משטחים-ישרים"><span class="header-section-number">6.1.4</span> משטחים ישרים</h3>
+<p>משפחה נוספת של דוגמאות מתקבלת לא מסיבוב עקומה, אלא מהזזה של <strong>ישר</strong>.</p>
+<div id="box-def-ruled-surface" class="thmbox thmbox-definition" title="משטח ישר">
+<p><strong>הגדרה 6.1.32 — משטח ישר.</strong></p>
+<p><strong>משטח ישר</strong> הוא משטח <span class="math inline">\(S\)</span> שאפשר לכסות אותו במשפחה של קטעי ישר, כלומר משטח שדרך כל נקודה שלו עובר קטע ישר הנשאר על המשטח. באופן אינטואיטיבי, משטח ישר הוא המשטח הנסרק על ידי ישר שמזיזים אותו במרחב.</p>
+</div>
+<div id="box-def-ruled-parametrisation" class="thmbox thmbox-definition" title="הפרמטריזציה של משטח ישר">
+<p><strong>הגדרה 6.1.33 — הפרמטריזציה של משטח ישר.</strong></p>
+<p>יהי <span class="math inline">\(I\)</span> קטע פתוח, תהי <span class="math inline">\(\alpha : I \to \mathbb{R}^3\)</span> עקומה רגולרית ללא חיתוכים עצמיים, ותהי <span class="math inline">\(\beta : I \to \mathbb{R}^3\)</span> העתקה חלקה שאינה מתאפסת באף נקודה. עבור קטע פתוח נוסף <span class="math inline">\(J\)</span> נגדיר <span class="math display">\[.\overline{x} \left( u, v \right) = \alpha \left( u \right) + v \beta \left( u \right), \qquad u \in I, \; v \in J\]</span></p>
+<p>לכל <span class="math inline">\(u\)</span> קבוע, הקבוצה <span class="math inline">\(\alpha \left( u \right) + v \beta \left( u \right)\)</span> היא קטע הישר העובר ב-<span class="math inline">\(\alpha \left( u \right)\)</span> בכיוון <span class="math inline">\(\beta \left( u \right)\)</span>. הישרים הללו נקראים <strong>הישרים היוצרים</strong> של המשטח, והעקומה <span class="math inline">\(\alpha\)</span> נקראת <strong>עקומת הבסיס</strong>.</p>
+</div>
+<div id="box-prp-ruled-derivatives" class="thmbox thmbox-proposition" title="הנגזרות החלקיות של משטח ישר">
+<p><strong>טענה 6.1.34 — הנגזרות החלקיות של משטח ישר.</strong></p>
+<p>בסימוני <a href="#box-def-ruled-parametrisation">הגדרה 6.1.33</a> מתקיים <span class="math display">\[.\overline{x}_u = \alpha' + v \beta', \qquad \overline{x}_v = \beta\]</span></p>
+<p>בפרט, <span class="math inline">\(\overline{x}\)</span> היא פרמטריזציה רגולרית בסביבת כל נקודה שבה <span class="math inline">\(\alpha' + v\beta'\)</span> אינו כפולה סקלרית של <span class="math inline">\(\beta\)</span>.</p>
+</div>
+<div id="box-rem-helicoid" class="thmbox thmbox-remark" title="הליקואיד">
+<p><strong>הערה 6.1.35 — הליקואיד.</strong></p>
+<p><strong>ההליקואיד</strong> הוא המשטח הנתון על ידי המשוואה <span class="math display">\[,x \sin \frac{z}{b} = y \cos \frac{z}{b}\]</span> כאשר <span class="math inline">\(b \neq 0\)</span>. נבחר <span class="math display">\[,\alpha \left( u \right) = \left( 0, 0, bu \right), \qquad \beta \left( u \right) = \left( \cos u, \sin u, 0 \right)\]</span> ונקבל את הפרמטריזציה <span class="math display">\[.\overline{x} \left( u, v \right) = \left( v \cos u, \; v \sin u, \; bu \right), \qquad \left( u, v \right) \in \mathbb{R}^2\]</span></p>
+<p>צורתו של ההליקואיד היא של גרם מדרגות לולייני, ברוחב ובגובה אינסופיים. הישרים היוצרים, המתקבלים מ-<span class="math inline">\(u\)</span> קבוע, הם בדיוק המדרגות.</p>
+</div>
+<iframe class="widget-frame" src="widgets/ch06/ruled-surface.html" loading="lazy" title="משטח ישר אינטראקטיבי"></iframe>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/ruled-surfaces.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:94.0%" alt="הליקואיד וההיפרבולואיד החד־יריעתי כמשטחים ישרים"></p>
+</figure>
+</div>
+<p><em>משמאל ההליקואיד עבור <span class="math inline">\(b = 1\)</span>, ומימין ההיפרבולואיד החד־יריעתי. בשניהם מסומנים כמה מן הישרים היוצרים, ובהיפרבולואיד מסומנות שתי המשפחות.</em></p>
+<div id="box-rem-doubly-ruled" class="thmbox thmbox-remark" title="ההיפרבולואיד החד־יריעתי הוא משטח ישר כפול">
+<p><strong>הערה 6.1.36 — ההיפרבולואיד החד־יריעתי הוא משטח ישר כפול.</strong></p>
+<p>יהיו <span class="math inline">\(a, b, c \neq 0\)</span> ויהי <span class="math inline">\(S\)</span> ההיפרבולואיד החד־יריעתי <span class="math display">\[.\frac{x^2}{a^2} + \frac{y^2}{b^2} - \frac{z^2}{c^2} = 1\]</span> נבחר את עקומת הבסיס <span class="math inline">\(\alpha \left( u \right) = \left( a \cos u, b \sin u, 0 \right)\)</span>, ומתברר ש<strong>שתי</strong> בחירות שונות של כיוון מתאימות: <span class="math display">\[.\beta^{\pm} \left( u \right) = \left( a \sin u, \; -b \cos u, \; \pm c \right)\]</span> מכאן מתקבלות שתי פרמטריזציות <span class="math display">\[,\overline{x}^{\pm} \left( u, v \right) = \left( a \left( \cos u + v \sin u \right), \; b \left( \sin u - v \cos u \right), \; \pm cv \right)\]</span> ודרך כל נקודה של <span class="math inline">\(S\)</span> עובר ישר מכל אחת משתי המשפחות. משטח כזה נקרא <strong>משטח ישר כפול</strong>.</p>
+<p>גם הפרבולואיד ההיפרבולי <span class="math inline">\(z = xy\)</span> הוא משטח ישר כפול.</p>
+</div>
+<div id="box-rem-ruled-not-intrinsic" class="thmbox thmbox-remark" title="להיות משטח ישר אינה תכונה פנימית">
+<p><strong>הערה 6.1.37 — להיות משטח ישר אינה תכונה פנימית.</strong></p>
+<p>נקודה שכדאי לשים לב אליה: ההליקואיד עם <span class="math inline">\(b = 1\)</span> והקטנואיד הם משטחים בעלי אותם מקדמי תבנית יסודית ראשונה, ולכן מבחינה פנימית הם נראים אותו הדבר, אף שהראשון הוא משטח ישר והשני אינו. כלומר, אי אפשר לדעת מתוך התבנית היסודית הראשונה בלבד אם משטח הוא ישר.</p>
+</div>
+</section>
+<section id="תרגילים" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="תרגילים">תרגילים</h3>
+<div id="box-q-hyperboloid-two-sheets" class="thmbox thmbox-question">
+<p><strong>שאלה 6.1.38.</strong></p>
+<p>הוכיחו שההיפרבולואיד הדו־יריעתי <span class="math display">\[x^2 + y^2 - z^2 = -1\]</span> הוא משטח רגולרי. עשו זאת בשתי דרכים, פעם בעזרת גרפים ופעם בעזרת קבוצת אפסים.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>דרך ראשונה: גרפים</summary>
+<div class="foldable" title="דרך ראשונה: גרפים">
+<p>נחלץ את <span class="math inline">\(z\)</span> מן המשוואה. מתקיים <span class="math inline">\(z^2 = 1 + x^2 + y^2\)</span>, ומכיוון שהאגף הימני גדול או שווה ל-<span class="math inline">\(1\)</span>, בפרט <span class="math inline">\(z^2 \geq 1\)</span> ולכן <span class="math inline">\(z \neq 0\)</span>. לכן הקבוצה מתפרקת לשני חלקים זרים, <span class="math display">\[,z = \sqrt{1 + x^2 + y^2} \qquad \text{ו} \qquad z = -\sqrt{1 + x^2 + y^2}\]</span> ובכל אחד מהם <span class="math inline">\(z\)</span> הוא גרף של פונקציה המוגדרת על כל <span class="math inline">\(\mathbb{R}^2\)</span>.</p>
+<p>הפונקציה <span class="math inline">\(g \left( x, y \right) = \sqrt{1 + x^2 + y^2}\)</span> חלקה על כל <span class="math inline">\(\mathbb{R}^2\)</span>, שכן הביטוי תחת השורש גדול או שווה ל-<span class="math inline">\(1\)</span> ולכן חסום מלרע על ידי מספר חיובי. לכן לפי <a href="#box-prp-graph-is-surface">טענה 6.1.16</a> כל אחת משתי היריעות היא משטח רגולרי.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>דרך שנייה: קבוצת אפסים</summary>
+<div class="foldable" title="דרך שנייה: קבוצת אפסים">
+<p>נגדיר <span class="math inline">\(F \left( x, y, z \right) = x^2 + y^2 - z^2 + 1\)</span>, ואז הקבוצה שלנו היא <span class="math inline">\(\left\{ F = 0 \right\}\)</span>. נחשב <span class="math display">\[.\nabla F = \left( 2x, 2y, -2z \right)\]</span> הגרדיאנט מתאפס רק בראשית הצירים, אך הראשית אינה על המשטח, שכן <span class="math inline">\(F \left( 0, 0, 0 \right) = 1 \neq 0\)</span>. לכן <span class="math inline">\(\nabla F \neq 0\)</span> בכל נקודה של הקבוצה, ולפי <a href="#box-thm-three-presentations">משפט 6.1.11</a> הקבוצה היא משטח רגולרי.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>הערה: המשטח אינו קשיר</summary>
+<div class="foldable" title="הערה: המשטח אינו קשיר">
+<p>שימו לב שהדרך הראשונה חשפה מידע נוסף. המשטח מתפרק לשתי יריעות זרות, אחת עם <span class="math inline">\(z \geq 1\)</span> ואחת עם <span class="math inline">\(z \leq -1\)</span>, ולכן הוא <strong>אינו קשיר</strong>. זו דוגמה לכך שמשטח רגולרי אינו חייב להיות קשיר, שכן ההגדרה היא מקומית בלבד.</p>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="המישור-המשיק" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="המישור-המשיק"><span class="header-section-number">6.2</span> המישור המשיק</h2>
+<p>כדי להגדיר את המישור המשיק נתחיל מן העקומות שנמצאות על המשטח.</p>
+<div id="box-def-curve-on-surface" class="thmbox thmbox-definition" title="עקומה על משטח">
+<p><strong>הגדרה 6.2.1 — עקומה על משטח.</strong></p>
+<p>יהי <span class="math inline">\(S \subset \mathbb{R}^3\)</span> משטח חלק ויהי <span class="math inline">\(I \subseteq \mathbb{R}\)</span> קטע פתוח, למשל <span class="math inline">\(I = \left( -\epsilon, \epsilon \right)\)</span>. פונקציה <span class="math inline">\(\gamma : I \to \mathbb{R}^3\)</span> נקראת <strong>עקומה חלקה על המשטח</strong> <span class="math inline">\(S\)</span> אם היא מקיימת את שלושת התנאים הבאים:</p>
+<ol type="1">
+<li>תמונת העקומה מוכלת במשטח: לכל <span class="math inline">\(t \in I\)</span> מתקיים <span class="math inline">\(\gamma \left( t \right) \in S\)</span>.</li>
+<li>הפונקציה <span class="math inline">\(\gamma \left( t \right) = \left( x \left( t \right), y \left( t \right), z \left( t \right) \right)\)</span> היא מסדר <span class="math inline">\(C^k\)</span>, כלומר חלקה מספיק.</li>
+<li>העקומה עוברת בנקודה <span class="math inline">\(P_0\)</span> שנמצאת על המשטח: קיים <span class="math inline">\(t_0 \in I\)</span> כך ש-<span class="math inline">\(\gamma \left( t_0 \right) = P_0\)</span>.</li>
+</ol>
+</div>
+<div id="box-rem-curve-regular" class="thmbox thmbox-remark" title="דרישת הרגולריות">
+<p><strong>הערה 6.2.2 — דרישת הרגולריות.</strong></p>
+<p>יש לדרוש שהעקומה תהיה רגולרית, כלומר <span class="math inline">\(\gamma' \left( t \right) \neq 0\)</span> לכל <span class="math inline">\(t \in I\)</span>. תנאי זה מבטיח כי לכל נקודה בעקומה יש כיוון של משיק שמוגדר היטב.</p>
+</div>
+<div id="box-rem-curve-in-parameters" class="thmbox thmbox-remark" title="הצגת העקומה בפרמטרים">
+<p><strong>הערה 6.2.3 — הצגת העקומה בפרמטרים.</strong></p>
+<p>אם המשטח <span class="math inline">\(S\)</span> מיוצג בסביבת הנקודה <span class="math inline">\(P_0\)</span> על ידי הפרמטריזציה <span class="math inline">\(\overline{x} : U \to S\)</span>, כאשר <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> קבוצה פתוחה ו-<span class="math inline">\(p_0 = \overline{x} \left( u_0, v_0 \right)\)</span>, אזי כל עקומה חלקה <span class="math inline">\(\gamma \left( t \right)\)</span> על המשטח שעוברת דרך הנקודה ניתן לייצג על ידי עקומה במישור הפרמטרים <span class="math display">\[,\sigma \left( t \right) = \left( u \left( t \right), v \left( t \right) \right)\]</span> כאשר <span class="math inline">\(\sigma \left( 0 \right) = \left( u_0, v_0 \right)\)</span>, ואז העקומה על המשטח היא ההרכבה של הפרמטריזציה עם העקומה במישור: <span class="math display">\[.\gamma \left( t \right) = \overline{x} \left( u \left( t \right), v \left( t \right) \right)\]</span></p>
+</div>
+<div id="box-prp-chain-rule-tangent" class="thmbox thmbox-proposition" title="גזירת העקומה לפי כלל השרשרת">
+<p><strong>טענה 6.2.4 — גזירת העקומה לפי כלל השרשרת.</strong></p>
+<p>בסימוני <a href="#box-rem-curve-in-parameters">הערה 6.2.3</a>, גזירה של <span class="math inline">\(\gamma \left( t \right)\)</span> בנקודה <span class="math inline">\(t = 0\)</span> לפי כלל השרשרת נותנת <span class="math display">\[.\gamma' \left( 0 \right) = \frac{d\sigma^1}{dt} \cdot \overline{x}_u \left( u_0, v_0 \right) + \frac{d\sigma^2}{dt} \cdot \overline{x}_v \left( u_0, v_0 \right)\]</span></p>
+<p>כלומר כל וקטור משיק לעקומה שנמצאת על המשטח ועוברת בנקודה <span class="math inline">\(p_0\)</span> הוא צירוף לינארי של וקטורי הנגזרות החלקיות <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span>.</p>
+</div>
+<div id="box-def-tangent-plane" class="thmbox thmbox-definition" title="המישור המשיק">
+<p><strong>הגדרה 6.2.5 — המישור המשיק.</strong></p>
+<p>תהי <span class="math inline">\(\overline{x} : U \to S\)</span> מפה רגולרית. נגדיר את <strong>המישור המשיק</strong> ל-<span class="math inline">\(S\)</span> בנקודה <span class="math inline">\(p\)</span> באופן הבא: <span class="math display">\[.T_p \left( S \right) = \left\{ \gamma' \left( 0 \right) \; \middle| \; \gamma : \left( -\epsilon, \epsilon \right) \to S, \; \gamma \left( 0 \right) = p, \; \gamma \text{ regular} \right\}\]</span></p>
+<p>במילים, <span class="math inline">\(T_p S\)</span> הוא אוסף המשיקים לכל העקומות הרגולריות שעוברות ב-<span class="math inline">\(p\)</span>.</p>
+</div>
+<div id="box-rem-tangent-plane-invariant" class="thmbox thmbox-remark" title="ההגדרה אינה תלויה בפרמטריזציה">
+<p><strong>הערה 6.2.6 — ההגדרה אינה תלויה בפרמטריזציה.</strong></p>
+<p>שימו לב שההגדרה הזו אינה תלויה בפרמטריזציה, משום שהמרחב המשיק לא משתנה כתוצאה משינוי פרמטריזציה. מה שמשתנה זה הבסיס למרחב המשיק, כלומר <span class="math inline">\(\left\{ \overline{x}_u, \overline{x}_v \right\}\)</span>.</p>
+</div>
+<div id="box-prp-tangent-plane-span" class="thmbox thmbox-proposition" title="המישור המשיק הוא הפרישה">
+<p><strong>טענה 6.2.7 — המישור המשיק הוא הפרישה.</strong></p>
+<p>מתקיים <span class="math display">\[.T_p \left( S \right) = \operatorname{span} \left\{ \overline{x}_u, \overline{x}_v \right\}\]</span></p>
+</div>
+<div id="box-cor-tangent-plane-linear" class="thmbox thmbox-corollary" title="המישור המשיק הוא מרחב לינארי">
+<p><strong>מסקנה 6.2.8 — המישור המשיק הוא מרחב לינארי.</strong></p>
+<p><span class="math inline">\(T_p \left( S \right)\)</span> הוא מרחב לינארי.</p>
+</div>
+<div id="box-prp-revolution-orthogonal" class="thmbox thmbox-proposition" title="בסיס אורתוגונלי למשטח סיבוב">
+<p><strong>טענה 6.2.9 — בסיס אורתוגונלי למשטח סיבוב.</strong></p>
+<p>עבור משטח סיבוב, וקטורי הנגזרות החלקיות שחישבנו ב<a href="#box-prp-revolution-derivatives">טענה 6.1.27</a> מהווים <strong>בסיס אורתוגונלי</strong> למישור המשיק: <span class="math display">\[.\overline{x}_u \cdot \overline{x}_v = -f' \left( u \right) f \left( u \right) \cos v \sin v + f' \left( u \right) f \left( u \right) \sin v \cos v + g' \left( u \right) \cdot 0 = 0\]</span></p>
+</div>
+<div id="box-rem-tangent-plane-graph" class="thmbox thmbox-remark" title="המישור המשיק לגרף">
+<p><strong>הערה 6.2.10 — המישור המשיק לגרף.</strong></p>
+<p>אם המשטח הוא הגרף <span class="math inline">\(z = g \left( x, y \right)\)</span> עם הפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, v, g \left( u, v \right) \right)\)</span>, אז <span class="math display">\[,\overline{x}_u = \left( 1, 0, g_u \right), \qquad \overline{x}_v = \left( 0, 1, g_v \right)\]</span> ולכן <span class="math display">\[.T_p \left( S \right) = \operatorname{span} \left\{ \left( 1, 0, g_u \right), \left( 0, 1, g_v \right) \right\}\]</span> זהו בדיוק המישור המשיק המוכר מחשבון אינפיניטסימלי, שמשוואתו <span class="math inline">\(z = g \left( p \right) + g_u \Delta x + g_v \Delta y\)</span>.</p>
+</div>
+<div id="box-def-coordinate-curves" class="thmbox thmbox-definition" title="עקומות הקואורדינטות">
+<p><strong>הגדרה 6.2.11 — עקומות הקואורדינטות.</strong></p>
+<p>בהינתן פרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right)\)</span>, המשפחה <span class="math inline">\(v = \text{const}\)</span> נותנת על המשטח משפחת עקומות שנקראות <strong>עקומות הקואורדינטות</strong>, ובאותו אופן גם המשפחה <span class="math inline">\(u = \text{const}\)</span>. עקומה מן המשפחה הראשונה מקבלת פרמטריזציה <span class="math inline">\(t \mapsto \overline{x} \left( t, v_0 \right)\)</span>, ולכן וקטור המשיק שלה הוא כפולה של <span class="math inline">\(\overline{x}_u\)</span>. באופן דומה, וקטורי המשיק למשפחה השנייה הם כפולות של <span class="math inline">\(\overline{x}_v\)</span>.</p>
+</div>
+<iframe class="widget-frame" src="widgets/ch06/tangent-plane.html" loading="lazy" title="המישור המשיק ועקומות הקואורדינטות"></iframe>
+<section id="תרגילים-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="תרגילים-1">תרגילים</h3>
+<div id="box-q-double-cone" class="thmbox thmbox-question">
+<p><strong>שאלה 6.2.12.</strong></p>
+<p>יהי הקונוס הכפול <span class="math display">\[.K = \left\{ \left( x, y, z \right) \in \mathbb{R}^3 : x^2 + y^2 = z^2 \right\}\]</span> שימו לב ש-<span class="math inline">\(z\)</span> יכול להיות שלילי, ולכן <span class="math inline">\(K\)</span> מורכב משני חלקים הנפגשים בראשית. הוכיחו ש-<span class="math inline">\(K\)</span> אינו משטח רגולרי, בשתי דרכים.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>דרך א: טיעון טופולוגי</summary>
+<div class="foldable" title="דרך א: טיעון טופולוגי">
+<p>נניח בשלילה ש-<span class="math inline">\(K\)</span> הוא משטח רגולרי. אז לראשית יש סביבה על <span class="math inline">\(K\)</span> ההומאומורפית לעיגון פתוח ב-<span class="math inline">\(\mathbb{R}^2\)</span>.</p>
+<p>נסלק את הראשית. עיגול פתוח שממנו הוצאה הנקודה המרכזית נשאר <strong>קשיר</strong>, ואילו סביבה קטנה של הראשית ב-<span class="math inline">\(K\)</span> שממנה הוצאה הראשית מתפרקת לשני חלקים זרים, אחד עם <span class="math inline">\(z &gt; 0\)</span> ואחד עם <span class="math inline">\(z &lt; 0\)</span>. הומאומורפיזם שומר על קשירות, ולכן קיבלנו סתירה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>דרך ב: שלושה משיקים הפורשים את המרחב</summary>
+<div class="foldable" title="דרך ב: שלושה משיקים הפורשים את המרחב">
+<p>אם <span class="math inline">\(K\)</span> היה משטח רגולרי, אז לפי <a href="#box-prp-tangent-plane-span">טענה 6.2.7</a> ולפי <a href="#box-cor-tangent-plane-linear">מסקנה 6.2.8</a> המרחב <span class="math inline">\(T_0 \left( K \right)\)</span> היה מרחב לינארי ממימד <span class="math inline">\(2\)</span>, ובפרט כל וקטור משיק לעקומה רגולרית על <span class="math inline">\(K\)</span> העוברת בראשית היה שייך אליו.</p>
+<p>נתבונן בשלוש עקומות, שכולן ישרים המונחים על <span class="math inline">\(K\)</span> ועוברים בראשית: <span class="math display">\[,\gamma_1 \left( t \right) = \left( t, 0, t \right), \qquad \gamma_2 \left( t \right) = \left( 0, t, t \right), \qquad \gamma_3 \left( t \right) = \left( t, 0, -t \right)\]</span> וקל לבדוק שכל אחת מהן מקיימת את משוואת הקונוס, שכן בכל שלושת המקרים <span class="math inline">\(x^2 + y^2 = t^2 = z^2\)</span>.</p>
+<p>וקטורי המשיק שלהן בראשית הם <span class="math display">\[,\gamma_1' \left( 0 \right) = \left( 1, 0, 1 \right), \qquad \gamma_2' \left( 0 \right) = \left( 0, 1, 1 \right), \qquad \gamma_3' \left( 0 \right) = \left( 1, 0, -1 \right)\]</span> ושלושתם אינם מתאפסים, ולכן שלוש העקומות רגולריות.</p>
+<p>נחשב את הדטרמיננטה <span class="math display">\[,\det \begin{pmatrix} 1 &amp; 0 &amp; 1 \\ 0 &amp; 1 &amp; 1 \\ 1 &amp; 0 &amp; -1 \end{pmatrix} = 1 \cdot \det \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix} = -2 \neq 0\]</span> כאשר פיתחנו לפי העמודה השנייה. לכן שלושת הווקטורים בלתי תלויים לינארית ופורשים את <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+<p>קיבלנו שלושה וקטורים בלתי תלויים בתוך <span class="math inline">\(T_0 \left( K \right)\)</span>, שאמור להיות ממימד <span class="math inline">\(2\)</span>, וזו סתירה.</p>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="התבנית-היסודית-הראשונה" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="התבנית-היסודית-הראשונה"><span class="header-section-number">6.3</span> התבנית היסודית הראשונה</h2>
+<p>בעזרת התבנית היסודית הראשונה של משטח ניתן לחקור תכונות פנימיות של המשטח, למשל אורכי עקומות, זוויות בין עקומות ושטחים, מבלי להתחשב באופן שבו הוא משוכן במרחב <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+<div id="box-def-first-form" class="thmbox thmbox-definition" title="התבנית היסודית הראשונה">
+<p><strong>הגדרה 6.3.1 — התבנית היסודית הראשונה.</strong></p>
+<p>יהי <span class="math inline">\(S\)</span> משטח רגולרי ותהי <span class="math inline">\(\overline{x} \left( u, v \right)\)</span> פרמטריזציה מקומית. התבנית היסודית הראשונה מוגדרת כתבנית בילינארית על המרחב <span class="math inline">\(T_p \left( S \right)\)</span>.</p>
+<p>פורמלית, תהי <span class="math inline">\(p \in S\)</span> נקודה על המשטח. התבנית היסודית בנקודה <span class="math inline">\(p\)</span> היא ההעתקה <span class="math display">\[,I : T_p \left( S \right) \times T_p \left( S \right) \to \mathbb{R}\]</span> ומוגדרת על ידי המכפלה הסקלרית על המרחב המשיק <span class="math display">\[,I \left( u, v \right) = \left\langle u, v \right\rangle\]</span> כאשר <span class="math inline">\(u, v \in T_p \left( S \right)\)</span>.</p>
+</div>
+<div id="box-def-metric-coefficients" class="thmbox thmbox-definition" title="מקדמי המטריקה">
+<p><strong>הגדרה 6.3.2 — מקדמי המטריקה.</strong></p>
+<p>אם <span class="math inline">\(w = a \overline{x}_u + b \overline{x}_v \in T_p \left( S \right)\)</span>, אזי <span class="math display">\[.I \left( w \right) = I \left( w, w \right) = \left\| w \right\|^2 = a^2 \left\langle \overline{x}_u, \overline{x}_u \right\rangle + 2ab \left\langle \overline{x}_u, \overline{x}_v \right\rangle + b^2 \left\langle \overline{x}_v, \overline{x}_v \right\rangle\]</span></p>
+<p>אם נסמן <span class="math display">\[,g_{11} = \left\langle \overline{x}_u, \overline{x}_u \right\rangle, \qquad g_{12} = g_{21} = \left\langle \overline{x}_u, \overline{x}_v \right\rangle, \qquad g_{22} = \left\langle \overline{x}_v, \overline{x}_v \right\rangle\]</span> נוכל לבטא את התבנית הריבועית באופן הבא: <span class="math display">\[.I \left( w \right) = a^2 g_{11} + 2ab g_{12} + b^2 g_{22}\]</span></p>
+</div>
+<div id="box-def-metric-matrix" class="thmbox thmbox-definition" title="המטריקה הרימנית">
+<p><strong>הגדרה 6.3.3 — המטריקה הרימנית.</strong></p>
+<p>ניתן להציג את התבנית היסודית הראשונה בעזרת מטריצה <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} g_{11} &amp; g_{12} \\ g_{21} &amp; g_{22} \end{pmatrix} = \begin{pmatrix} \left\langle \overline{x}_u, \overline{x}_u \right\rangle &amp; \left\langle \overline{x}_u, \overline{x}_v \right\rangle \\ \left\langle \overline{x}_v, \overline{x}_u \right\rangle &amp; \left\langle \overline{x}_v, \overline{x}_v \right\rangle \end{pmatrix}\]</span> כאשר <span class="math inline">\(\left( g_{ij} \right)\)</span> היא <strong>מטריצת גרם</strong>.</p>
+</div>
+<div id="box-prp-det-metric" class="thmbox thmbox-proposition" title="הדטרמיננטה של המטריקה">
+<p><strong>טענה 6.3.4 — הדטרמיננטה של המטריקה.</strong></p>
+<p>מתקיים <span class="math display">\[,\det \left( g_{ij} \right) = g_{11} g_{22} - g_{12}^2 = \left\| \overline{x}_u \times \overline{x}_v \right\|^2 &gt; 0\]</span> וזאת לפי זהות לגראנז’ <span class="math inline">\(\left\| a \times b \right\|^2 = \left\| a \right\|^2 \left\| b \right\|^2 - \left\langle a, b \right\rangle^2\)</span> שראינו בתרגול 4.</p>
+<p>מכאן שהמטריצה הפיכה. נסמן את ההופכית שלה ב-<span class="math inline">\(\left( g^{ij} \right)\)</span>, ולכן <span class="math display">\[.g^{ij} \cdot g_{jk} = \delta^i_k\]</span></p>
+</div>
+<div id="box-def-ds-squared" class="thmbox thmbox-definition" title="הצגה נוספת של התבנית">
+<p><strong>הגדרה 6.3.5 — הצגה נוספת של התבנית.</strong></p>
+<p>דרך נוספת להציג את התבנית היסודית הראשונה היא <span class="math display">\[.ds^2 = g_{11} du^2 + 2 g_{12} \, du \, dv + g_{22} dv^2\]</span></p>
+<p>אם <span class="math inline">\(\gamma \left( t \right) = \overline{x} \left( u \left( t \right), v \left( t \right) \right)\)</span> היא עקומה על המשטח ו-<span class="math inline">\(s\)</span> הוא פרמטר אורך הקשת שלה, אזי <span class="math display">\[.\left( \frac{ds}{dt} \right)^2 = \left\| \gamma' \left( t \right) \right\|^2 = g_{11} \left( \frac{du}{dt} \right)^2 + 2 g_{12} \frac{du}{dt} \frac{dv}{dt} + g_{22} \left( \frac{dv}{dt} \right)^2\]</span></p>
+</div>
+<section id="שימושים-של-התבנית-היסודית-הראשונה" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="שימושים-של-התבנית-היסודית-הראשונה"><span class="header-section-number">6.3.1</span> שימושים של התבנית היסודית הראשונה</h3>
+<p>התבנית הזו מכילה את כל המידע הנדרש למדידות על המשטח.</p>
+<div id="box-thm-length-on-surface" class="thmbox thmbox-theorem" title="חישוב אורך של עקומה על המשטח">
+<p><strong>משפט 6.3.6 — חישוב אורך של עקומה על המשטח.</strong></p>
+<p>תהי <span class="math inline">\(\gamma \left( t \right) = \overline{x} \left( \alpha^1 \left( t \right), \alpha^2 \left( t \right) \right)\)</span> עקומה על המשטח, ונניח ש-<span class="math inline">\(t \in \left[ a, b \right]\)</span>. האורך של העקומה נתון על ידי <span class="math display">\[.L = \int_a^b \left\| \frac{d}{dt} \gamma \left( t \right) \right\| dt = \int_a^b \sqrt{ \left( \alpha^i \right)' \cdot \left( \alpha^j \right)' g_{ij} } \, dt\]</span></p>
+</div>
+<div id="box-thm-angle-on-surface" class="thmbox thmbox-theorem" title="חישוב זווית בין שתי עקומות">
+<p><strong>משפט 6.3.7 — חישוב זווית בין שתי עקומות.</strong></p>
+<p>אם שתי עקומות נחתכות בנקודה <span class="math inline">\(p_0\)</span> עם וקטורים משיקים <span class="math inline">\(w_1 = \left( a_1, b_1 \right)\)</span> ו-<span class="math inline">\(w_2 = \left( a_2, b_2 \right)\)</span> בבסיס <span class="math inline">\(\left\{ \overline{x}_u, \overline{x}_v \right\}\)</span>, ניתן לחשב את הזווית <span class="math inline">\(\theta\)</span> ביניהם לפי הנוסחה <span class="math display">\[.\cos \left( \theta \right) = \frac{\left\langle w_1, w_2 \right\rangle}{\left\| w_1 \right\| \cdot \left\| w_2 \right\|} = \frac{g_{11} a_1 a_2 + g_{12} \left( a_1 b_2 + a_2 b_1 \right) + g_{22} b_1 b_2}{\sqrt{g_{11} a_1^2 + 2 g_{12} a_1 b_1 + g_{22} b_1^2} \cdot \sqrt{g_{11} a_2^2 + 2 g_{12} a_2 b_2 + g_{22} b_2^2}}\]</span></p>
+</div>
+<div id="box-thm-area-on-surface" class="thmbox thmbox-theorem" title="חישוב שטחים">
+<p><strong>משפט 6.3.8 — חישוב שטחים.</strong></p>
+<p>יהי <span class="math inline">\(R \subset S\)</span> תחום חסום על משטח רגולרי שמוכל ב-<span class="math inline">\(\overline{x} \left( U \right)\)</span>, כאשר <span class="math inline">\(\overline{x} : U \subset \mathbb{R}^2 \to S\)</span>, ויהי <span class="math inline">\(Q = \overline{x}^{-1} \left( R \right)\)</span>. אזי <span class="math display">\[.\iint_Q \left\| \overline{x}_u \times \overline{x}_v \right\| \, du \, dv = \iint_Q \sqrt{\det \left( g_{ij} \right)} \, du \, dv = A \left( R \right)\]</span></p>
+<p>הביטוי <span class="math inline">\(A \left( R \right)\)</span> נקרא <strong>השטח</strong> של <span class="math inline">\(R\)</span>, והביטוי <span class="math display">\[dA = \sqrt{\det \left( g_{ij} \right)} \, du \, dv\]</span> נקרא <strong>אלמנט שטח</strong>.</p>
+</div>
+<div id="box-rem-area-invariant" class="thmbox thmbox-remark" title="השטח אינו תלוי בפרמטריזציה">
+<p><strong>הערה 6.3.9 — השטח אינו תלוי בפרמטריזציה.</strong></p>
+<p>האינטגרל שבנוסחת השטח אינו תלוי בפרמטריזציה. אם <span class="math inline">\(\overline{x}\)</span> ו-<span class="math inline">\(\overline{\overline{x}}\)</span> הן שתי פרמטריזציות שונות של אותו תחום, המעבר ביניהן מתבצע על ידי היעקוביאן של שינוי הקואורדינטות, והוא בדיוק הגורם שמתקן את אלמנט השטח.</p>
+</div>
+<div id="box-prp-first-form-revolution" class="thmbox thmbox-proposition" title="התבנית היסודית של משטח סיבוב">
+<p><strong>טענה 6.3.10 — התבנית היסודית של משטח סיבוב.</strong></p>
+<p>עבור משטח סיבוב <span class="math inline">\(\overline{x} \left( u, v \right) = \left( f \left( u \right) \cos v, f \left( u \right) \sin v, g \left( u \right) \right)\)</span> מתקיים <span class="math display">\[,g_{11} = \left( f' \left( u \right) \right)^2 + \left( g' \left( u \right) \right)^2 = \left\| \gamma' \left( u \right) \right\|^2, \qquad g_{12} = g_{21} = 0, \qquad g_{22} = f^2 \left( u \right)\]</span> כלומר <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} \left( f' \right)^2 + \left( g' \right)^2 &amp; 0 \\ 0 &amp; f^2 \end{pmatrix}\]</span> והמטריקה היא <span class="math display">\[.ds^2 = \left( \left( f' \right)^2 + \left( g' \right)^2 \right) du^2 + f^2 dv^2\]</span></p>
+</div>
+<div id="box-cor-first-form-revolution-natural" class="thmbox thmbox-corollary" title="מקרה פרטי: פרמטריזציה טבעית">
+<p><strong>מסקנה 6.3.11 — מקרה פרטי: פרמטריזציה טבעית.</strong></p>
+<p>אם <span class="math inline">\(\gamma \left( s \right)\)</span> היא עקומה נתונה בפרמטריזציה טבעית, אזי <span class="math inline">\(\left\| \gamma' \left( s \right) \right\|^2 = 1\)</span>, ולכן <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; f^2 \end{pmatrix}\]</span> ואז <span class="math display">\[.ds^2 = du^2 + f^2 dv^2\]</span></p>
+</div>
+<div id="box-cor-orthogonal-coordinate-curves" class="thmbox thmbox-corollary" title="הזווית בין עקומות הקואורדינטות">
+<p><strong>מסקנה 6.3.12 — הזווית בין עקומות הקואורדינטות.</strong></p>
+<p>נחשב את הזווית בין שתי משפחות עקומות הקואורדינטות מ<a href="#box-def-coordinate-curves">הגדרה 6.2.11</a>. וקטורי המשיק הם <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span>, ולכן לפי <a href="#box-thm-angle-on-surface">משפט 6.3.7</a> <span class="math display">\[.\cos \theta = \frac{\left\langle \overline{x}_u, \overline{x}_v \right\rangle}{\left\| \overline{x}_u \right\| \left\| \overline{x}_v \right\|} = \frac{g_{12}}{\sqrt{g_{11} g_{22}}}\]</span></p>
+<p>מכאן מסקנה שימושית: עקומות הקואורדינטות ניצבות זו לזו בכל נקודה <strong>אם ורק אם</strong> <span class="math inline">\(g_{12} = 0\)</span>.</p>
+</div>
+</section>
+<section id="תרגילים-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="תרגילים-2">תרגילים</h3>
+<div id="box-q-ff-plane-cylinder" class="thmbox thmbox-question">
+<p><strong>שאלה 6.3.13.</strong></p>
+<p>חשבו את התבנית היסודית הראשונה של</p>
+<ol type="1">
+<li>המישור, בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, v, 0 \right)\)</span>.</li>
+<li>הגליל ברדיוס <span class="math inline">\(R\)</span>, בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( R \cos v, \; R \sin v, \; u \right)\)</span>.</li>
+</ol>
+<p>מה אפשר להסיק מהשוואת השתיים?</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1: המישור</summary>
+<div class="foldable" title="סעיף 1: המישור">
+<p>נגזור לפי כל אחד מן המשתנים. הרכיב השלישי קבוע ולכן נגזרתו מתאפסת, ומתקבל <span class="math display">\[.\overline{x}_u = \left( 1, 0, 0 \right), \qquad \overline{x}_v = \left( 0, 1, 0 \right)\]</span></p>
+<p>נחשב את שלוש המכפלות הסקלריות בנפרד: <span class="math display">\[,g_{11} = \left\langle \left( 1, 0, 0 \right), \left( 1, 0, 0 \right) \right\rangle = 1 \cdot 1 + 0 \cdot 0 + 0 \cdot 0 = 1\]</span> וכן <span class="math display">\[,g_{12} = \left\langle \left( 1, 0, 0 \right), \left( 0, 1, 0 \right) \right\rangle = 1 \cdot 0 + 0 \cdot 1 + 0 \cdot 0 = 0\]</span> ולבסוף <span class="math display">\[.g_{22} = \left\langle \left( 0, 1, 0 \right), \left( 0, 1, 0 \right) \right\rangle = 0 \cdot 0 + 1 \cdot 1 + 0 \cdot 0 = 1\]</span></p>
+<p>לכן <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}, \qquad ds^2 = du^2 + dv^2\]</span> וזוהי בדיוק משפחת המרחקים האוקלידית המוכרת במישור.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: הגליל</summary>
+<div class="foldable" title="סעיף 2: הגליל">
+<p>נגזור. לפי <span class="math inline">\(u\)</span> רק הרכיב השלישי תלוי ב-<span class="math inline">\(u\)</span>, ולפי <span class="math inline">\(v\)</span> רק שני הראשונים: <span class="math display">\[,\overline{x}_u = \left( 0, 0, 1 \right), \qquad \overline{x}_v = \left( -R \sin v, \; R \cos v, \; 0 \right)\]</span></p>
+<p>נחשב: <span class="math display">\[,g_{11} = 0^2 + 0^2 + 1^2 = 1\]</span> וכן <span class="math display">\[,g_{12} = 0 \cdot \left( -R \sin v \right) + 0 \cdot R \cos v + 1 \cdot 0 = 0\]</span> ולבסוף, תוך שימוש ב-<span class="math inline">\(\sin^2 v + \cos^2 v = 1\)</span>, <span class="math display">\[.g_{22} = \left( -R \sin v \right)^2 + \left( R \cos v \right)^2 + 0^2 = R^2 \sin^2 v + R^2 \cos^2 v = R^2 \left( \sin^2 v + \cos^2 v \right) = R^2\]</span></p>
+<p>לכן <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; R^2 \end{pmatrix}, \qquad ds^2 = du^2 + R^2 dv^2\]</span></p>
+<p>אפשר היה לקצר: הגליל הוא משטח סיבוב עם <span class="math inline">\(f \left( u \right) = R\)</span> ו-<span class="math inline">\(g \left( u \right) = u\)</span>, ולכן לפי <a href="#box-prp-first-form-revolution">טענה 6.3.10</a> מתקבל <span class="math inline">\(g_{11} = 0^2 + 1^2 = 1\)</span> ו-<span class="math inline">\(g_{22} = f^2 = R^2\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מסקנה: המישור והגליל</summary>
+<div class="foldable" title="מסקנה: המישור והגליל">
+<p>עבור <span class="math inline">\(R = 1\)</span> מתקבלת בגליל בדיוק אותה מטריצה כמו במישור. במקרה כזה נאמר שהמשטחים <strong>איזומטריים</strong>, וזה נכון כי אפשר לפרוש גליל למישור מבלי למתוח אותו או לקרוע אותו.</p>
+<p>גם עבור <span class="math inline">\(R \neq 1\)</span> אין הבדל מהותי: ההצבה <span class="math inline">\(\widetilde{v} = R v\)</span> נותנת <span class="math inline">\(ds^2 = du^2 + d\widetilde{v}^2\)</span>, כלומר שוב המטריקה של המישור.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-sphere" class="thmbox thmbox-question">
+<p><strong>שאלה 6.3.14.</strong></p>
+<p>חשבו את התבנית היסודית הראשונה של ספירת היחידה בקואורדינטות ספיריות <span class="math display">\[.\overline{x} \left( u, v \right) = \left( \sin u \cos v, \; \sin u \sin v, \; \cos u \right)\]</span> היכן הפרמטריזציה מפסיקה להיות רגולרית, וכיצד הדבר ניכר במטריקה?</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>חישוב הנגזרות</summary>
+<div class="foldable" title="חישוב הנגזרות">
+<p>נגזור לפי <span class="math inline">\(u\)</span>, כאשר <span class="math inline">\(v\)</span> קבוע: <span class="math display">\[.\overline{x}_u = \left( \cos u \cos v, \; \cos u \sin v, \; -\sin u \right)\]</span></p>
+<p>נגזור לפי <span class="math inline">\(v\)</span>, כאשר <span class="math inline">\(u\)</span> קבוע. הרכיב השלישי אינו תלוי ב-<span class="math inline">\(v\)</span> ולכן נגזרתו מתאפסת: <span class="math display">\[.\overline{x}_v = \left( -\sin u \sin v, \; \sin u \cos v, \; 0 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>חישוב מקדמי המטריקה</summary>
+<div class="foldable" title="חישוב מקדמי המטריקה">
+<p>עבור <span class="math inline">\(g_{11}\)</span> נפתח ונשתמש פעמיים בזהות הפיתגורית: <span class="math display">\[\begin{aligned} g_{11} &amp;= \cos^2 u \cos^2 v + \cos^2 u \sin^2 v + \sin^2 u \\ &amp;= \cos^2 u \left( \cos^2 v + \sin^2 v \right) + \sin^2 u \\ &amp;= \cos^2 u + \sin^2 u = 1. \end{aligned}\]</span></p>
+<p>עבור <span class="math inline">\(g_{12}\)</span> שני המחוברים הראשונים מבטלים זה את זה: <span class="math display">\[\begin{aligned} g_{12} &amp;= \cos u \cos v \cdot \left( -\sin u \sin v \right) + \cos u \sin v \cdot \sin u \cos v + \left( -\sin u \right) \cdot 0 \\ &amp;= -\sin u \cos u \sin v \cos v + \sin u \cos u \sin v \cos v = 0. \end{aligned}\]</span></p>
+<p>ולבסוף <span class="math display">\[.g_{22} = \sin^2 u \sin^2 v + \sin^2 u \cos^2 v + 0 = \sin^2 u \left( \sin^2 v + \cos^2 v \right) = \sin^2 u\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מסקנה והקטבים</summary>
+<div class="foldable" title="מסקנה והקטבים">
+<p>קיבלנו <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \sin^2 u \end{pmatrix}, \qquad ds^2 = du^2 + \sin^2 u \, dv^2\]</span></p>
+<p>התוצאה עקבית עם <a href="#box-cor-first-form-revolution-natural">מסקנה 6.3.11</a>: הספירה היא משטח סיבוב של חצי המעגל <span class="math inline">\(\gamma \left( u \right) = \left( \sin u, 0, \cos u \right)\)</span>, שהוא בפרמטריזציה טבעית, ו-<span class="math inline">\(f \left( u \right) = \sin u\)</span>.</p>
+<p>לפי <a href="#box-prp-det-metric">טענה 6.3.4</a> הדטרמיננטה היא <span class="math inline">\(\det \left( g_{ij} \right) = \sin^2 u\)</span>, והיא מתאפסת עבור <span class="math inline">\(u = 0\)</span> ועבור <span class="math inline">\(u = \pi\)</span>. אלה בדיוק שני הקטבים, ושם הפרמטריזציה הספירית אינה רגולרית: כל הערכים של <span class="math inline">\(v\)</span> נותנים שם את אותה נקודה.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-helicoid" class="thmbox thmbox-question">
+<p><strong>שאלה 6.3.15.</strong></p>
+<p>חשבו את התבנית היסודית הראשונה של ההליקואיד <span class="math display">\[.\overline{x} \left( u, v \right) = \left( v \cos u, \; v \sin u, \; bu \right)\]</span></p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>פתרון</summary>
+<div class="foldable" title="פתרון">
+<p>נגזור: <span class="math display">\[.\overline{x}_u = \left( -v \sin u, \; v \cos u, \; b \right), \qquad \overline{x}_v = \left( \cos u, \; \sin u, \; 0 \right)\]</span></p>
+<p>נחשב את <span class="math inline">\(g_{11}\)</span>: <span class="math display">\[.g_{11} = v^2 \sin^2 u + v^2 \cos^2 u + b^2 = v^2 \left( \sin^2 u + \cos^2 u \right) + b^2 = v^2 + b^2\]</span></p>
+<p>נחשב את <span class="math inline">\(g_{12}\)</span>, ושוב שני המחוברים מבטלים זה את זה: <span class="math display">\[.g_{12} = -v \sin u \cos u + v \cos u \sin u + b \cdot 0 = 0\]</span></p>
+<p>ולבסוף <span class="math display">\[.g_{22} = \cos^2 u + \sin^2 u + 0 = 1\]</span></p>
+<p>לכן <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} v^2 + b^2 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\]</span></p>
+<p>מכיוון ש-<span class="math inline">\(g_{12} = 0\)</span>, לפי <a href="#box-cor-orthogonal-coordinate-curves">מסקנה 6.3.12</a> הישרים היוצרים ניצבים בכל נקודה לעקומות הקואורדינטות האחרות.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>הערה: פרמטריזציה איזותרמית</summary>
+<div class="foldable" title="הערה: פרמטריזציה איזותרמית">
+<p>בפרמטריזציה <span class="math display">\[\widetilde{x} \left( u, v \right) = \left( b \sinh v \cos u, \; b \sinh v \sin u, \; bu \right)\]</span> מתקבל <span class="math inline">\(g_{11} = g_{22} = b^2 \cosh^2 v\)</span> ו-<span class="math inline">\(g_{12} = 0\)</span>. פרמטריזציה שבה <span class="math inline">\(g_{11} = g_{22}\)</span> ו-<span class="math inline">\(g_{12} = 0\)</span> נקראת <strong>איזותרמית</strong>. לפי <a href="#box-thm-angle-on-surface">משפט 6.3.7</a> פרמטריזציה כזו שומרת על זוויות, שכן נוסחת הזווית מצטמצמת לנוסחה האוקלידית הרגילה במישור הפרמטרים.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-torus-area" class="thmbox thmbox-question">
+<p><strong>שאלה 6.3.16.</strong></p>
+<p>יהיו <span class="math inline">\(a &gt; r &gt; 0\)</span> ויהי הטורוס <span class="math display">\[,\overline{x} \left( u, v \right) = \left( \left( a + r \cos u \right) \cos v, \; \left( a + r \cos u \right) \sin v, \; r \sin u \right)\]</span> כאשר <span class="math inline">\(0 &lt; u &lt; 2\pi\)</span> ו-<span class="math inline">\(0 &lt; v &lt; 2\pi\)</span>. חשבו את התבנית היסודית הראשונה שלו, ובעזרתה את שטח הפנים.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: המטריקה</summary>
+<div class="foldable" title="שלב 1: המטריקה">
+<p>הטורוס הוא משטח סיבוב, המתקבל מסיבוב המעגל <span class="math display">\[\gamma \left( u \right) = \left( a + r \cos u, \; 0, \; r \sin u \right)\]</span> סביב ציר <span class="math inline">\(z\)</span>, כלומר <span class="math inline">\(f \left( u \right) = a + r \cos u\)</span> ו-<span class="math inline">\(g \left( u \right) = r \sin u\)</span>.</p>
+<p>נגזור את העקומה היוצרת: <span class="math display">\[,\gamma' \left( u \right) = \left( -r \sin u, \; 0, \; r \cos u \right)\]</span> ולכן <span class="math display">\[.\left\| \gamma' \left( u \right) \right\|^2 = r^2 \sin^2 u + r^2 \cos^2 u = r^2 \left( \sin^2 u + \cos^2 u \right) = r^2\]</span></p>
+<p>לפי <a href="#box-prp-first-form-revolution">טענה 6.3.10</a> מתקבל <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} r^2 &amp; 0 \\ 0 &amp; \left( a + r \cos u \right)^2 \end{pmatrix}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: אלמנט השטח</summary>
+<div class="foldable" title="שלב 2: אלמנט השטח">
+<p>נחשב את הדטרמיננטה. המטריצה אלכסונית, ולכן <span class="math display">\[.\det \left( g_{ij} \right) = r^2 \left( a + r \cos u \right)^2\]</span></p>
+<p>מכיוון ש-<span class="math inline">\(a &gt; r &gt; 0\)</span> מתקיים <span class="math inline">\(a + r \cos u \geq a - r &gt; 0\)</span>, ולכן הביטוי חיובי ואפשר להוציא שורש בלי ערך מוחלט: <span class="math display">\[.dA = \sqrt{\det \left( g_{ij} \right)} \, du \, dv = r \left( a + r \cos u \right) du \, dv\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: האינטגרל</summary>
+<div class="foldable" title="שלב 3: האינטגרל">
+<p>נציב בנוסחת השטח מ<a href="#box-thm-area-on-surface">משפט 6.3.8</a>. המשתנה <span class="math inline">\(v\)</span> אינו מופיע באינטגרנד, ולכן האינטגרציה עליו נותנת גורם <span class="math inline">\(2\pi\)</span>: <span class="math display">\[.A = \int_0^{2\pi} \int_0^{2\pi} r \left( a + r \cos u \right) du \, dv = 2\pi r \int_0^{2\pi} \left( a + r \cos u \right) du\]</span></p>
+<p>נחשב את האינטגרל הפנימי. הקדומה של <span class="math inline">\(a\)</span> היא <span class="math inline">\(au\)</span>, והקדומה של <span class="math inline">\(r \cos u\)</span> היא <span class="math inline">\(r \sin u\)</span>: <span class="math display">\[.\int_0^{2\pi} \left( a + r \cos u \right) du = \Big[ au + r \sin u \Big]_0^{2\pi} = \left( 2\pi a + r \sin 2\pi \right) - \left( 0 + r \sin 0 \right) = 2\pi a\]</span></p>
+<p>המחובר עם הסינוס התאפס, שכן <span class="math inline">\(\sin 2\pi = \sin 0 = 0\)</span>. נציב ונקבל <span class="math display">\[.A = 2\pi r \cdot 2\pi a = 4\pi^2 a r\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
+<div class="foldable" title="בדיקת שפיות">
+<p>התוצאה <span class="math inline">\(4\pi^2 a r = \left( 2\pi a \right) \cdot \left( 2\pi r \right)\)</span> היא בדיוק מכפלת היקפי שני המעגלים: המעגל הגדול ברדיוס <span class="math inline">\(a\)</span> והמעגל הקטן ברדיוס <span class="math inline">\(r\)</span>. זהו משפט פאפוס, ולפיו שטח משטח סיבוב שווה למכפלת אורך העקומה היוצרת בהיקף המעגל שמתאר מרכז המסה שלה.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-length-helix" class="thmbox thmbox-question">
+<p><strong>שאלה 6.3.17.</strong></p>
+<p>על הגליל ברדיוס <span class="math inline">\(R\)</span>, בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( R \cos v, R \sin v, u \right)\)</span>, נתונה העקומה במישור הפרמטרים <span class="math display">\[,\alpha \left( t \right) = \left( ct, \; t \right), \qquad t \in \left[ 0, 2\pi \right]\]</span> כאשר <span class="math inline">\(c &gt; 0\)</span> קבוע. חשבו את אורך העקומה המתאימה על המשטח, פעם בעזרת התבנית היסודית ופעם ישירות ב-<span class="math inline">\(\mathbb{R}^3\)</span>, וּודאו שהתוצאות מתלכדות.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>דרך א: בעזרת התבנית היסודית</summary>
+<div class="foldable" title="דרך א: בעזרת התבנית היסודית">
+<p>מן התרגיל הראשון ידוע ש-<span class="math inline">\(g_{11} = 1\)</span>, <span class="math inline">\(g_{12} = 0\)</span> ו-<span class="math inline">\(g_{22} = R^2\)</span>.</p>
+<p>הנגזרת של העקומה במישור הפרמטרים היא <span class="math display">\[,\alpha' \left( t \right) = \left( c, 1 \right)\]</span> כלומר <span class="math inline">\(\left( \alpha^1 \right)' = c\)</span> ו-<span class="math inline">\(\left( \alpha^2 \right)' = 1\)</span>.</p>
+<p>נציב בנוסחה מ<a href="#box-thm-length-on-surface">משפט 6.3.6</a>. הסכום <span class="math inline">\(\left( \alpha^i \right)' \left( \alpha^j \right)' g_{ij}\)</span> הוא סכום על ארבעה זוגות, אך המחוברים המעורבים מתאפסים שכן <span class="math inline">\(g_{12} = 0\)</span>: <span class="math display">\[.\left( \alpha^i \right)' \left( \alpha^j \right)' g_{ij} = c^2 g_{11} + 2 \cdot c \cdot 1 \cdot g_{12} + 1^2 \cdot g_{22} = c^2 \cdot 1 + 0 + R^2 = c^2 + R^2\]</span></p>
+<p>הביטוי אינו תלוי ב-<span class="math inline">\(t\)</span>, ולכן <span class="math display">\[.L = \int_0^{2\pi} \sqrt{c^2 + R^2} \, dt = 2\pi \sqrt{c^2 + R^2}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>דרך ב: ישירות במרחב</summary>
+<div class="foldable" title="דרך ב: ישירות במרחב">
+<p>נרכיב ונקבל את העקומה במרחב <span class="math display">\[.\gamma \left( t \right) = \overline{x} \left( ct, t \right) = \left( R \cos t, \; R \sin t, \; ct \right)\]</span> זהו בדיוק סליל מעגלי.</p>
+<p>נגזור: <span class="math display">\[,\gamma' \left( t \right) = \left( -R \sin t, \; R \cos t, \; c \right)\]</span> ולכן <span class="math display">\[.\left\| \gamma' \left( t \right) \right\| = \sqrt{R^2 \sin^2 t + R^2 \cos^2 t + c^2} = \sqrt{R^2 + c^2}\]</span></p>
+<p>מכאן <span class="math display">\[,L = \int_0^{2\pi} \sqrt{R^2 + c^2} \, dt = 2\pi \sqrt{R^2 + c^2}\]</span> וזו בדיוק אותה תוצאה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>שתי הדרכים נותנות את אותו מספר, וזו בדיוק הנקודה: התבנית היסודית מכילה את כל המידע הדרוש למדידת אורכים, ואין צורך לצאת אל המרחב העוטף כדי לחשב אותם. יצור שחי על המשטח ומכיר רק את <span class="math inline">\(g_{ij}\)</span> יכול למדוד את האורך הזה בעצמו.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-angle" class="thmbox thmbox-question">
+<p><strong>שאלה 6.3.18.</strong></p>
+<p>יהי הפרבולואיד ההיפרבולי <span class="math inline">\(z = xy\)</span> בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, v, uv \right)\)</span>. חשבו את התבנית היסודית הראשונה, ומצאו את הזווית בין שתי עקומות הקואורדינטות בנקודה <span class="math inline">\(\left( u, v \right) = \left( 1, 1 \right)\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: המטריקה</summary>
+<div class="foldable" title="שלב 1: המטריקה">
+<p>זהו גרף של הפונקציה <span class="math inline">\(g \left( u, v \right) = uv\)</span>, ולכן <span class="math display">\[.\overline{x}_u = \left( 1, 0, v \right), \qquad \overline{x}_v = \left( 0, 1, u \right)\]</span></p>
+<p>נחשב: <span class="math display">\[,g_{11} = 1^2 + 0^2 + v^2 = 1 + v^2\]</span> וכן <span class="math display">\[,g_{12} = 1 \cdot 0 + 0 \cdot 1 + v \cdot u = uv\]</span> ולבסוף <span class="math display">\[.g_{22} = 0^2 + 1^2 + u^2 = 1 + u^2\]</span></p>
+<p>לכן <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} 1 + v^2 &amp; uv \\ uv &amp; 1 + u^2 \end{pmatrix}\]</span></p>
+<p>זו הדוגמה הראשונה שלנו שבה <span class="math inline">\(g_{12} \neq 0\)</span>, ולכן עקומות הקואורדינטות <strong>אינן</strong> ניצבות.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: הזווית בנקודה</summary>
+<div class="foldable" title="שלב 2: הזווית בנקודה">
+<p>נציב <span class="math inline">\(u = v = 1\)</span> ונקבל <span class="math display">\[.g_{11} = 2, \qquad g_{12} = 1, \qquad g_{22} = 2\]</span></p>
+<p>לפי <a href="#box-cor-orthogonal-coordinate-curves">מסקנה 6.3.12</a> <span class="math display">\[.\cos \theta = \frac{g_{12}}{\sqrt{g_{11} g_{22}}} = \frac{1}{\sqrt{2 \cdot 2}} = \frac{1}{2}\]</span></p>
+<p>לכן <span class="math inline">\(\theta = \frac{\pi}{3}\)</span>, כלומר <span class="math inline">\(60\)</span> מעלות.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקה ישירה</summary>
+<div class="foldable" title="בדיקה ישירה">
+<p>אפשר לאמת ישירות. בנקודה <span class="math inline">\(\left( 1, 1 \right)\)</span> מתקבל <span class="math inline">\(\overline{x}_u = \left( 1, 0, 1 \right)\)</span> ו-<span class="math inline">\(\overline{x}_v = \left( 0, 1, 1 \right)\)</span>, ולכן <span class="math display">\[,\left\langle \overline{x}_u, \overline{x}_v \right\rangle = 1 \cdot 0 + 0 \cdot 1 + 1 \cdot 1 = 1\]</span> וכן <span class="math inline">\(\left\| \overline{x}_u \right\| = \left\| \overline{x}_v \right\| = \sqrt{2}\)</span>. מכאן <span class="math inline">\(\cos \theta = \frac{1}{\sqrt{2} \cdot \sqrt{2}} = \frac{1}{2}\)</span>, כנדרש.</p>
+<p>שימו לב שבראשית, כלומר עבור <span class="math inline">\(u = v = 0\)</span>, מתקבל <span class="math inline">\(g_{12} = 0\)</span> ושם כן מתקבלת זווית ישרה.</p>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="מקורות" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="מקורות"><span class="header-section-number">6.4</span> מקורות</h2>
+<ul>
+<li>ניקול, הרצאות 4 ו-5 בקורס.</li>
+<li>L. M. Woodward and J. Bolton, <em>A First Course in Differential Geometry: Surfaces in Euclidean Space</em>, Cambridge University Press, 2018, chapters 2–3.</li>
+<li>Andrew Pressley, <em>Elementary Differential Geometry</em>, 2nd edition, Springer, 2010.</li>
+<li>Kristopher Tapp, <em>Differential Geometry of Curves and Surfaces</em>, Springer, 2016.</li>
+<li>אלעד עטייא, <em>חוברת תרגולים ־ גיאומטריה אנליטית ודיפרנציאלית</em>, 2017, פרק 6.</li>
+<li>ראובן, <em>גיאומטריה אנליטית ודיפרנציאלית</em>, סיכומי הרצאות, 2023.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "הועתק!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "הועתק!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/yuval-khachatryan\.github\.io\/Differential-Geometry-Recitations-Summer-2026");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-Einstein-Summation.html" class="pagination-link" aria-label="תרגול 5: סכימת איינשטיין">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

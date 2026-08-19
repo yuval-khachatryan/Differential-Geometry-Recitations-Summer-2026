@@ -255,6 +255,14 @@ mjx-container *,
   direction: ltr;
 }
 
+/* Keep inline math on one line. This backs up the MathJax linebreak config
+   below; see the comment there for why v4 needs it at all. Display math is
+   left alone -- MathJax gives it its own scroll box. */
+mjx-container:not([display="true"]),
+.katex:not(.katex-display) {
+  white-space: nowrap;
+}
+
 /* Optional box (.optional): foldable, collapsed by default; same gray look as .extra,
    but the gray bar is the clickable <summary>. */
 details.thmoptional {
@@ -316,6 +324,45 @@ details.thmcollapse[open] > summary { margin-bottom: 0.4rem; }
 }
 .extra > :last-child { margin-bottom: 0; }
 </style>
+<script>
+/* ---------------------------------------------------------------------------
+   MathJax line breaking.
+
+   Quarto now loads mathjax@4, and v4 switched on automatic line breaking that
+   v3 did not do:
+
+     * inline math may be broken at a relation or a binary operator, so a short
+       formula such as \( \phi : U \to V \) comes out split after the U;
+     * display math wider than the column is broken instead of being left to
+       run on.
+
+   Inside an RTL paragraph a break in the middle of a formula does not read as
+   a wrap, it reads as a mistake. So turn the AUTOMATIC breaking off:
+   `linebreaks.inline = false` for inline math, and `displayOverflow = scroll`
+   so that over-wide display math gets a scroll box rather than being chopped.
+
+   Breaks we wrote ourselves are unaffected: `\\` inside aligned/cases/matrix
+   still starts a new row, which is the "unless specifically required" case.
+
+   Both `output` and `chtml` are set because v4 accepts these keys on the
+   generic output block and on the specific output jax, and tex-chtml.js loads
+   CHTML. The more specific one wins; setting both costs nothing.
+
+   This has to run before the MathJax script does. That script carries `defer`,
+   so it runs after parsing, while this inline script runs during parsing --
+   hence anywhere in the head is early enough.
+   --------------------------------------------------------------------------- */
+window.MathJax = {
+  output: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  },
+  chtml: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  }
+};
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".tf-quiz").forEach(function (quiz) {
@@ -554,8 +601,14 @@ window.addEventListener("message", function (e) {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-Einstein-and-Surfaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין ומשטחים</span></span></a>
+  <a href="./05-Einstein-Summation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Surfaces-and-First-Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">תרגול 6: משטחים, המישור המשיק והתבנית היסודית הראשונה</span></span></a>
   </div>
 </li>
     </ul>

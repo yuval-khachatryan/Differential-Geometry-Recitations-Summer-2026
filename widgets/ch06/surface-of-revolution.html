@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>משטח סיבוב</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/surface3d.js"></script>
+<script>
+/* Same idea for a surface of revolution: the sweep is over v, the angle, so the
+   generating curve itself is what travels. The purple curve is the meridian at
+   the current angle; the dark trail is one point of it going round, i.e. a
+   parallel. Lecture convention: u parametrises the curve, v is the angle. */
+Surface3D.mount({
+  f: function (u, v) {
+    var r = 1 + 0.35 * Math.cos(u);
+    return [r * Math.cos(v), r * Math.sin(v), u];
+  },
+  uMin: -2.2, uMax: 2.2, vMin: 0, vMax: 2 * Math.PI,
+  nu: 44, nv: 60,
+  sweep: { over: "v", label: "זווית הסיבוב", base: -1.1 },
+  uCurves: [-1.1],
+  title: "x(u,v) = (f(u) cos v, f(u) sin v, u),   f(u) = 1 + 0.35 cos u",
+  hint: "גררו את הציור כדי לסובב את המבט. הזיזו את המחוון: העקומה הסגולה היא העקומה היוצרת במיקומה הנוכחי, כלומר המרידיאן בזווית הנוכחית, והמשטח נסרק בדיוק על ידה. הנקודה הכהה היא נקודה בודדת של העקומה, והעקומה הכהה שהיא משאירה אחריה היא מקביל, כלומר מעגל."
+});
+</script>
+</body>
+</html>

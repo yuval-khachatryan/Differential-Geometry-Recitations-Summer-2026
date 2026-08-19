@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>המישור המשיק</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/mathrender.js"></script>
+<script src="../shared/surface3d.js"></script>
+<script>
+/* A torus, chosen because g11 and g22 both vary with position, so the readout
+   actually moves as the point is dragged around -- on a sphere g11 is constant
+   and half the point is lost. g12 stays 0 throughout, which is the coordinate
+   curves being orthogonal, and that is exactly the corollary in the text. */
+Surface3D.mount({
+  f: function (u, v) {
+    var a = 1.6, r = 0.62, R = a + r * Math.cos(u);
+    return [R * Math.cos(v), R * Math.sin(v), r * Math.sin(u)];
+  },
+  uMin: 0, uMax: 2 * Math.PI, vMin: 0, vMax: 2 * Math.PI,
+  nu: 52, nv: 52,
+  tangent: { size: 0.8, arrow: 0.85 },
+  uLabel: "u", vLabel: "v",
+  title: "torus:  x(u,v) = ((a + r cos u) cos v, (a + r cos u) sin v, r sin u)",
+  hint: "גררו את הציור כדי לסובב את המבט, והזיזו את u ואת v כדי להזיז את הנקודה. הריבוע הסגול הוא המישור המשיק, והחיצים הם x_u ו-x_v הפורשים אותו. שימו לב שהקריאה g₁₂ נשארת אפס בכל נקודה, כלומר עקומות הקואורדינטות ניצבות זו לזו, ואילו g₁₁ ו-g₂₂ משתנים."
+});
+</script>
+</body>
+</html>

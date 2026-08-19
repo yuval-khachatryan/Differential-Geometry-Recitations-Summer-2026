@@ -36,7 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05-Einstein-and-Surfaces.html" rel="next">
+<link href="./05-Einstein-Summation.html" rel="next">
 <link href="./03-Curvature-and-Space-Curves.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -255,6 +255,14 @@ mjx-container *,
   direction: ltr;
 }
 
+/* Keep inline math on one line. This backs up the MathJax linebreak config
+   below; see the comment there for why v4 needs it at all. Display math is
+   left alone -- MathJax gives it its own scroll box. */
+mjx-container:not([display="true"]),
+.katex:not(.katex-display) {
+  white-space: nowrap;
+}
+
 /* Optional box (.optional): foldable, collapsed by default; same gray look as .extra,
    but the gray bar is the clickable <summary>. */
 details.thmoptional {
@@ -316,6 +324,45 @@ details.thmcollapse[open] > summary { margin-bottom: 0.4rem; }
 }
 .extra > :last-child { margin-bottom: 0; }
 </style>
+<script>
+/* ---------------------------------------------------------------------------
+   MathJax line breaking.
+
+   Quarto now loads mathjax@4, and v4 switched on automatic line breaking that
+   v3 did not do:
+
+     * inline math may be broken at a relation or a binary operator, so a short
+       formula such as \( \phi : U \to V \) comes out split after the U;
+     * display math wider than the column is broken instead of being left to
+       run on.
+
+   Inside an RTL paragraph a break in the middle of a formula does not read as
+   a wrap, it reads as a mistake. So turn the AUTOMATIC breaking off:
+   `linebreaks.inline = false` for inline math, and `displayOverflow = scroll`
+   so that over-wide display math gets a scroll box rather than being chopped.
+
+   Breaks we wrote ourselves are unaffected: `\\` inside aligned/cases/matrix
+   still starts a new row, which is the "unless specifically required" case.
+
+   Both `output` and `chtml` are set because v4 accepts these keys on the
+   generic output block and on the specific output jax, and tex-chtml.js loads
+   CHTML. The more specific one wins; setting both costs nothing.
+
+   This has to run before the MathJax script does. That script carries `defer`,
+   so it runs after parsing, while this inline script runs during parsing --
+   hence anywhere in the head is early enough.
+   --------------------------------------------------------------------------- */
+window.MathJax = {
+  output: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  },
+  chtml: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  }
+};
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".tf-quiz").forEach(function (quiz) {
@@ -583,8 +630,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-Einstein-and-Surfaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין ומשטחים</span></span></a>
+  <a href="./05-Einstein-Summation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Surfaces-and-First-Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">תרגול 6: משטחים, המישור המשיק והתבנית היסודית הראשונה</span></span></a>
   </div>
 </li>
     </ul>
@@ -610,6 +663,7 @@ window.Quarto = {
   <ul>
   <li><a href="#תרגילים-2" id="toc-תרגילים-2" class="nav-link" data-scroll-target="#תרגילים-2">תרגילים</a></li>
   </ul></li>
+  <li><a href="#מקורות" id="toc-מקורות" class="nav-link" data-scroll-target="#מקורות"><span class="header-section-number">4.5</span> מקורות</a></li>
   </ul>
 </nav>
     </div>
@@ -878,7 +932,7 @@ window.Quarto = {
 <p>במנה שבנוסחת הפיתול המונה נושא <span class="math inline">\(\left( \frac{ds}{dt} \right)^6\)</span> והמכנה <span class="math inline">\(\left( \frac{ds}{dt} \right)^6\)</span>, ולכן הגורם מצטמצם והביטוי אינו תלוי בפרמטריזציה. עבור העקמומיות, <span class="math inline">\(\left\| \gamma' \times \gamma'' \right\| = \left( \frac{ds}{dt} \right)^3 k\)</span> ו-<span class="math inline">\(\left\| \gamma' \right\|^3 = \left( \frac{ds}{dt} \right)^3\)</span>, ובחלוקה מתקבל <span class="math inline">\(k\)</span>.</p>
 </div>
 <section id="תרגילים-2" class="level3 unnumbered">
-<h3 class="unnumbered anchored">תרגילים</h3>
+<h3 class="unnumbered anchored" data-anchor-id="תרגילים-2">תרגילים</h3>
 <div id="box-q-helix-k-tau" class="thmbox thmbox-question">
 <p><strong>שאלה 4.4.2.</strong></p>
 <p>חשבו את העקמומיות ואת הפיתול של הסליל <span class="math display">\[,\gamma(\theta) = \left( a\cos\theta,\ a\sin\theta,\ b\theta \right)\]</span> כאשר <span class="math inline">\(a &gt; 0\)</span> ו-<span class="math inline">\(b\)</span> קבועים.</p>
@@ -1180,8 +1234,11 @@ window.Quarto = {
 <p>זהו בדיוק <span class="math inline">\(r^2\)</span> עבור <span class="math inline">\(r = 2\)</span>, כפי שמתחייב מ<a href="#box-q-spherical-curve">שאלה 4.4.6</a>. הקריטריון אומת.</p>
 </div>
 </details>
+</div>
 <iframe class="widget-frame" src="widgets/ch04/viviani.html" loading="lazy" title="עקומת ויויאני"></iframe>
 <p><em>עקומת ויויאני על הספירה שרדיוסה <span class="math inline">\(2\)</span>. העקומה היא חיתוך הספירה עם הגליל המשורטט בקו דק, ולכן כל נקודותיה במרחק קבוע מהראשית.</em></p>
+</section>
+</section>
 <section id="מקורות" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="מקורות"><span class="header-section-number">4.5</span> מקורות</h2>
 <ul>
@@ -1191,9 +1248,6 @@ window.Quarto = {
 </ul>
 
 
-</section>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1604,8 +1658,8 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05-Einstein-and-Surfaces.html" class="pagination-link" aria-label="תרגול 5: סכימת איינשטיין ומשטחים">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין ומשטחים</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./05-Einstein-Summation.html" class="pagination-link" aria-label="תרגול 5: סכימת איינשטיין">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

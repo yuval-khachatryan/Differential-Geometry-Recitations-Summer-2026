@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; תרגול 5: סכימת איינשטיין ומשטחים – גיאומטריה דיפרנציאלית — תרגולים</title>
+<title>5&nbsp; תרגול 5: סכימת איינשטיין – גיאומטריה דיפרנציאלית — תרגולים</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,6 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./06-Surfaces-and-First-Form.html" rel="next">
 <link href="./04-Space-Curves.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -254,6 +255,14 @@ mjx-container *,
   direction: ltr;
 }
 
+/* Keep inline math on one line. This backs up the MathJax linebreak config
+   below; see the comment there for why v4 needs it at all. Display math is
+   left alone -- MathJax gives it its own scroll box. */
+mjx-container:not([display="true"]),
+.katex:not(.katex-display) {
+  white-space: nowrap;
+}
+
 /* Optional box (.optional): foldable, collapsed by default; same gray look as .extra,
    but the gray bar is the clickable <summary>. */
 details.thmoptional {
@@ -315,6 +324,45 @@ details.thmcollapse[open] > summary { margin-bottom: 0.4rem; }
 }
 .extra > :last-child { margin-bottom: 0; }
 </style>
+<script>
+/* ---------------------------------------------------------------------------
+   MathJax line breaking.
+
+   Quarto now loads mathjax@4, and v4 switched on automatic line breaking that
+   v3 did not do:
+
+     * inline math may be broken at a relation or a binary operator, so a short
+       formula such as \( \phi : U \to V \) comes out split after the U;
+     * display math wider than the column is broken instead of being left to
+       run on.
+
+   Inside an RTL paragraph a break in the middle of a formula does not read as
+   a wrap, it reads as a mistake. So turn the AUTOMATIC breaking off:
+   `linebreaks.inline = false` for inline math, and `displayOverflow = scroll`
+   so that over-wide display math gets a scroll box rather than being chopped.
+
+   Breaks we wrote ourselves are unaffected: `\\` inside aligned/cases/matrix
+   still starts a new row, which is the "unless specifically required" case.
+
+   Both `output` and `chtml` are set because v4 accepts these keys on the
+   generic output block and on the specific output jax, and tex-chtml.js loads
+   CHTML. The more specific one wins; setting both costs nothing.
+
+   This has to run before the MathJax script does. That script carries `defer`,
+   so it runs after parsing, while this inline script runs during parsing --
+   hence anywhere in the head is early enough.
+   --------------------------------------------------------------------------- */
+window.MathJax = {
+  output: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  },
+  chtml: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  }
+};
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".tf-quiz").forEach(function (quiz) {
@@ -517,7 +565,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-Einstein-and-Surfaces.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין ומשטחים</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-Einstein-Summation.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="חפש" onclick="window.quartoOpenSearch();">
@@ -582,8 +630,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-Einstein-and-Surfaces.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין ומשטחים</span></span></a>
+  <a href="./05-Einstein-Summation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Surfaces-and-First-Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">תרגול 6: משטחים, המישור המשיק והתבנית היסודית הראשונה</span></span></a>
   </div>
 </li>
     </ul>
@@ -611,17 +665,7 @@ window.Quarto = {
   <li><a href="#תרגילים-2" id="toc-תרגילים-2" class="nav-link" data-scroll-target="#תרגילים-2">תרגילים</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#משטחים" id="toc-משטחים" class="nav-link" data-scroll-target="#משטחים"><span class="header-section-number">5.2</span> משטחים</a>
-  <ul>
-  <li><a href="#הגדרות" id="toc-הגדרות" class="nav-link" data-scroll-target="#הגדרות"><span class="header-section-number">5.2.1</span> הגדרות</a></li>
-  <li><a href="#שלוש-הצגות-מקומיות-של-משטח" id="toc-שלוש-הצגות-מקומיות-של-משטח" class="nav-link" data-scroll-target="#שלוש-הצגות-מקומיות-של-משטח"><span class="header-section-number">5.2.2</span> שלוש הצגות מקומיות של משטח</a></li>
-  <li><a href="#דוגמאות" id="toc-דוגמאות" class="nav-link" data-scroll-target="#דוגמאות"><span class="header-section-number">5.2.3</span> דוגמאות</a></li>
-  <li><a href="#משטחי-סיבוב" id="toc-משטחי-סיבוב" class="nav-link" data-scroll-target="#משטחי-סיבוב"><span class="header-section-number">5.2.4</span> משטחי סיבוב</a>
-  <ul class="collapse">
-  <li><a href="#תרגילים-3" id="toc-תרגילים-3" class="nav-link" data-scroll-target="#תרגילים-3">תרגילים</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#מקורות" id="toc-מקורות" class="nav-link" data-scroll-target="#מקורות"><span class="header-section-number">5.3</span> מקורות</a></li>
+  <li><a href="#מקורות" id="toc-מקורות" class="nav-link" data-scroll-target="#מקורות"><span class="header-section-number">5.2</span> מקורות</a></li>
   </ul>
 </nav>
     </div>
@@ -630,7 +674,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין ומשטחים</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין</span></h1>
 </div>
 
 
@@ -770,7 +814,7 @@ window.Quarto = {
 </section>
 <section id="שימושים-מוכרים" class="level3" data-number="5.1.2">
 <h3 data-number="5.1.2" class="anchored" data-anchor-id="שימושים-מוכרים"><span class="header-section-number">5.1.2</span> שימושים מוכרים</h3>
-<p>בסעיף זה נרשום מחדש בסימון אינדקסים אובייקטים שכבר מוכרים לנו מאלגברה לינארית. נראה תוך כך שגובה האינדקס אינו נתון לבחירתנו, אלא נקבע לפי מה שהאובייקט עושה, כלומר כמה וקטורים הוא בולע ומה הוא מחזיר. בסוף הסעיף נראה שהגובה נקבע גם לפי אופן ההשתנות של האובייקט בהחלפת בסיס, ושתי הקביעות הללו מתלכדות.</p>
+<p>בסעיף זה נרשום מחדש בסימון אינדקסים אובייקטים שכבר מוכרים לנו מאלגברה לינארית. נראה תוך כך שגובה האינדקס אינו נתון לבחירתנו, אלא נקבע לפי מה שהאובייקט עושה, כלומר כמה וקטורים הוא מקבל ומה הוא מחזיר. בסוף הסעיף נראה שהגובה נקבע גם לפי אופן ההשתנות של האובייקט בהחלפת בסיס, ושתי הקביעות הללו מתלכדות.</p>
 <div id="box-rem-vectors" class="thmbox thmbox-remark" title="וקטורים ובסיס">
 <p><strong>הערה 5.1.11 — וקטורים ובסיס.</strong></p>
 <p>נסמן ב-<span class="math inline">\(e_1, \ldots, e_n\)</span> את וקטורי הבסיס של <span class="math inline">\(\mathbb{R}^n\)</span>. המוסכמה היא שאינדקסים של איברי הבסיס נכתבים <strong>למטה</strong>, וקואורדינטות של וקטור נכתבות <strong>למעלה</strong>. לכן וקטור <span class="math inline">\(v \in \mathbb{R}^n\)</span> נכתב <span class="math display">\[.v = v^1 e_1 + v^2 e_2 + \ldots + v^n e_n = v^i e_i\]</span></p>
@@ -778,7 +822,7 @@ window.Quarto = {
 <div id="box-rem-rows-columns" class="thmbox thmbox-remark" title="אינדקס עליון כעמודה ואינדקס תחתון כשורה">
 <p><strong>הערה 5.1.12 — אינדקס עליון כעמודה ואינדקס תחתון כשורה.</strong></p>
 <p>כדאי לאמץ תמונה חזותית שמסייעת מאוד, אף שאינה דרישה פורמלית: אובייקט בעל אינדקס עליון נחשוב עליו כעל <strong>וקטור עמודה</strong>, ואובייקט בעל אינדקס תחתון כעל <strong>וקטור שורה</strong>.</p>
-<p>הרווח מכך מיידי. הכיווץ <span class="math display">\[,a_i v^i\]</span> שבו נפגשים אינדקס תחתון ואינדקס עליון, הוא בדיוק מכפלת שורה בעמודה, כלומר כפל מטריצות רגיל שתוצאתו סקלר. גם כלל הגבהים של המוסכמה מקבל כך פירוש פשוט: סוכמים בדיוק כאשר יש שורה מצד אחד ועמודה מצד שני, וזה המצב היחיד שבו כפל מטריצות מוגדר.</p>
+<p>הרווח מכך מיידי. הצמצום <span class="math display">\[,a_i v^i\]</span> שבו נפגשים אינדקס תחתון ואינדקס עליון, הוא בדיוק מכפלת שורה בעמודה, כלומר כפל מטריצות רגיל שתוצאתו סקלר. גם כלל הגבהים של המוסכמה מקבל כך פירוש פשוט: סוכמים בדיוק כאשר יש שורה מצד אחד ועמודה מצד שני, וזה המצב היחיד שבו כפל מטריצות מוגדר.</p>
 <p>באותו אופן, בביטוי <span class="math inline">\(a^i_j v^j\)</span> האינדקס העליון של <span class="math inline">\(a\)</span> מציין את מספר השורה והתחתון את מספר העמודה, ולכן הביטוי נקרא כפשוטו ככפל מטריצה בווקטור עמודה.</p>
 </div>
 <div id="box-def-kronecker" class="thmbox thmbox-definition" title="הדלתא של קרונקר">
@@ -789,8 +833,8 @@ window.Quarto = {
 <p><strong>הערה 5.1.14 — שני מיקומי אינדקסים לדלתא.</strong></p>
 <p>את הדלתא של קרונקר נפגוש בשני מיקומי אינדקסים, ולכל אחד מהם תפקיד משלו.</p>
 <ul>
-<li><span class="math inline">\(\delta_{ij}\)</span>, שני האינדקסים למטה, כאשר הדלתא <strong>היא המכפלה הסקלרית</strong> של <span class="math inline">\(\mathbb{R}^n\)</span>. המכפלה הסקלרית היא תבנית בילינארית, כלומר היא בולעת שני וקטורים ומחזירה סקלר, ולכן שני האינדקסים שלה למטה.</li>
-<li><span class="math inline">\(\delta^i_j\)</span>, אינדקס אחד למטה ואחד למעלה, כאשר הדלתא <strong>היא העתקת הזהות</strong>, או כאשר היא משמשת לכיווץ אינדקסים, למשל <span class="math inline">\(\delta^i_j a^j_k = a^i_k\)</span>.</li>
+<li><span class="math inline">\(\delta_{ij}\)</span>, שני האינדקסים למטה, כאשר הדלתא <strong>היא המכפלה הסקלרית</strong> של <span class="math inline">\(\mathbb{R}^n\)</span>. המכפלה הסקלרית היא תבנית בילינארית, כלומר היא מקבלת שני וקטורים ומחזירה סקלר, ולכן שני האינדקסים שלה למטה.</li>
+<li><span class="math inline">\(\delta^i_j\)</span>, אינדקס אחד למטה ואחד למעלה, כאשר הדלתא <strong>היא העתקת הזהות</strong>, או כאשר היא משמשת לצמצום אינדקסים, למשל <span class="math inline">\(\delta^i_j a^j_k = a^i_k\)</span>.</li>
 </ul>
 <p>ב-<span class="math inline">\(\mathbb{R}^n\)</span> ובבסיס הסטנדרטי שתי המטריצות זהות מספרית, ולכן ההבחנה נראית מיותרת. היא תיעשה הכרחית כאשר נעבור למשטחים, שם התפקיד של <span class="math inline">\(\delta_{ij}\)</span> יעבור לאובייקט אחר.</p>
 </div>
@@ -811,7 +855,7 @@ window.Quarto = {
 </div>
 <div id="box-rem-ones-vs-delta" class="thmbox thmbox-remark" title="מתי אחדים ומתי קרונקר">
 <p><strong>הערה 5.1.17 — מתי אחדים ומתי קרונקר.</strong></p>
-<p>כדאי להבחין בין שני התפקידים. תפקידה של הדלתא של קרונקר הוא <strong>לזווג</strong> שני אינדקסים זה לזה, ולכן היא הכלי הנכון כאשר יש שני אובייקטים לכווץ. תפקידו של וקטור האחדים הוא <strong>לספק</strong> אינדקס שני כאשר יש רק אחד, ולכן הוא הכלי הנכון לסכימה של אינדקס בודד. השוואה אחת מבהירה את ההבדל: <span class="math display">\[,\delta_{ij} v^i v^j = \left( v^1 \right)^2 + \ldots + \left( v^n \right)^2 = \left\| v \right\|^2\]</span> ולעומת זאת <span class="math display">\[.\mathbf{1}_i \mathbf{1}_j v^i v^j = \left( v^1 + \ldots + v^n \right)^2\]</span> שני הביטויים בעלי אותה צורה בדיוק, והם אובייקטים שונים לגמרי. בכתיב הסכומים הרגיל ההבדל ביניהם מיטשטש.</p>
+<p>כדאי להבחין בין שני התפקידים. תפקידה של הדלתא של קרונקר הוא <strong>לזווג</strong> שני אינדקסים זה לזה, ולכן היא הכלי הנכון כאשר יש שני אובייקטים לצמצם. תפקידו של וקטור האחדים הוא <strong>לספק</strong> אינדקס שני כאשר יש רק אחד, ולכן הוא הכלי הנכון לסכימה של אינדקס בודד. השוואה אחת מבהירה את ההבדל: <span class="math display">\[,\delta_{ij} v^i v^j = \left( v^1 \right)^2 + \ldots + \left( v^n \right)^2 = \left\| v \right\|^2\]</span> ולעומת זאת <span class="math display">\[.\mathbf{1}_i \mathbf{1}_j v^i v^j = \left( v^1 + \ldots + v^n \right)^2\]</span> שני הביטויים בעלי אותה צורה בדיוק, והם אובייקטים שונים לגמרי. בכתיב הסכומים הרגיל ההבדל ביניהם מיטשטש.</p>
 </div>
 <div id="box-rem-ones-basis" class="thmbox thmbox-remark" title="שני האובייקטים תלויים בבסיס">
 <p><strong>הערה 5.1.18 — שני האובייקטים תלויים בבסיס.</strong></p>
@@ -819,20 +863,20 @@ window.Quarto = {
 </div>
 <div id="box-prp-bilinear" class="thmbox thmbox-proposition" title="תבנית בילינארית">
 <p><strong>טענה 5.1.19 — תבנית בילינארית.</strong></p>
-<p>תהי <span class="math inline">\(B : \mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R}\)</span> תבנית בילינארית, הפועלת לפי <span class="math inline">\(\left( u, v \right) \mapsto v^t B u\)</span>. נסמן את רכיביה <span class="math inline">\(b_{ij}\)</span>, בשני אינדקסים תחתונים, שכן היא בולעת שני וקטורים ומחזירה סקלר. אז <span class="math display">\[.B \left( u, v \right) = v^i b_{ij} u^j\]</span></p>
+<p>תהי <span class="math inline">\(B : \mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R}\)</span> תבנית בילינארית, הפועלת לפי <span class="math inline">\(\left( u, v \right) \mapsto v^t B u\)</span>. נסמן את רכיביה <span class="math inline">\(b_{ij}\)</span>, בשני אינדקסים תחתונים, שכן היא מקבלת שני וקטורים ומחזירה סקלר. אז <span class="math display">\[.B \left( u, v \right) = v^i b_{ij} u^j\]</span></p>
 </div>
 <div id="box-prp-linear-map" class="thmbox thmbox-proposition" title="העתקה לינארית">
 <p><strong>טענה 5.1.20 — העתקה לינארית.</strong></p>
-<p>תהי <span class="math inline">\(A\)</span> מטריצה המייצגת העתקה לינארית <span class="math inline">\(T_A : \mathbb{R}^n \to \mathbb{R}^n\)</span> הפועלת לפי <span class="math inline">\(v \mapsto Av\)</span>. נסמן את רכיביה <span class="math inline">\(a^i_j\)</span>, אינדקס אחד למעלה ואחד למטה, שכן היא בולעת וקטור ומחזירה וקטור. אז <span class="math display">\[.\left( Av \right)^i = a^i_j v^j\]</span></p>
+<p>תהי <span class="math inline">\(A\)</span> מטריצה המייצגת העתקה לינארית <span class="math inline">\(T_A : \mathbb{R}^n \to \mathbb{R}^n\)</span> הפועלת לפי <span class="math inline">\(v \mapsto Av\)</span>. נסמן את רכיביה <span class="math inline">\(a^i_j\)</span>, אינדקס אחד למעלה ואחד למטה, שכן היא מקבלת וקטור ומחזירה וקטור. אז <span class="math display">\[.\left( Av \right)^i = a^i_j v^j\]</span></p>
 </div>
 <div id="box-rem-matrix-index-placement" class="thmbox thmbox-remark" title="מדוע דווקא במיקום הזה">
 <p><strong>הערה 5.1.21 — מדוע דווקא במיקום הזה.</strong></p>
-<p>מדוע כותבים <span class="math inline">\(a^i_j\)</span> ולא <span class="math inline">\(a_i^j\)</span>. שני הכתיבים מופיעים במקורות, והבחירה תלויה בתפקידו של האובייקט. עבור העתקה לינארית הכתיב המקובל הוא <span class="math inline">\(a^i_j\)</span>, ולכך שתי סיבות המחזקות זו את זו: האינדקס העליון הוא זה ששורד את הכיווץ עם <span class="math inline">\(v^j\)</span>, והוא בדיוק האינדקס העליון של וקטור התוצאה; ולפי <a href="#box-rem-rows-columns">הערה 5.1.12</a> האינדקס העליון מציין שורה והתחתון עמודה, ולכן <span class="math inline">\(a^i_j v^j\)</span> נקרא ישירות ככפל מטריצה בווקטור עמודה.</p>
-<p>הכתיב <span class="math inline">\(a_i^j\)</span> מופיע כאשר סדר המשבצות הפוך, כלומר כאשר המשבצת הראשונה היא זו הבולעת וקטור. חשוב להדגיש שמה שנושא את המשמעות הוא <strong>סדר</strong> המשבצות ולא הגובה בלבד: <span class="math inline">\(a^i{}_j\)</span> ו-<span class="math inline">\(a_j{}^i\)</span> מציינים את אותו רכיב עצמו, ואילו <span class="math inline">\(a_i{}^j\)</span> הוא מיקום אחר. מכיוון שהיסט הגבהים קטן וקל להתעלם ממנו בכתיבה מהירה, זו אחת המלכודות שהוזכרו ב<a href="#box-rem-semiformal">הערה 5.1.7</a>.</p>
+<p>מדוע כותבים <span class="math inline">\(a^i_j\)</span> ולא <span class="math inline">\(a_i^j\)</span>. שני הכתיבים מופיעים במקורות, והבחירה תלויה בתפקידו של האובייקט. עבור העתקה לינארית הכתיב המקובל הוא <span class="math inline">\(a^i_j\)</span>, ולכך שתי סיבות המחזקות זו את זו: האינדקס העליון הוא זה ששורד את הצמצום עם <span class="math inline">\(v^j\)</span>, והוא בדיוק האינדקס העליון של וקטור התוצאה; ולפי <a href="#box-rem-rows-columns">הערה 5.1.12</a> האינדקס העליון מציין שורה והתחתון עמודה, ולכן <span class="math inline">\(a^i_j v^j\)</span> נקרא ישירות ככפל מטריצה בווקטור עמודה.</p>
+<p>הכתיב <span class="math inline">\(a_i^j\)</span> מופיע כאשר סדר המשבצות הפוך, כלומר כאשר המשבצת הראשונה היא זו המקבלת וקטור. חשוב להדגיש שמה שנושא את המשמעות הוא <strong>סדר</strong> המשבצות ולא הגובה בלבד: <span class="math inline">\(a^i{}_j\)</span> ו-<span class="math inline">\(a_j{}^i\)</span> מציינים את אותו רכיב עצמו, ואילו <span class="math inline">\(a_i{}^j\)</span> הוא מיקום אחר. מכיוון שהיסט הגבהים קטן וקל להתעלם ממנו בכתיבה מהירה, זו אחת המלכודות שהוזכרו ב<a href="#box-rem-semiformal">הערה 5.1.7</a>.</p>
 </div>
 <div id="box-rem-heights-meaning" class="thmbox thmbox-remark" title="גובה האינדקס נושא מידע">
 <p><strong>הערה 5.1.22 — גובה האינדקס נושא מידע.</strong></p>
-<p>שלוש הדוגמאות האחרונות מצייתות לאותו כלל. שני אינדקסים למטה מציינים אובייקט הבולע שני וקטורים ומחזיר סקלר, ואילו אינדקס אחד למטה ואחד למעלה מציין אובייקט הבולע וקטור ומחזיר וקטור. גובה האינדקס רושם מה האובייקט עושה.</p>
+<p>שלוש הדוגמאות האחרונות מצייתות לאותו כלל. שני אינדקסים למטה מציינים אובייקט המקבל שני וקטורים ומחזיר סקלר, ואילו אינדקס אחד למטה ואחד למעלה מציין אובייקט המקבל וקטור ומחזיר וקטור. גובה האינדקס רושם מה האובייקט עושה.</p>
 </div>
 <div id="box-prp-trace" class="thmbox thmbox-proposition" title="עקבה">
 <p><strong>טענה 5.1.23 — עקבה.</strong></p>
@@ -864,8 +908,8 @@ window.Quarto = {
 <p>נבדוק זאת במספרים. ב-<span class="math inline">\(\mathbb{R}^2\)</span> נבחר את הבסיס החדש <span class="math display">\[,e'_1 = e_1 + e_2, \qquad e'_2 = e_1 + 2 e_2\]</span> ולכן מטריצת המעבר והמטריצה ההופכית לה הן <span class="math display">\[.P = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}, \qquad P^{-1} = \begin{pmatrix} 2 &amp; -1 \\ -1 &amp; 1 \end{pmatrix}\]</span></p>
 <p>ניקח וקטור <span class="math inline">\(v\)</span> שקואורדינטותיו <span class="math inline">\(v^1 = 2\)</span> ו-<span class="math inline">\(v^2 = 5\)</span>, ואובייקט <span class="math inline">\(a\)</span> בעל אינדקס תחתון שרכיביו <span class="math inline">\(a_1 = 1\)</span> ו-<span class="math inline">\(a_2 = 4\)</span>.</p>
 <p>הקואורדינטות החדשות של <span class="math inline">\(v\)</span> מתקבלות לפי <span class="math inline">\(v'^i = \left( P^{-1} \right)^i_j v^j\)</span>, כלומר <span class="math display">\[,v'^1 = 2 \cdot 2 + \left( -1 \right) \cdot 5 = -1 \qquad v'^2 = \left( -1 \right) \cdot 2 + 1 \cdot 5 = 3\]</span> ואילו הרכיבים החדשים של <span class="math inline">\(a\)</span> מתקבלים לפי <span class="math inline">\(a'_j = P^i_j a_i\)</span>, כלומר <span class="math display">\[.a'_1 = 1 \cdot 1 + 1 \cdot 4 = 5 \qquad a'_2 = 1 \cdot 1 + 2 \cdot 4 = 9\]</span></p>
-<p>נשים לב שכל ארבעת הרכיבים השתנו: הווקטור עבר מ-<span class="math inline">\(\left( 2, 5 \right)\)</span> ל-<span class="math inline">\(\left( -1, 3 \right)\)</span>, והאובייקט התחתון מ-<span class="math inline">\(\left( 1, 4 \right)\)</span> ל-<span class="math inline">\(\left( 5, 9 \right)\)</span>. ובכל זאת, נחשב את הכיווץ בשני הבסיסים: <span class="math display">\[,a_i v^i = 1 \cdot 2 + 4 \cdot 5 = 22\]</span> ומצד שני <span class="math display">\[.a'_i v'^i = 5 \cdot \left( -1 \right) + 9 \cdot 3 = -5 + 27 = 22\]</span></p>
-<p>התקבל אותו מספר בדיוק, אף שאף אחד מן הרכיבים שנכנסו לחישוב לא נשאר כשהיה. זהו בדיוק תוכנה של <a href="#box-rem-invariance">הערה 5.1.27</a>: הכיווץ <span class="math inline">\(a_i v^i\)</span> הוא גודל של האובייקטים עצמם, ולא של הקואורדינטות שבהן בחרנו לרשום אותם.</p>
+<p>נשים לב שכל ארבעת הרכיבים השתנו: הווקטור עבר מ-<span class="math inline">\(\left( 2, 5 \right)\)</span> ל-<span class="math inline">\(\left( -1, 3 \right)\)</span>, והאובייקט התחתון מ-<span class="math inline">\(\left( 1, 4 \right)\)</span> ל-<span class="math inline">\(\left( 5, 9 \right)\)</span>. ובכל זאת, נחשב את הצמצום בשני הבסיסים: <span class="math display">\[,a_i v^i = 1 \cdot 2 + 4 \cdot 5 = 22\]</span> ומצד שני <span class="math display">\[.a'_i v'^i = 5 \cdot \left( -1 \right) + 9 \cdot 3 = -5 + 27 = 22\]</span></p>
+<p>התקבל אותו מספר בדיוק, אף שאף אחד מן הרכיבים שנכנסו לחישוב לא נשאר כשהיה. זהו בדיוק תוכנה של <a href="#box-rem-invariance">הערה 5.1.27</a>: הצמצום <span class="math inline">\(a_i v^i\)</span> הוא גודל של האובייקטים עצמם, ולא של הקואורדינטות שבהן בחרנו לרשום אותם.</p>
 </div>
 <div id="box-rem-noninvariance-example" class="thmbox thmbox-remark" title="אותה דוגמה עבור הסכום הפסול">
 <p><strong>הערה 5.1.29 — אותה דוגמה עבור הסכום הפסול.</strong></p>
@@ -888,13 +932,13 @@ window.Quarto = {
 <p><strong>פתרון.</strong></p>
 <details class="thmcollapse thmfoldable"><summary>סעיפים 1 ו-2</summary>
 <div class="foldable" title="סעיפים 1 ו-2">
-<p>נשתמש בכיווץ <span class="math inline">\(\delta^i_j a^j_k = a^i_k\)</span>, כלומר בכך שהדלתא של קרונקר משנה את שם האינדקס שהיא נפגשת בו. בסעיף 1 <span class="math display">\[,\delta^i_j \delta^j_i = \delta^i_i = n\]</span> שכן <span class="math inline">\(\delta^i_i\)</span> הוא סכום איברי האלכסון של מטריצת היחידה, ויש בו <span class="math inline">\(n\)</span> מחוברים ששווים כולם ל-<span class="math inline">\(1\)</span>.</p>
-<p>בסעיף 2 נכווץ פעמיים באותו אופן: <span class="math display">\[.\delta^i_j \delta^j_k \delta^k_i = \delta^i_k \delta^k_i = \delta^i_i = n\]</span></p>
+<p>נשתמש בצמצום <span class="math inline">\(\delta^i_j a^j_k = a^i_k\)</span>, כלומר בכך שהדלתא של קרונקר משנה את שם האינדקס שהיא נפגשת בו. בסעיף 1 <span class="math display">\[,\delta^i_j \delta^j_i = \delta^i_i = n\]</span> שכן <span class="math inline">\(\delta^i_i\)</span> הוא סכום איברי האלכסון של מטריצת היחידה, ויש בו <span class="math inline">\(n\)</span> מחוברים ששווים כולם ל-<span class="math inline">\(1\)</span>.</p>
+<p>בסעיף 2 נצמצם פעמיים באותו אופן: <span class="math display">\[.\delta^i_j \delta^j_k \delta^k_i = \delta^i_k \delta^k_i = \delta^i_i = n\]</span></p>
 </div>
 </details>
 <details class="thmcollapse thmfoldable"><summary>סעיף 3</summary>
 <div class="foldable" title="סעיף 3">
-<p>נכווץ תחילה את הדלתא השמאלית עם <span class="math inline">\(g_{ik}\)</span>. האינדקס <span class="math inline">\(i\)</span> הוא אינדקס סכימה, ולכן <span class="math display">\[,\delta^i_j g_{ik} = g_{jk}\]</span> ועתה נכווץ את הדלתא הימנית: <span class="math display">\[.g_{jk} \delta^k_l = g_{jl}\]</span> לכן הביטוי כולו שווה ל-<span class="math inline">\(g_{jl}\)</span>. שימו לב שהאינדקסים <span class="math inline">\(j\)</span> ו-<span class="math inline">\(l\)</span> נשארו חופשיים לאורך כל החישוב, ולכן התוצאה היא מטריצה ולא סקלר.</p>
+<p>נצמצם תחילה את הדלתא השמאלית עם <span class="math inline">\(g_{ik}\)</span>. האינדקס <span class="math inline">\(i\)</span> הוא אינדקס סכימה, ולכן <span class="math display">\[,\delta^i_j g_{ik} = g_{jk}\]</span> ועתה נצמצם את הדלתא הימנית: <span class="math display">\[.g_{jk} \delta^k_l = g_{jl}\]</span> לכן הביטוי כולו שווה ל-<span class="math inline">\(g_{jl}\)</span>. שימו לב שהאינדקסים <span class="math inline">\(j\)</span> ו-<span class="math inline">\(l\)</span> נשארו חופשיים לאורך כל החישוב, ולכן התוצאה היא מטריצה ולא סקלר.</p>
 </div>
 </details>
 <details class="thmcollapse thmfoldable"><summary>סעיף 4</summary>
@@ -952,7 +996,7 @@ window.Quarto = {
 <p>נחשב את העקבה, כלומר נציב <span class="math inline">\(j = i\)</span> ונסכום: <span class="math display">\[.\operatorname{trace}\left( A' \right) = a'^i_i = \left( P^{-1} \right)^i_k a^k_l P^l_i\]</span></p>
 <p>הרכיבים הם סקלרים, ולכן מותר לשנות את סדר הכפל. נכתוב תחילה את שני הגורמים שמעורב בהם <span class="math inline">\(i\)</span>: <span class="math display">\[.\left( P^{-1} \right)^i_k a^k_l P^l_i = P^l_i \left( P^{-1} \right)^i_k a^k_l\]</span></p>
 <p>עתה <span class="math inline">\(i\)</span> הוא אינדקס סכימה המחבר את <span class="math inline">\(P\)</span> עם <span class="math inline">\(P^{-1}\)</span>, וסכום זה הוא בדיוק רכיב של המכפלה <span class="math inline">\(P P^{-1}\)</span>, כלומר <span class="math display">\[.P^l_i \left( P^{-1} \right)^i_k = \delta^l_k\]</span></p>
-<p>נציב ונכווץ: <span class="math display">\[,\delta^l_k a^k_l = a^k_k\]</span> וזוהי בדיוק <span class="math inline">\(\operatorname{trace}\left( A \right)\)</span>, כנדרש.</p>
+<p>נציב ונצמצם: <span class="math display">\[,\delta^l_k a^k_l = a^k_k\]</span> וזוהי בדיוק <span class="math inline">\(\operatorname{trace}\left( A \right)\)</span>, כנדרש.</p>
 </div>
 </details>
 </div>
@@ -1014,347 +1058,12 @@ window.Quarto = {
 </section>
 </section>
 </section>
-<section id="משטחים" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="משטחים"><span class="header-section-number">5.2</span> משטחים</h2>
-<section id="הגדרות" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="הגדרות"><span class="header-section-number">5.2.1</span> הגדרות</h3>
-<p>נעבור עתה לנושא השני של התרגול. עד כה עסקנו בעקומות, שהן אובייקטים חד־מימדיים, ומכאן ואילך נעסוק במשטחים, שהם דו־מימדיים. נתחיל בהגדרות הכלליות, ולאחר מכן נצטמצם למקרה שמעניין אותנו בקורס.</p>
-<div id="box-def-homeomorphism" class="thmbox thmbox-definition" title="הומאומורפיזם">
-<p><strong>הגדרה 5.2.1 — הומאומורפיזם.</strong></p>
-<p>יהיו <span class="math inline">\(X\)</span> ו-<span class="math inline">\(Y\)</span> שני מרחבים טופולוגיים. פונקציה <span class="math inline">\(f : X \to Y\)</span> נקראת <strong>הומאומורפיזם</strong> אם היא מקיימת את שלוש התכונות הבאות:</p>
-<ol type="1">
-<li><span class="math inline">\(f\)</span> היא חד־חד־ערכית ועל, כלומר היא התאמה חד־חד־ערכית בין נקודות <span class="math inline">\(X\)</span> לנקודות <span class="math inline">\(Y\)</span>.</li>
-<li><span class="math inline">\(f\)</span> רציפה.</li>
-<li>הפונקציה ההופכית <span class="math inline">\(f^{-1} : Y \to X\)</span> רציפה אף היא.</li>
-</ol>
-<p>אם קיים הומאומורפיזם בין <span class="math inline">\(X\)</span> ל-<span class="math inline">\(Y\)</span>, אומרים ש-<span class="math inline">\(X\)</span> ו-<span class="math inline">\(Y\)</span> <strong>הומאומורפיים</strong> ומסמנים <span class="math inline">\(X \cong Y\)</span>.</p>
-</div>
-<div id="box-rem-homeomorphism-meaning" class="thmbox thmbox-remark" title="מה הומאומורפיזם מזהה">
-<p><strong>הערה 5.2.2 — מה הומאומורפיזם מזהה.</strong></p>
-<p>הומאומורפיזם מגדיר מתי שני מרחבים שקולים מבחינה טופולוגית, כלומר מתי ניתן לעוות, למתוח או לכווץ מרחב אחד כדי לקבל את האחר, בלי לקרוע אותו ובלי להדביק חלקים נפרדים.</p>
-</div>
-<div id="box-def-manifold" class="thmbox thmbox-definition" title="יריעה">
-<p><strong>הגדרה 5.2.3 — יריעה.</strong></p>
-<p><strong>יריעה</strong> ממדית <span class="math inline">\(n\)</span> היא מרחב טופולוגי <span class="math inline">\(M\)</span> שלכל נקודה בו יש סביבה פתוחה הומאומורפית למרחב <span class="math inline">\(\mathbb{R}^n\)</span>. באופן פורמלי, לכל נקודה <span class="math inline">\(p \in M\)</span> קיימת סביבה פתוחה <span class="math inline">\(U\)</span> והומאומורפיזם <span class="math inline">\(\phi : U \to V\)</span>, כאשר <span class="math inline">\(V\)</span> היא קבוצה פתוחה ב-<span class="math inline">\(\mathbb{R}^n\)</span>.</p>
-</div>
-<div id="box-rem-manifold-intuition" class="thmbox thmbox-remark" title="יריעה נראית מקומית אוקלידית">
-<p><strong>הערה 5.2.4 — יריעה נראית מקומית אוקלידית.</strong></p>
-<p>אינטואיטיבית, יריעה היא מרחב שכאשר מסתכלים עליו מקרוב, כלומר בסביבה המקומית של כל נקודה, הוא נראה ומתנהג כמו מרחב אוקלידי <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
-</div>
-<div id="box-def-chart-atlas" class="thmbox thmbox-definition" title="מפה ואטלס">
-<p><strong>הגדרה 5.2.5 — מפה ואטלס.</strong></p>
-<p>תהי <span class="math inline">\(M \subseteq \mathbb{R}^3\)</span>. <strong>מפה</strong> היא פונקציה <span class="math inline">\(r : U \to M\)</span> חד־חד־ערכית מקבוצה פתוחה <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> אל <span class="math inline">\(M\)</span>. <strong>אטלס</strong> הוא אוסף של מפות שמכסות את <span class="math inline">\(M\)</span> כולה.</p>
-</div>
-<div id="box-def-differentiable-manifold" class="thmbox thmbox-definition" title="יריעה דיפרנציאבילית">
-<p><strong>הגדרה 5.2.6 — יריעה דיפרנציאבילית.</strong></p>
-<p><strong>יריעה דיפרנציאבילית</strong> היא יריעה המצוידת באטלס שבו לכל שתי מפות <span class="math inline">\(\phi_i\)</span> ו-<span class="math inline">\(\phi_j\)</span> ההרכבה <span class="math inline">\(\phi_i^{-1} \circ \phi_j\)</span> היא חלקה מסוג <span class="math inline">\(C^k\)</span> עבור <span class="math inline">\(k\)</span> כלשהו. במשפטים שלנו נדרוש <span class="math inline">\(k = 2\)</span>.</p>
-</div>
-<div id="box-rem-surface-vs-manifold" class="thmbox thmbox-remark" title="ההבדל בין משטח ליריעה">
-<p><strong>הערה 5.2.7 — ההבדל בין משטח ליריעה.</strong></p>
-<p>משטח הוא מקרה פרטי של יריעה, ושני הבדלים מבחינים ביניהם:</p>
-<ol type="1">
-<li>משטח מוגבל למימד <span class="math inline">\(2\)</span> בלבד, בעוד שיריעה יכולה להיות מכל מימד.</li>
-<li>משטח משוכן במרחב <span class="math inline">\(\mathbb{R}^3\)</span>, ואילו יריעה מוגדרת בפני עצמה, ללא תלות במרחב חיצוני העוטף אותה. לכן ביריעה אפשר לחקור תכונות פנימיות בלבד.</li>
-</ol>
-</div>
-<p>עתה נגיע להגדרה המרכזית. נאמר בקצרה שמשטח רגולרי הוא קבוצה ב-<span class="math inline">\(\mathbb{R}^3\)</span> שנראית מקומית כמו מישור דו־מימדי, וההגדרה המדויקת מפרטת מה בדיוק נדרש.</p>
-<div id="box-def-regular-surface" class="thmbox thmbox-definition" title="משטח רגולרי">
-<p><strong>הגדרה 5.2.8 — משטח רגולרי.</strong></p>
-<p>תת־קבוצה <span class="math inline">\(M \subseteq \mathbb{R}^3\)</span> נקראת <strong>משטח רגולרי</strong> ממימד <span class="math inline">\(2\)</span> אם לכל נקודה <span class="math inline">\(p \in M\)</span> קיימות סביבה פתוחה <span class="math inline">\(V \subseteq \mathbb{R}^3\)</span> המכילה את <span class="math inline">\(p\)</span>, קבוצה פתוחה <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span>, והעתקה <span class="math inline">\(\overline{x} : U \to V \cap M\)</span> המקיימת את שלושת התנאים הבאים:</p>
-<ol type="1">
-<li>ההעתקה <span class="math display">\[,\overline{x}\left( u, v \right) = \left( x \left( u, v \right), y \left( u, v \right), z \left( u, v \right) \right)\]</span> היא מסוג <span class="math inline">\(C^\infty\)</span>, כלומר כל הנגזרות החלקיות שלה מכל סדר קיימות ורציפות.</li>
-<li>ההעתקה <span class="math inline">\(\overline{x}\)</span> היא חד־חד־ערכית ועל <span class="math inline">\(V \cap M\)</span>, רציפה, ובעלת פונקציה הופכית רציפה <span class="math inline">\(\overline{x}^{-1} : V \cap M \to U\)</span>.</li>
-<li>לכל נקודה <span class="math inline">\(q \in U\)</span> הנגזרות החלקיות <span class="math display">\[\overline{x}_u = \frac{\partial \overline{x}}{\partial u}, \qquad \overline{x}_v = \frac{\partial \overline{x}}{\partial v}\]</span> הן בלתי תלויות לינארית.</li>
-</ol>
-</div>
-<div id="box-def-regularity-condition" class="thmbox thmbox-definition" title="תנאי הרגולריות">
-<p><strong>הגדרה 5.2.9 — תנאי הרגולריות.</strong></p>
-<p>התנאי השלישי, שלפיו <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span> בלתי תלויות לינארית, שקול לתנאי <span class="math display">\[,\overline{x}_u \times \overline{x}_v \neq 0\]</span> שכן המכפלה הווקטורית של שני וקטורים מתאפסת אם ורק אם הם תלויים לינארית, כפי שראינו בתרגול 4 בעזרת זהות לגראנז’.</p>
-</div>
-<div id="box-rem-coordinate-system" class="thmbox thmbox-remark" title="מערכת קואורדינטות וסביבה קואורדינטית">
-<p><strong>הערה 5.2.10 — מערכת קואורדינטות וסביבה קואורדינטית.</strong></p>
-<p>שני שמות שכדאי להכיר. ההעתקה <span class="math inline">\(\overline{x}\)</span> נקראת <strong>מערכת קואורדינטות מקומית</strong> בסביבה של <span class="math inline">\(p\)</span>, והקבוצה <span class="math inline">\(V \cap M\)</span> נקראת <strong>סביבה קואורדינטית</strong> של <span class="math inline">\(p\)</span>.</p>
-<p>בקצרה, משטח רגולרי הוא משטח שניתן לכסות אותו במפות חלקות ורגולריות. שני דגשים בהגדרה. הראשון, הכיסוי הוא באטלס, כלומר באוסף של מפות מקומיות, ולא בהכרח במפה אחת. השני, המפות חייבות להיות חלקות, כלומר בלי קצוות חדים, וגם רגולריות, שכן הנגזרות אינן מתאפסות ולכן אין למשטח נקודות חוד, שפיצים או קיפולים.</p>
-</div>
-<div id="box-def-tangent-plane" class="thmbox thmbox-definition" title="המישור המשיק">
-<p><strong>הגדרה 5.2.11 — המישור המשיק.</strong></p>
-<p><strong>המישור המשיק</strong> למשטח בנקודה <span class="math inline">\(p = \overline{x} \left( u, v \right)\)</span> מסומן ב-<span class="math inline">\(T_p M\)</span> ומוגדר על ידי <span class="math display">\[.T_p M = \operatorname{span} \left\{ \overline{x}_u, \overline{x}_v \right\}\]</span></p>
-</div>
-<div id="box-def-unit-normal" class="thmbox thmbox-definition" title="וקטור הנורמל היחידה">
-<p><strong>הגדרה 5.2.12 — וקטור הנורמל היחידה.</strong></p>
-<p><strong>וקטור הנורמל היחידה</strong> של המשטח מוגדר על ידי <span class="math display">\[.N \left( u, v \right) = \frac{\overline{x}_u \times \overline{x}_v}{\left\| \overline{x}_u \times \overline{x}_v \right\|}\]</span></p>
-</div>
-<div id="box-rem-normal-well-defined" class="thmbox thmbox-remark" title="מדוע ההגדרות הללו תקינות">
-<p><strong>הערה 5.2.13 — מדוע ההגדרות הללו תקינות.</strong></p>
-<p>תנאי הרגולריות הוא בדיוק מה שמבטיח את שתי ההגדרות האחרונות. מכיוון ש-<span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span> בלתי תלויות לינארית, הפרישה שלהן היא מישור דו־מימדי ולא ישר או נקודה, ומכיוון ש-<span class="math inline">\(\overline{x}_u \times \overline{x}_v \neq 0\)</span> אפשר לחלק בנורמה שלה ולקבל וקטור יחידה. את המישור המשיק נפתח בהמשך, וכאן נסתפק בהגדרתו.</p>
-</div>
-</section>
-<section id="שלוש-הצגות-מקומיות-של-משטח" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="שלוש-הצגות-מקומיות-של-משטח"><span class="header-section-number">5.2.2</span> שלוש הצגות מקומיות של משטח</h3>
-<p>בהגדרת המשטח הרגולרי הופיעה פרמטריזציה מקומית. בפועל, משטחים מגיעים אלינו בשלוש צורות שונות, ומשפט הפונקציה הסתומה מלמד שהשלוש שקולות מקומית. נציג את השלוש, ונשתמש בשקילות הזו שוב ושוב.</p>
-<div id="box-thm-three-presentations" class="thmbox thmbox-theorem" title="שלוש הצגות מקומיות">
-<p><strong>משפט 5.2.14 — שלוש הצגות מקומיות.</strong></p>
-<p>תהי <span class="math inline">\(M \subseteq \mathbb{R}^3\)</span> ותהי <span class="math inline">\(p \in M\)</span>. שלושת התנאים הבאים שקולים בסביבה מקומית של <span class="math inline">\(p\)</span>:</p>
-<ol type="1">
-<li><strong>גרף.</strong> לאחר שינוי שמות הצירים במידת הצורך, <span class="math inline">\(M\)</span> היא מקומית הגרף של פונקציה חלקה, למשל <span class="math inline">\(z = f \left( x, y \right)\)</span>.</li>
-<li><strong>פרמטריזציה רגולרית.</strong> קיימת קבוצה פתוחה <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> והעתקה חלקה <span class="math inline">\(\overline{x} : U \to \mathbb{R}^3\)</span>, חד־חד־ערכית עם הופכית רציפה, שדרגת המטריצה היעקובית שלה היא <span class="math inline">\(2\)</span>.</li>
-<li><strong>קבוצת אפסים.</strong> קיימת סביבה פתוחה <span class="math inline">\(W \subseteq \mathbb{R}^3\)</span> של <span class="math inline">\(p\)</span> ופונקציה חלקה <span class="math inline">\(F : W \to \mathbb{R}\)</span> כך ש-<span class="math inline">\(M \cap W = \left\{ F = 0 \right\}\)</span> ומתקיים <span class="math inline">\(\nabla F \neq 0\)</span> בכל נקודה של <span class="math inline">\(M \cap W\)</span>.</li>
-</ol>
-</div>
-<p>השקילות בין הסעיף הראשון לשלישי היא בדיוק משפט הפונקציה הסתומה המוכר מחשבון אינפיניטסימלי, ואותה נפרט. את השקילות לסעיף השני נצטט כאן, וההוכחה תושלם בהמשך או בתרגיל בית.</p>
-<div id="box-thm-implicit-function" class="thmbox thmbox-theorem" title="משפט הפונקציה הסתומה">
-<p><strong>משפט 5.2.15 — משפט הפונקציה הסתומה.</strong></p>
-<p>תהי <span class="math inline">\(F : W \to \mathbb{R}\)</span> פונקציה חלקה על קבוצה פתוחה <span class="math inline">\(W \subseteq \mathbb{R}^3\)</span>, ותהי <span class="math inline">\(p \in W\)</span> נקודה שבה <span class="math inline">\(F \left( p \right) = 0\)</span> ו-<span class="math inline">\(\nabla F \left( p \right) \neq 0\)</span>.</p>
-<p>מכיוון ש-<span class="math inline">\(\nabla F \left( p \right) \neq 0\)</span>, לפחות אחת הנגזרות החלקיות אינה מתאפסת. נניח למשל <span class="math display">\[,\frac{\partial F}{\partial z} \left( p \right) \neq 0\]</span> ואז קיימת סביבה של <span class="math inline">\(p\)</span> שבה אפשר לחלץ את <span class="math inline">\(z\)</span> כפונקציה חלקה של שני המשתנים האחרים, כלומר קיימת <span class="math inline">\(f\)</span> חלקה כך ש-<span class="math display">\[.\left\{ F = 0 \right\} = \left\{ z = f \left( x, y \right) \right\}\]</span> באופן סימטרי, אם <span class="math inline">\(\frac{\partial F}{\partial x} \left( p \right) \neq 0\)</span> מחלצים את <span class="math inline">\(x\)</span> כפונקציה של <span class="math inline">\(y\)</span> ו-<span class="math inline">\(z\)</span>, וכן הלאה.</p>
-</div>
-<div id="box-rem-implicit-relabel" class="thmbox thmbox-remark" title="מדוע נדרש שינוי שמות הצירים">
-<p><strong>הערה 5.2.16 — מדוע נדרש שינוי שמות הצירים.</strong></p>
-<p>המשפט אינו מבטיח שנוכל לחלץ דווקא את <span class="math inline">\(z\)</span>, אלא רק שנוכל לחלץ <strong>אחד</strong> מן המשתנים. איזה מהם, נקבע לפי הנגזרת החלקית שאינה מתאפסת. לכן בסעיף הראשון של <a href="#box-thm-three-presentations">משפט 5.2.14</a> נכתב “לאחר שינוי שמות הצירים במידת הצורך”, וזוהי הסתייגות מהותית ולא טכנית, כפי שנראה בתרגיל הקונוס.</p>
-</div>
-<p>עתה נפנה לשקילות בין הפרמטריזציה ובין הגרף. כאן דרגת המטריצה היעקובית היא הכלי, וכדאי לראות שהיא אינה אלא תנאי הרגולריות שכבר פגשנו.</p>
-<div id="box-prp-jacobian-minors" class="thmbox thmbox-proposition" title="דרגה שתיים, מינורים ומכפלה וקטורית">
-<p><strong>טענה 5.2.17 — דרגה שתיים, מינורים ומכפלה וקטורית.</strong></p>
-<p>תהי <span class="math inline">\(\overline{x} \left( u, v \right) = \left( x, y, z \right)\)</span> העתקה חלקה מ-<span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> ל-<span class="math inline">\(\mathbb{R}^3\)</span>. המטריצה היעקובית שלה היא מטריצה מסדר <span class="math inline">\(3 \times 2\)</span>, <span class="math display">\[,D \overline{x} = \begin{pmatrix} x_u &amp; x_v \\ y_u &amp; y_v \\ z_u &amp; z_v \end{pmatrix}\]</span> ולה שלושה מינורים מסדר <span class="math inline">\(2 \times 2\)</span>, המתקבלים בבחירת שתיים מן השורות. אז שלושת התנאים הבאים שקולים:</p>
-<ol type="1">
-<li>הדרגה של <span class="math inline">\(D \overline{x}\)</span> היא <span class="math inline">\(2\)</span>.</li>
-<li>לפחות אחד משלושת המינורים אינו מתאפס.</li>
-<li><span class="math inline">\(\overline{x}_u \times \overline{x}_v \neq 0\)</span>.</li>
-</ol>
-</div>
-<div class="thmbox thmbox-proof">
-<p><strong>הוכחה.</strong></p>
-<p>השקילות בין שני התנאים הראשונים היא עובדה מאלגברה לינארית: דרגת מטריצה היא הסדר המקסימלי של מינור שאינו מתאפס, ולמטריצה מסדר <span class="math inline">\(3 \times 2\)</span> הדרגה היא <span class="math inline">\(2\)</span> אם ורק אם קיים מינור מסדר <span class="math inline">\(2\)</span> שאינו מתאפס.</p>
-<p>לשקילות עם התנאי השלישי נחשב את המכפלה הווקטורית במפורש: <span class="math display">\[.\overline{x}_u \times \overline{x}_v = \left( y_u z_v - z_u y_v, \; z_u x_v - x_u z_v, \; x_u y_v - y_u x_v \right)\]</span></p>
-<p>נשים לב מה הם שלושת הרכיבים. הרכיב השלישי הוא <span class="math display">\[,x_u y_v - y_u x_v = \det \begin{pmatrix} x_u &amp; x_v \\ y_u &amp; y_v \end{pmatrix}\]</span> כלומר בדיוק המינור של השורות <span class="math inline">\(x\)</span> ו-<span class="math inline">\(y\)</span>. הרכיב הראשון הוא המינור של השורות <span class="math inline">\(y\)</span> ו-<span class="math inline">\(z\)</span>, והרכיב השני הוא המינור של השורות <span class="math inline">\(x\)</span> ו-<span class="math inline">\(z\)</span> עד כדי סימן. לכן המכפלה הווקטורית מתאפסת אם ורק אם שלושת המינורים מתאפסים, וזוהי בדיוק השקילות המבוקשת.</p>
-</div>
-<div id="box-cor-which-graph" class="thmbox thmbox-corollary" title="המינור קובע מעל איזה מישור">
-<p><strong>מסקנה 5.2.18 — המינור קובע מעל איזה מישור.</strong></p>
-<p>המינור שאינו מתאפס אינו רק מעיד על רגולריות, אלא גם אומר לנו מעל איזה מישור קואורדינטות המשטח הוא גרף. אם המינור של השורות <span class="math inline">\(x\)</span> ו-<span class="math inline">\(y\)</span> אינו מתאפס, כלומר <span class="math display">\[,\det \begin{pmatrix} x_u &amp; x_v \\ y_u &amp; y_v \end{pmatrix} \neq 0\]</span> אז לפי משפט הפונקציה ההופכית ההעתקה <span class="math inline">\(\left( u, v \right) \mapsto \left( x, y \right)\)</span> הפיכה מקומית, ולכן <span class="math inline">\(u\)</span> ו-<span class="math inline">\(v\)</span> הם פונקציות חלקות של <span class="math inline">\(x\)</span> ושל <span class="math inline">\(y\)</span>. נציב זאת ברכיב השלישי ונקבל <span class="math display">\[,z = z \left( u \left( x, y \right), v \left( x, y \right) \right) = f \left( x, y \right)\]</span> כלומר המשטח הוא מקומית גרף מעל מישור <span class="math inline">\(xy\)</span>. באופן סימטרי, מינור אחר נותן גרף מעל מישור הקואורדינטות המתאים לשורותיו.</p>
-</div>
-<div id="box-rem-cross-product-meaning" class="thmbox thmbox-remark" title="מה למדנו על תנאי הרגולריות">
-<p><strong>הערה 5.2.19 — מה למדנו על תנאי הרגולריות.</strong></p>
-<p>כאן מתקבל פירוש נוסף לתנאי <span class="math inline">\(\overline{x}_u \times \overline{x}_v \neq 0\)</span> שכבר הופיע ב<a href="#box-def-regularity-condition">הגדרה 5.2.9</a>. התנאי אינו רק דרישה טכנית שמאפשרת להגדיר נורמל, אלא הוא בדיוק התנאי שמבטיח שהמשטח הוא מקומית גרף של פונקציה חלקה, והרכיב הגדול ביותר של המכפלה הווקטורית מצביע על מישור הקואורדינטות שמעליו נוח לרשום את הגרף.</p>
-</div>
-</section>
-<section id="דוגמאות" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="דוגמאות"><span class="header-section-number">5.2.3</span> דוגמאות</h3>
-<div id="box-prp-graph-is-surface" class="thmbox thmbox-proposition" title="גרף של פונקציה חלקה הוא משטח רגולרי">
-<p><strong>טענה 5.2.20 — גרף של פונקציה חלקה הוא משטח רגולרי.</strong></p>
-<p>תהי <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> קבוצה פתוחה ותהי <span class="math inline">\(g : U \to \mathbb{R}\)</span> פונקציה חלקה. אז הגרף <span class="math display">\[\Gamma \left( g \right) = \left\{ \left( u, v, g \left( u, v \right) \right) : \left( u, v \right) \in U \right\}\]</span> הוא משטח רגולרי ב-<span class="math inline">\(\mathbb{R}^3\)</span>.</p>
-</div>
-<div class="thmbox thmbox-proof">
-<p><strong>הוכחה.</strong></p>
-<p>ניקח את הפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, v, g \left( u, v \right) \right)\)</span> ונבדוק את שלושת התנאים.</p>
-<p>התנאי הראשון מתקיים, שכן שני הרכיבים הראשונים הם פונקציות לינאריות והשלישי הוא <span class="math inline">\(g\)</span>, שהיא חלקה לפי ההנחה.</p>
-<p>התנאי השני מתקיים גם הוא: ההעתקה חד־חד־ערכית, שכן אם <span class="math inline">\(\overline{x} \left( u_1, v_1 \right) = \overline{x} \left( u_2, v_2 \right)\)</span> אז בפרט שני הרכיבים הראשונים שווים ולכן <span class="math inline">\(\left( u_1, v_1 \right) = \left( u_2, v_2 \right)\)</span>. ההופכית היא ההטלה <span class="math inline">\(\left( x, y, z \right) \mapsto \left( x, y \right)\)</span>, שהיא רציפה.</p>
-<p>לתנאי השלישי נחשב <span class="math display">\[,\overline{x}_u = \left( 1, 0, g_u \right), \qquad \overline{x}_v = \left( 0, 1, g_v \right)\]</span> ולכן <span class="math display">\[,\overline{x}_u \times \overline{x}_v = \begin{vmatrix} i &amp; j &amp; k \\ 1 &amp; 0 &amp; g_u \\ 0 &amp; 1 &amp; g_v \end{vmatrix} = \left( -g_u, -g_v, 1 \right)\]</span> והרכיב השלישי הוא <span class="math inline">\(1\)</span>, ולכן הווקטור אינו מתאפס לעולם.</p>
-</div>
-<div id="box-rem-graph-single-chart" class="thmbox thmbox-remark" title="גרף מתכסה במפה אחת">
-<p><strong>הערה 5.2.21 — גרף מתכסה במפה אחת.</strong></p>
-<p>גרפים הם הדוגמאות הפשוטות ביותר למשטחים, שכן אפשר לכסות אותם בסביבה קואורדינטית <strong>אחת</strong>. נראה בהמשך שאין זה המצב עבור משטחים אחרים.</p>
-</div>
-<p>שתי דוגמאות ראשונות הן גרפים, ולכן לפי הטענה הן משטחים רגולריים ללא כל בדיקה נוספת.</p>
-<div id="box-rem-elliptic-paraboloid" class="thmbox thmbox-remark" title="פרבולואיד אליפטי">
-<p><strong>הערה 5.2.22 — פרבולואיד אליפטי.</strong></p>
-<p>יהיו <span class="math inline">\(a, b &gt; 0\)</span> ותהי <span class="math display">\[.g \left( u, v \right) = \frac{u^2}{a^2} + \frac{v^2}{b^2}, \qquad \left( u, v \right) \in \mathbb{R}^2\]</span> הגרף של <span class="math inline">\(g\)</span> נקרא <strong>פרבולואיד אליפטי</strong>. חתכיו במישורים <span class="math inline">\(z = c\)</span> עבור <span class="math inline">\(c &gt; 0\)</span> הם אליפסות, וחתכיו במישורים <span class="math inline">\(x = 0\)</span> ו-<span class="math inline">\(y = 0\)</span> הם פרבולות.</p>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/elliptic-paraboloid.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:76.0%" alt="פרבולואיד אליפטי"></p>
-</figure>
-</div>
-<p><em>הפרבולואיד האליפטי עבור <span class="math inline">\(a = b = 1\)</span>, עם חתך אופקי אחד המראה אליפסה וחתך אנכי אחד המראה פרבולה.</em></p>
-<div id="box-rem-hyperbolic-paraboloid" class="thmbox thmbox-remark" title="פרבולואיד היפרבולי">
-<p><strong>הערה 5.2.23 — פרבולואיד היפרבולי.</strong></p>
-<p>יהיו <span class="math inline">\(a, b &gt; 0\)</span> ותהי <span class="math display">\[.g \left( u, v \right) = \frac{u^2}{a^2} - \frac{v^2}{b^2}, \qquad \left( u, v \right) \in \mathbb{R}^2\]</span> הגרף של <span class="math inline">\(g\)</span> נקרא <strong>פרבולואיד היפרבולי</strong>, וצורתו צורת אוכף. בכיוון אחד הוא נראה כפרבולה הפונה למעלה ובכיוון האחר כפרבולה הפונה למטה, ולכן בראשית הצירים אין לו מינימום ואין לו מקסימום.</p>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/hyperbolic-paraboloid.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:76.0%" alt="פרבולואיד היפרבולי בצורת אוכף"></p>
-</figure>
-</div>
-<p><em>הפרבולואיד ההיפרבולי עבור <span class="math inline">\(a = b = 1\)</span>. שני החתכים האנכיים דרך הראשית מראים את שתי הפרבולות הפונות לכיוונים מנוגדים.</em></p>
-<p>הדוגמה הבאה מגיעה בהצגה השלישית, כקבוצת אפסים, והיא מראה כמה משטחים בבת אחת.</p>
-<div id="box-rem-hyperboloids" class="thmbox thmbox-remark" title="היפרבולואידים וקונוס אליפטי">
-<p><strong>הערה 5.2.24 — היפרבולואידים וקונוס אליפטי.</strong></p>
-<p>יהיו <span class="math inline">\(a, b, c &gt; 0\)</span> ותהי <span class="math display">\[.F \left( x, y, z \right) = \frac{x^2}{a^2} + \frac{y^2}{b^2} - \frac{z^2}{c^2}\]</span> נחשב את הגרדיאנט ונקבל <span class="math display">\[,\nabla F = \left( \frac{2x}{a^2}, \frac{2y}{b^2}, -\frac{2z}{c^2} \right)\]</span> והוא מתאפס אם ורק אם <span class="math inline">\(x = y = z = 0\)</span>. מכיוון ש-<span class="math inline">\(F \left( 0, 0, 0 \right) = 0\)</span>, נובע מ<a href="#box-thm-three-presentations">משפט 5.2.14</a> שלכל <span class="math inline">\(k \neq 0\)</span> הקבוצה <span class="math inline">\(\left\{ F = k \right\}\)</span> היא משטח רגולרי, שכן היא אינה מכילה את הראשית ולכן הגרדיאנט אינו מתאפס באף נקודה שלה.</p>
-<p>מתקבלים שני משטחים שונים לפי סימן <span class="math inline">\(k\)</span>. עבור <span class="math inline">\(k &gt; 0\)</span> הקבוצה היא <strong>היפרבולואיד חד־יריעתי</strong>, ועבור <span class="math inline">\(k &lt; 0\)</span> היא <strong>היפרבולואיד דו־יריעתי</strong>.</p>
-<p>המקרה <span class="math inline">\(k = 0\)</span> שונה במהותו. הקבוצה <span class="math inline">\(\left\{ F = 0 \right\}\)</span> היא <strong>קונוס אליפטי</strong>, והיא כן מכילה את הראשית, שבה הגרדיאנט מתאפס. לכן המשפט אינו חל בנקודה זו, והקונוס אכן אינו משטח רגולרי בראשית, כפי שנראה ב<a href="#box-q-cone-not-surface">שאלה 5.2.36</a>.</p>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/hyperboloids-cone.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:94.0%" alt="היפרבולואיד חד־יריעתי, דו־יריעתי וקונוס אליפטי"></p>
-</figure>
-</div>
-<p><em>שלוש רמות של אותה פונקציה <span class="math inline">\(F\)</span> עבור <span class="math inline">\(a = b = c = 1\)</span>. משמאל <span class="math inline">\(k &gt; 0\)</span>, היפרבולואיד חד־יריעתי; באמצע <span class="math inline">\(k = 0\)</span>, הקונוס האליפטי, והנקודה המסומנת היא הראשית שבה הגרדיאנט מתאפס; מימין <span class="math inline">\(k &lt; 0\)</span>, היפרבולואיד דו־יריעתי.</em></p>
-<div id="box-rem-non-examples" class="thmbox thmbox-remark" title="שתי משוואות שאינן מגדירות משטח">
-<p><strong>הערה 5.2.25 — שתי משוואות שאינן מגדירות משטח.</strong></p>
-<p>חשוב לראות שלא כל משוואה מגדירה משטח, ושהתנאי על הגרדיאנט אינו מיותר. שתי דוגמאות:</p>
-<ol type="1">
-<li>המשוואה <span class="math inline">\(xy = 0\)</span> מגדירה את <strong>איחוד שני מישורי הקואורדינטות</strong> <span class="math inline">\(x = 0\)</span> ו-<span class="math inline">\(y = 0\)</span>. הקבוצה אינה משטח רגולרי בנקודות החיתוך שלהם, שכן שם היא נראית כשני דפים הנחתכים ולא כמישור בודד.</li>
-<li>המשוואה <span class="math inline">\(x^2 + y^2 = 0\)</span> מגדירה את <strong>ציר <span class="math inline">\(z\)</span></strong> בלבד, שהוא ישר. זו אינה קבוצה דו־מימדית כלל.</li>
-</ol>
-</div>
-</section>
-<section id="משטחי-סיבוב" class="level3" data-number="5.2.4">
-<h3 data-number="5.2.4" class="anchored" data-anchor-id="משטחי-סיבוב"><span class="header-section-number">5.2.4</span> משטחי סיבוב</h3>
-<p>מקור נוח למשפחות שלמות של דוגמאות הוא סיבוב של עקומה סביב ציר.</p>
-<div id="box-def-surface-of-revolution" class="thmbox thmbox-definition" title="משטח סיבוב">
-<p><strong>הגדרה 5.2.26 — משטח סיבוב.</strong></p>
-<p><strong>משטח סיבוב</strong> ב-<span class="math inline">\(\mathbb{R}^3\)</span> הוא משטח <span class="math inline">\(M\)</span> שנשמר כקבוצה תחת סיבובי <span class="math inline">\(\mathbb{R}^3\)</span> סביב ישר קבוע, הנקרא <strong>ציר הסיבוב</strong> של <span class="math inline">\(M\)</span>.</p>
-</div>
-<div id="box-def-revolution-parametrisation" class="thmbox thmbox-definition" title="הפרמטריזציה של משטח סיבוב">
-<p><strong>הגדרה 5.2.27 — הפרמטריזציה של משטח סיבוב.</strong></p>
-<p>יהי <span class="math inline">\(I\)</span> קטע פתוח ותהי <span class="math display">\[\alpha \left( v \right) = \left( f \left( v \right), 0, g \left( v \right) \right), \qquad v \in I\]</span> עקומה רגולרית ללא נקודות חיתוך עצמי במישור <span class="math inline">\(y = 0\)</span>, המקיימת <span class="math inline">\(f \left( v \right) &gt; 0\)</span> לכל <span class="math inline">\(v \in I\)</span>. בפרט <span class="math inline">\(\alpha\)</span> אינה פוגשת את ציר <span class="math inline">\(z\)</span>. הקבוצה הנסרקת בסיבוב <span class="math inline">\(\alpha\)</span> סביב ציר <span class="math inline">\(z\)</span> היא <span class="math display">\[,M = \left\{ \left( f \left( v \right) \cos u, \; f \left( v \right) \sin u, \; g \left( v \right) \right) : u \in \mathbb{R}, \; v \in I \right\}\]</span> והעקומה <span class="math inline">\(\alpha\)</span> נקראת <strong>העקומה היוצרת</strong> של <span class="math inline">\(M\)</span>.</p>
-</div>
-<div id="box-def-parallels-meridians" class="thmbox thmbox-definition" title="מקבילים ומרידיאנים">
-<p><strong>הגדרה 5.2.28 — מקבילים ומרידיאנים.</strong></p>
-<p>המעגל הנסרק על ידי נקודה בודדת של העקומה היוצרת נקרא <strong>מקביל</strong>, והעקומה המתקבלת מסיבוב העקומה היוצרת בזווית קבועה נקראת <strong>מרידיאן</strong>. כל מקביל הוא חיתוך של <span class="math inline">\(M\)</span> עם מישור אופקי <span class="math inline">\(z = \text{const}\)</span>, וכל מרידיאן הוא חיתוך של <span class="math inline">\(M\)</span> עם חצי מישור ששפתו ציר הסיבוב.</p>
-</div>
-<div id="box-rem-sphere-latitude" class="thmbox thmbox-remark" title="קווי רוחב וקווי אורך">
-<p><strong>הערה 5.2.29 — קווי רוחב וקווי אורך.</strong></p>
-<p>עבור הספירה, המקבילים והמרידיאנים הם בדיוק קווי הרוחב וקווי האורך המשמשים בגיאוגרפיה של כדור הארץ.</p>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/surface-of-revolution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:82.0%" alt="משטח סיבוב עם העקומה היוצרת, מקביל ומרידיאן"></p>
-</figure>
-</div>
-<p><em>משטח סיבוב כללי. העקומה היוצרת מסומנת בכהה, מקביל אחד ומרידיאן אחד מסומנים אף הם, וציר הסיבוב הוא ציר <span class="math inline">\(z\)</span>.</em></p>
-<div id="box-prp-revolution-regular" class="thmbox thmbox-proposition" title="משטח סיבוב הוא רגולרי">
-<p><strong>טענה 5.2.30 — משטח סיבוב הוא רגולרי.</strong></p>
-<p>בסימוני <a href="#box-def-revolution-parametrisation">הגדרה 5.2.27</a>, הפרמטריזציה <span class="math display">\[\overline{x} \left( u, v \right) = \left( f \left( v \right) \cos u, \; f \left( v \right) \sin u, \; g \left( v \right) \right)\]</span> מקיימת את תנאי הרגולריות בכל נקודה.</p>
-</div>
-<div class="thmbox thmbox-proof">
-<p><strong>הוכחה.</strong></p>
-<p>נחשב את שתי הנגזרות החלקיות: <span class="math display">\[,\overline{x}_u = \left( -f \left( v \right) \sin u, \; f \left( v \right) \cos u, \; 0 \right)\]</span> וכן <span class="math display">\[.\overline{x}_v = \left( f' \left( v \right) \cos u, \; f' \left( v \right) \sin u, \; g' \left( v \right) \right)\]</span></p>
-<p>נחשב את המכפלה הווקטורית: <span class="math display">\[.\overline{x}_u \times \overline{x}_v = \left( f \cos u \cdot g' - 0, \; 0 - \left( -f \sin u \right) g', \; -f \sin u \cdot f' \sin u - f \cos u \cdot f' \cos u \right)\]</span></p>
-<p>נפשט כל רכיב ונקבל <span class="math display">\[,\overline{x}_u \times \overline{x}_v = \left( f g' \cos u, \; f g' \sin u, \; -f f' \right)\]</span> כאשר ברכיב השלישי הוצאנו <span class="math inline">\(-f f'\)</span> והשתמשנו ב-<span class="math inline">\(\sin^2 u + \cos^2 u = 1\)</span>.</p>
-<p>נחשב את הנורמה בריבוע: <span class="math display">\[.\left\| \overline{x}_u \times \overline{x}_v \right\|^2 = f^2 \left( g' \right)^2 \cos^2 u + f^2 \left( g' \right)^2 \sin^2 u + f^2 \left( f' \right)^2 = f^2 \left( \left( f' \right)^2 + \left( g' \right)^2 \right)\]</span></p>
-<p>לפי ההנחה <span class="math inline">\(f \left( v \right) &gt; 0\)</span>, ולכן <span class="math inline">\(f^2 &gt; 0\)</span>. העקומה <span class="math inline">\(\alpha\)</span> רגולרית, כלומר <span class="math inline">\(\alpha' = \left( f', 0, g' \right) \neq 0\)</span>, ולכן <span class="math inline">\(\left( f' \right)^2 + \left( g' \right)^2 &gt; 0\)</span>. מכפלת שני גורמים חיוביים חיובית, ולכן המכפלה הווקטורית אינה מתאפסת לעולם.</p>
-</div>
-<div id="box-rem-revolution-implicit" class="thmbox thmbox-remark" title="משטח סיבוב כקבוצת אפסים">
-<p><strong>הערה 5.2.31 — משטח סיבוב כקבוצת אפסים.</strong></p>
-<p>כאשר העקומה היוצרת היא מן הצורה <span class="math inline">\(\alpha \left( v \right) = \left( f \left( v \right), 0, v \right)\)</span>, כלומר כאשר הרכיב השלישי הוא הפרמטר עצמו, אפשר לתאר את משטח הסיבוב גם כקבוצת אפסים על ידי המשוואה <span class="math display">\[.x^2 + y^2 = \left( f \left( z \right) \right)^2\]</span> זו הצגה שימושית, שכן היא מאפשרת לבדוק רגולריות בעזרת הגרדיאנט במקום בעזרת הפרמטריזציה.</p>
-</div>
-<p>עתה שתי דוגמאות. שתיהן מתקבלות מסיבוב עקומות שכבר פגשנו או שקל לתאר.</p>
-<div id="box-rem-catenoid" class="thmbox thmbox-remark" title="קטנואיד">
-<p><strong>הערה 5.2.32 — קטנואיד.</strong></p>
-<p><strong>הקטנואיד</strong> מתקבל מסיבוב קו שרשרת סביב ציר <span class="math inline">\(z\)</span>. יהי <span class="math inline">\(k &gt; 0\)</span> קבוע, ותהי העקומה היוצרת <span class="math display">\[,\alpha \left( v \right) = \left( k \cosh \frac{v}{k}, \; 0, \; v \right), \qquad v \in \mathbb{R}\]</span> ואז הפרמטריזציה של המשטח היא <span class="math display">\[.\overline{x} \left( u, v \right) = \left( k \cosh \frac{v}{k} \cos u, \; k \cosh \frac{v}{k} \sin u, \; v \right)\]</span> מכיוון ש-<span class="math inline">\(k \cosh \frac{v}{k} &gt; 0\)</span> לכל <span class="math inline">\(v\)</span>, העקומה היוצרת אינה פוגשת את הציר, ולכן לפי <a href="#box-prp-revolution-regular">טענה 5.2.30</a> הקטנואיד הוא משטח רגולרי.</p>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/catenoid.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:72.0%" alt="קטנואיד, משטח הסיבוב של קו שרשרת"></p>
-</figure>
-</div>
-<p><em>הקטנואיד עבור <span class="math inline">\(k = 1\)</span>. העקומה היוצרת, קו שרשרת, מסומנת בכהה במישור <span class="math inline">\(y = 0\)</span>.</em></p>
-<div id="box-rem-pseudosphere" class="thmbox thmbox-remark" title="פסאודוספירה">
-<p><strong>הערה 5.2.33 — פסאודוספירה.</strong></p>
-<p><strong>הפסאודוספירה</strong> מתקבלת מסיבוב הטרקטריסה סביב ציר <span class="math inline">\(z\)</span>. העקומה היוצרת היא <span class="math display">\[,\alpha \left( v \right) = \left( \operatorname{sech} v, \; 0, \; v - \tanh v \right), \qquad v &gt; 0\]</span> ומכיוון ש-<span class="math inline">\(\operatorname{sech} v &gt; 0\)</span> לכל <span class="math inline">\(v\)</span>, גם כאן העקומה אינה פוגשת את הציר ולכן המשטח רגולרי. הטעם לשם יתברר כאשר נעסוק בעקמומיות גאוס.</p>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/pseudosphere.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:72.0%" alt="פסאודוספירה, משטח הסיבוב של הטרקטריסה"></p>
-</figure>
-</div>
-<p><em>הפסאודוספירה. העקומה היוצרת, הטרקטריסה, מסומנת בכהה במישור <span class="math inline">\(y = 0\)</span>.</em></p>
-<div id="box-rem-revolution-meets-axis" class="thmbox thmbox-remark" title="כאשר העקומה היוצרת פוגשת את הציר">
-<p><strong>הערה 5.2.34 — כאשר העקומה היוצרת פוגשת את הציר.</strong></p>
-<p>ההנחה <span class="math inline">\(f \left( v \right) &gt; 0\)</span> אינה קוסמטית. אם העקומה היוצרת כן פוגשת את ציר הסיבוב, עלולות להיווצר נקודות שבהן המשטח אינו רגולרי. לדוגמה, סיבוב הישר <span class="math inline">\(z = x\)</span> סביב ציר <span class="math inline">\(z\)</span> נותן קונוס, ובקודקודו המשטח אינו רגולרי. זהו בדיוק המצב שנבחן בתרגיל הבא.</p>
-</div>
-<section id="תרגילים-3" class="level4">
-<h4 class="anchored" data-anchor-id="תרגילים-3">תרגילים</h4>
-<div id="box-q-hyperboloid-two-sheets" class="thmbox thmbox-question">
-<p><strong>שאלה 5.2.35.</strong></p>
-<p>הוכיחו שההיפרבולואיד הדו־יריעתי <span class="math display">\[x^2 + y^2 - z^2 = -1\]</span> הוא משטח רגולרי. עשו זאת בשתי דרכים, פעם בעזרת גרפים ופעם בעזרת קבוצת אפסים.</p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>דרך ראשונה: גרפים</summary>
-<div class="foldable" title="דרך ראשונה: גרפים">
-<p>נחלץ את <span class="math inline">\(z\)</span> מן המשוואה. מתקיים <span class="math inline">\(z^2 = 1 + x^2 + y^2\)</span>, ומכיוון שהאגף הימני גדול או שווה ל-<span class="math inline">\(1\)</span>, בפרט <span class="math inline">\(z^2 \geq 1\)</span> ולכן <span class="math inline">\(z \neq 0\)</span>. לכן הקבוצה מתפרקת לשני חלקים זרים, <span class="math display">\[,z = \sqrt{1 + x^2 + y^2} \qquad \text{ו} \qquad z = -\sqrt{1 + x^2 + y^2}\]</span> ובכל אחד מהם <span class="math inline">\(z\)</span> הוא גרף של פונקציה המוגדרת על כל <span class="math inline">\(\mathbb{R}^2\)</span>.</p>
-<p>הפונקציה <span class="math inline">\(g \left( x, y \right) = \sqrt{1 + x^2 + y^2}\)</span> חלקה על כל <span class="math inline">\(\mathbb{R}^2\)</span>, שכן הביטוי תחת השורש גדול או שווה ל-<span class="math inline">\(1\)</span> ולכן חסום מלרע על ידי מספר חיובי, והשורש הוא פונקציה חלקה בסביבת כל נקודה כזו. לכן לפי <a href="#box-prp-graph-is-surface">טענה 5.2.20</a> כל אחת משתי היריעות היא משטח רגולרי, וגם האיחוד שלהן, שכן כל נקודה נמצאת באחת מהן בלבד.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>דרך שנייה: קבוצת אפסים</summary>
-<div class="foldable" title="דרך שנייה: קבוצת אפסים">
-<p>נגדיר <span class="math inline">\(F \left( x, y, z \right) = x^2 + y^2 - z^2 + 1\)</span>, ואז הקבוצה שלנו היא <span class="math inline">\(\left\{ F = 0 \right\}\)</span>. נחשב <span class="math display">\[.\nabla F = \left( 2x, 2y, -2z \right)\]</span> הגרדיאנט מתאפס רק בראשית הצירים, אך הראשית אינה על המשטח, שכן <span class="math inline">\(F \left( 0, 0, 0 \right) = 1 \neq 0\)</span>. לכן <span class="math inline">\(\nabla F \neq 0\)</span> בכל נקודה של הקבוצה, ולפי <a href="#box-thm-three-presentations">משפט 5.2.14</a> הקבוצה היא משטח רגולרי.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>הערה: המשטח אינו קשיר</summary>
-<div class="foldable" title="הערה: המשטח אינו קשיר">
-<p>שימו לב שהדרך הראשונה חשפה מידע נוסף. המשטח מתפרק לשתי יריעות זרות, אחת עם <span class="math inline">\(z \geq 1\)</span> ואחת עם <span class="math inline">\(z \leq -1\)</span>, ולכן הוא <strong>אינו קשיר</strong>. זו דוגמה לכך שמשטח רגולרי אינו חייב להיות קשיר, שכן ההגדרה היא מקומית בלבד ואינה דורשת דבר על הקשר בין חלקים רחוקים של המשטח.</p>
-</div>
-</details>
-</div>
-<div id="box-q-cone-not-surface" class="thmbox thmbox-question">
-<p><strong>שאלה 5.2.36.</strong></p>
-<p>יהי הקונוס <span class="math display">\[.C = \left\{ \left( x, y, z \right) \in \mathbb{R}^3 : z = \sqrt{x^2 + y^2} \right\}\]</span> הוכיחו ש-<span class="math inline">\(C\)</span> <strong>אינו</strong> משטח רגולרי.</p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>הערה מקדימה: מה צריך להוכיח</summary>
-<div class="foldable" title="הערה מקדימה: מה צריך להוכיח">
-<p>כדי להוכיח שקבוצה אינה משטח רגולרי לא די להראות שפרמטריזציה אחת נכשלת, שכן ייתכן שפרמטריזציה אחרת תצליח. יש לשלול את <strong>כל</strong> הפרמטריזציות האפשריות בבת אחת.</p>
-<p>הכלי לכך הוא <a href="#box-thm-three-presentations">משפט 5.2.14</a>. אם <span class="math inline">\(C\)</span> היה משטח רגולרי, אז בסביבת הראשית הוא היה מקומית גרף של פונקציה חלקה מעל אחד משלושת מישורי הקואורדינטות. נשלול את שלוש האפשרויות, ובכך נשלול כל פרמטריזציה.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: הקונוס אינו גרף מעל מישור yz</summary>
-<div class="foldable" title="שלב 1: הקונוס אינו גרף מעל מישור yz">
-<p>נניח בשלילה שבסביבת הראשית <span class="math inline">\(C\)</span> הוא גרף מן הצורה <span class="math inline">\(x = h \left( y, z \right)\)</span>, כלומר שהקואורדינטה <span class="math inline">\(x\)</span> נקבעת על ידי <span class="math inline">\(y\)</span> ו-<span class="math inline">\(z\)</span>.</p>
-<p>יהי <span class="math inline">\(t &gt; 0\)</span> קטן. נבדוק שתי נקודות: <span class="math display">\[,\left( t, 0, t \right) \in C \qquad \text{ו} \qquad \left( -t, 0, t \right) \in C\]</span> ואכן שתיהן על הקונוס, שכן <span class="math inline">\(\sqrt{t^2 + 0^2} = \left| t \right| = t\)</span> בשני המקרים.</p>
-<p>לשתי הנקודות אותם <span class="math inline">\(y\)</span> ואותו <span class="math inline">\(z\)</span>, כלומר <span class="math inline">\(\left( y, z \right) = \left( 0, t \right)\)</span>, אך רכיבי ה-<span class="math inline">\(x\)</span> שלהן הם <span class="math inline">\(t\)</span> ו-<span class="math inline">\(-t\)</span>, והם שונים שכן <span class="math inline">\(t &gt; 0\)</span>. לכן <span class="math inline">\(x\)</span> אינו פונקציה של <span class="math inline">\(y\)</span> ושל <span class="math inline">\(z\)</span>, בסתירה להנחה.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: הקונוס אינו גרף מעל מישור xz</summary>
-<div class="foldable" title="שלב 2: הקונוס אינו גרף מעל מישור xz">
-<p>החישוב סימטרי לחלוטין לשלב הקודם, בהחלפת התפקידים של <span class="math inline">\(x\)</span> ושל <span class="math inline">\(y\)</span>. הנקודות <span class="math inline">\(\left( 0, t, t \right)\)</span> ו-<span class="math inline">\(\left( 0, -t, t \right)\)</span> שתיהן על הקונוס ובעלות אותם <span class="math inline">\(\left( x, z \right) = \left( 0, t \right)\)</span>, אך רכיבי ה-<span class="math inline">\(y\)</span> שלהן שונים. לכן <span class="math inline">\(y\)</span> אינו פונקציה של <span class="math inline">\(x\)</span> ושל <span class="math inline">\(z\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: נשארה רק אפשרות אחת, והפונקציה יחידה</summary>
-<div class="foldable" title="שלב 3: נשארה רק אפשרות אחת, והפונקציה יחידה">
-<p>לפי שני השלבים הקודמים, האפשרות היחידה שנותרה היא ש-<span class="math inline">\(C\)</span> הוא מקומית גרף מן הצורה <span class="math inline">\(z = f \left( x, y \right)\)</span>.</p>
-<p>הקבוצה <span class="math inline">\(C\)</span> קובעת את <span class="math inline">\(f\)</span> באופן יחיד: נקודה <span class="math inline">\(\left( x, y, z \right)\)</span> נמצאת ב-<span class="math inline">\(C\)</span> אם ורק אם <span class="math inline">\(z = \sqrt{x^2 + y^2}\)</span>, ולכן בהכרח <span class="math display">\[.f \left( x, y \right) = \sqrt{x^2 + y^2}\]</span></p>
-<p>לכן, אם <span class="math inline">\(C\)</span> הוא משטח רגולרי, הפונקציה הזו חייבת להיות חלקה בסביבת הראשית, ובפרט <strong>דיפרנציאבילית</strong> בנקודה <span class="math inline">\(\left( 0, 0 \right)\)</span>. נראה שאין זה כך.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: הפונקציה אינה דיפרנציאבילית בראשית</summary>
-<div class="foldable" title="שלב 4: הפונקציה אינה דיפרנציאבילית בראשית">
-<p>נניח בשלילה ש-<span class="math inline">\(f\)</span> דיפרנציאבילית ב-<span class="math inline">\(\left( 0, 0 \right)\)</span>, ונסמן ב-<span class="math inline">\(df_0\)</span> את הדיפרנציאל שלה שם. מתקיים <span class="math inline">\(f \left( 0, 0 \right) = 0\)</span>, ולכן הגדרת הדיפרנציאביליות אומרת <span class="math display">\[,f \left( w \right) = df_0 \left( w \right) + o \left( \left\| w \right\| \right)\]</span> כלומר השארית קטנה מסדר גודל מ-<span class="math inline">\(\left\| w \right\|\)</span> עצמו.</p>
-<p>יהי <span class="math inline">\(v \in \mathbb{R}^2\)</span> וקטור כלשהו שאינו אפס, ונציב <span class="math inline">\(w = tv\)</span> עבור <span class="math inline">\(t &gt; 0\)</span> קטן. נחשב את האגף השמאלי ישירות מן הנוסחה של <span class="math inline">\(f\)</span>: <span class="math display">\[.f \left( tv \right) = \sqrt{t^2 \left( v^1 \right)^2 + t^2 \left( v^2 \right)^2} = t \left\| v \right\|\]</span></p>
-<p>מצד שני, לפי דיפרנציאביליות ולינאריות הדיפרנציאל, <span class="math display">\[.f \left( tv \right) = t \cdot df_0 \left( v \right) + o \left( t \right)\]</span></p>
-<p>נשווה, נחלק ב-<span class="math inline">\(t &gt; 0\)</span> ונשאיף <span class="math inline">\(t \to 0^{+}\)</span>. השארית <span class="math inline">\(o \left( t \right)\)</span> מחולקת ב-<span class="math inline">\(t\)</span> שואפת לאפס, ולכן <span class="math display">\[.df_0 \left( v \right) = \left\| v \right\|\]</span></p>
-<p>עתה נחזור על אותו חישוב בדיוק בכיוון הנגדי <span class="math inline">\(-v\)</span>. גם כאן <span class="math display">\[,f \left( t \left( -v \right) \right) = t \left\| -v \right\| = t \left\| v \right\|\]</span> ולכן באותו אופן <span class="math display">\[.df_0 \left( -v \right) = \left\| v \right\|\]</span></p>
-<p>אך <span class="math inline">\(df_0\)</span> היא העתקה <strong>לינארית</strong>, ולכן <span class="math display">\[.df_0 \left( -v \right) = -df_0 \left( v \right) = -\left\| v \right\|\]</span></p>
-<p>קיבלנו <span class="math inline">\(\left\| v \right\| = -\left\| v \right\|\)</span>, כלומר <span class="math inline">\(\left\| v \right\| = 0\)</span>, בסתירה לכך ש-<span class="math inline">\(v \neq 0\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 5: סיכום הסתירה</summary>
-<div class="foldable" title="שלב 5: סיכום הסתירה">
-<p>הראינו שאם <span class="math inline">\(C\)</span> היה משטח רגולרי, הוא היה חייב להיות מקומית גרף מעל מישור <span class="math inline">\(xy\)</span>, ושהפונקציה המתאימה אינה דיפרנציאבילית בראשית. לכן <span class="math inline">\(C\)</span> אינו משטח רגולרי.</p>
-<p>אפשר לתאר את הסתירה גם באופן גיאומטרי. הקירוב הלינארי בכיוון <span class="math inline">\(v\)</span> עולה בשיפור <span class="math inline">\(\left\| v \right\| &gt; 0\)</span>, ולכן בכיוון הנגדי הוא חייב לרדת. אך <span class="math inline">\(f = \sqrt{x^2 + y^2} \geq 0\)</span> בכל נקודה, ולכן אינה יכולה לרדת מתחת לערכה בראשית. במילים פשוטות, לקונוס יש חוד בקודקודו, ולחוד אין מישור משיק.</p>
-<p>נשים לב שהקושי הוא <strong>רק</strong> בראשית. הקבוצה <span class="math inline">\(C \setminus \left\{ \left( 0, 0, 0 \right) \right\}\)</span>, כלומר הקונוס בלי קודקודו, כן משטח רגולרי.</p>
-</div>
-</details>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/cone-not-surface.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:88.0%" alt="הקונוס וחוד הקודקוד שלו"></p>
-</figure>
-</div>
-<p><em>הקונוס <span class="math inline">\(z = \sqrt{x^2+y^2}\)</span>. מימין המשטח, והנקודה המסומנת היא הקודקוד. משמאל החתך במישור <span class="math inline">\(y = 0\)</span>, שהוא <span class="math inline">\(z = \left| x \right|\)</span>, ובו רואים את החוד: השיפוע מימין לראשית הוא <span class="math inline">\(+1\)</span> ומשמאלה <span class="math inline">\(-1\)</span>, ולכן אין ישר משיק אחד.</em></p>
-</section>
-</section>
-</section>
-<section id="מקורות" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="מקורות"><span class="header-section-number">5.3</span> מקורות</h2>
+<section id="מקורות" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="מקורות"><span class="header-section-number">5.2</span> מקורות</h2>
 <ul>
 <li>ניקול, הרצאה 4 בקורס.</li>
 <li>אלעד עטייא, <em>חוברת תרגולים ־ גיאומטריה אנליטית ודיפרנציאלית</em>, 2017, פרק 2.</li>
 <li>ראובן, <em>גיאומטריה אנליטית ודיפרנציאלית</em>, סיכומי הרצאות, 2023.</li>
-<li>Andrew Pressley, <em>Elementary Differential Geometry</em>, 2nd edition, Springer, 2010.</li>
-<li>L. M. Woodward and J. Bolton, <em>A First Course in Differential Geometry: Surfaces in Euclidean Space</em>, Cambridge University Press, 2018.</li>
-<li>Kristopher Tapp, <em>Differential Geometry of Curves and Surfaces</em>, Springer, 2016.</li>
 </ul>
 
 
@@ -1768,6 +1477,9 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./06-Surfaces-and-First-Form.html" class="pagination-link" aria-label="תרגול 6: משטחים, המישור המשיק והתבנית היסודית הראשונה">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">תרגול 6: משטחים, המישור המשיק והתבנית היסודית הראשונה</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
