@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/index.html</loc>
-    <lastmod>2026-08-04T14:30:52.606Z</lastmod>
+    <lastmod>2026-08-23T13:38:18.947Z</lastmod>
   </url>
   <url>
     <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/01-Quadrics.html</loc>
@@ -10,26 +10,30 @@
   </url>
   <url>
     <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/02-Plane-Curves.html</loc>
-    <lastmod>2026-08-17T09:42:28.062Z</lastmod>
+    <lastmod>2026-08-23T13:35:35.967Z</lastmod>
   </url>
   <url>
     <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/03-Curvature-and-Space-Curves.html</loc>
-    <lastmod>2026-08-17T09:42:46.704Z</lastmod>
+    <lastmod>2026-08-23T13:35:40.680Z</lastmod>
   </url>
   <url>
     <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/04-Space-Curves.html</loc>
-    <lastmod>2026-08-19T09:42:36.037Z</lastmod>
+    <lastmod>2026-08-23T13:35:45.160Z</lastmod>
   </url>
   <url>
     <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/05-Einstein-Summation.html</loc>
-    <lastmod>2026-08-19T07:56:24.564Z</lastmod>
+    <lastmod>2026-08-23T13:35:53.382Z</lastmod>
   </url>
   <url>
-    <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/06-Surfaces-and-First-Form.html</loc>
-    <lastmod>2026-08-19T09:54:01.690Z</lastmod>
+    <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/06-Surfaces-and-Tangent-Plane.html</loc>
+    <lastmod>2026-08-23T13:36:01.466Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/07-First-Fundamental-Form.html</loc>
+    <lastmod>2026-08-23T13:02:34.096Z</lastmod>
   </url>
   <url>
     <loc>https://yuval-khachatryan.github.io/Differential-Geometry-Recitations-Summer-2026/Differential-Geometry-Tirgulim.pdf</loc>
-    <lastmod>2026-08-19T09:55:39.720Z</lastmod>
+    <lastmod>2026-08-24T19:33:18.688Z</lastmod>
   </url>
 </urlset>

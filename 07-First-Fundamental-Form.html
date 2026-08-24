@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="יובל חצ׳טריאן-רזיאל">
 
-<title>גיאומטריה דיפרנציאלית — תרגולים</title>
+<title>7&nbsp; תרגול 7: התבנית היסודית הראשונה – גיאומטריה דיפרנציאלית — תרגולים</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,7 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-Quadrics.html" rel="next">
+<link href="./06-Surfaces-and-Tangent-Plane.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -524,6 +523,35 @@ window.addEventListener("message", function (e) {
 });
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -536,7 +564,7 @@ window.addEventListener("message", function (e) {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">פתח דבר</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-First-Fundamental-Form.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">תרגול 7: התבנית היסודית הראשונה</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="חפש" onclick="window.quartoOpenSearch();">
@@ -571,7 +599,7 @@ window.addEventListener("message", function (e) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">פתח דבר</span></a>
   </div>
 </li>
@@ -613,7 +641,7 @@ window.addEventListener("message", function (e) {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-First-Fundamental-Form.html" class="sidebar-item-text sidebar-link">
+  <a href="./07-First-Fundamental-Form.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">תרגול 7: התבנית היסודית הראשונה</span></span></a>
   </div>
 </li>
@@ -627,9 +655,10 @@ window.addEventListener("message", function (e) {
     <h2 id="toc-title">תוכן העניינים</h2>
    
   <ul>
-  <li><a href="#פתח-דבר" id="toc-פתח-דבר" class="nav-link active" data-scroll-target="#פתח-דבר">פתח דבר</a>
+  <li><a href="#התבנית-היסודית-הראשונה" id="toc-התבנית-היסודית-הראשונה" class="nav-link active" data-scroll-target="#התבנית-היסודית-הראשונה"><span class="header-section-number">7.1</span> התבנית היסודית הראשונה</a>
   <ul>
-  <li><a href="#מקורות" id="toc-מקורות" class="nav-link" data-scroll-target="#מקורות">מקורות</a></li>
+  <li><a href="#שימושים-של-התבנית-היסודית-הראשונה" id="toc-שימושים-של-התבנית-היסודית-הראשונה" class="nav-link" data-scroll-target="#שימושים-של-התבנית-היסודית-הראשונה"><span class="header-section-number">7.1.1</span> שימושים של התבנית היסודית הראשונה</a></li>
+  <li><a href="#תרגילים" id="toc-תרגילים" class="nav-link" data-scroll-target="#תרגילים">תרגילים</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -639,19 +668,13 @@ window.addEventListener("message", function (e) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">גיאומטריה דיפרנציאלית — תרגולים</h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">תרגול 7: התבנית היסודית הראשונה</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">כותב</div>
-    <div class="quarto-title-meta-contents">
-             <p>יובל חצ׳טריאן-רזיאל </p>
-          </div>
-  </div>
     
   
     
@@ -662,23 +685,238 @@ window.addEventListener("message", function (e) {
 </header>
 
 
-<section id="פתח-דבר" class="level1 unnumbered">
-<h1 class="unnumbered">פתח דבר</h1>
-<p>מערכי תרגול לקורס בגאומטריה דיפרנציאלית, קיץ 2026, תשפ״ו — 88201.</p>
-<p><strong>מרצה:</strong> ניקול צאירי</p>
-<p><strong>מתרגל:</strong> יובל חצ׳טריאן-רזיאל</p>
-<p><a href="Differential-Geometry-Tirgulim.pdf">הורדת דפי התרגול כקובץ PDF</a></p>
-<section id="מקורות" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="מקורות">מקורות</h2>
-<p>התרגילים והחומר בחוברת מבוססים על המקורות הבאים, או מותאמים מתוכם. הרצאות הקורס הן המקור המרכזי, והן מונחות ברקע לכל אורך החוברת.</p>
-<ul>
-<li>Andrew Pressley, <em>Elementary Differential Geometry</em>, 2nd edition, Springer, 2010.</li>
-<li>L. M. Woodward and J. Bolton, <em>A First Course in Differential Geometry: Surfaces in Euclidean Space</em>, Cambridge University Press, 2018.</li>
-<li>Kristopher Tapp, <em>Differential Geometry of Curves and Surfaces</em>, Springer, 2016.</li>
-<li>אלעד עטייא, <em>חוברת תרגולים ־ גיאומטריה אנליטית ודיפרנציאלית</em>, 2017.</li>
-<li>פרופסור ראובן כהן, <em>גיאומטריה אנליטית ודיפרנציאלית</em>, סיכומי הרצאות, 2023.</li>
-</ul>
-<p><strong>הערות ותיקונים</strong> — נא לשלוח למייל של המתרגל, כפי שמופיע באתר הקורס, או לפתוח issue ב-GitHub.</p>
+<section id="התבנית-היסודית-הראשונה" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="התבנית-היסודית-הראשונה"><span class="header-section-number">7.1</span> התבנית היסודית הראשונה</h2>
+<p>בתרגול הקודם הגדרנו משטח רגולרי ואת המישור המשיק לו. בעזרת התבנית היסודית הראשונה של משטח ניתן לחקור תכונות פנימיות של המשטח, למשל אורכי עקומות, זוויות בין עקומות ושטחים, מבלי להתחשב באופן שבו הוא משוכן במרחב <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+<div id="box-def-first-form" class="thmbox thmbox-definition" title="התבנית היסודית הראשונה">
+<p><strong>הגדרה 7.1.1 — התבנית היסודית הראשונה.</strong></p>
+<p>יהי <span class="math inline">\(S\)</span> משטח רגולרי ותהי <span class="math inline">\(\overline{x} \left( u, v \right)\)</span> פרמטריזציה מקומית. התבנית היסודית הראשונה מוגדרת כתבנית בילינארית על המרחב <span class="math inline">\(T_p \left( S \right)\)</span>.</p>
+<p>פורמלית, תהי <span class="math inline">\(p \in S\)</span> נקודה על המשטח. התבנית היסודית בנקודה <span class="math inline">\(p\)</span> היא ההעתקה <span class="math display">\[,I : T_p \left( S \right) \times T_p \left( S \right) \to \mathbb{R}\]</span> ומוגדרת על ידי המכפלה הסקלרית על המרחב המשיק <span class="math display">\[,I \left( u, v \right) = \left\langle u, v \right\rangle\]</span> כאשר <span class="math inline">\(u, v \in T_p \left( S \right)\)</span>.</p>
+</div>
+<div id="box-def-metric-coefficients" class="thmbox thmbox-definition" title="מקדמי המטריקה">
+<p><strong>הגדרה 7.1.2 — מקדמי המטריקה.</strong></p>
+<p>אם <span class="math inline">\(w = a \overline{x}_u + b \overline{x}_v \in T_p \left( S \right)\)</span>, אזי <span class="math display">\[.I \left( w \right) = I \left( w, w \right) = \left\| w \right\|^2 = a^2 \left\langle \overline{x}_u, \overline{x}_u \right\rangle + 2ab \left\langle \overline{x}_u, \overline{x}_v \right\rangle + b^2 \left\langle \overline{x}_v, \overline{x}_v \right\rangle\]</span></p>
+<p>אם נסמן <span class="math display">\[,g_{11} = \left\langle \overline{x}_u, \overline{x}_u \right\rangle, \qquad g_{12} = g_{21} = \left\langle \overline{x}_u, \overline{x}_v \right\rangle, \qquad g_{22} = \left\langle \overline{x}_v, \overline{x}_v \right\rangle\]</span> נוכל לבטא את התבנית הריבועית באופן הבא: <span class="math display">\[.I \left( w \right) = a^2 g_{11} + 2ab g_{12} + b^2 g_{22}\]</span></p>
+</div>
+<div id="box-def-metric-matrix" class="thmbox thmbox-definition" title="המטריקה הרימנית">
+<p><strong>הגדרה 7.1.3 — המטריקה הרימנית.</strong></p>
+<p>ניתן להציג את התבנית היסודית הראשונה בעזרת מטריצה <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} g_{11} &amp; g_{12} \\ g_{21} &amp; g_{22} \end{pmatrix} = \begin{pmatrix} \left\langle \overline{x}_u, \overline{x}_u \right\rangle &amp; \left\langle \overline{x}_u, \overline{x}_v \right\rangle \\ \left\langle \overline{x}_v, \overline{x}_u \right\rangle &amp; \left\langle \overline{x}_v, \overline{x}_v \right\rangle \end{pmatrix}\]</span> כאשר <span class="math inline">\(\left( g_{ij} \right)\)</span> היא <strong>מטריצת גרם</strong>.</p>
+</div>
+<div id="box-prp-det-metric" class="thmbox thmbox-proposition" title="הדטרמיננטה של המטריקה">
+<p><strong>טענה 7.1.4 — הדטרמיננטה של המטריקה.</strong></p>
+<p>מתקיים <span class="math display">\[,\det \left( g_{ij} \right) = g_{11} g_{22} - g_{12}^2 = \left\| \overline{x}_u \times \overline{x}_v \right\|^2 &gt; 0\]</span> וזאת לפי זהות לגראנז’ <span class="math inline">\(\left\| a \times b \right\|^2 = \left\| a \right\|^2 \left\| b \right\|^2 - \left\langle a, b \right\rangle^2\)</span> שראינו בתרגול 4.</p>
+<p>מכאן שהמטריצה הפיכה. נסמן את ההופכית שלה ב-<span class="math inline">\(\left( g^{ij} \right)\)</span>, ולכן <span class="math display">\[.g^{ij} \cdot g_{jk} = \delta^i_k\]</span></p>
+</div>
+<div id="box-def-ds-squared" class="thmbox thmbox-definition" title="הצגה נוספת של התבנית">
+<p><strong>הגדרה 7.1.5 — הצגה נוספת של התבנית.</strong></p>
+<p>דרך נוספת להציג את התבנית היסודית הראשונה היא <span class="math display">\[.ds^2 = g_{11} du^2 + 2 g_{12} \, du \, dv + g_{22} dv^2\]</span></p>
+<p>אם <span class="math inline">\(\gamma \left( t \right) = \overline{x} \left( u \left( t \right), v \left( t \right) \right)\)</span> היא עקומה על המשטח ו-<span class="math inline">\(s\)</span> הוא פרמטר אורך הקשת שלה, אזי <span class="math display">\[.\left( \frac{ds}{dt} \right)^2 = \left\| \gamma' \left( t \right) \right\|^2 = g_{11} \left( \frac{du}{dt} \right)^2 + 2 g_{12} \frac{du}{dt} \frac{dv}{dt} + g_{22} \left( \frac{dv}{dt} \right)^2\]</span></p>
+</div>
+<section id="שימושים-של-התבנית-היסודית-הראשונה" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="שימושים-של-התבנית-היסודית-הראשונה"><span class="header-section-number">7.1.1</span> שימושים של התבנית היסודית הראשונה</h3>
+<p>התבנית הזו מכילה את כל המידע הנדרש למדידות על המשטח.</p>
+<div id="box-thm-length-on-surface" class="thmbox thmbox-theorem" title="חישוב אורך של עקומה על המשטח">
+<p><strong>משפט 7.1.6 — חישוב אורך של עקומה על המשטח.</strong></p>
+<p>תהי <span class="math inline">\(\gamma \left( t \right) = \overline{x} \left( \alpha^1 \left( t \right), \alpha^2 \left( t \right) \right)\)</span> עקומה על המשטח, ונניח ש-<span class="math inline">\(t \in \left[ a, b \right]\)</span>. האורך של העקומה נתון על ידי <span class="math display">\[.L = \int_a^b \left\| \frac{d}{dt} \gamma \left( t \right) \right\| dt = \int_a^b \sqrt{ \left( \alpha^i \right)' \cdot \left( \alpha^j \right)' g_{ij} } \, dt\]</span></p>
+</div>
+<div id="box-thm-angle-on-surface" class="thmbox thmbox-theorem" title="חישוב זווית בין שתי עקומות">
+<p><strong>משפט 7.1.7 — חישוב זווית בין שתי עקומות.</strong></p>
+<p>אם שתי עקומות נחתכות בנקודה <span class="math inline">\(p_0\)</span> עם וקטורים משיקים <span class="math inline">\(w_1 = \left( a_1, b_1 \right)\)</span> ו-<span class="math inline">\(w_2 = \left( a_2, b_2 \right)\)</span> בבסיס <span class="math inline">\(\left\{ \overline{x}_u, \overline{x}_v \right\}\)</span>, ניתן לחשב את הזווית <span class="math inline">\(\theta\)</span> ביניהם לפי הנוסחה <span class="math display">\[.\cos \left( \theta \right) = \frac{\left\langle w_1, w_2 \right\rangle}{\left\| w_1 \right\| \cdot \left\| w_2 \right\|} = \frac{g_{11} a_1 a_2 + g_{12} \left( a_1 b_2 + a_2 b_1 \right) + g_{22} b_1 b_2}{\sqrt{g_{11} a_1^2 + 2 g_{12} a_1 b_1 + g_{22} b_1^2} \cdot \sqrt{g_{11} a_2^2 + 2 g_{12} a_2 b_2 + g_{22} b_2^2}}\]</span></p>
+</div>
+<div id="box-thm-area-on-surface" class="thmbox thmbox-theorem" title="חישוב שטחים">
+<p><strong>משפט 7.1.8 — חישוב שטחים.</strong></p>
+<p>יהי <span class="math inline">\(R \subset S\)</span> תחום חסום על משטח רגולרי שמוכל ב-<span class="math inline">\(\overline{x} \left( U \right)\)</span>, כאשר <span class="math inline">\(\overline{x} : U \subset \mathbb{R}^2 \to S\)</span>, ויהי <span class="math inline">\(Q = \overline{x}^{-1} \left( R \right)\)</span>. אזי <span class="math display">\[.\iint_Q \left\| \overline{x}_u \times \overline{x}_v \right\| \, du \, dv = \iint_Q \sqrt{\det \left( g_{ij} \right)} \, du \, dv = A \left( R \right)\]</span></p>
+<p>הביטוי <span class="math inline">\(A \left( R \right)\)</span> נקרא <strong>השטח</strong> של <span class="math inline">\(R\)</span>, והביטוי <span class="math display">\[dA = \sqrt{\det \left( g_{ij} \right)} \, du \, dv\]</span> נקרא <strong>אלמנט שטח</strong>.</p>
+</div>
+<div id="box-rem-area-invariant" class="thmbox thmbox-remark" title="השטח אינו תלוי בפרמטריזציה">
+<p><strong>הערה 7.1.9 — השטח אינו תלוי בפרמטריזציה.</strong></p>
+<p>האינטגרל שבנוסחת השטח אינו תלוי בפרמטריזציה. אם <span class="math inline">\(\overline{x}\)</span> ו-<span class="math inline">\(\overline{\overline{x}}\)</span> הן שתי פרמטריזציות שונות של אותו תחום, המעבר ביניהן מתבצע על ידי היעקוביאן של שינוי הקואורדינטות, והוא בדיוק הגורם שמתקן את אלמנט השטח.</p>
+</div>
+<div id="box-prp-first-form-revolution" class="thmbox thmbox-proposition" title="התבנית היסודית של משטח סיבוב">
+<p><strong>טענה 7.1.10 — התבנית היסודית של משטח סיבוב.</strong></p>
+<p>עבור משטח סיבוב <span class="math inline">\(\overline{x} \left( u, v \right) = \left( f \left( u \right) \cos v, f \left( u \right) \sin v, g \left( u \right) \right)\)</span> מתקיים <span class="math display">\[,g_{11} = \left( f' \left( u \right) \right)^2 + \left( g' \left( u \right) \right)^2 = \left\| \gamma' \left( u \right) \right\|^2, \qquad g_{12} = g_{21} = 0, \qquad g_{22} = f^2 \left( u \right)\]</span> כלומר <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} \left( f' \right)^2 + \left( g' \right)^2 &amp; 0 \\ 0 &amp; f^2 \end{pmatrix}\]</span> והמטריקה היא <span class="math display">\[.ds^2 = \left( \left( f' \right)^2 + \left( g' \right)^2 \right) du^2 + f^2 dv^2\]</span></p>
+</div>
+<div id="box-cor-first-form-revolution-natural" class="thmbox thmbox-corollary" title="מקרה פרטי: פרמטריזציה טבעית">
+<p><strong>מסקנה 7.1.11 — מקרה פרטי: פרמטריזציה טבעית.</strong></p>
+<p>אם <span class="math inline">\(\gamma \left( s \right)\)</span> היא עקומה נתונה בפרמטריזציה טבעית, אזי <span class="math inline">\(\left\| \gamma' \left( s \right) \right\|^2 = 1\)</span>, ולכן <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; f^2 \end{pmatrix}\]</span> ואז <span class="math display">\[.ds^2 = du^2 + f^2 dv^2\]</span></p>
+</div>
+<div id="box-cor-orthogonal-coordinate-curves" class="thmbox thmbox-corollary" title="הזווית בין עקומות הקואורדינטות">
+<p><strong>מסקנה 7.1.12 — הזווית בין עקומות הקואורדינטות.</strong></p>
+<p>נחשב את הזווית בין שתי משפחות עקומות הקואורדינטות שהגדרנו בתרגול 6. וקטורי המשיק הם <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span>, ולכן לפי <a href="#box-thm-angle-on-surface">משפט 7.1.7</a> <span class="math display">\[.\cos \theta = \frac{\left\langle \overline{x}_u, \overline{x}_v \right\rangle}{\left\| \overline{x}_u \right\| \left\| \overline{x}_v \right\|} = \frac{g_{12}}{\sqrt{g_{11} g_{22}}}\]</span></p>
+<p>מכאן מסקנה שימושית: עקומות הקואורדינטות ניצבות זו לזו בכל נקודה <strong>אם ורק אם</strong> <span class="math inline">\(g_{12} = 0\)</span>.</p>
+</div>
+</section>
+<section id="תרגילים" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="תרגילים">תרגילים</h3>
+<div id="box-q-ff-plane-cylinder" class="thmbox thmbox-question">
+<p><strong>שאלה 7.1.13.</strong></p>
+<p>חשבו את התבנית היסודית הראשונה של</p>
+<ol type="1">
+<li>המישור, בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, v, 0 \right)\)</span>.</li>
+<li>הגליל ברדיוס <span class="math inline">\(R\)</span>, בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( R \cos v, \; R \sin v, \; u \right)\)</span>.</li>
+</ol>
+<p>מה אפשר להסיק מהשוואת השתיים?</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1: המישור</summary>
+<div class="foldable" title="סעיף 1: המישור">
+<p>נגזור לפי כל אחד מן המשתנים. הרכיב השלישי קבוע ולכן נגזרתו מתאפסת, ומתקבל <span class="math display">\[.\overline{x}_u = \left( 1, 0, 0 \right), \qquad \overline{x}_v = \left( 0, 1, 0 \right)\]</span></p>
+<p>נחשב את שלוש המכפלות הסקלריות בנפרד: <span class="math display">\[,g_{11} = \left\langle \left( 1, 0, 0 \right), \left( 1, 0, 0 \right) \right\rangle = 1 \cdot 1 + 0 \cdot 0 + 0 \cdot 0 = 1\]</span> וכן <span class="math display">\[,g_{12} = \left\langle \left( 1, 0, 0 \right), \left( 0, 1, 0 \right) \right\rangle = 1 \cdot 0 + 0 \cdot 1 + 0 \cdot 0 = 0\]</span> ולבסוף <span class="math display">\[.g_{22} = \left\langle \left( 0, 1, 0 \right), \left( 0, 1, 0 \right) \right\rangle = 0 \cdot 0 + 1 \cdot 1 + 0 \cdot 0 = 1\]</span></p>
+<p>לכן <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}, \qquad ds^2 = du^2 + dv^2\]</span> וזוהי בדיוק משפחת המרחקים האוקלידית המוכרת במישור.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: הגליל</summary>
+<div class="foldable" title="סעיף 2: הגליל">
+<p>נגזור. לפי <span class="math inline">\(u\)</span> רק הרכיב השלישי תלוי ב-<span class="math inline">\(u\)</span>, ולפי <span class="math inline">\(v\)</span> רק שני הראשונים: <span class="math display">\[,\overline{x}_u = \left( 0, 0, 1 \right), \qquad \overline{x}_v = \left( -R \sin v, \; R \cos v, \; 0 \right)\]</span></p>
+<p>נחשב: <span class="math display">\[,g_{11} = 0^2 + 0^2 + 1^2 = 1\]</span> וכן <span class="math display">\[,g_{12} = 0 \cdot \left( -R \sin v \right) + 0 \cdot R \cos v + 1 \cdot 0 = 0\]</span> ולבסוף, תוך שימוש ב-<span class="math inline">\(\sin^2 v + \cos^2 v = 1\)</span>, <span class="math display">\[.g_{22} = \left( -R \sin v \right)^2 + \left( R \cos v \right)^2 + 0^2 = R^2 \sin^2 v + R^2 \cos^2 v = R^2 \left( \sin^2 v + \cos^2 v \right) = R^2\]</span></p>
+<p>לכן <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; R^2 \end{pmatrix}, \qquad ds^2 = du^2 + R^2 dv^2\]</span></p>
+<p>אפשר היה לקצר: הגליל הוא משטח סיבוב עם <span class="math inline">\(f \left( u \right) = R\)</span> ו-<span class="math inline">\(g \left( u \right) = u\)</span>, ולכן לפי <a href="#box-prp-first-form-revolution">טענה 7.1.10</a> מתקבל <span class="math inline">\(g_{11} = 0^2 + 1^2 = 1\)</span> ו-<span class="math inline">\(g_{22} = f^2 = R^2\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מסקנה: המישור והגליל</summary>
+<div class="foldable" title="מסקנה: המישור והגליל">
+<p>עבור <span class="math inline">\(R = 1\)</span> מתקבלת בגליל בדיוק אותה מטריצה כמו במישור. במקרה כזה נאמר שהמשטחים <strong>איזומטריים</strong>, וזה נכון כי אפשר לפרוש גליל למישור מבלי למתוח אותו או לקרוע אותו.</p>
+<p>גם עבור <span class="math inline">\(R \neq 1\)</span> אין הבדל מהותי: ההצבה <span class="math inline">\(\widetilde{v} = R v\)</span> נותנת <span class="math inline">\(ds^2 = du^2 + d\widetilde{v}^2\)</span>, כלומר שוב המטריקה של המישור.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-sphere" class="thmbox thmbox-question">
+<p><strong>שאלה 7.1.14.</strong></p>
+<p>חשבו את התבנית היסודית הראשונה של ספירת היחידה בקואורדינטות ספיריות <span class="math display">\[.\overline{x} \left( u, v \right) = \left( \sin u \cos v, \; \sin u \sin v, \; \cos u \right)\]</span> היכן הפרמטריזציה מפסיקה להיות רגולרית, וכיצד הדבר ניכר במטריקה?</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>חישוב הנגזרות</summary>
+<div class="foldable" title="חישוב הנגזרות">
+<p>נגזור לפי <span class="math inline">\(u\)</span>, כאשר <span class="math inline">\(v\)</span> קבוע: <span class="math display">\[.\overline{x}_u = \left( \cos u \cos v, \; \cos u \sin v, \; -\sin u \right)\]</span></p>
+<p>נגזור לפי <span class="math inline">\(v\)</span>, כאשר <span class="math inline">\(u\)</span> קבוע. הרכיב השלישי אינו תלוי ב-<span class="math inline">\(v\)</span> ולכן נגזרתו מתאפסת: <span class="math display">\[.\overline{x}_v = \left( -\sin u \sin v, \; \sin u \cos v, \; 0 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>חישוב מקדמי המטריקה</summary>
+<div class="foldable" title="חישוב מקדמי המטריקה">
+<p>עבור <span class="math inline">\(g_{11}\)</span> נפתח ונשתמש פעמיים בזהות הפיתגורית: <span class="math display">\[\begin{aligned} g_{11} &amp;= \cos^2 u \cos^2 v + \cos^2 u \sin^2 v + \sin^2 u \\ &amp;= \cos^2 u \left( \cos^2 v + \sin^2 v \right) + \sin^2 u \\ &amp;= \cos^2 u + \sin^2 u = 1. \end{aligned}\]</span></p>
+<p>עבור <span class="math inline">\(g_{12}\)</span> שני המחוברים הראשונים מבטלים זה את זה: <span class="math display">\[\begin{aligned} g_{12} &amp;= \cos u \cos v \cdot \left( -\sin u \sin v \right) + \cos u \sin v \cdot \sin u \cos v + \left( -\sin u \right) \cdot 0 \\ &amp;= -\sin u \cos u \sin v \cos v + \sin u \cos u \sin v \cos v = 0. \end{aligned}\]</span></p>
+<p>ולבסוף <span class="math display">\[.g_{22} = \sin^2 u \sin^2 v + \sin^2 u \cos^2 v + 0 = \sin^2 u \left( \sin^2 v + \cos^2 v \right) = \sin^2 u\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מסקנה והקטבים</summary>
+<div class="foldable" title="מסקנה והקטבים">
+<p>קיבלנו <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \sin^2 u \end{pmatrix}, \qquad ds^2 = du^2 + \sin^2 u \, dv^2\]</span></p>
+<p>התוצאה עקבית עם <a href="#box-cor-first-form-revolution-natural">מסקנה 7.1.11</a>: הספירה היא משטח סיבוב של חצי המעגל <span class="math inline">\(\gamma \left( u \right) = \left( \sin u, 0, \cos u \right)\)</span>, שהוא בפרמטריזציה טבעית, ו-<span class="math inline">\(f \left( u \right) = \sin u\)</span>.</p>
+<p>לפי <a href="#box-prp-det-metric">טענה 7.1.4</a> הדטרמיננטה היא <span class="math inline">\(\det \left( g_{ij} \right) = \sin^2 u\)</span>, והיא מתאפסת עבור <span class="math inline">\(u = 0\)</span> ועבור <span class="math inline">\(u = \pi\)</span>. אלה בדיוק שני הקטבים, ושם הפרמטריזציה הספירית אינה רגולרית: כל הערכים של <span class="math inline">\(v\)</span> נותנים שם את אותה נקודה.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-helicoid" class="thmbox thmbox-question">
+<p><strong>שאלה 7.1.15.</strong></p>
+<p>חשבו את התבנית היסודית הראשונה של ההליקואיד <span class="math display">\[.\overline{x} \left( u, v \right) = \left( v \cos u, \; v \sin u, \; bu \right)\]</span></p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>פתרון</summary>
+<div class="foldable" title="פתרון">
+<p>נגזור: <span class="math display">\[.\overline{x}_u = \left( -v \sin u, \; v \cos u, \; b \right), \qquad \overline{x}_v = \left( \cos u, \; \sin u, \; 0 \right)\]</span></p>
+<p>נחשב את <span class="math inline">\(g_{11}\)</span>: <span class="math display">\[.g_{11} = v^2 \sin^2 u + v^2 \cos^2 u + b^2 = v^2 \left( \sin^2 u + \cos^2 u \right) + b^2 = v^2 + b^2\]</span></p>
+<p>נחשב את <span class="math inline">\(g_{12}\)</span>, ושוב שני המחוברים מבטלים זה את זה: <span class="math display">\[.g_{12} = -v \sin u \cos u + v \cos u \sin u + b \cdot 0 = 0\]</span></p>
+<p>ולבסוף <span class="math display">\[.g_{22} = \cos^2 u + \sin^2 u + 0 = 1\]</span></p>
+<p>לכן <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} v^2 + b^2 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\]</span></p>
+<p>מכיוון ש-<span class="math inline">\(g_{12} = 0\)</span>, לפי <a href="#box-cor-orthogonal-coordinate-curves">מסקנה 7.1.12</a> הישרים היוצרים ניצבים בכל נקודה לעקומות הקואורדינטות האחרות.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>הערה: פרמטריזציה איזותרמית</summary>
+<div class="foldable" title="הערה: פרמטריזציה איזותרמית">
+<p>בפרמטריזציה <span class="math display">\[\widetilde{x} \left( u, v \right) = \left( b \sinh v \cos u, \; b \sinh v \sin u, \; bu \right)\]</span> מתקבל <span class="math inline">\(g_{11} = g_{22} = b^2 \cosh^2 v\)</span> ו-<span class="math inline">\(g_{12} = 0\)</span>. פרמטריזציה שבה <span class="math inline">\(g_{11} = g_{22}\)</span> ו-<span class="math inline">\(g_{12} = 0\)</span> נקראת <strong>איזותרמית</strong>. לפי <a href="#box-thm-angle-on-surface">משפט 7.1.7</a> פרמטריזציה כזו שומרת על זוויות, שכן נוסחת הזווית מצטמצמת לנוסחה האוקלידית הרגילה במישור הפרמטרים.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-torus-area" class="thmbox thmbox-question">
+<p><strong>שאלה 7.1.16.</strong></p>
+<p>יהיו <span class="math inline">\(a &gt; r &gt; 0\)</span> ויהי הטורוס <span class="math display">\[,\overline{x} \left( u, v \right) = \left( \left( a + r \cos u \right) \cos v, \; \left( a + r \cos u \right) \sin v, \; r \sin u \right)\]</span> כאשר <span class="math inline">\(0 &lt; u &lt; 2\pi\)</span> ו-<span class="math inline">\(0 &lt; v &lt; 2\pi\)</span>. חשבו את התבנית היסודית הראשונה שלו, ובעזרתה את שטח הפנים.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: המטריקה</summary>
+<div class="foldable" title="שלב 1: המטריקה">
+<p>הטורוס הוא משטח סיבוב, המתקבל מסיבוב המעגל <span class="math display">\[\gamma \left( u \right) = \left( a + r \cos u, \; 0, \; r \sin u \right)\]</span> סביב ציר <span class="math inline">\(z\)</span>, כלומר <span class="math inline">\(f \left( u \right) = a + r \cos u\)</span> ו-<span class="math inline">\(g \left( u \right) = r \sin u\)</span>.</p>
+<p>נגזור את העקומה היוצרת: <span class="math display">\[,\gamma' \left( u \right) = \left( -r \sin u, \; 0, \; r \cos u \right)\]</span> ולכן <span class="math display">\[.\left\| \gamma' \left( u \right) \right\|^2 = r^2 \sin^2 u + r^2 \cos^2 u = r^2 \left( \sin^2 u + \cos^2 u \right) = r^2\]</span></p>
+<p>לפי <a href="#box-prp-first-form-revolution">טענה 7.1.10</a> מתקבל <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} r^2 &amp; 0 \\ 0 &amp; \left( a + r \cos u \right)^2 \end{pmatrix}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: אלמנט השטח</summary>
+<div class="foldable" title="שלב 2: אלמנט השטח">
+<p>נחשב את הדטרמיננטה. המטריצה אלכסונית, ולכן <span class="math display">\[.\det \left( g_{ij} \right) = r^2 \left( a + r \cos u \right)^2\]</span></p>
+<p>מכיוון ש-<span class="math inline">\(a &gt; r &gt; 0\)</span> מתקיים <span class="math inline">\(a + r \cos u \geq a - r &gt; 0\)</span>, ולכן הביטוי חיובי ואפשר להוציא שורש בלי ערך מוחלט: <span class="math display">\[.dA = \sqrt{\det \left( g_{ij} \right)} \, du \, dv = r \left( a + r \cos u \right) du \, dv\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: האינטגרל</summary>
+<div class="foldable" title="שלב 3: האינטגרל">
+<p>נציב בנוסחת השטח מ<a href="#box-thm-area-on-surface">משפט 7.1.8</a>. המשתנה <span class="math inline">\(v\)</span> אינו מופיע באינטגרנד, ולכן האינטגרציה עליו נותנת גורם <span class="math inline">\(2\pi\)</span>: <span class="math display">\[.A = \int_0^{2\pi} \int_0^{2\pi} r \left( a + r \cos u \right) du \, dv = 2\pi r \int_0^{2\pi} \left( a + r \cos u \right) du\]</span></p>
+<p>נחשב את האינטגרל הפנימי. הקדומה של <span class="math inline">\(a\)</span> היא <span class="math inline">\(au\)</span>, והקדומה של <span class="math inline">\(r \cos u\)</span> היא <span class="math inline">\(r \sin u\)</span>: <span class="math display">\[.\int_0^{2\pi} \left( a + r \cos u \right) du = \Big[ au + r \sin u \Big]_0^{2\pi} = \left( 2\pi a + r \sin 2\pi \right) - \left( 0 + r \sin 0 \right) = 2\pi a\]</span></p>
+<p>המחובר עם הסינוס התאפס, שכן <span class="math inline">\(\sin 2\pi = \sin 0 = 0\)</span>. נציב ונקבל <span class="math display">\[.A = 2\pi r \cdot 2\pi a = 4\pi^2 a r\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
+<div class="foldable" title="בדיקת שפיות">
+<p>התוצאה <span class="math inline">\(4\pi^2 a r = \left( 2\pi a \right) \cdot \left( 2\pi r \right)\)</span> היא בדיוק מכפלת היקפי שני המעגלים: המעגל הגדול ברדיוס <span class="math inline">\(a\)</span> והמעגל הקטן ברדיוס <span class="math inline">\(r\)</span>. זהו משפט פאפוס, ולפיו שטח משטח סיבוב שווה למכפלת אורך העקומה היוצרת בהיקף המעגל שמתאר מרכז המסה שלה.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-length-helix" class="thmbox thmbox-question">
+<p><strong>שאלה 7.1.17.</strong></p>
+<p>על הגליל ברדיוס <span class="math inline">\(R\)</span>, בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( R \cos v, R \sin v, u \right)\)</span>, נתונה העקומה במישור הפרמטרים <span class="math display">\[,\alpha \left( t \right) = \left( ct, \; t \right), \qquad t \in \left[ 0, 2\pi \right]\]</span> כאשר <span class="math inline">\(c &gt; 0\)</span> קבוע. חשבו את אורך העקומה המתאימה על המשטח, פעם בעזרת התבנית היסודית ופעם ישירות ב-<span class="math inline">\(\mathbb{R}^3\)</span>, וּודאו שהתוצאות מתלכדות.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>דרך א: בעזרת התבנית היסודית</summary>
+<div class="foldable" title="דרך א: בעזרת התבנית היסודית">
+<p>מן התרגיל הראשון ידוע ש-<span class="math inline">\(g_{11} = 1\)</span>, <span class="math inline">\(g_{12} = 0\)</span> ו-<span class="math inline">\(g_{22} = R^2\)</span>.</p>
+<p>הנגזרת של העקומה במישור הפרמטרים היא <span class="math display">\[,\alpha' \left( t \right) = \left( c, 1 \right)\]</span> כלומר <span class="math inline">\(\left( \alpha^1 \right)' = c\)</span> ו-<span class="math inline">\(\left( \alpha^2 \right)' = 1\)</span>.</p>
+<p>נציב בנוסחה מ<a href="#box-thm-length-on-surface">משפט 7.1.6</a>. הסכום <span class="math inline">\(\left( \alpha^i \right)' \left( \alpha^j \right)' g_{ij}\)</span> הוא סכום על ארבעה זוגות, אך המחוברים המעורבים מתאפסים שכן <span class="math inline">\(g_{12} = 0\)</span>: <span class="math display">\[.\left( \alpha^i \right)' \left( \alpha^j \right)' g_{ij} = c^2 g_{11} + 2 \cdot c \cdot 1 \cdot g_{12} + 1^2 \cdot g_{22} = c^2 \cdot 1 + 0 + R^2 = c^2 + R^2\]</span></p>
+<p>הביטוי אינו תלוי ב-<span class="math inline">\(t\)</span>, ולכן <span class="math display">\[.L = \int_0^{2\pi} \sqrt{c^2 + R^2} \, dt = 2\pi \sqrt{c^2 + R^2}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>דרך ב: ישירות במרחב</summary>
+<div class="foldable" title="דרך ב: ישירות במרחב">
+<p>נרכיב ונקבל את העקומה במרחב <span class="math display">\[.\gamma \left( t \right) = \overline{x} \left( ct, t \right) = \left( R \cos t, \; R \sin t, \; ct \right)\]</span> זהו בדיוק סליל מעגלי.</p>
+<p>נגזור: <span class="math display">\[,\gamma' \left( t \right) = \left( -R \sin t, \; R \cos t, \; c \right)\]</span> ולכן <span class="math display">\[.\left\| \gamma' \left( t \right) \right\| = \sqrt{R^2 \sin^2 t + R^2 \cos^2 t + c^2} = \sqrt{R^2 + c^2}\]</span></p>
+<p>מכאן <span class="math display">\[,L = \int_0^{2\pi} \sqrt{R^2 + c^2} \, dt = 2\pi \sqrt{R^2 + c^2}\]</span> וזו בדיוק אותה תוצאה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>שתי הדרכים נותנות את אותו מספר, וזו בדיוק הנקודה: התבנית היסודית מכילה את כל המידע הדרוש למדידת אורכים, ואין צורך לצאת אל המרחב העוטף כדי לחשב אותם. יצור שחי על המשטח ומכיר רק את <span class="math inline">\(g_{ij}\)</span> יכול למדוד את האורך הזה בעצמו.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-angle" class="thmbox thmbox-question">
+<p><strong>שאלה 7.1.18.</strong></p>
+<p>יהי הפרבולואיד ההיפרבולי <span class="math inline">\(z = xy\)</span> בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, v, uv \right)\)</span>. חשבו את התבנית היסודית הראשונה, ומצאו את הזווית בין שתי עקומות הקואורדינטות בנקודה <span class="math inline">\(\left( u, v \right) = \left( 1, 1 \right)\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: המטריקה</summary>
+<div class="foldable" title="שלב 1: המטריקה">
+<p>זהו גרף של הפונקציה <span class="math inline">\(g \left( u, v \right) = uv\)</span>, ולכן <span class="math display">\[.\overline{x}_u = \left( 1, 0, v \right), \qquad \overline{x}_v = \left( 0, 1, u \right)\]</span></p>
+<p>נחשב: <span class="math display">\[,g_{11} = 1^2 + 0^2 + v^2 = 1 + v^2\]</span> וכן <span class="math display">\[,g_{12} = 1 \cdot 0 + 0 \cdot 1 + v \cdot u = uv\]</span> ולבסוף <span class="math display">\[.g_{22} = 0^2 + 1^2 + u^2 = 1 + u^2\]</span></p>
+<p>לכן <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} 1 + v^2 &amp; uv \\ uv &amp; 1 + u^2 \end{pmatrix}\]</span></p>
+<p>זו הדוגמה הראשונה שלנו שבה <span class="math inline">\(g_{12} \neq 0\)</span>, ולכן עקומות הקואורדינטות <strong>אינן</strong> ניצבות.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: הזווית בנקודה</summary>
+<div class="foldable" title="שלב 2: הזווית בנקודה">
+<p>נציב <span class="math inline">\(u = v = 1\)</span> ונקבל <span class="math display">\[.g_{11} = 2, \qquad g_{12} = 1, \qquad g_{22} = 2\]</span></p>
+<p>לפי <a href="#box-cor-orthogonal-coordinate-curves">מסקנה 7.1.12</a> <span class="math display">\[.\cos \theta = \frac{g_{12}}{\sqrt{g_{11} g_{22}}} = \frac{1}{\sqrt{2 \cdot 2}} = \frac{1}{2}\]</span></p>
+<p>לכן <span class="math inline">\(\theta = \frac{\pi}{3}\)</span>, כלומר <span class="math inline">\(60\)</span> מעלות.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקה ישירה</summary>
+<div class="foldable" title="בדיקה ישירה">
+<p>אפשר לאמת ישירות. בנקודה <span class="math inline">\(\left( 1, 1 \right)\)</span> מתקבל <span class="math inline">\(\overline{x}_u = \left( 1, 0, 1 \right)\)</span> ו-<span class="math inline">\(\overline{x}_v = \left( 0, 1, 1 \right)\)</span>, ולכן <span class="math display">\[,\left\langle \overline{x}_u, \overline{x}_v \right\rangle = 1 \cdot 0 + 0 \cdot 1 + 1 \cdot 1 = 1\]</span> וכן <span class="math inline">\(\left\| \overline{x}_u \right\| = \left\| \overline{x}_v \right\| = \sqrt{2}\)</span>. מכאן <span class="math inline">\(\cos \theta = \frac{1}{\sqrt{2} \cdot \sqrt{2}} = \frac{1}{2}\)</span>, כנדרש.</p>
+<p>שימו לב שבראשית, כלומר עבור <span class="math inline">\(u = v = 0\)</span>, מתקבל <span class="math inline">\(g_{12} = 0\)</span> ושם כן מתקבלת זווית ישרה.</p>
+</div>
+</details>
+</div>
 
 
 </section>
@@ -1087,11 +1325,11 @@ window.addEventListener("message", function (e) {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./06-Surfaces-and-Tangent-Plane.html" class="pagination-link" aria-label="תרגול 6: משטחים והמישור המשיק">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">תרגול 6: משטחים והמישור המשיק</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-Quadrics.html" class="pagination-link" aria-label="תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
