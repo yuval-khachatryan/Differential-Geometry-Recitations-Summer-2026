@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="he" xml:lang="he" dir="rtl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>8&nbsp; תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס – גיאומטריה דיפרנציאלית — תרגולים</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-First-Fundamental-Form.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "אין תוצאות",
+    "search-matching-documents-text": "מסמכים תואמים",
+    "search-copy-link-title": "העתק קישור לחיפוש",
+    "search-hide-matches-text": "הסתר התאמות נוספות",
+    "search-more-match-text": "התאמה נוספת במסמך זה",
+    "search-more-matches-text": "התאמות נוספות במסמך זה",
+    "search-clear-button-title": "נקה",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "בטל",
+    "search-submit-button-title": "שלח",
+    "search-label": "חפש"
+  }
+}</script>
+<style>
+.todo {
+  color: #8a8a8a;
+  font-style: italic;
+  background: #fafafa;
+  border: 1px dashed #cccccc;
+  border-radius: 4px;
+  padding: 1.2rem 1rem;
+  margin: 0.4rem 0 1.2rem;
+}
+.tf-quiz {
+  margin: 0.6rem 0 1rem;
+}
+.tf-quiz .tf-opt {
+  margin: 0 0 0 0.5rem;
+  padding: 0.35rem 1.4rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.tf-quiz .tf-opt:hover {
+  background: #ececec;
+}
+.tf-quiz .tf-opt.correct {
+  background: #d4edda;
+  border-color: #28a745;
+}
+.tf-quiz .tf-opt.incorrect {
+  background: #f8d7da;
+  border-color: #dc3545;
+}
+.tf-quiz .tf-feedback {
+  margin-top: 0.45rem;
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.set-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.set-quiz .set-label {
+  min-width: 5rem;
+}
+.set-quiz .set-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 12rem;
+}
+.set-quiz .set-input.correct {
+  border-color: #28a745;
+  background: #d4edda;
+}
+.set-quiz .set-input.incorrect {
+  border-color: #dc3545;
+  background: #f8d7da;
+}
+.set-quiz .set-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.set-quiz .set-check:hover {
+  background: #ececec;
+}
+.set-quiz .set-feedback {
+  font-weight: bold;
+  min-height: 1.2em;
+}
+.seq-quiz, .formula-quiz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+.seq-quiz .seq-label, .formula-quiz .seq-label { min-width: 12rem; }
+.seq-quiz .seq-input, .formula-quiz .seq-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  font: inherit;
+  direction: ltr;
+  text-align: left;
+  min-width: 16rem;
+}
+.seq-quiz .seq-input.correct, .formula-quiz .seq-input.correct { border-color: #28a745; background: #d4edda; }
+.seq-quiz .seq-input.incorrect, .formula-quiz .seq-input.incorrect { border-color: #dc3545; background: #f8d7da; }
+.seq-quiz .seq-check, .formula-quiz .seq-check {
+  padding: 0.25rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font: inherit;
+  color: inherit;
+}
+.seq-quiz .seq-check:hover, .formula-quiz .seq-check:hover { background: #ececec; }
+.seq-quiz .seq-feedback, .formula-quiz .seq-feedback { font-weight: bold; min-height: 1.2em; }
+/* Interactive widgets embedded from widgets/<chapter>/*.html.
+   They live in an iframe so their CSS (which styles body/table/button
+   unscoped) cannot leak into the page, and so several copies on one
+   page do not collide on element ids. The height below is a first guess;
+   each widget posts its real height and the listener at the bottom of this
+   file applies it. */
+iframe.widget-frame {
+  display: block;
+  width: 100%;
+  height: 440px;      /* replaced by the widget's own reported height */
+  border: 0;          /* the widget draws its own frame */
+  background: transparent;
+  margin: 1.2rem 0 0;
+}
+/* Inside a .thmsim box the frame sits flush; the box supplies the padding. */
+.thmbox-simulation iframe.widget-frame { margin: 0.5rem 0 0.2rem; }
+.thmbox {
+  border-inline-start: 4px solid #9ca3af;
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  margin: 1rem 0;
+}
+.thmbox > :first-child { margin-top: 0; }
+.thmbox > :last-child { margin-bottom: 0; }
+.thmbox-definition  { border-color: #3b82f6; background: #eff6ff; }
+.thmbox-theorem     { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-proposition { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-lemma       { border-color: #0d9488; background: #f0fdfa; }
+.thmbox-corollary   { border-color: #16a34a; background: #f0fdf4; }
+.thmbox-example     { border-color: #d97706; background: #fffbeb; }
+/* Question: kin to .thmbox-example, so same hue family, one shade deeper. Its
+   solution reuses the proof's slate — a solution is to a question what a proof
+   is to a theorem, and the reader already reads that grey as "the working". */
+.thmbox-question    { border-color: #b45309; background: #fef6e7; }
+.thmbox-solution    { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-solution > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-simulation  { border-color: #7c3aed; background: #f7f5ff; }
+.thmbox-proof       { border-color: #94a3b8; background: #f1f5f9; }
+.thmbox-proof > p:first-child > strong { font-weight: 600; color: #64748b; }
+.thmbox-remark      { border-color: #cbd5e1; background: #f8fafc; }
+.thmbox-remark > p:first-child > strong { font-weight: 600; color: #64748b; }
+/* ---------------------------------------------------------------------------
+   Math must never inherit the page's RTL direction. <html dir="rtl"> makes the
+   whole document a right-to-left bidi context, and two things go wrong inside it:
+
+   1. The renderer's own output boxes lay out right-to-left, so a formula mixed
+      into a Hebrew sentence reads backwards.
+   2. Until MathJax runs, the page literally contains the raw source \( ... \).
+      If the CDN is slow or unreachable that source is what stays on screen, and
+      the bidi algorithm reorders it -- the same failure the widgets have with
+      KaTeX (see mathrender.js).
+
+   `unicode-bidi: isolate` makes every formula its own bidi context: it can
+   neither be reordered by the Hebrew around it nor reorder that Hebrew.
+   --------------------------------------------------------------------------- */
+span.math,
+mjx-container,
+.katex,
+.katex-display {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+mjx-container *,
+.katex * {
+  direction: ltr;
+}
+
+/* Keep inline math on one line. This backs up the MathJax linebreak config
+   below; see the comment there for why v4 needs it at all. Display math is
+   left alone -- MathJax gives it its own scroll box. */
+mjx-container:not([display="true"]),
+.katex:not(.katex-display) {
+  white-space: nowrap;
+}
+
+/* Optional box (.optional): foldable, collapsed by default; same gray look as .extra,
+   but the gray bar is the clickable <summary>. */
+details.thmoptional {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+details.thmoptional > summary {
+  background: #d1d5db;
+  color: #374151;
+  font-weight: 700;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+}
+details.thmoptional[open] > summary { border-bottom: 1px solid #9ca3af; }
+details.thmoptional > .optional { padding: 0.7rem 0.9rem; }
+details.thmoptional > .optional > :first-child { margin-top: 0; }
+details.thmoptional > .optional > :last-child { margin-bottom: 0; }
+/* .foldable: hidden calculations / derivations. Distinct from .optional (which is a
+   whole gray-boxed aside) — this is a light inline disclosure inside the running text. */
+details.thmfoldable {
+  margin: 1rem 0;
+  border-inline-start: 3px solid #cbd5e1;
+  padding-inline-start: 0.8rem;
+}
+details.thmfoldable > summary {
+  cursor: pointer;
+  color: #475569;
+  font-weight: 600;
+}
+details.thmfoldable[open] > summary { margin-bottom: 0.5rem; }
+details.thmcollapse { margin: 1rem 0; }
+details.thmcollapse > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #475569;
+  padding: 0.2rem 0;
+}
+details.thmcollapse[open] > summary { margin-bottom: 0.4rem; }
+/* Enrichment box (.extra): non-foldable, gray box; the section heading becomes a gray
+   header bar. Quarto merges the div into <section class="... extra">, so we style .extra. */
+.extra {
+  border: 1px solid #9ca3af;
+  border-radius: 0;
+  margin: 1.5rem 0;
+  background: #ffffff;
+  padding: 0.7rem 0.9rem;
+}
+.extra > h2, .extra > h3, .extra > .extra-title {
+  background: #d1d5db;
+  color: #374151;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: -0.7rem -0.9rem 0.8rem;
+  padding: 0.45rem 0.8rem;
+  border-bottom: 1px solid #9ca3af;
+}
+.extra > :last-child { margin-bottom: 0; }
+</style>
+<script>
+/* ---------------------------------------------------------------------------
+   MathJax line breaking.
+
+   Quarto now loads mathjax@4, and v4 switched on automatic line breaking that
+   v3 did not do:
+
+     * inline math may be broken at a relation or a binary operator, so a short
+       formula such as \( \phi : U \to V \) comes out split after the U;
+     * display math wider than the column is broken instead of being left to
+       run on.
+
+   Inside an RTL paragraph a break in the middle of a formula does not read as
+   a wrap, it reads as a mistake. So turn the AUTOMATIC breaking off:
+   `linebreaks.inline = false` for inline math, and `displayOverflow = scroll`
+   so that over-wide display math gets a scroll box rather than being chopped.
+
+   Breaks we wrote ourselves are unaffected: `\\` inside aligned/cases/matrix
+   still starts a new row, which is the "unless specifically required" case.
+
+   Both `output` and `chtml` are set because v4 accepts these keys on the
+   generic output block and on the specific output jax, and tex-chtml.js loads
+   CHTML. The more specific one wins; setting both costs nothing.
+
+   This has to run before the MathJax script does. That script carries `defer`,
+   so it runs after parsing, while this inline script runs during parsing --
+   hence anywhere in the head is early enough.
+   --------------------------------------------------------------------------- */
+window.MathJax = {
+  output: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  },
+  chtml: {
+    displayOverflow: "scroll",
+    linebreaks: { inline: false }
+  }
+};
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".tf-quiz").forEach(function (quiz) {
+    var correct = quiz.getAttribute("data-correct");
+    var feedback = quiz.querySelector(".tf-feedback");
+    quiz.querySelectorAll(".tf-opt").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        quiz.querySelectorAll(".tf-opt").forEach(function (b) {
+          b.classList.remove("correct", "incorrect");
+        });
+        if (btn.getAttribute("data-val") === correct) {
+          btn.classList.add("correct");
+          if (feedback) feedback.textContent = "✓ נכון!";
+        } else {
+          btn.classList.add("incorrect");
+          if (feedback) feedback.textContent = "✗ לא מדויק — נסו שוב, או פתחו את הפתרון.";
+        }
+      });
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function normSet(str) {
+    if (!str) return [];
+    return Array.from(new Set(
+      str.split(/[\s,;]+/).filter(function (s) { return s.length; }).map(Number)
+    )).filter(function (n) { return !Number.isNaN(n); }).sort(function (a, b) { return a - b; });
+  }
+  function eqSet(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) { if (a[i] !== b[i]) return false; }
+    return true;
+  }
+  document.querySelectorAll(".set-quiz").forEach(function (q) {
+    var answer = normSet(q.getAttribute("data-answer"));
+    var input = q.querySelector(".set-input");
+    var feedback = q.querySelector(".set-feedback");
+    var btn = q.querySelector(".set-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSet(normSet(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Evaluate one entered term as arithmetic (whitelisted chars only: digits + - * / ^ ( ) . )
+  function evalTerm(s) {
+    s = String(s).trim();
+    if (!s) return null;
+    if (!/^[0-9+\-*/^().\s]+$/.test(s)) return null;
+    try {
+      var v = Function('"use strict"; return (' + s.replace(/\^/g, "**") + ');')();
+      return (typeof v === "number" && isFinite(v)) ? v : null;
+    } catch (e) { return null; }
+  }
+  function parseSeq(str) { return String(str || "").split(",").map(evalTerm); }
+  function eqSeq(a, b) {
+    if (a.length !== b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] == null || b[i] == null || Math.abs(a[i] - b[i]) > 1e-9) return false;
+    }
+    return true;
+  }
+  document.querySelectorAll(".seq-quiz").forEach(function (q) {
+    var answer = parseSeq(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      if (eqSeq(parseSeq(input.value), answer)) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Build n -> value from a formula in n (whitelisted: digits, n, + - * / ^ ! ( ) . )
+  function makeFormula(s) {
+    s = String(s || "").trim();
+    if (!s || !/^[0-9n+\-*/^!().\s]+$/.test(s)) return null;
+    s = s.replace(/(\d)\s*([n(])/g, "$1*$2")             // 2n, 2(  -> 2*n, 2*(
+         .replace(/([n)])\s*([n(])/g, "$1*$2")           // )n, )(, n(  -> insert *
+         .replace(/(\([^()]*\)|\d+|n)!/g, "fact($1)")    // n!, 5!, (n+1)!  -> fact(...)
+         .replace(/\^/g, "**");
+    try {
+      var f = Function("n", '"use strict"; var fact=function(k){k=Math.round(k);var r=1;for(var i=2;i<=k;i++)r*=i;return r;}; return (' + s + ");");
+      var t = f(1);
+      return (typeof t === "number" && isFinite(t)) ? f : null;
+    } catch (e) { return null; }
+  }
+  function parseTargets(str) {
+    return String(str || "").split(",").map(function (t) {
+      t = t.trim();
+      if (!/^-?[0-9]+(?:\/[0-9]+)?$/.test(t)) return NaN;
+      var p = t.split("/");
+      return p.length === 2 ? Number(p[0]) / Number(p[1]) : Number(p[0]);
+    });
+  }
+  document.querySelectorAll(".formula-quiz").forEach(function (q) {
+    var targets = parseTargets(q.getAttribute("data-answer"));
+    var input = q.querySelector(".seq-input");
+    var feedback = q.querySelector(".seq-feedback");
+    var btn = q.querySelector(".seq-check");
+    function check() {
+      input.classList.remove("correct", "incorrect");
+      var f = makeFormula(input.value), ok = !!f;
+      for (var i = 0; ok && i < targets.length; i++) {
+        var v; try { v = f(i + 1); } catch (e) { ok = false; break; }
+        if (typeof v !== "number" || !isFinite(v) || Math.abs(v - targets[i]) > 1e-9) ok = false;
+      }
+      if (ok) {
+        input.classList.add("correct");
+        if (feedback) feedback.textContent = "✓ נכון!";
+      } else {
+        input.classList.add("incorrect");
+        if (feedback) feedback.textContent = "✗ נסו שוב";
+      }
+    }
+    if (btn) btn.addEventListener("click", check);
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") check(); });
+  });
+});
+</script>
+<script>
+// Widgets embedded from widgets/<chapter>/ report their own height, so the
+// iframe does not need a hard-coded one (which breaks on narrow screens,
+// where the control panel stacks above the plot).
+window.addEventListener("message", function (e) {
+  var d = e.data;
+  if (!d || d.type !== "widget-height" || typeof d.height !== "number") return;
+  var frames = document.querySelectorAll("iframe.widget-frame");
+  for (var i = 0; i < frames.length; i++) {
+    if (frames[i].contentWindow === e.source) {
+      frames[i].style.height = Math.max(320, Math.min(2000, d.height)) + "px";
+      return;
+    }
+  }
+});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08-Second-Fundamental-Form.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="חפש" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">גיאומטריה דיפרנציאלית — תרגולים</a> 
+        <div class="sidebar-tools-main">
+    <a href="./Differential-Geometry-Tirgulim.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="הצג/הסתר מצב קריאה">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="חפש"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">פתח דבר</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Quadrics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">תרגול 1: סיווג עקומות ומשטחים ממעלה שנייה</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Plane-Curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">תרגול 2: גיאומטריה דיפרנציאלית של עקומות במישור</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Curvature-and-Space-Curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">תרגול 3: עקמומיות בפרמטריזציה כללית, המעגל המשיק והאוולוט</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Space-Curves.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">תרגול 4: עקומות במרחב</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Einstein-Summation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">תרגול 5: סכימת איינשטיין</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Surfaces-and-Tangent-Plane.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">תרגול 6: משטחים והמישור המשיק</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-First-Fundamental-Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">תרגול 7: התבנית היסודית הראשונה</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-Second-Fundamental-Form.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">תוכן העניינים</h2>
+   
+  <ul>
+  <li><a href="#העתקת-גאוס" id="toc-העתקת-גאוס" class="nav-link active" data-scroll-target="#העתקת-גאוס"><span class="header-section-number">8.1</span> העתקת גאוס</a></li>
+  <li><a href="#אופרטור-הצורה" id="toc-אופרטור-הצורה" class="nav-link" data-scroll-target="#אופרטור-הצורה"><span class="header-section-number">8.2</span> אופרטור הצורה</a></li>
+  <li><a href="#התבנית-היסודית-השנייה" id="toc-התבנית-היסודית-השנייה" class="nav-link" data-scroll-target="#התבנית-היסודית-השנייה"><span class="header-section-number">8.3</span> התבנית היסודית השנייה</a></li>
+  <li><a href="#עקמומיות-גאוס-והעקמומיות-הממוצעת" id="toc-עקמומיות-גאוס-והעקמומיות-הממוצעת" class="nav-link" data-scroll-target="#עקמומיות-גאוס-והעקמומיות-הממוצעת"><span class="header-section-number">8.4</span> עקמומיות גאוס והעקמומיות הממוצעת</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="העתקת-גאוס" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="העתקת-גאוס"><span class="header-section-number">8.1</span> העתקת גאוס</h2>
+<p>עבור עקומות ראינו שחישוב וקטור הנורמל מאפשר לחשב את העקמומיות. נחיל עתה את אותו עקרון על משטחים: נרצה למדוד כמה מהר המשטח <span class="math inline">\(M\)</span> מתרחק מהמישור המשיק <span class="math inline">\(T_p \left( M \right)\)</span> בסביבת הנקודה <span class="math inline">\(p\)</span>. הכלי לכך הוא העתקה הרושמת בכל נקודה את הכיוון שאליו המשטח פונה.</p>
+<div id="box-def-gauss-map" class="thmbox thmbox-definition" title="העתקת גאוס">
+<p><strong>הגדרה 8.1.1 — העתקת גאוס.</strong></p>
+<p>יהי <span class="math inline">\(M \subseteq \mathbb{R}^3\)</span> משטח חלק ואוריינטבילי, ויהי <span class="math inline">\(N : M \to \mathbb{R}^3\)</span> שדה נורמל יחידה חלק, כלומר לכל <span class="math inline">\(p \in M\)</span> מתקיים <span class="math display">\[.\left\| N \left( p \right) \right\| = 1\]</span></p>
+<p>כל ערך של <span class="math inline">\(N\)</span> הוא וקטור יחידה, ולכן אפשר לקרוא את <span class="math inline">\(N\)</span> כהעתקה אל ספירת היחידה <span class="math display">\[,S^2 = \left\{ x \in \mathbb{R}^3 : \left\| x \right\| = 1 \right\}\]</span> ואז ההעתקה <span class="math display">\[N : M \to S^2, \qquad p \mapsto N \left( p \right)\]</span> נקראת <strong>העתקת גאוס</strong> של <span class="math inline">\(M\)</span>.</p>
+<p>בפרמטריזציה מקומית <span class="math inline">\(\overline{x} \left( u, v \right)\)</span> היא נתונה על ידי <span class="math display">\[,N = \frac{\overline{x}_u \times \overline{x}_v}{\left\| \overline{x}_u \times \overline{x}_v \right\|}\]</span> והמכנה אינו מתאפס בדיוק משום שהפרמטריזציה רגולרית. יש בדיוק שתי בחירות אפשריות, <span class="math inline">\(N\)</span> ו-<span class="math inline">\(-N\)</span>.</p>
+</div>
+<div id="box-rem-gauss-picture" class="thmbox thmbox-remark" title="איך לדמיין את ההעתקה">
+<p><strong>הערה 8.1.2 — איך לדמיין את ההעתקה.</strong></p>
+<p>בהינתן <span class="math inline">\(p\)</span>, ניקח את הוקטור <span class="math inline">\(N \left( p \right)\)</span>, נזיז את זנבו אל הראשית, ונסמן היכן ראשו נוחת על <span class="math inline">\(S^2\)</span>. הסימון הזה הוא <span class="math inline">\(N \left( p \right)\)</span> כנקודה על הספירה.</p>
+<p>כלומר העתקת גאוס רושמת את <strong>הכיוון</strong> של המישור המשיק ב-<span class="math inline">\(p\)</span> ותו לא: שתי נקודות שהמישורים המשיקים בהן מקבילים והנורמלים בהן מצביעים לאותו כיוון, נשלחות לאותה נקודה על הספירה.</p>
+</div>
+<div id="box-rem-gauss-images" class="thmbox thmbox-remark" title="שלוש תמונות, בלי חישוב">
+<p><strong>הערה 8.1.3 — שלוש תמונות, בלי חישוב.</strong></p>
+<ol type="1">
+<li><strong>מישור.</strong> הנורמל <span class="math inline">\(N\)</span> <strong>קבוע</strong>, כלומר הוא אותו וקטור בכל נקודה. לכן התמונה שלו על ספירת היחידה מתכווצת לנקודה אחת.</li>
+<li><strong>גליל</strong> שכל היוצרים שלו מקבילים לכיוון קבוע <span class="math inline">\(d\)</span>. הנורמל ניצב ליוצרים בכל נקודה, ולכן <span class="math inline">\(N \left( M \right)\)</span> מוכלת ב<strong>מעגל הגדול</strong> <span class="math inline">\(S^2 \cap d^{\perp}\)</span>.</li>
+<li><strong>ספירת היחידה.</strong> מתקיים <span class="math inline">\(N \left( p \right) = \pm p\)</span>, ולכן העתקת גאוס היא הזהות או ההעתקה האנטיפודלית, ו-<span class="math inline">\(N \left( M \right)\)</span> היא <strong>כל</strong> <span class="math inline">\(S^2\)</span>.</li>
+</ol>
+<p>נקודה, עקומה, ספירה שלמה. זהו כבר מדד גס לכמה המשטח מתעקם: ככל שהתמונה מכסה חלק גדול יותר של <span class="math inline">\(S^2\)</span>, כך המישור המשיק נאלץ להסתובב יותר. בהמשך התרגול נהפוך את התצפית הזו למשפט.</p>
+</div>
+<iframe class="widget-frame" src="widgets/ch08/gauss-map.html" loading="lazy" title="העתקת גאוס: המשטח וספירת היחידה"></iframe>
+<div id="box-q-gauss-paraboloid" class="thmbox thmbox-question">
+<p><strong>שאלה 8.1.4.</strong></p>
+<p>יהי <span class="math inline">\(M\)</span> הפרבולואיד האליפטי <span class="math inline">\(z = x^2 + y^2\)</span>, בפרמטריזציה <span class="math display">\[.\overline{x} \left( u, v \right) = \left( u, \; v, \; u^2 + v^2 \right)\]</span></p>
+<ol type="1">
+<li>חשבו את העתקת גאוס <span class="math inline">\(N\)</span>.</li>
+<li>תארו את התמונה <span class="math inline">\(N \left( M \right) \subseteq S^2\)</span>.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: הנגזרות החלקיות</summary>
+<div class="foldable" title="שלב 1: הנגזרות החלקיות">
+<p>נגזור לפי כל אחד מן המשתנים. שני הרכיבים הראשונים נותנים <span class="math inline">\(1\)</span> ו-<span class="math inline">\(0\)</span> או להפך, והרכיב השלישי הוא <span class="math inline">\(u^2 + v^2\)</span>: <span class="math display">\[.\overline{x}_u = \left( 1, \; 0, \; 2u \right), \qquad \overline{x}_v = \left( 0, \; 1, \; 2v \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: המכפלה הוקטורית</summary>
+<div class="foldable" title="שלב 2: המכפלה הוקטורית">
+<p>נחשב לפי פיתוח הדטרמיננטה <span class="math display">\[.\overline{x}_u \times \overline{x}_v = \begin{vmatrix} \hat{i} &amp; \hat{j} &amp; \hat{k} \\ 1 &amp; 0 &amp; 2u \\ 0 &amp; 1 &amp; 2v \end{vmatrix}\]</span></p>
+<p>נחשב רכיב־רכיב. הרכיב הראשון הוא <span class="math display">\[,0 \cdot 2v - 2u \cdot 1 = -2u\]</span> הרכיב השני הוא, עם סימן מינוס לפי כלל הפיתוח, <span class="math display">\[,- \left( 1 \cdot 2v - 2u \cdot 0 \right) = -2v\]</span> והרכיב השלישי הוא <span class="math display">\[.1 \cdot 1 - 0 \cdot 0 = 1\]</span></p>
+<p>לכן <span class="math display">\[.\overline{x}_u \times \overline{x}_v = \left( -2u, \; -2v, \; 1 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הנורמה</summary>
+<div class="foldable" title="שלב 3: הנורמה">
+<p>נחשב <span class="math display">\[.\left\| \overline{x}_u \times \overline{x}_v \right\| = \sqrt{\left( -2u \right)^2 + \left( -2v \right)^2 + 1^2} = \sqrt{4u^2 + 4v^2 + 1}\]</span></p>
+<p>הביטוי שתחת השורש הוא לפחות <span class="math inline">\(1\)</span>, ולכן אינו מתאפס לעולם והפרמטריזציה רגולרית בכל נקודה, כמתבקש מגרף של פונקציה חלקה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: העתקת גאוס</summary>
+<div class="foldable" title="שלב 4: העתקת גאוס">
+<p>נחלק בנורמה ונקבל <span class="math display">\[.N \left( u, v \right) = \frac{\overline{x}_u \times \overline{x}_v}{\left\| \overline{x}_u \times \overline{x}_v \right\|} = \frac{1}{\sqrt{4u^2 + 4v^2 + 1}} \left( -2u, \; -2v, \; 1 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: התמונה מוכלת בחצי הספירה העליון</summary>
+<div class="foldable" title="שלב 5: התמונה מוכלת בחצי הספירה העליון">
+<p>נסמן <span class="math inline">\(N = \left( N_1, N_2, N_3 \right)\)</span>. הרכיב השלישי הוא <span class="math display">\[,N_3 = \frac{1}{\sqrt{4u^2 + 4v^2 + 1}} &gt; 0\]</span> והוא חיובי לכל <span class="math inline">\(\left( u, v \right)\)</span>, שכן שורש של מספר חיובי הוא חיובי. לכן <span class="math display">\[.N \left( M \right) \subseteq \left\{ w \in S^2 : w_3 &gt; 0 \right\}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 6: כל נקודה כזו מתקבלת</summary>
+<div class="foldable" title="שלב 6: כל נקודה כזו מתקבלת">
+<p>יהי <span class="math inline">\(w = \left( w_1, w_2, w_3 \right) \in S^2\)</span> עם <span class="math inline">\(w_3 &gt; 0\)</span>. השוואת הרכיב הראשון והשלישי בשלב 4 מציעה את הבחירה <span class="math display">\[,u = -\frac{w_1}{2 w_3}, \qquad v = -\frac{w_2}{2 w_3}\]</span> ונבדוק שהיא אכן עובדת. עם הערכים האלה <span class="math display">\[,\left( -2u, \; -2v, \; 1 \right) = \left( \frac{w_1}{w_3}, \; \frac{w_2}{w_3}, \; 1 \right) = \frac{1}{w_3} \left( w_1, \; w_2, \; w_3 \right)\]</span> וזוהי כפולה <strong>חיובית</strong> של <span class="math inline">\(w\)</span>, שכן <span class="math inline">\(w_3 &gt; 0\)</span>.</p>
+<p>נרמול של כפולה חיובית של וקטור יחידה מחזיר את הוקטור עצמו, ולכן <span class="math inline">\(N \left( u, v \right) = w\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מסקנה</summary>
+<div class="foldable" title="מסקנה">
+<p>קיבלנו ש-<span class="math inline">\(N \left( M \right)\)</span> היא בדיוק חצי הספירה העליון הפתוח, והעתקת גאוס היא חד־חד ערכית ועל אליו, שכן שלב 6 משחזר את <span class="math inline">\(\left( u, v \right)\)</span> באופן יחיד מתוך <span class="math inline">\(w\)</span>.</p>
+<p>הקוטב הצפוני <span class="math inline">\(\left( 0, 0, 1 \right)\)</span> נמצא בתמונה, ומתקבל בקודקוד <span class="math inline">\(u = v = 0\)</span>. קו המשווה אינו בתמונה: נקודה עליו דורשת <span class="math inline">\(w_3 = 0\)</span>, כלומר מישור משיק אנכי, ולפרבולואיד הזה אין מישור משיק כזה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
+<div class="foldable" title="בדיקת שפיות">
+<p>בקודקוד הנורמל הוא <span class="math inline">\(\left( 0, 0, 1 \right)\)</span> ומצביע ישר למעלה, החוצה מתחתית הקערה, וזה מתאים לאוריינטציה שבחרנו. כאשר <span class="math inline">\(u^2 + v^2 \to \infty\)</span> המשטח נעשה תלול יותר, <span class="math inline">\(N_3 \to 0\)</span>, והתמונה מתקרבת אל קו המשווה בלי להגיע אליו. האוריינטציה האחרת, <span class="math inline">\(-N\)</span>, נותנת את חצי הספירה <strong>התחתון</strong> הפתוח.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>לתמונת גאוס כאן יש <strong>שטח</strong> חיובי, בשונה מן המישור, שתמונתו נקודה, ומן הגליל, שתמונתו עקומה, כפי שראינו ב<a href="#box-rem-gauss-images">הערה 8.1.3</a>. בהמשך התרגול זה יתורגם לאמירה שעקמומיות גאוס של הפרבולואיד חיובית בכל נקודה, בעוד שעל המישור ועל הגליל היא מתאפסת.</p>
+<p>בסימולציה שלמעלה אפשר לבחור <strong>פרבולואיד</strong> ולראות את חצי הספירה הפתוח נצבע, ואת התמונה מתקרבת אל קו המשווה ככל שמתרחקים מן הקודקוד.</p>
+</div>
+</details>
+</div>
+</section>
+<section id="אופרטור-הצורה" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="אופרטור-הצורה"><span class="header-section-number">8.2</span> אופרטור הצורה</h2>
+<p>העתקת גאוס רושמת את הכיוון שאליו המשטח פונה. מה שאנחנו רוצים באמת הוא כמה מהר הכיוון הזה משתנה, ולכן נגזור אותה.</p>
+<div id="box-def-differential-gauss" class="thmbox thmbox-definition" title="הדיפרנציאל של העתקת גאוס">
+<p><strong>הגדרה 8.2.1 — הדיפרנציאל של העתקת גאוס.</strong></p>
+<p>ההעתקה <span class="math inline">\(N : M \to S^2\)</span> היא העתקה חלקה בין שני משטחים, ולכן בכל נקודה <span class="math inline">\(p\)</span> יש לה דיפרנציאל <span class="math display">\[.dN_p : T_p \left( M \right) \to T_{N \left( p \right)} \left( S^2 \right)\]</span></p>
+<p>המישור המשיק ל-<span class="math inline">\(S^2\)</span> בנקודה <span class="math inline">\(q\)</span> הוא המישור העובר דרך הראשית וניצב ל-<span class="math inline">\(q\)</span>. עבור <span class="math inline">\(q = N \left( p \right)\)</span> זהו המישור הניצב ל-<span class="math inline">\(N \left( p \right)\)</span>, כלומר בדיוק <span class="math inline">\(T_p \left( M \right)\)</span>. לכן הדיפרנציאל הוא העתקה לינארית מן המישור המשיק <strong>אל עצמו</strong>, <span class="math display">\[.dN_p : T_p \left( M \right) \to T_p \left( M \right)\]</span></p>
+</div>
+<div id="box-def-shape-operator" class="thmbox thmbox-definition" title="אופרטור הצורה">
+<p><strong>הגדרה 8.2.2 — אופרטור הצורה.</strong></p>
+<p><strong>אופרטור הצורה</strong> בנקודה <span class="math inline">\(p\)</span> הוא <span class="math display">\[.S_p = -dN_p : T_p \left( M \right) \to T_p \left( M \right)\]</span></p>
+<p>סימן המינוס הוא מוסכמה, והוא חוסך סימני מינוס בנוסחאות שיבואו בהמשך.</p>
+</div>
+<div id="box-rem-shape-meaning" class="thmbox thmbox-remark" title="מה מודד אופרטור הצורה">
+<p><strong>הערה 8.2.3 — מה מודד אופרטור הצורה.</strong></p>
+<p>הביטוי <span class="math inline">\(dN_p \left( v \right)\)</span> הוא הנגזרת הכיוונית של <span class="math inline">\(N\)</span> בכיוון <span class="math inline">\(v\)</span>: ניקח עקומה <span class="math inline">\(\gamma\)</span> על <span class="math inline">\(M\)</span> עם <span class="math inline">\(\gamma \left( 0 \right) = p\)</span> ו-<span class="math inline">\(\gamma' \left( 0 \right) = v\)</span>, ונגזור את <span class="math inline">\(N \left( \gamma \left( t \right) \right)\)</span> בנקודה <span class="math inline">\(t = 0\)</span>.</p>
+<p>לכן <span class="math inline">\(S_p \left( v \right)\)</span> הוא הקצב שבו הנורמל נוטה כאשר יוצאים מ-<span class="math inline">\(p\)</span> בכיוון <span class="math inline">\(v\)</span>, עם סימן הפוך.</p>
+</div>
+<div id="box-rem-shape-in-coordinates" class="thmbox thmbox-remark" title="בקואורדינטות">
+<p><strong>הערה 8.2.4 — בקואורדינטות.</strong></p>
+<p>עבור <span class="math inline">\(\gamma \left( t \right) = \overline{x} \left( u \left( t \right), v \left( t \right) \right)\)</span> כלל השרשרת נותן <span class="math display">\[,\frac{d}{dt} N \left( u \left( t \right), v \left( t \right) \right) \bigg|_{t = 0} = N_u \, u' \left( 0 \right) + N_v \, v' \left( 0 \right)\]</span> ולכן על הבסיס <span class="math inline">\(\left\{ \overline{x}_u, \overline{x}_v \right\}\)</span> מתקיים <span class="math display">\[,dN_p \left( \overline{x}_u \right) = N_u, \qquad dN_p \left( \overline{x}_v \right) = N_v\]</span> כלומר <span class="math display">\[.S_p \left( \overline{x}_u \right) = -N_u, \qquad S_p \left( \overline{x}_v \right) = -N_v\]</span></p>
+</div>
+<p>שתי הטענות הבאות הוכחו בהרצאה, ונשתמש בשתיהן שוב ושוב.</p>
+<div id="box-lem-normal-derivatives" class="thmbox thmbox-lemma" title="הנגזרות של הנורמל">
+<p><strong>למה 8.2.5 — הנגזרות של הנורמל.</strong></p>
+<p>בכל פרמטריזציה מתקיים <span class="math display">\[,\left\langle N_u, \overline{x}_u \right\rangle = -\left\langle N, \overline{x}_{uu} \right\rangle, \qquad \left\langle N_v, \overline{x}_v \right\rangle = -\left\langle N, \overline{x}_{vv} \right\rangle\]</span> וכן <span class="math display">\[.\left\langle N_u, \overline{x}_v \right\rangle = \left\langle N_v, \overline{x}_u \right\rangle = -\left\langle N, \overline{x}_{uv} \right\rangle\]</span></p>
+</div>
+<div id="box-prp-self-adjoint" class="thmbox thmbox-proposition" title="אופרטור הצורה צמוד לעצמו">
+<p><strong>טענה 8.2.6 — אופרטור הצורה צמוד לעצמו.</strong></p>
+<p>לכל <span class="math inline">\(w_1, w_2 \in T_p \left( M \right)\)</span> מתקיים <span class="math display">\[.\left\langle S_p \left( w_1 \right), w_2 \right\rangle = \left\langle w_1, S_p \left( w_2 \right) \right\rangle\]</span></p>
+<p>השורה השנייה ב<a href="#box-lem-normal-derivatives">למה 8.2.5</a> היא בדיוק הטענה הזו עבור וקטורי הבסיס.</p>
+</div>
+<div id="box-rem-spectral" class="thmbox thmbox-remark" title="מדוע התכונה הזו חשובה">
+<p><strong>הערה 8.2.7 — מדוע התכונה הזו חשובה.</strong></p>
+<p>לאופרטור צמוד לעצמו על מרחב מכפלה פנימית דו־ממדי יש ערכים עצמיים ממשיים ובסיס אורתונורמלי של וקטורים עצמיים. הערכים והוקטורים האלה הם כל הנושא של הסעיפים הבאים, והם ייקראו העקמומיויות הראשיות והכיוונים הראשיים. הצורה של <span class="math inline">\(M\)</span> בסביבת <span class="math inline">\(p\)</span> אצורה כולה ב-<span class="math inline">\(S_p\)</span>.</p>
+</div>
+<div id="box-q-shape-sphere" class="thmbox thmbox-question">
+<p><strong>שאלה 8.2.8.</strong></p>
+<ol type="1">
+<li>יהי <span class="math inline">\(M\)</span> הספירה ברדיוס <span class="math inline">\(r\)</span> שמרכזה בראשית, עם נורמל היחידה החיצוני. הראו ש-<span class="math inline">\(N \left( p \right) = \frac{p}{r}\)</span>, וחשבו את <span class="math inline">\(S_p\)</span> בכל נקודה <strong>בלי לבחור פרמטריזציה</strong>.</li>
+<li>יהי <span class="math inline">\(M\)</span> מישור. חשבו את <span class="math inline">\(S_p\)</span>.</li>
+<li>על משטח אוריינטבילי כלשהו נחליף את הנורמל הנבחר <span class="math inline">\(N\)</span> ב-<span class="math inline">\(-N\)</span>. מה קורה ל-<span class="math inline">\(S_p\)</span>, לערכים העצמיים שלו ולוקטורים העצמיים שלו?</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1, שלב א: הנורמל</summary>
+<div class="foldable" title="סעיף 1, שלב א: הנורמל">
+<p>כאן <span class="math inline">\(M = \left\{ p \in \mathbb{R}^3 : \left\| p \right\| = r \right\}\)</span>. תהי <span class="math inline">\(p \in M\)</span> ותהי <span class="math inline">\(\gamma\)</span> עקומה כלשהי על <span class="math inline">\(M\)</span> עם <span class="math inline">\(\gamma \left( 0 \right) = p\)</span>.</p>
+<p>מכיוון שהעקומה נמצאת על הספירה מתקיים <span class="math display">\[\left\langle \gamma \left( t \right), \gamma \left( t \right) \right\rangle = r^2\]</span> לכל <span class="math inline">\(t\)</span>. נגזור את שני האגפים לפי <span class="math inline">\(t\)</span>. אגף ימין קבוע ולכן נגזרתו מתאפסת, ובאגף שמאל נשתמש בכלל המכפלה למכפלה סקלרית: <span class="math display">\[,2 \left\langle \gamma' \left( t \right), \gamma \left( t \right) \right\rangle = 0\]</span> ובפרט עבור <span class="math inline">\(t = 0\)</span> מתקבל <span class="math display">\[.\left\langle \gamma' \left( 0 \right), p \right\rangle = 0\]</span></p>
+<p>כל וקטור משיק ב-<span class="math inline">\(p\)</span> מתקבל כ-<span class="math inline">\(\gamma' \left( 0 \right)\)</span> של עקומה כזו, ולכן <span class="math inline">\(p \perp T_p \left( M \right)\)</span>. הנורמה של <span class="math inline">\(\frac{p}{r}\)</span> היא <span class="math inline">\(\frac{r}{r} = 1\)</span>, ולכן נורמל היחידה החיצוני הוא <span class="math inline">\(N \left( p \right) = \frac{p}{r}\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1, שלב ב: הדיפרנציאל</summary>
+<div class="foldable" title="סעיף 1, שלב ב: הדיפרנציאל">
+<p>יהי <span class="math inline">\(v \in T_p \left( M \right)\)</span>, ותהי <span class="math inline">\(\gamma\)</span> עקומה על <span class="math inline">\(M\)</span> עם <span class="math inline">\(\gamma \left( 0 \right) = p\)</span> ו-<span class="math inline">\(\gamma' \left( 0 \right) = v\)</span>. לאורך העקומה <span class="math display">\[,N \left( \gamma \left( t \right) \right) = \frac{\gamma \left( t \right)}{r}\]</span> ונגזור לפי <span class="math inline">\(t\)</span> בנקודה <span class="math inline">\(t = 0\)</span>. המספר <span class="math inline">\(\frac{1}{r}\)</span> קבוע ולכן יוצא מן הגזירה: <span class="math display">\[.dN_p \left( v \right) = \frac{\gamma' \left( 0 \right)}{r} = \frac{1}{r} v\]</span></p>
+<p>הסיבה שהחישוב כה קצר היא שההעתקה <span class="math inline">\(p \mapsto \frac{p}{r}\)</span> היא הצמצום ל-<span class="math inline">\(M\)</span> של העתקה <strong>לינארית</strong> על <span class="math inline">\(\mathbb{R}^3\)</span>, והדיפרנציאל של העתקה לינארית הוא ההעתקה עצמה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1, שלב ג: אופרטור הצורה</summary>
+<div class="foldable" title="סעיף 1, שלב ג: אופרטור הצורה">
+<p>לפי <a href="#box-def-shape-operator">הגדרה 8.2.2</a> <span class="math display">\[.S_p = -dN_p = -\frac{1}{r} \, \mathrm{Id}\]</span></p>
+<p>כל וקטור משיק הוא וקטור עצמי, והערך העצמי היחיד הוא <span class="math inline">\(-\frac{1}{r}\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: המישור</summary>
+<div class="foldable" title="סעיף 2: המישור">
+<p>על מישור הנורמל הוא אותו וקטור בכל נקודה, כלומר <span class="math inline">\(N\)</span> קבועה. הנגזרת הכיוונית של פונקציה קבועה מתאפסת בכל כיוון, ולכן <span class="math display">\[.dN_p = 0, \qquad S_p = 0\]</span></p>
+<p>שני הערכים העצמיים הם <span class="math inline">\(0\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 3: היפוך האוריינטציה</summary>
+<div class="foldable" title="סעיף 3: היפוך האוריינטציה">
+<p>נסמן <span class="math inline">\(\widetilde{N} = -N\)</span>. הגזירה לינארית בשדה, ולכן <span class="math inline">\(d\widetilde{N}_p = -dN_p\)</span>, ומכאן <span class="math display">\[.\widetilde{S}_p = -d\widetilde{N}_p = dN_p = -S_p\]</span></p>
+<p>אופרטור הצורה מחליף סימן. לכן לכל וקטור <span class="math inline">\(w\)</span> ולכל סקלר <span class="math inline">\(\lambda\)</span> <span class="math display">\[,S_p \left( w \right) = \lambda w \iff \widetilde{S}_p \left( w \right) = -\lambda w\]</span> כלומר <strong>הערכים העצמיים מחליפים סימן והוקטורים העצמיים אינם משתנים</strong>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
+<div class="foldable" title="בדיקת שפיות">
+<p>בחירת הנורמל <strong>הפנימי</strong> על הספירה פירושה <span class="math inline">\(\widetilde{N} \left( p \right) = -\frac{p}{r}\)</span>, וסעיף 3 חוזה שאז <span class="math inline">\(\widetilde{S}_p = +\frac{1}{r} \mathrm{Id}\)</span> עם ערך עצמי <span class="math inline">\(+\frac{1}{r}\)</span>. אכן, חזרה על שלב ב עם <span class="math inline">\(\widetilde{N}\)</span> נותנת בדיוק זאת.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>שני דברים.</p>
+<p><strong>ראשית</strong>, על הספירה אופרטור הצורה הוא כפולה של הזהות: הספירה מתעקמת באותה מידה בכל כיוון, והמידה היא <span class="math inline">\(\frac{1}{r}\)</span>, כלומר הופכי הרדיוס, בדיוק כמו העקמומיות של מעגל ברדיוס <span class="math inline">\(r\)</span> במישור.</p>
+<p><strong>שנית</strong>, הסימן של <span class="math inline">\(S_p\)</span> אינו תכונה של המשטח לבדו, אלא תלוי בשאלה איזה צד בחרנו לקרוא לו החוץ. כל אובייקט שנבנה מ-<span class="math inline">\(S_p\)</span> חייב לעבור את המבחן הזה. שימו לב כבר עכשיו ששני הערכים העצמיים של הספירה הם <span class="math inline">\(-\frac{1}{r}\)</span>, ובבחירה האחרת שניהם <span class="math inline">\(+\frac{1}{r}\)</span>: <strong>המכפלה</strong> שלהם היא <span class="math inline">\(\frac{1}{r^2}\)</span> בשני המקרים, ואילו <strong>הסכום</strong> מחליף סימן. בהמשך התרגול נהפוך את התצפית הזו להגדרה.</p>
+</div>
+</details>
+</div>
+</section>
+<section id="התבנית-היסודית-השנייה" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="התבנית-היסודית-השנייה"><span class="header-section-number">8.3</span> התבנית היסודית השנייה</h2>
+<p>נקבע נקודה <span class="math inline">\(p = \overline{x} \left( u, v \right)\)</span>. כאשר הפרמטרים זזים אל <span class="math inline">\(\left( u + \Delta u, \; v + \Delta v \right)\)</span>, המשטח מתרחק מן המישור המשיק שלו ב-<span class="math inline">\(p\)</span>, והמידה שבה הוא מתרחק היא הרכיב של ההזזה בכיוון הנורמל, כלומר <span class="math display">\[.d \left( \Delta u, \Delta v \right) = \left\langle \overline{x} \left( u + \Delta u, \; v + \Delta v \right) - \overline{x} \left( u, v \right), \; N \right\rangle\]</span></p>
+<p>לפי משפט טיילור בשני משתנים <span class="math display">\[\begin{aligned} \overline{x} \left( u + \Delta u, v + \Delta v \right) - \overline{x} \left( u, v \right) = \; &amp; \overline{x}_u \Delta u + \overline{x}_v \Delta v \\ + \; &amp; \frac{1}{2} \left( \overline{x}_{uu} \Delta u^2 + 2 \overline{x}_{uv} \Delta u \Delta v + \overline{x}_{vv} \Delta v^2 \right) + R, \end{aligned}\]</span> כאשר השארית מקיימת <span class="math inline">\(\frac{R}{\Delta u^2 + \Delta v^2} \to 0\)</span>.</p>
+<p>הוקטורים <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span> משיקים למשטח ולכן ניצבים ל-<span class="math inline">\(N\)</span>, ומכאן ש<strong>כל האיבר מסדר ראשון מתאפס</strong> כאשר לוקחים מכפלה סקלרית עם <span class="math inline">\(N\)</span>. מה שנותר הוא <span class="math display">\[,d \left( \Delta u, \Delta v \right) = \frac{1}{2} \left( L_{11} \Delta u^2 + 2 L_{12} \Delta u \Delta v + L_{22} \Delta v^2 \right) + \left\langle R, N \right\rangle\]</span> כאשר <span class="math inline">\(L_{ij} = \left\langle \overline{x}_{ij}, N \right\rangle\)</span>.</p>
+<p>עבור עקומה, ההתרחקות מן הישר המשיק היא <span class="math inline">\(\frac{1}{2} \kappa \left( \Delta t \right)^2 + \ldots\)</span>, והמספר היחיד <span class="math inline">\(\kappa\)</span> מדד את ההתעקמות. עבור משטח ההתרחקות מן המישור המשיק היא <strong>תבנית ריבועית</strong> ב-<span class="math inline">\(\left( \Delta u, \Delta v \right)\)</span> ולא מספר בודד, שכן עכשיו יש הרבה כיוונים שבהם אפשר להתרחק. התבנית הריבועית הזו היא התבנית היסודית השנייה.</p>
+<iframe class="widget-frame" src="widgets/ch08/second-order.html" loading="lazy" title="ההתרחקות מן המישור המשיק והקירוב מסדר שני"></iframe>
+<div id="box-def-second-form" class="thmbox thmbox-definition" title="התבנית היסודית השנייה">
+<p><strong>הגדרה 8.3.1 — התבנית היסודית השנייה.</strong></p>
+<p>לכל <span class="math inline">\(w_1, w_2 \in T_p \left( M \right)\)</span> נגדיר <span class="math display">\[.II_p \left( w_1, w_2 \right) = -\left\langle dN_p \left( w_1 \right), \; w_2 \right\rangle = \left\langle S_p \left( w_1 \right), \; w_2 \right\rangle\]</span></p>
+<p>התבנית בילינארית, בהיותה העתקה לינארית שאחריה מכפלה סקלרית, והיא <strong>סימטרית</strong> משום ש-<span class="math inline">\(S_p\)</span> צמוד לעצמו לפי <a href="#box-prp-self-adjoint">טענה 8.2.6</a>. התבנית הריבועית הנלווית לה היא <span class="math inline">\(II_p \left( w \right) = II_p \left( w, w \right)\)</span>.</p>
+</div>
+<div id="box-def-second-form-coefficients" class="thmbox thmbox-definition" title="מקדמי התבנית היסודית השנייה">
+<p><strong>הגדרה 8.3.2 — מקדמי התבנית היסודית השנייה.</strong></p>
+<p>בבסיס <span class="math inline">\(\left\{ \overline{x}_1, \overline{x}_2 \right\} = \left\{ \overline{x}_u, \overline{x}_v \right\}\)</span> נסמן <span class="math display">\[.L_{ij} = II \left( \overline{x}_i, \overline{x}_j \right)\]</span></p>
+<p>עבור <span class="math inline">\(v = v^i \overline{x}_i\)</span> ו-<span class="math inline">\(w = w^j \overline{x}_j\)</span> הבילינאריות נותנת <span class="math display">\[,II \left( v, w \right) = v^i w^j L_{ij} = \left[ v \right]^t \left( L_{ij} \right) \left[ w \right]\]</span> בדיוק כפי ש-<span class="math inline">\(g_{ij}\)</span> מייצגים את התבנית היסודית הראשונה.</p>
+</div>
+<div id="box-prp-two-formulas-Lij" class="thmbox thmbox-proposition" title="שתי נוסחאות למקדמים">
+<p><strong>טענה 8.3.3 — שתי נוסחאות למקדמים.</strong></p>
+<p>מתקיים <span class="math display">\[,L_{ij} = -\left\langle N_i, \; \overline{x}_j \right\rangle = \left\langle \overline{x}_{ij}, \; N \right\rangle\]</span> כלומר <span class="math display">\[,L_{11} = -\left\langle N_u, \overline{x}_u \right\rangle = \left\langle \overline{x}_{uu}, N \right\rangle\]</span> וכן <span class="math display">\[,L_{12} = L_{21} = -\left\langle N_u, \overline{x}_v \right\rangle = \left\langle \overline{x}_{uv}, N \right\rangle\]</span> ולבסוף <span class="math display">\[.L_{22} = -\left\langle N_v, \overline{x}_v \right\rangle = \left\langle \overline{x}_{vv}, N \right\rangle\]</span></p>
+<p>השוויון השני הוא <a href="#box-lem-normal-derivatives">למה 8.2.5</a>. שימו לב שהסימטריה <span class="math inline">\(L_{12} = L_{21}\)</span> מתקבלת בחינם מן השוויון <span class="math inline">\(\overline{x}_{uv} = \overline{x}_{vu}\)</span>, וזו אותה עובדה עצמה שממנה נובעת הצמידות לעצמו של <span class="math inline">\(S_p\)</span>.</p>
+</div>
+<div id="box-rem-use-right-formula" class="thmbox thmbox-remark" title="באיזו נוסחה כדאי להשתמש">
+<p><strong>הערה 8.3.4 — באיזו נוסחה כדאי להשתמש.</strong></p>
+<p>הביטוי <span class="math inline">\(\left\langle \overline{x}_{ij}, N \right\rangle\)</span> דורש רק את הנגזרות השניות של <span class="math inline">\(\overline{x}\)</span> ואת הוקטור <span class="math inline">\(N\)</span> עצמו. הביטוי <span class="math inline">\(-\left\langle N_i, \overline{x}_j \right\rangle\)</span> דורש את <span class="math inline">\(N_u\)</span> ואת <span class="math inline">\(N_v\)</span>, ו-<span class="math inline">\(N\)</span> היא מכפלה וקטורית מנורמלת, כלומר גזירה שלה מחייבת כלל מנה על שורש.</p>
+<p>בכל התרגילים שלהלן נשתמש בנוסחה הימנית.</p>
+</div>
+<div id="box-prp-shape-matrix" class="thmbox thmbox-proposition" title="המטריצה המייצגת את אופרטור הצורה">
+<p><strong>טענה 8.3.5 — המטריצה המייצגת את אופרטור הצורה.</strong></p>
+<p>בבסיס <span class="math inline">\(\left\{ \overline{x}_1, \overline{x}_2 \right\}\)</span> מתקיים <span class="math display">\[,L_{ij} = L^k_i g_{kj}\]</span> כלומר כמטריצות <span class="math inline">\(\left( L_{ij} \right) = \left( g_{ij} \right) \left( L^i_j \right)\)</span>, ומכיוון שמטריצת המטריקה הפיכה <span class="math display">\[.\left( L^i_j \right) = \left( g^{ij} \right) \left( L_{ij} \right), \qquad L^i_j = g^{ik} L_{kj}\]</span></p>
+</div>
+<div id="box-rem-two-matrices" class="thmbox thmbox-remark" title="שתי המטריצות הן אובייקטים שונים">
+<p><strong>הערה 8.3.6 — שתי המטריצות הן אובייקטים שונים.</strong></p>
+<p>המטריצה <span class="math inline">\(\left( L_{ij} \right)\)</span> סימטרית, אך היא <strong>אינה</strong> מטריצה מייצגת של אופרטור. המטריצה <span class="math inline">\(\left( L^i_j \right)\)</span> <strong>כן</strong> מייצגת את <span class="math inline">\(S_p\)</span>, והיא בדרך כלל <strong>אינה</strong> סימטרית.</p>
+<p>הערכים העצמיים שיעניינו אותנו בסעיף הבא הם הערכים העצמיים של <span class="math inline">\(\left( L^i_j \right)\)</span>, לעולם לא של <span class="math inline">\(\left( L_{ij} \right)\)</span>. השתיים מתלכדות רק כאשר <span class="math inline">\(\left( g_{ij} \right)\)</span> היא מטריצת הזהות.</p>
+</div>
+<div id="box-rem-plane-second-form" class="thmbox thmbox-remark" title="המישור">
+<p><strong>הערה 8.3.7 — המישור.</strong></p>
+<p>עבור המישור <span class="math inline">\(\overline{x} \left( u, v \right) = a + up + vq\)</span> כל הנגזרות השניות מתאפסות, ולכן <span class="math inline">\(L_{ij} = 0\)</span> והתבנית היסודית השנייה מתאפסת. בהמשך נראה שתכונה זו מאפיינת את המישור.</p>
+</div>
+<div id="box-q-second-form-paraboloid" class="thmbox thmbox-question">
+<p><strong>שאלה 8.3.8.</strong></p>
+<p>עבור הפרבולואיד האליפטי <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, \; v, \; u^2 + v^2 \right)\)</span> חשבו את המטריצה <span class="math inline">\(\left( L_{ij} \right)\)</span> ורשמו את התבנית היסודית השנייה. לאחר מכן הציבו בראשית וחשבו שם את <span class="math inline">\(\left( L^i_j \right)\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: מה שכבר בידינו</summary>
+<div class="foldable" title="שלב 1: מה שכבר בידינו">
+<p>מ<a href="#box-q-gauss-paraboloid">שאלה 8.1.4</a> ידוע ש-<span class="math inline">\(\overline{x}_u = \left( 1, 0, 2u \right)\)</span> וכן <span class="math inline">\(\overline{x}_v = \left( 0, 1, 2v \right)\)</span>, ושהנורמל הוא <span class="math display">\[.N = \lambda \left( -2u, \; -2v, \; 1 \right), \qquad \lambda = \frac{1}{\sqrt{4u^2 + 4v^2 + 1}}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: הנגזרות השניות</summary>
+<div class="foldable" title="שלב 2: הנגזרות השניות">
+<p>נגזור שוב את <span class="math inline">\(\overline{x}_u\)</span> ואת <span class="math inline">\(\overline{x}_v\)</span>. רק הרכיב השלישי תלוי בפרמטרים, ולכן <span class="math display">\[.\overline{x}_{uu} = \left( 0, 0, 2 \right), \qquad \overline{x}_{uv} = \left( 0, 0, 0 \right), \qquad \overline{x}_{vv} = \left( 0, 0, 2 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: המקדמים</summary>
+<div class="foldable" title="שלב 3: המקדמים">
+<p>נשתמש בנוסחה הימנית מ<a href="#box-prp-two-formulas-Lij">טענה 8.3.3</a>. בכל אחת מן המכפלות שני הרכיבים הראשונים של הנגזרת השנייה מתאפסים, ולכן נותר רק המכפלה של <span class="math inline">\(2\)</span> ברכיב השלישי של <span class="math inline">\(N\)</span>, שהוא <span class="math inline">\(\lambda\)</span>: <span class="math display">\[,L_{11} = \left\langle \left( 0, 0, 2 \right), \; \lambda \left( -2u, -2v, 1 \right) \right\rangle = 2 \lambda\]</span> וכן <span class="math display">\[,L_{12} = \left\langle \left( 0, 0, 0 \right), \; N \right\rangle = 0\]</span> ולבסוף <span class="math display">\[.L_{22} = \left\langle \left( 0, 0, 2 \right), \; \lambda \left( -2u, -2v, 1 \right) \right\rangle = 2 \lambda\]</span></p>
+<p>לכן <span class="math display">\[,\left( L_{ij} \right) = 2 \lambda \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix} = \frac{2}{\sqrt{4u^2 + 4v^2 + 1}} \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\]</span> והתבנית היסודית השנייה היא <span class="math inline">\(2 \lambda \left( du^2 + dv^2 \right)\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: הצבה בראשית</summary>
+<div class="foldable" title="שלב 4: הצבה בראשית">
+<p>נציב <span class="math inline">\(u = v = 0\)</span>. אז <span class="math inline">\(\lambda = 1\)</span>, וכן <span class="math inline">\(\overline{x}_u = \left( 1, 0, 0 \right)\)</span>, <span class="math inline">\(\overline{x}_v = \left( 0, 1, 0 \right)\)</span> ו-<span class="math inline">\(N = \left( 0, 0, 1 \right)\)</span>. מכאן <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}, \qquad \left( L_{ij} \right) = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{pmatrix}\]</span> וגם <span class="math inline">\(\left( g^{ij} \right)\)</span> היא מטריצת הזהות, ולכן לפי <a href="#box-prp-shape-matrix">טענה 8.3.5</a> <span class="math display">\[.\left( L^i_j \right) = \left( g^{ij} \right) \left( L_{ij} \right) = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{pmatrix}\]</span></p>
+<p>שני הערכים העצמיים שווים ל-<span class="math inline">\(2\)</span>, וכל וקטור משיק בראשית הוא וקטור עצמי.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>בראשית המישור המשיק הוא מישור <span class="math inline">\(xy\)</span>, ונוסחת ההתרחקות חוזה <span class="math display">\[.\frac{1}{2} \left( 2 \Delta u^2 + 2 \Delta v^2 \right) = \Delta u^2 + \Delta v^2\]</span></p>
+<p>אבל המשטח <strong>הוא</strong> <span class="math inline">\(z = u^2 + v^2\)</span>, ולכן ההתרחקות היא בדיוק <span class="math inline">\(\Delta u^2 + \Delta v^2\)</span> בלי שום שארית. עבור משטח ממעלה שנייה הרשום כגרף, הקירוב מסדר שני בקודקוד אינו קירוב אלא המשטח עצמו. זו ההמחשה החדה ביותר למה שהתבנית היסודית השנייה מודדת.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
+<div class="foldable" title="בדיקת שפיות">
+<p>מתקיים <span class="math inline">\(L_{11} = L_{22} = 2 \lambda &gt; 0\)</span> וכן <span class="math inline">\(L_{12} = 0\)</span> בכל נקודה, ולכן ההתרחקות <span class="math inline">\(\frac{1}{2} \cdot 2 \lambda \left( \Delta u^2 + \Delta v^2 \right)\)</span> חיובית בכל כיוון. מכאן שהפרבולואיד נשאר כולו בצד אחד של כל אחד מן המישורים המשיקים שלו, הצד שאליו מצביע הנורמל, וזה בדיוק מה שקערה עושה.</p>
+</div>
+</details>
+</div>
+<div id="box-q-second-form-zero-plane" class="thmbox thmbox-question">
+<p><strong>שאלה 8.3.9.</strong></p>
+<p>תהי <span class="math inline">\(\overline{x} : U \to \mathbb{R}^3\)</span> פרמטריזציה רגולרית של משטח, כאשר <span class="math inline">\(U \subseteq \mathbb{R}^2\)</span> פתוחה ו<strong>קשירה</strong>, ונניח שהתבנית היסודית השנייה מתאפסת בכל נקודה. הוכיחו שהתמונה <span class="math inline">\(\overline{x} \left( U \right)\)</span> מוכלת במישור.</p>
+<p>זהו האנלוג למשטחים של המשפט שלפיו עקומה שעקמומיותה מתאפסת זהותית היא חלק מישר.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: שלושת הוקטורים מהווים בסיס</summary>
+<div class="foldable" title="שלב 1: שלושת הוקטורים מהווים בסיס">
+<p>הפרמטריזציה רגולרית, ולכן <span class="math inline">\(\overline{x}_u \times \overline{x}_v \neq 0\)</span>, ומכאן ש-<span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span> בלתי תלויים לינארית. הוקטור <span class="math inline">\(N\)</span> שונה מאפס וניצב לפרישה שלהם, ולכן הוא בלתי תלוי בהם.</p>
+<p>שלושה וקטורים בלתי תלויים ב-<span class="math inline">\(\mathbb{R}^3\)</span> מהווים בסיס, ולכן <span class="math inline">\(\left\{ \overline{x}_u, \overline{x}_v, N \right\}\)</span> הוא בסיס של <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: ל-$N_u$ אין רכיב בכיוון $N$</summary>
+<div class="foldable" title="שלב 2: ל-$N_u$ אין רכיב בכיוון $N$">
+<p>מתקיים <span class="math inline">\(\left\langle N, N \right\rangle = 1\)</span> בכל נקודה, ולכן אפשר לגזור את הזהות הזו לפי <span class="math inline">\(u\)</span>. אגף ימין קבוע ונגזרתו מתאפסת, ולכן <span class="math display">\[,2 \left\langle N_u, N \right\rangle = 0\]</span> כלומר <span class="math display">\[.\left\langle N_u, N \right\rangle = 0\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: ל-$N_u$ אין גם רכיב משיק</summary>
+<div class="foldable" title="שלב 3: ל-$N_u$ אין גם רכיב משיק">
+<p>לפי <a href="#box-prp-two-formulas-Lij">טענה 8.3.3</a> ולפי ההנחה שכל המקדמים מתאפסים, <span class="math display">\[.\left\langle N_u, \overline{x}_u \right\rangle = -L_{11} = 0, \qquad \left\langle N_u, \overline{x}_v \right\rangle = -L_{12} = 0\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: מכאן ששתי הנגזרות של הנורמל מתאפסות</summary>
+<div class="foldable" title="שלב 4: מכאן ששתי הנגזרות של הנורמל מתאפסות">
+<p>שלבים 2 ו-3 אומרים ש-<span class="math inline">\(N_u\)</span> ניצב לשלושת וקטורי הבסיס משלב 1, ולכן הוא ניצב לכל <span class="math inline">\(\mathbb{R}^3\)</span>, ובפרט לעצמו: <span class="math display">\[,\left\langle N_u, N_u \right\rangle = 0\]</span> ולכן <span class="math inline">\(N_u = 0\)</span>.</p>
+<p>אותם שלושה שלבים עם <span class="math inline">\(v\)</span> במקום <span class="math inline">\(u\)</span>, תוך שימוש ב-<span class="math inline">\(L_{12} = L_{22} = 0\)</span>, נותנים <span class="math inline">\(N_v = 0\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: הנורמל קבוע</summary>
+<div class="foldable" title="שלב 5: הנורמל קבוע">
+<p>שתי הנגזרות החלקיות של <span class="math inline">\(N\)</span> מתאפסות על הקבוצה הפתוחה והקשירה <span class="math inline">\(U\)</span>, ולכן <span class="math inline">\(N\)</span> היא וקטור קבוע, ונסמן אותו <span class="math inline">\(N_0\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 6: המכפלה הסקלרית עם הנורמל קבועה</summary>
+<div class="foldable" title="שלב 6: המכפלה הסקלרית עם הנורמל קבועה">
+<p>נגזור את הפונקציה <span class="math inline">\(\left\langle \overline{x}, N_0 \right\rangle\)</span> לפי <span class="math inline">\(u\)</span>. הוקטור <span class="math inline">\(N_0\)</span> קבוע ולכן אינו תורם לכלל המכפלה, ומתקבל <span class="math display">\[,\frac{\partial}{\partial u} \left\langle \overline{x}, N_0 \right\rangle = \left\langle \overline{x}_u, N_0 \right\rangle = 0\]</span> שכן <span class="math inline">\(N_0 = N\)</span> ניצב למשטח. באותו אופן הנגזרת לפי <span class="math inline">\(v\)</span> מתאפסת.</p>
+<p>שתי הנגזרות החלקיות מתאפסות על <span class="math inline">\(U\)</span> הקשירה, ולכן <span class="math inline">\(\left\langle \overline{x}, N_0 \right\rangle \equiv c\)</span> עבור קבוע <span class="math inline">\(c\)</span> כלשהו.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 7: מסקנה</summary>
+<div class="foldable" title="שלב 7: מסקנה">
+<p>כל נקודה <span class="math inline">\(q = \overline{x} \left( u, v \right)\)</span> בתמונה מקיימת <span class="math display">\[,\left\langle q, \; N_0 \right\rangle = c\]</span> וזו בדיוק משוואת המישור שהנורמל שלו הוא <span class="math inline">\(N_0\)</span> ומרחקו המסומן מן הראשית הוא <span class="math inline">\(c\)</span>. לכן <span class="math inline">\(\overline{x} \left( U \right)\)</span> מוכלת במישור הזה, כנדרש.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>הערה: מדוע נדרשת קשירות</summary>
+<div class="foldable" title="הערה: מדוע נדרשת קשירות">
+<p>בלי קשירות הטענה אינה נכונה. ניקח את <span class="math inline">\(U\)</span> להיות איחוד של שני עיגולים זרים, ונשלח כל אחד מהם למישור אחר משני מישורים <strong>מקבילים</strong>. אז התבנית היסודית השנייה מתאפסת על כל חלק, אך התמונה אינה מוכלת באף מישור בודד.</p>
+<p>הקשירות היא מה שהופך את “הנגזרת מתאפסת” ל”הפונקציה קבועה”, והשתמשנו בה פעמיים, בשלב 5 ובשלב 6.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>עבור עקומה, ההנחה <span class="math inline">\(\kappa \equiv 0\)</span> אומרת שהישר המשיק מפסיק להסתובב, ואז העקומה נאלצת להיות הישר הזה. כאן ההנחה שהתבנית השנייה מתאפסת אומרת, דרך שלב 4, ש-<span class="math inline">\(N\)</span> מפסיק להסתובב, ולכן המישור המשיק מפסיק להסתובב, והמשטח נאלץ להיות המישור הזה.</p>
+<p>בלשון הסעיף הראשון: תמונת גאוס התכווצה לנקודה בודדת, וזו בדיוק השורה של המישור ב<a href="#box-rem-gauss-images">הערה 8.1.3</a>.</p>
+</div>
+</details>
+</div>
+</section>
+<section id="עקמומיות-גאוס-והעקמומיות-הממוצעת" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="עקמומיות-גאוס-והעקמומיות-הממוצעת"><span class="header-section-number">8.4</span> עקמומיות גאוס והעקמומיות הממוצעת</h2>
+<div id="box-def-principal" class="thmbox thmbox-definition" title="עקמומיויות ראשיות וכיוונים ראשיים">
+<p><strong>הגדרה 8.4.1 — עקמומיויות ראשיות וכיוונים ראשיים.</strong></p>
+<p>האופרטור <span class="math inline">\(S_p\)</span> צמוד לעצמו, ולכן לפי המשפט הספקטרלי קיימים מספרים ממשיים <span class="math inline">\(k_1, k_2\)</span> ובסיס <strong>אורתונורמלי</strong> <span class="math inline">\(\left\{ e_1, e_2 \right\}\)</span> של <span class="math inline">\(T_p \left( M \right)\)</span> כך ש-<span class="math display">\[.S_p \left( e_1 \right) = k_1 e_1, \qquad S_p \left( e_2 \right) = k_2 e_2\]</span></p>
+<p>המספרים <span class="math inline">\(k_1, k_2\)</span> נקראים <strong>העקמומיויות הראשיות</strong> בנקודה <span class="math inline">\(p\)</span>, והוקטורים <span class="math inline">\(e_1, e_2\)</span> נקראים <strong>הכיוונים הראשיים</strong>. אלה הם הערכים העצמיים והוקטורים העצמיים של המטריצה <span class="math inline">\(\left( L^i_j \right)\)</span>.</p>
+</div>
+<div id="box-def-K-and-H" class="thmbox thmbox-definition" title="עקמומיות גאוס והעקמומיות הממוצעת">
+<p><strong>הגדרה 8.4.2 — עקמומיות גאוס והעקמומיות הממוצעת.</strong></p>
+<p>נגדיר <span class="math display">\[,K = \det \left( L^i_j \right) = k_1 k_2\]</span> ונקרא לזה <strong>עקמומיות גאוס</strong>, וכן <span class="math display">\[,H = \frac{1}{2} \operatorname{tr} \left( L^i_j \right) = \frac{k_1 + k_2}{2}\]</span> ונקרא לזה <strong>העקמומיות הממוצעת</strong>.</p>
+<p>הדטרמיננטה והעקבה אינן תלויות בבסיס, ולכן שני הגדלים מוגדרים היטב.</p>
+</div>
+<div id="box-prp-K-formula" class="thmbox thmbox-proposition" title="הנוסחה שבה מחשבים את עקמומיות גאוס">
+<p><strong>טענה 8.4.3 — הנוסחה שבה מחשבים את עקמומיות גאוס.</strong></p>
+<p>הדטרמיננטה כפלית, ולכן מ<a href="#box-prp-shape-matrix">טענה 8.3.5</a> נובע <span class="math display">\[.K = \det \left( L^i_j \right) = \frac{\det \left( L_{ij} \right)}{\det \left( g_{ij} \right)} = \frac{L_{11} L_{22} - L_{12}^2}{g_{11} g_{22} - g_{12}^2}\]</span></p>
+<p>עבור העקמומיות הממוצעת אין קיצור דומה, שכן העקבה אינה כפלית. את <span class="math inline">\(H\)</span> מחשבים תמיד מן המטריצה <span class="math inline">\(\left( L^i_j \right)\)</span> עצמה, או כממוצע <span class="math inline">\(\frac{k_1 + k_2}{2}\)</span>.</p>
+</div>
+<div id="box-rem-diagonal-case" class="thmbox thmbox-remark" title="המקרה האלכסוני">
+<p><strong>הערה 8.4.4 — המקרה האלכסוני.</strong></p>
+<p>אם <span class="math inline">\(g_{12} = 0\)</span> <strong>וגם</strong> <span class="math inline">\(L_{12} = 0\)</span>, אזי שתי המטריצות אלכסוניות, ולכן גם המכפלה <span class="math inline">\(\left( g^{ij} \right) \left( L_{ij} \right)\)</span> אלכסונית. במקרה זה <span class="math inline">\(\left( L^i_j \right)\)</span> אלכסונית מלכתחילה, הכיוונים <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span> <strong>הם</strong> הכיוונים הראשיים, ומתקיים <span class="math display">\[,k_1 = \frac{L_{11}}{g_{11}}, \qquad k_2 = \frac{L_{22}}{g_{22}}\]</span> ולכן <span class="math display">\[.K = \frac{L_{11} L_{22}}{g_{11} g_{22}}, \qquad H = \frac{1}{2} \left( \frac{L_{11}}{g_{11}} + \frac{L_{22}}{g_{22}} \right)\]</span></p>
+<p>זה קורה בכל משטח סיבוב, וזו הדרך הקצרה שבה נשתמש בשני התרגילים הבאים.</p>
+</div>
+<div id="box-rem-char-poly" class="thmbox thmbox-remark" title="הפולינום האופייני">
+<p><strong>הערה 8.4.5 — הפולינום האופייני.</strong></p>
+<p>הפולינום האופייני של <span class="math inline">\(S_p\)</span> הוא <span class="math display">\[,P \left( \lambda \right) = \det \left( \lambda I - \left( L^i_j \right) \right) = \lambda^2 - \operatorname{tr} \left( L^i_j \right) \lambda + \det \left( L^i_j \right) = \lambda^2 - 2H \lambda + K\]</span> ולכן העקמומיויות הראשיות הן שורשיו, כלומר <span class="math display">\[.k_{1,2} = H \pm \sqrt{H^2 - K}\]</span></p>
+<p>שימו לב שתמיד <span class="math inline">\(H^2 - K = \left( \frac{k_1 - k_2}{2} \right)^2 \geq 0\)</span>, וזו בדיקת עקביות מהירה על כל חישוב.</p>
+</div>
+<div id="box-rem-char-poly-lecture" class="thmbox thmbox-remark" title="הערה על הרישום בהרצאה">
+<p><strong>הערה 8.4.6 — הערה על הרישום בהרצאה.</strong></p>
+<p>בהרצאה נרשם הפולינום האופייני בצורה <span class="math inline">\(P \left( \lambda \right) = \lambda^2 - \operatorname{tr} \left( L^i_j \right) + \det \left( L^i_j \right)\)</span>. האיבר של העקבה חייב לשאת גורם <span class="math inline">\(\lambda\)</span>, כפי שרשום ב<a href="#box-rem-char-poly">הערה 8.4.5</a>, אחרת הביטוי אינו הפולינום האופייני.</p>
+</div>
+<div id="box-rem-orientation-K-H" class="thmbox thmbox-remark" title="תלות באוריינטציה">
+<p><strong>הערה 8.4.7 — תלות באוריינטציה.</strong></p>
+<p>היפוך הנורמל מחליף את <span class="math inline">\(S_p\)</span> ב-<span class="math inline">\(-S_p\)</span>, ולכן מחליף את <span class="math inline">\(k_1, k_2\)</span> ב-<span class="math inline">\(-k_1, -k_2\)</span>. מכאן <span class="math display">\[,K \longmapsto \left( -k_1 \right) \left( -k_2 \right) = K\]</span> ואילו <span class="math display">\[.H \longmapsto \frac{-k_1 - k_2}{2} = -H\]</span></p>
+<p>לכן <strong><span class="math inline">\(K\)</span> היא תכונה של המשטח לבדו</strong>, והיא מוגדרת גם על משטח שאינו אוריינטבילי, ואילו <strong><span class="math inline">\(H\)</span> מוגדרת רק לאחר שנקבעה אוריינטציה</strong>. זו בדיוק התצפית שכבר נעשתה על הספירה ב<a href="#box-q-shape-sphere">שאלה 8.2.8</a>.</p>
+</div>
+<div id="box-q-ruled-nonpositive" class="thmbox thmbox-question">
+<p><strong>שאלה 8.4.8.</strong></p>
+<p>יהי משטח ישר, כלומר משטח בפרמטריזציה <span class="math display">\[,\overline{x} \left( u, v \right) = \gamma \left( u \right) + v \, \delta \left( u \right)\]</span> כאשר <span class="math inline">\(\gamma\)</span> ו-<span class="math inline">\(\delta\)</span> עקומות חלקות. הוכיחו שעקמומיות גאוס שלו אי־חיובית בכל נקודה, כלומר <span class="math inline">\(K \leq 0\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: הנגזרת השנייה לפי $v$ מתאפסת</summary>
+<div class="foldable" title="שלב 1: הנגזרת השנייה לפי $v$ מתאפסת">
+<p>נגזור לפי <span class="math inline">\(v\)</span>. המחובר <span class="math inline">\(\gamma \left( u \right)\)</span> אינו תלוי ב-<span class="math inline">\(v\)</span> ולכן נגזרתו מתאפסת, ובמחובר השני <span class="math inline">\(\delta \left( u \right)\)</span> הוא מקדם קבוע ביחס ל-<span class="math inline">\(v\)</span>: <span class="math display">\[.\overline{x}_v = \delta \left( u \right)\]</span></p>
+<p>הביטוי הזה אינו תלוי ב-<span class="math inline">\(v\)</span> כלל, ולכן גזירה נוספת לפי <span class="math inline">\(v\)</span> נותנת <span class="math display">\[.\overline{x}_{vv} = 0\]</span></p>
+<p>זהו הביטוי הגיאומטרי לכך שעקומות הקואורדינטות בכיוון <span class="math inline">\(v\)</span> הן <strong>ישרים</strong>: לישר אין תאוצה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: מקדם אחד של התבנית השנייה מתאפס</summary>
+<div class="foldable" title="שלב 2: מקדם אחד של התבנית השנייה מתאפס">
+<p>נציב בנוסחה <span class="math inline">\(L_{ij} = \left\langle \overline{x}_{ij}, N \right\rangle\)</span> ונקבל <span class="math display">\[.L_{22} = \left\langle \overline{x}_{vv}, N \right\rangle = \left\langle 0, N \right\rangle = 0\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הדטרמיננטה של התבנית השנייה</summary>
+<div class="foldable" title="שלב 3: הדטרמיננטה של התבנית השנייה">
+<p>נציב בדטרמיננטה. המחובר הראשון מתאפס שכן <span class="math inline">\(L_{22} = 0\)</span>, ונשאר רק המחובר השני: <span class="math display">\[.\det \left( L_{ij} \right) = L_{11} L_{22} - L_{12}^2 = L_{11} \cdot 0 - L_{12}^2 = -L_{12}^2\]</span></p>
+<p>ריבוע הוא תמיד אי־שלילי, ולכן <span class="math inline">\(-L_{12}^2 \leq 0\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: מסקנה</summary>
+<div class="foldable" title="שלב 4: מסקנה">
+<p>הדטרמיננטה של המטריקה חיובית תמיד, ולכן לפי <a href="#box-prp-K-formula">טענה 8.4.3</a> <span class="math display">\[,K = \frac{\det \left( L_{ij} \right)}{\det \left( g_{ij} \right)} = \frac{-L_{12}^2}{\det \left( g_{ij} \right)} \leq 0\]</span> כנדרש.</p>
+<p>יתר על כן, שוויון מתקיים אם ורק אם <span class="math inline">\(L_{12} = 0\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>זהו משפט על <strong>מחלקה שלמה</strong> של משטחים, ולא על משטח בודד, והוא נובע ממקדם אחד שמתאפס. בפרט אין על שום משטח ישר נקודה אליפטית.</p>
+<p>הדבר גם מסביר את הקשר בין שני חישובים שכבר עשינו: הגליל הוא משטח ישר, ואכן ראינו שעקמומיות גאוס שלו מתאפסת. המישור הוא משטח ישר, ואכן <span class="math inline">\(K = 0\)</span> עליו. הפרבולואיד האליפטי, לעומת זאת, אינו יכול להיות משטח ישר, שכן ראינו שיש לו עקמומיות חיובית.</p>
+</div>
+</details>
+</div>
+<div id="box-q-revolution-curvature" class="thmbox thmbox-question">
+<p><strong>שאלה 8.4.9.</strong></p>
+<p>יהי משטח הסיבוב <span class="math display">\[,\overline{x} \left( u, v \right) = \left( f \left( u \right) \cos v, \; f \left( u \right) \sin v, \; g \left( u \right) \right)\]</span> כאשר <span class="math inline">\(f &gt; 0\)</span>.</p>
+<ol type="1">
+<li>חשבו את <span class="math inline">\(\left( g_{ij} \right)\)</span>, את <span class="math inline">\(N\)</span>, את <span class="math inline">\(\left( L_{ij} \right)\)</span>, את העקמומיויות הראשיות, ואת <span class="math inline">\(K\)</span> ואת <span class="math inline">\(H\)</span>.</li>
+<li>הראו שאם העקומה היוצרת <span class="math inline">\(\gamma \left( u \right) = \left( f \left( u \right), 0, g \left( u \right) \right)\)</span> נתונה בפרמטריזציה טבעית, אזי <span class="math display">\[.K = -\frac{f''}{f}\]</span></li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: הנגזרות החלקיות</summary>
+<div class="foldable" title="שלב 1: הנגזרות החלקיות">
+<p>לאורך כל הפתרון נסמן <span class="math display">\[.w = \sqrt{\left( f' \right)^2 + \left( g' \right)^2} = \left\| \gamma' \right\| &gt; 0\]</span></p>
+<p>נגזור לפי <span class="math inline">\(u\)</span>, כאשר <span class="math inline">\(v\)</span> קבוע, ולפי <span class="math inline">\(v\)</span>, כאשר <span class="math inline">\(u\)</span> קבוע: <span class="math display">\[.\overline{x}_u = \left( f' \cos v, \; f' \sin v, \; g' \right), \qquad \overline{x}_v = \left( -f \sin v, \; f \cos v, \; 0 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: התבנית היסודית הראשונה</summary>
+<div class="foldable" title="שלב 2: התבנית היסודית הראשונה">
+<p>נשתמש בזהות <span class="math inline">\(\cos^2 v + \sin^2 v = 1\)</span> פעמיים: <span class="math display">\[,g_{11} = \left( f' \right)^2 \cos^2 v + \left( f' \right)^2 \sin^2 v + \left( g' \right)^2 = \left( f' \right)^2 + \left( g' \right)^2 = w^2\]</span> ובמכפלה המעורבת שני המחוברים מבטלים זה את זה, <span class="math display">\[,g_{12} = -f f' \cos v \sin v + f f' \sin v \cos v + 0 = 0\]</span> ולבסוף <span class="math display">\[.g_{22} = f^2 \sin^2 v + f^2 \cos^2 v + 0 = f^2\]</span></p>
+<p>המטריצה אלכסונית, ולכן <span class="math inline">\(\det \left( g_{ij} \right) = f^2 w^2\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: וקטור הנורמל</summary>
+<div class="foldable" title="שלב 3: וקטור הנורמל">
+<p>נפתח את הדטרמיננטה רכיב־רכיב. הרכיב הראשון הוא <span class="math display">\[,f' \sin v \cdot 0 - g' \cdot f \cos v = -f g' \cos v\]</span> הרכיב השני, עם סימן מינוס לפי כלל הפיתוח, הוא <span class="math display">\[,- \left( f' \cos v \cdot 0 - g' \cdot \left( -f \sin v \right) \right) = -f g' \sin v\]</span> והרכיב השלישי הוא <span class="math display">\[.f' \cos v \cdot f \cos v - f' \sin v \cdot \left( -f \sin v \right) = f f' \left( \cos^2 v + \sin^2 v \right) = f f'\]</span></p>
+<p>לכן, בהוצאת גורם משותף, <span class="math display">\[.\overline{x}_u \times \overline{x}_v = f \left( -g' \cos v, \; -g' \sin v, \; f' \right)\]</span></p>
+<p>הנורמה היא <span class="math inline">\(f \sqrt{\left( g' \right)^2 + \left( f' \right)^2} = f w\)</span>, כאשר השתמשנו ב-<span class="math inline">\(f &gt; 0\)</span> כדי לוותר על הערך המוחלט. מכאן <span class="math display">\[.N = \frac{1}{w} \left( -g' \cos v, \; -g' \sin v, \; f' \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: הנגזרות השניות</summary>
+<div class="foldable" title="שלב 4: הנגזרות השניות">
+<p>נגזור שוב: <span class="math display">\[,\overline{x}_{uu} = \left( f'' \cos v, \; f'' \sin v, \; g'' \right)\]</span> וכן <span class="math display">\[,\overline{x}_{uv} = \left( -f' \sin v, \; f' \cos v, \; 0 \right)\]</span> ולבסוף <span class="math display">\[.\overline{x}_{vv} = \left( -f \cos v, \; -f \sin v, \; 0 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: מקדמי התבנית השנייה</summary>
+<div class="foldable" title="שלב 5: מקדמי התבנית השנייה">
+<p>נשתמש בנוסחה הימנית מ<a href="#box-prp-two-formulas-Lij">טענה 8.3.3</a>.</p>
+<p>עבור <span class="math inline">\(L_{11}\)</span> שני המחוברים התלויים ב-<span class="math inline">\(v\)</span> מתחברים: <span class="math display">\[.L_{11} = \frac{1}{w} \left( -f'' g' \cos^2 v - f'' g' \sin^2 v + f' g'' \right) = \frac{f' g'' - f'' g'}{w}\]</span></p>
+<p>עבור <span class="math inline">\(L_{12}\)</span> שני המחוברים מבטלים זה את זה: <span class="math display">\[.L_{12} = \frac{1}{w} \left( f' g' \sin v \cos v - f' g' \cos v \sin v + 0 \right) = 0\]</span></p>
+<p>עבור <span class="math inline">\(L_{22}\)</span> הם שוב מתחברים: <span class="math display">\[.L_{22} = \frac{1}{w} \left( f g' \cos^2 v + f g' \sin^2 v + 0 \right) = \frac{f g'}{w}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 6: הכול אלכסוני</summary>
+<div class="foldable" title="שלב 6: הכול אלכסוני">
+<p>מתקיים <span class="math inline">\(g_{12} = 0\)</span> וגם <span class="math inline">\(L_{12} = 0\)</span>, ולכן לפי <a href="#box-rem-diagonal-case">הערה 8.4.4</a> המרידיאנים והמקבילים הם הכיוונים הראשיים, ומתקבל <span class="math display">\[,k_1 = \frac{L_{11}}{g_{11}} = \frac{\left( f' g'' - f'' g' \right) / w}{w^2} = \frac{f' g'' - f'' g'}{\left( \left( f' \right)^2 + \left( g' \right)^2 \right)^{3/2}}\]</span> וכן <span class="math display">\[.k_2 = \frac{L_{22}}{g_{22}} = \frac{f g' / w}{f^2} = \frac{g'}{f \sqrt{\left( f' \right)^2 + \left( g' \right)^2}}\]</span></p>
+<p>מכאן <span class="math display">\[,K = k_1 k_2 = \frac{g' \left( f' g'' - f'' g' \right)}{f \left( \left( f' \right)^2 + \left( g' \right)^2 \right)^{2}}\]</span> ו-<span class="math inline">\(H\)</span> הוא הממוצע של השניים.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 7: פרמטריזציה טבעית</summary>
+<div class="foldable" title="שלב 7: פרמטריזציה טבעית">
+<p>נניח כעת <span class="math inline">\(\left( f' \right)^2 + \left( g' \right)^2 = 1\)</span>, כלומר <span class="math inline">\(w = 1\)</span>. אז <span class="math display">\[.k_1 = f' g'' - f'' g', \qquad k_2 = \frac{g'}{f}, \qquad K = \frac{g' \left( f' g'' - f'' g' \right)}{f}\]</span></p>
+<p>נגזור את הזהות <span class="math inline">\(\left( f' \right)^2 + \left( g' \right)^2 = 1\)</span> לפי <span class="math inline">\(u\)</span>. אגף ימין קבוע ונגזרתו מתאפסת, ולכן <span class="math display">\[,2 f' f'' + 2 g' g'' = 0\]</span> כלומר <span class="math display">\[.g' g'' = -f' f''\]</span></p>
+<p>נפתח את המונה של <span class="math inline">\(K\)</span> ונציב: <span class="math display">\[\begin{aligned} g' \left( f' g'' - f'' g' \right) &amp;= f' \cdot g' g'' - f'' \left( g' \right)^2 \\ &amp;= f' \left( -f' f'' \right) - f'' \left( g' \right)^2 \\ &amp;= -f'' \left( \left( f' \right)^2 + \left( g' \right)^2 \right) \\ &amp;= -f''. \end{aligned}\]</span></p>
+<p>במעבר האחרון השתמשנו שוב בהנחת הפרמטריזציה הטבעית. לכן <span class="math display">\[.K = -\frac{f''}{f}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
+<div class="foldable" title="בדיקת שפיות">
+<p>ספירת היחידה היא משטח הסיבוב של <span class="math inline">\(\gamma \left( u \right) = \left( \cos u, 0, \sin u \right)\)</span>, והיא בפרמטריזציה טבעית שכן <span class="math inline">\(\sin^2 u + \cos^2 u = 1\)</span>. כאן <span class="math inline">\(f = \cos u\)</span>, ולכן <span class="math inline">\(f'' = -\cos u\)</span> ומתקבל <span class="math display">\[,K = -\frac{-\cos u}{\cos u} = 1\]</span> וזה מתאים לספירה ברדיוס <span class="math inline">\(1\)</span>, שבה ראינו ב<a href="#box-q-shape-sphere">שאלה 8.2.8</a> ששתי העקמומיויות הראשיות הן <span class="math inline">\(\pm 1\)</span>.</p>
+<p>עבור מישור <span class="math inline">\(xy\)</span> נבחר <span class="math inline">\(\gamma \left( u \right) = \left( u, 0, 0 \right)\)</span>, ואז <span class="math inline">\(f = u\)</span> ו-<span class="math inline">\(f'' = 0\)</span>, ולכן <span class="math inline">\(K = 0\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>הנוסחה <span class="math inline">\(K = -\frac{f''}{f}\)</span> מזכירה <strong>רק את העקומה היוצרת</strong>, ורק דרך <span class="math inline">\(f\)</span>, כלומר דרך המרחק מן הציר. הפונקציה <span class="math inline">\(g\)</span> אינה מופיעה בה, וגם לא האופן שבו המשטח משוכן במרחב.</p>
+<p>כלומר לכל שני משטחי סיבוב שהעקומות היוצרות שלהם נותנות את אותו <span class="math inline">\(f\)</span> יש אותה עקמומיות גאוס. זהו רמז ראשון לכך ש-<span class="math inline">\(K\)</span> הוא גודל פנימי, וזה תוכנו של המשפט המפואר של גאוס.</p>
+</div>
+</details>
+</div>
+<div id="box-q-torus-curvature" class="thmbox thmbox-question">
+<p><strong>שאלה 8.4.10.</strong></p>
+<p>יהיו <span class="math inline">\(R &gt; r &gt; 0\)</span>, ויהי הטורוס <span class="math display">\[,\overline{x} \left( u, v \right) = \left( \left( R + r \cos u \right) \cos v, \; \left( R + r \cos u \right) \sin v, \; r \sin u \right)\]</span> כאשר <span class="math inline">\(0 &lt; u &lt; 2\pi\)</span> ו-<span class="math inline">\(0 &lt; v &lt; 2\pi\)</span>. חשבו את <span class="math inline">\(k_1\)</span>, את <span class="math inline">\(k_2\)</span>, את <span class="math inline">\(K\)</span> ואת <span class="math inline">\(H\)</span>, וקבעו באילו נקודות <span class="math inline">\(K\)</span> חיובית, שלילית ומתאפסת.</p>
+</div>
+<iframe class="widget-frame" src="widgets/ch08/torus-curvature.html" loading="lazy" title="מיון נקודות על הטורוס לפי סימן עקמומיות גאוס"></iframe>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: הטורוס הוא משטח סיבוב</summary>
+<div class="foldable" title="שלב 1: הטורוס הוא משטח סיבוב">
+<p>הטורוס מתקבל מסיבוב המעגל <span class="math display">\[\gamma \left( u \right) = \left( R + r \cos u, \; 0, \; r \sin u \right)\]</span> שרדיוסו <span class="math inline">\(r\)</span> ומרכזו במרחק <span class="math inline">\(R\)</span> מן הציר, סביב ציר <span class="math inline">\(z\)</span>. לכן אפשר להשתמש ב<a href="#box-q-revolution-curvature">שאלה 8.4.9</a> עם <span class="math display">\[.f \left( u \right) = R + r \cos u, \qquad g \left( u \right) = r \sin u\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: הנגזרות</summary>
+<div class="foldable" title="שלב 2: הנגזרות">
+<p>נגזור: <span class="math display">\[,f' = -r \sin u, \qquad f'' = -r \cos u\]</span> וכן <span class="math display">\[.g' = r \cos u, \qquad g'' = -r \sin u\]</span></p>
+<p>נחשב את <span class="math inline">\(w\)</span>: <span class="math display">\[,w^2 = \left( f' \right)^2 + \left( g' \right)^2 = r^2 \sin^2 u + r^2 \cos^2 u = r^2\]</span> כלומר <span class="math inline">\(w = r\)</span>.</p>
+<p>העקומה היוצרת היא אפוא בעלת מהירות <strong>קבועה</strong> <span class="math inline">\(r\)</span>, אך אין זו פרמטריזציה טבעית אלא אם <span class="math inline">\(r = 1\)</span>. לכן נשתמש בנוסחאות הכלליות של שלב 6 ולא בקיצור <span class="math inline">\(-\frac{f''}{f}\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: שתי התבניות</summary>
+<div class="foldable" title="שלב 3: שתי התבניות">
+<p>לפי שלב 2 של התרגיל הקודם <span class="math display">\[.g_{11} = w^2 = r^2, \qquad g_{12} = 0, \qquad g_{22} = f^2 = \left( R + r \cos u \right)^2\]</span></p>
+<p>לפי שלב 5 שם, נציב ונקבל <span class="math display">\[,L_{11} = \frac{f' g'' - f'' g'}{w} = \frac{\left( -r \sin u \right) \left( -r \sin u \right) - \left( -r \cos u \right) \left( r \cos u \right)}{r}\]</span> ובמונה שני המחוברים חיוביים, <span class="math display">\[,L_{11} = \frac{r^2 \sin^2 u + r^2 \cos^2 u}{r} = \frac{r^2}{r} = r\]</span> וכן <span class="math inline">\(L_{12} = 0\)</span>, ולבסוף <span class="math display">\[.L_{22} = \frac{f g'}{w} = \frac{\left( R + r \cos u \right) \cdot r \cos u}{r} = \left( R + r \cos u \right) \cos u\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: העקמומיויות הראשיות</summary>
+<div class="foldable" title="שלב 4: העקמומיויות הראשיות">
+<p>הכול אלכסוני, ולכן לפי <a href="#box-rem-diagonal-case">הערה 8.4.4</a> <span class="math display">\[,k_1 = \frac{L_{11}}{g_{11}} = \frac{r}{r^2} = \frac{1}{r}\]</span> וכן, בצמצום גורם אחד של <span class="math inline">\(R + r \cos u\)</span>, <span class="math display">\[.k_2 = \frac{L_{22}}{g_{22}} = \frac{\left( R + r \cos u \right) \cos u}{\left( R + r \cos u \right)^2} = \frac{\cos u}{R + r \cos u}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: שתי העקמומיויות</summary>
+<div class="foldable" title="שלב 5: שתי העקמומיויות">
+<p>נכפול ונקבל <span class="math display">\[,K = k_1 k_2 = \frac{\cos u}{r \left( R + r \cos u \right)}\]</span> ונחבר, במכנה משותף, <span class="math display">\[.H = \frac{k_1 + k_2}{2} = \frac{1}{2} \left( \frac{1}{r} + \frac{\cos u}{R + r \cos u} \right) = \frac{R + r \cos u + r \cos u}{2r \left( R + r \cos u \right)} = \frac{R + 2r \cos u}{2r \left( R + r \cos u \right)}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 6: הסימן של עקמומיות גאוס</summary>
+<div class="foldable" title="שלב 6: הסימן של עקמומיות גאוס">
+<p>מכיוון ש-<span class="math inline">\(R &gt; r &gt; 0\)</span> ומכיוון ש-<span class="math inline">\(\cos u \geq -1\)</span>, מתקיים <span class="math display">\[,R + r \cos u \geq R - r &gt; 0\]</span> ולכן המכנה <span class="math inline">\(r \left( R + r \cos u \right)\)</span> של <span class="math inline">\(K\)</span> <strong>חיובי בכל נקודה</strong>. מכאן שהסימן של <span class="math inline">\(K\)</span> הוא הסימן של <span class="math inline">\(\cos u\)</span> בלבד:</p>
+<ol type="1">
+<li>כאשר <span class="math inline">\(-\frac{\pi}{2} &lt; u &lt; \frac{\pi}{2}\)</span>, כלומר <span class="math inline">\(\cos u &gt; 0\)</span>, מתקיים <span class="math inline">\(K &gt; 0\)</span>. זהו החלק <strong>החיצוני</strong> של הטורוס, הפונה הרחק מן הציר.</li>
+<li>כאשר <span class="math inline">\(\frac{\pi}{2} &lt; u &lt; \frac{3\pi}{2}\)</span>, כלומר <span class="math inline">\(\cos u &lt; 0\)</span>, מתקיים <span class="math inline">\(K &lt; 0\)</span>. זהו החלק <strong>הפנימי</strong>, הפונה אל הציר.</li>
+<li>כאשר <span class="math inline">\(u = \pm \frac{\pi}{2}\)</span> מתקיים <span class="math inline">\(K = 0\)</span>. אלה שני מעגלים ברדיוס <span class="math inline">\(R\)</span>, העליון והתחתון שבטורוס.</li>
+</ol>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 7: אין נקודות שבהן שתי העקמומיויות מתאפסות</summary>
+<div class="foldable" title="שלב 7: אין נקודות שבהן שתי העקמומיויות מתאפסות">
+<p>העקמומיות <span class="math inline">\(k_1 = \frac{1}{r}\)</span> היא קבוע שונה מאפס. לכן בשני המעגלים <span class="math inline">\(u = \pm \frac{\pi}{2}\)</span> מתקיים <span class="math inline">\(k_2 = 0\)</span> אך <span class="math inline">\(k_1 \neq 0\)</span>, כלומר בדיוק עקמומיות ראשית אחת מתאפסת. ההבחנה הזו היא נושא הסעיף הבא.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
+<div class="foldable" title="בדיקת שפיות">
+<p>עבור <span class="math inline">\(u = 0\)</span>, כלומר על המעגל החיצוני ביותר, מתקבל <span class="math inline">\(k_1 = \frac{1}{r}\)</span> וכן <span class="math inline">\(k_2 = \frac{1}{R + r}\)</span>. אלה בדיוק ההופכיים של שני הרדיוסים המתבקשים באותה נקודה: הרדיוס <span class="math inline">\(r\)</span> של המעגל הקטן, והמרחק <span class="math inline">\(R + r\)</span> מן הציר.</p>
+<p>עבור <span class="math inline">\(u = \pi\)</span>, כלומר על המעגל הפנימי ביותר, מתקבל <span class="math inline">\(k_1 = \frac{1}{r}\)</span> וכן <span class="math inline">\(k_2 = -\frac{1}{R - r}\)</span>, ההופכי של המרחק <span class="math inline">\(R - r\)</span> מן הציר, עם סימן מינוס משום שהמשטח מתעקם שם לכיוון ההפוך.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>בחלק החיצוני שתי העקמומיויות הראשיות מאותו סימן, והמשטח נראה מקומית כמו כיפה. בחלק הפנימי הן מסימנים מנוגדים, והוא נראה כמו אוכף. בשני המעגלים שביניהם אחת מהן מתאפסת, והוא נראה כמו גליל.</p>
+<p>משטח אחד ורגיל לחלוטין נושא את שלוש ההתנהגויות בעת ובעונה אחת, ולכן ממיינים <strong>נקודות</strong> ולא משטחים.</p>
+</div>
+</details>
+</div>
+<div id="box-q-graph-curvature" class="thmbox thmbox-question">
+<p><strong>שאלה 8.4.11.</strong></p>
+<p>תהי <span class="math inline">\(h \left( u, v \right)\)</span> פונקציה חלקה, ויהי <span class="math inline">\(M\)</span> הגרף שלה בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, \; v, \; h \left( u, v \right) \right)\)</span>.</p>
+<ol type="1">
+<li>הראו כי <span class="math display">\[,K = \frac{h_{uu} h_{vv} - h_{uv}^2}{\left( 1 + h_u^2 + h_v^2 \right)^2}\]</span> וכן <span class="math display">\[.H = \frac{\left( 1 + h_v^2 \right) h_{uu} - 2 h_u h_v h_{uv} + \left( 1 + h_u^2 \right) h_{vv}}{2 \left( 1 + h_u^2 + h_v^2 \right)^{3/2}}\]</span></li>
+<li>הסיקו מה קורה ב<strong>נקודה קריטית</strong> של <span class="math inline">\(h\)</span>, כלומר בנקודה שבה <span class="math inline">\(\nabla h = \left( 0, 0 \right)\)</span>.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: התבנית היסודית הראשונה</summary>
+<div class="foldable" title="שלב 1: התבנית היסודית הראשונה">
+<p>לאורך הפתרון נסמן <span class="math inline">\(W = \sqrt{1 + h_u^2 + h_v^2}\)</span>.</p>
+<p>הנגזרות החלקיות הן <span class="math inline">\(\overline{x}_u = \left( 1, 0, h_u \right)\)</span> ו-<span class="math inline">\(\overline{x}_v = \left( 0, 1, h_v \right)\)</span>, ולכן <span class="math display">\[.g_{11} = 1 + h_u^2, \qquad g_{12} = h_u h_v, \qquad g_{22} = 1 + h_v^2\]</span></p>
+<p>נפתח את המכפלה בדטרמיננטה. שני המחוברים המעורבים מבטלים זה את זה: <span class="math display">\[\begin{aligned} \det \left( g_{ij} \right) &amp;= \left( 1 + h_u^2 \right) \left( 1 + h_v^2 \right) - h_u^2 h_v^2 \\ &amp;= 1 + h_v^2 + h_u^2 + h_u^2 h_v^2 - h_u^2 h_v^2 \\ &amp;= 1 + h_u^2 + h_v^2 = W^2. \end{aligned}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: וקטור הנורמל</summary>
+<div class="foldable" title="שלב 2: וקטור הנורמל">
+<p>המכפלה הוקטורית של שני הוקטורים היא <span class="math inline">\(\overline{x}_u \times \overline{x}_v = \left( -h_u, \; -h_v, \; 1 \right)\)</span>, שנורמתה <span class="math inline">\(W\)</span>, ולכן <span class="math display">\[.N = \frac{1}{W} \left( -h_u, \; -h_v, \; 1 \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: התבנית היסודית השנייה</summary>
+<div class="foldable" title="שלב 3: התבנית היסודית השנייה">
+<p>לנגזרות השניות יש רכיב שלישי בלבד, <span class="math display">\[,\overline{x}_{uu} = \left( 0, 0, h_{uu} \right), \qquad \overline{x}_{uv} = \left( 0, 0, h_{uv} \right), \qquad \overline{x}_{vv} = \left( 0, 0, h_{vv} \right)\]</span> והרכיב השלישי של <span class="math inline">\(N\)</span> הוא <span class="math inline">\(\frac{1}{W}\)</span>, ולכן כל מכפלה סקלרית מצטמצמת לאיבר אחד: <span class="math display">\[.L_{11} = \frac{h_{uu}}{W}, \qquad L_{12} = \frac{h_{uv}}{W}, \qquad L_{22} = \frac{h_{vv}}{W}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: שתי העקמומיויות</summary>
+<div class="foldable" title="שלב 4: שתי העקמומיויות">
+<p>כל אחד מן המקדמים נושא גורם <span class="math inline">\(\frac{1}{W}\)</span>, ולכן הדטרמיננטה נושאת <span class="math inline">\(\frac{1}{W^2}\)</span>: <span class="math display">\[.K = \frac{\det \left( L_{ij} \right)}{\det \left( g_{ij} \right)} = \frac{\left( h_{uu} h_{vv} - h_{uv}^2 \right) / W^2}{W^2} = \frac{h_{uu} h_{vv} - h_{uv}^2}{W^4}\]</span></p>
+<p>כאן <span class="math inline">\(g_{12} = h_u h_v\)</span> אינו מתאפס בדרך כלל, ולכן <a href="#box-rem-diagonal-case">הערה 8.4.4</a> אינו חל ואת <span class="math inline">\(H\)</span> יש לחשב מן המטריצה <span class="math inline">\(\left( L^i_j \right)\)</span> עצמה. נרשום את ההופכית של המטריקה, <span class="math display">\[,\left( g^{ij} \right) = \frac{1}{W^2} \begin{pmatrix} 1 + h_v^2 &amp; -h_u h_v \\ -h_u h_v &amp; 1 + h_u^2 \end{pmatrix}\]</span> ונכפול ב-<span class="math inline">\(\left( L_{ij} \right)\)</span> לפי <a href="#box-prp-shape-matrix">טענה 8.3.5</a>. אנחנו זקוקים רק לשני איברי האלכסון של המכפלה. האיבר השמאלי העליון הוא <span class="math display">\[,L^1_1 = \frac{1}{W^2} \cdot \frac{1}{W} \left[ \left( 1 + h_v^2 \right) h_{uu} - h_u h_v h_{uv} \right]\]</span> והאיבר הימני התחתון הוא <span class="math display">\[.L^2_2 = \frac{1}{W^2} \cdot \frac{1}{W} \left[ -h_u h_v h_{uv} + \left( 1 + h_u^2 \right) h_{vv} \right]\]</span></p>
+<p>נחבר את השניים ונחלק בשתיים. שני האיברים המעורבים זהים ולכן מצטרפים לאיבר אחד עם מקדם <span class="math inline">\(2\)</span>: <span class="math display">\[.H = \frac{1}{2} \operatorname{tr} \left( L^i_j \right) = \frac{\left( 1 + h_v^2 \right) h_{uu} - 2 h_u h_v h_{uv} + \left( 1 + h_u^2 \right) h_{vv}}{2 W^3}\]</span></p>
+<p>נותר להציב <span class="math inline">\(W^4 = \left( 1 + h_u^2 + h_v^2 \right)^2\)</span> וכן <span class="math inline">\(W^3 = \left( 1 + h_u^2 + h_v^2 \right)^{3/2}\)</span>, וזה בדיוק הנדרש.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 5: בנקודה קריטית</summary>
+<div class="foldable" title="שלב 5: בנקודה קריטית">
+<p>אם <span class="math inline">\(h_u = h_v = 0\)</span> אזי <span class="math inline">\(W = 1\)</span>, ולכן <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}, \qquad \left( L_{ij} \right) = \begin{pmatrix} h_{uu} &amp; h_{uv} \\ h_{uv} &amp; h_{vv} \end{pmatrix} = \operatorname{Hess} \left( h \right)\]</span> ומכיוון שגם <span class="math inline">\(\left( g^{ij} \right)\)</span> היא מטריצת הזהות, <span class="math display">\[.\left( L^i_j \right) = \left( g^{ij} \right) \left( L_{ij} \right) = \operatorname{Hess} \left( h \right)\]</span></p>
+<p>מכאן <span class="math display">\[,K = \det \operatorname{Hess} \left( h \right), \qquad H = \frac{1}{2} \left( h_{uu} + h_{vv} \right)\]</span> והעקמומיויות הראשיות הן <strong>הערכים העצמיים של ההסיאן</strong>, והכיוונים הראשיים הם הוקטורים העצמיים שלו.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>שלב 5 אומר שמבחן הנגזרות השניות מחשבון אינפיניטסימלי והסימן של <span class="math inline">\(K\)</span> הם אותה אמירה:</p>
+<ol type="1">
+<li>אם <span class="math inline">\(\det \operatorname{Hess} \left( h \right) &gt; 0\)</span>, הנקודה היא מקסימום או מינימום מקומי, ואז <span class="math inline">\(K &gt; 0\)</span>.</li>
+<li>אם <span class="math inline">\(\det \operatorname{Hess} \left( h \right) &lt; 0\)</span>, הנקודה היא אוכף, ואז <span class="math inline">\(K &lt; 0\)</span>.</li>
+<li>אם <span class="math inline">\(\det \operatorname{Hess} \left( h \right) = 0\)</span>, המבחן אינו נותן תשובה, ואז <span class="math inline">\(K = 0\)</span>.</li>
+</ol>
+<p>השורה השלישית אינה חיסרון של אף אחת משתי האמירות. שתיהן שותקות מאותה סיבה: המידע מסדר שני מיצה את עצמו, והצורה נקבעת על ידי נגזרות גבוהות יותר. הסעיף הבא עוסק בדיוק בכך.</p>
+</div>
+</details>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "הועתק!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "הועתק!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/yuval-khachatryan\.github\.io\/Differential-Geometry-Recitations-Summer-2026");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./07-First-Fundamental-Form.html" class="pagination-link" aria-label="תרגול 7: התבנית היסודית הראשונה">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">תרגול 7: התבנית היסודית הראשונה</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

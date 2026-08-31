@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הטבעת של מוביוס</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* mobius.html — the Moebius band and the unit normal along its median circle.
+   ---------------------------------------------------------------------------
+   Standalone rather than a Surface3D.mount() call: that module draws x_u, x_v
+   and a patch of the tangent plane, never N, and four other widgets depend on
+   it. The whole point here is watching N come back reversed, so the drawing
+   code lives with the one page that needs it. Projection, painter's algorithm
+   and the auto-fit are kept deliberately identical to surface3d.js so this page
+   looks like the rest of the book.
+
+   The band is drawn with k half-twists,
+
+     x(t, th) = ( (1 - t sin(k*th/2)) cos th,
+                  (1 - t sin(k*th/2)) sin th,
+                    t cos(k*th/2) ),      -1/2 < t < 1/2,  0 <= th <= 2pi.
+
+   k = 1 is the band of the exercise (Pressley, Example 4.5.3); k = 0 is a plain
+   cylinder. The normal is taken from the SAME formula by central differences,
+   not from the closed form derived in the solution, so the picture cannot
+   silently disagree with the parametrisation it claims to illustrate.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    surf: "#bcd4ea", edge: "#7ba6cf",
+    med:  "#1f4e79", now: "#c0392b",
+    ref:  "#0f172a", axis: "#94a3b8"
+  };
+
+  var TWO_PI = 2 * Math.PI, NT = 10, NTH = 168, TMAX = 0.5;
+
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function mul(a, s) { return [a[0] * s, a[1] * s, a[2] * s]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function norm(a) { return Math.sqrt(dot(a, a)); }
+  function cross(a, b) {
+    return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  }
+  function unit(a) { var n = norm(a); return n ? mul(a, 1 / n) : a; }
+  function fmt(v, d) {
+    var s = (Math.abs(v) < 5e-4 ? 0 : v).toFixed(d === undefined ? 2 : d);
+    return s === "-0.00" ? "0.00" : s;
+  }
+
+  /* ---- the surface, and its normal by central differences ---- */
+  function X(t, th, k) {
+    var h = k * th / 2, r = 1 - t * Math.sin(h);
+    return [r * Math.cos(th), r * Math.sin(th), t * Math.cos(h)];
+  }
+  function normalAt(t, th, k) {
+    var e = 1e-5,
+        xt  = mul(sub(X(t + e, th, k), X(t - e, th, k)), 1 / (2 * e)),
+        xth = mul(sub(X(t, th + e, k), X(t, th - e, k)), 1 / (2 * e));
+    return unit(cross(xt, xth));
+  }
+
+  var host = document.getElementById("app"),
+      yaw = -0.95, pitch = 0.42, kTw = 1, thSel = 0;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title">הטבעת של מוביוס — הנורמל לאורך מעגל האמצע</p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">זווית סביב המעגל</span>' +
+        '<input class="qv-slider qv-th" type="range" min="0" max="1000" value="0">' +
+        '<span class="qv-badge qv-thval"></span>' +
+      '</div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">מספר חצאי הפיתולים</span>' +
+        '<input class="qv-slider qv-k" type="range" min="0" max="4" step="1" value="1">' +
+        '<span class="qv-badge qv-kval"></span>' +
+      '</div>' +
+      '<div class="qv-dirs">' +
+        '<span><b>N</b>&nbsp;<span dir="ltr" class="qv-r-n"></span></span>' +
+        '<span><b>N&middot;N(0)</b>&nbsp;<span dir="ltr" class="qv-r-d"></span></span>' +
+      '</div>' +
+      /* no dedicated class in quadviz.css: inherit the hint's prose styling and
+         only override what the verdict needs (weight and colour) from draw(). */
+      '<p class="qv-hint qv-verdict"></p>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את המבט. הזיזו את הזווית כדי להסיע את הנורמל סביב מעגל האמצע, וראו לאן הוא מגיע אחרי סיבוב שלם.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      sTh = host.querySelector(".qv-th"), thval = host.querySelector(".qv-thval"),
+      sK  = host.querySelector(".qv-k"),  kval  = host.querySelector(".qv-kval"),
+      rN  = host.querySelector(".qv-r-n"), rD = host.querySelector(".qv-r-d"),
+      verdict = host.querySelector(".qv-verdict");
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function draw() {
+    kTw = parseInt(sK.value, 10);
+    thSel = (sTh.value / 1000) * TWO_PI;
+
+    var dpr = window.devicePixelRatio || 1,
+        w = cv.clientWidth || 520, hgt = Math.round(w * 0.62);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";
+    ctx.lineJoin = "round";
+
+    /* ---- sample the grid once ---- */
+    var G = [], i, j, t, th;
+    for (i = 0; i <= NT; i++) {
+      G.push([]);
+      t = -TMAX + (i / NT) * 2 * TMAX;
+      for (j = 0; j <= NTH; j++) {
+        th = (j / NTH) * TWO_PI;
+        G[i].push({ q: project(X(t, th, kTw)), n: normalAt(t, th, kTw) });
+      }
+    }
+
+    /* ---- fit on the surface only, so the arrows cannot make it jump ---- */
+    var xs = [], ys = [];
+    for (i = 0; i <= NT; i++) for (j = 0; j <= NTH; j += 3) {
+      xs.push(G[i][j].q[0]); ys.push(G[i][j].q[1]);
+    }
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs),
+        ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys),
+        pad = 1.16,
+        sc = Math.min(w / ((xmax - xmin) * pad || 1), hgt / ((ymax - ymin) * pad || 1)),
+        cx = w / 2 - sc * (xmin + xmax) / 2,
+        cy = hgt / 2 + sc * (ymin + ymax) / 2;
+
+    function S(q) { return [cx + sc * q[0], cy - sc * q[1]]; }
+
+    /* ---- surface, painter's algorithm.  A twisted band really does occlude
+       itself, so unlike the graphs in surface3d.js the quads are shaded: the
+       grid alone would not tell the reader which face is turned towards them. */
+    var quads = [];
+    for (i = 0; i < NT; i++) for (j = 0; j < NTH; j++) {
+      var a = G[i][j], b = G[i + 1][j], c = G[i + 1][j + 1], d = G[i][j + 1],
+          nn = project(a.n);
+      quads.push({
+        z: (a.q[2] + b.q[2] + c.q[2] + d.q[2]) / 4,
+        p: [a.q, b.q, c.q, d.q],
+        lit: Math.abs(nn[2])
+      });
+    }
+    quads.sort(function (p, q) { return p.z - q.z; });
+    ctx.lineWidth = 0.4;
+    quads.forEach(function (Q) {
+      ctx.beginPath();
+      var s0 = S(Q.p[0]); ctx.moveTo(s0[0], s0[1]);
+      for (var m = 1; m < 4; m++) { var sm = S(Q.p[m]); ctx.lineTo(sm[0], sm[1]); }
+      ctx.closePath();
+      /* mix the house surface colour towards white with the facing angle */
+      var f = 0.35 + 0.65 * Q.lit;
+      ctx.fillStyle = "rgb(" + Math.round(255 - (255 - 0xbc) * f) + "," +
+                               Math.round(255 - (255 - 0xd4) * f) + "," +
+                               Math.round(255 - (255 - 0xea) * f) + ")";
+      ctx.fill();
+      ctx.strokeStyle = COL.edge; ctx.globalAlpha = 0.55; ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+
+    /* ---- the median circle t = 0 ---- */
+    ctx.beginPath();
+    for (j = 0; j <= NTH; j++) {
+      var s = S(project(X(0, (j / NTH) * TWO_PI, kTw)));
+      if (j === 0) ctx.moveTo(s[0], s[1]); else ctx.lineTo(s[0], s[1]);
+    }
+    ctx.strokeStyle = COL.med; ctx.lineWidth = 2.2; ctx.stroke();
+
+    /* ---- arrows ---- */
+    var L = 0.55;
+    function arrow(p3, v3, col, lw, lab) {
+      var s1 = S(project(p3)), s2 = S(project(add(p3, mul(v3, L))));
+      ctx.beginPath(); ctx.moveTo(s1[0], s1[1]); ctx.lineTo(s2[0], s2[1]);
+      ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.stroke();
+      var ang = Math.atan2(s2[1] - s1[1], s2[0] - s1[0]), h = lw > 1.6 ? 9 : 6;
+      ctx.beginPath();
+      ctx.moveTo(s2[0], s2[1]);
+      ctx.lineTo(s2[0] - h * Math.cos(ang - 0.4), s2[1] - h * Math.sin(ang - 0.4));
+      ctx.lineTo(s2[0] - h * Math.cos(ang + 0.4), s2[1] - h * Math.sin(ang + 0.4));
+      ctx.closePath(); ctx.fillStyle = col; ctx.fill();
+      if (lab) {
+        ctx.font = "12px ui-sans-serif, system-ui, sans-serif";
+        ctx.fillText(lab, s2[0] + 6, s2[1] - 4);
+      }
+    }
+
+    /* the ghosts: where the normal points all the way round */
+    for (j = 0; j < 12; j++) {
+      var thg = (j / 12) * TWO_PI;
+      ctx.globalAlpha = 0.75;
+      arrow(X(0, thg, kTw), normalAt(0, thg, kTw), COL.axis, 1.1, null);
+      ctx.globalAlpha = 1;
+    }
+
+    /* the reference normal at th = 0, and the one the reader is moving */
+    var n0 = normalAt(0, 0, kTw), nSel = normalAt(0, thSel, kTw);
+    arrow(X(0, 0, kTw), n0, COL.ref, 2.6, "N(0)");
+    arrow(X(0, thSel, kTw), nSel, COL.now, 2.6, "N");
+
+    var ps = S(project(X(0, thSel, kTw)));
+    ctx.beginPath(); ctx.arc(ps[0], ps[1], 4.5, 0, TWO_PI);
+    ctx.fillStyle = COL.now; ctx.fill();
+
+    /* ---- readouts ---- */
+    thval.textContent = fmt(thSel / Math.PI) + "π";
+    /* the badge is forced direction:ltr and is 3.2rem wide, so it carries the
+       number only -- the Hebrew name of the surface goes in the verdict line,
+       which sits in the normal RTL flow */
+    kval.textContent = kTw;
+    rN.textContent = "(" + fmt(nSel[0]) + ", " + fmt(nSel[1]) + ", " + fmt(nSel[2]) + ")";
+    rD.textContent = fmt(dot(nSel, n0));
+
+    var flips = (kTw % 2) === 1, msg;
+    if (kTw === 0) {
+      msg = "אפס חצאי פיתולים, כלומר גליל. אחרי סיבוב שלם הנורמל חוזר לעצמו, והמשטח אוריינטבילי.";
+    } else if (kTw === 1) {
+      msg = "חצי פיתול אחד, כלומר הטבעת של מוביוס. אחרי סיבוב שלם הנורמל חוזר הפוך, ולכן אין עליה שדה נורמלים רציף.";
+    } else if (flips) {
+      msg = "מספר אי־זוגי של חצאי פיתולים. אחרי סיבוב שלם הנורמל חוזר הפוך, ולכן אין על המשטח שדה נורמלים רציף.";
+    } else {
+      msg = "מספר זוגי של חצאי פיתולים. אחרי סיבוב שלם הנורמל חוזר לעצמו, והמשטח אוריינטבילי.";
+    }
+    verdict.textContent = msg;
+    verdict.style.color = flips ? COL.now : COL.med;
+    verdict.style.fontWeight = "600";
+  }
+
+  /* ---- drag to rotate ---- */
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.35, Math.min(1.35, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  sTh.addEventListener("input", draw);
+  sK.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

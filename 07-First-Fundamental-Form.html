@@ -36,6 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./08-Second-Fundamental-Form.html" rel="next">
 <link href="./06-Surfaces-and-Tangent-Plane.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -645,6 +646,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">תרגול 7: התבנית היסודית הראשונה</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-Second-Fundamental-Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -659,6 +666,10 @@ window.Quarto = {
   <ul>
   <li><a href="#שימושים-של-התבנית-היסודית-הראשונה" id="toc-שימושים-של-התבנית-היסודית-הראשונה" class="nav-link" data-scroll-target="#שימושים-של-התבנית-היסודית-הראשונה"><span class="header-section-number">7.1.1</span> שימושים של התבנית היסודית הראשונה</a></li>
   <li><a href="#תרגילים" id="toc-תרגילים" class="nav-link" data-scroll-target="#תרגילים">תרגילים</a></li>
+  </ul></li>
+  <li><a href="#משטחים-אוריינטביליים" id="toc-משטחים-אוריינטביליים" class="nav-link" data-scroll-target="#משטחים-אוריינטביליים"><span class="header-section-number">7.2</span> משטחים אוריינטביליים</a>
+  <ul>
+  <li><a href="#תרגילים-1" id="toc-תרגילים-1" class="nav-link" data-scroll-target="#תרגילים-1">תרגילים</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -731,6 +742,12 @@ window.Quarto = {
 <div id="box-rem-area-invariant" class="thmbox thmbox-remark" title="השטח אינו תלוי בפרמטריזציה">
 <p><strong>הערה 7.1.9 — השטח אינו תלוי בפרמטריזציה.</strong></p>
 <p>האינטגרל שבנוסחת השטח אינו תלוי בפרמטריזציה. אם <span class="math inline">\(\overline{x}\)</span> ו-<span class="math inline">\(\overline{\overline{x}}\)</span> הן שתי פרמטריזציות שונות של אותו תחום, המעבר ביניהן מתבצע על ידי היעקוביאן של שינוי הקואורדינטות, והוא בדיוק הגורם שמתקן את אלמנט השטח.</p>
+</div>
+<p>כדי לראות מהיכן מגיעה הנוסחה, נתבונן במלבן קטן במישור הפרמטרים שצלעותיו <span class="math inline">\(du\)</span> ו-<span class="math inline">\(dv\)</span>. התמונה שלו על המשטח קרובה למקבילית הנפרשת על ידי הוקטורים <span class="math inline">\(\overline{x}_u \, du\)</span> ו-<span class="math inline">\(\overline{x}_v \, dv\)</span>, ושטח המקבילית הזו הוא <span class="math display">\[,\left\| \overline{x}_u \times \overline{x}_v \right\| \, du \, dv = \left\| \overline{x}_u \right\| \left\| \overline{x}_v \right\| \sin \theta \, du \, dv\]</span> כאשר <span class="math inline">\(\theta\)</span> היא הזווית בין שני הוקטורים. אכן, לפי <a href="#box-prp-det-metric">טענה 7.1.4</a> מתקיים <span class="math display">\[,\det \left( g_{ij} \right) = \left\| \overline{x}_u \right\|^2 \left\| \overline{x}_v \right\|^2 - \left\langle \overline{x}_u, \overline{x}_v \right\rangle^2 = \left\| \overline{x}_u \right\|^2 \left\| \overline{x}_v \right\|^2 \sin^2 \theta\]</span> ולכן שטח המקבילית הוא בדיוק <span class="math inline">\(\sqrt{\det \left( g_{ij} \right)} \, du \, dv\)</span>. סכימה על כל המלבנים הקטנים, במעבר לגבול, נותנת את האינטגרל שבנוסחה.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/area-element.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:94.0%" alt="מלבן במישור הפרמטרים והמקבילית המתאימה לו על המשטח"></p>
+</figure>
 </div>
 <div id="box-prp-first-form-revolution" class="thmbox thmbox-proposition" title="התבנית היסודית של משטח סיבוב">
 <p><strong>טענה 7.1.10 — התבנית היסודית של משטח סיבוב.</strong></p>
@@ -862,8 +879,133 @@ window.Quarto = {
 </div>
 </details>
 </div>
-<div id="box-q-ff-length-helix" class="thmbox thmbox-question">
+<div id="box-q-ff-hemisphere-area" class="thmbox thmbox-question">
 <p><strong>שאלה 7.1.17.</strong></p>
+<p>חשבו את שטח חצי הכדור הדרומי של ספירת היחידה, בעזרת הפרמטריזציה שלה כמשטח סיבוב.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: תחום האינטגרציה</summary>
+<div class="foldable" title="שלב 1: תחום האינטגרציה">
+<p>נשתמש בפרמטריזציה ובמטריקה שחישבנו ב<a href="#box-q-ff-sphere">שאלה 7.1.14</a>, כלומר <span class="math display">\[,\overline{x} \left( u, v \right) = \left( \sin u \cos v, \; \sin u \sin v, \; \cos u \right)\]</span> ועבורה <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \sin^2 u \end{pmatrix}\]</span></p>
+<p>חצי הכדור הדרומי הוא החלק שבו <span class="math inline">\(z &lt; 0\)</span>. הרכיב השלישי הוא <span class="math inline">\(z = \cos u\)</span>, ולכן התנאי <span class="math inline">\(z &lt; 0\)</span> מתורגם ל-<span class="math inline">\(\cos u &lt; 0\)</span>, כלומר <span class="math display">\[.\frac{\pi}{2} &lt; u &lt; \pi\]</span></p>
+<p>הזווית <span class="math inline">\(v\)</span> סורקת סיבוב שלם, ולכן <span class="math inline">\(0 &lt; v &lt; 2\pi\)</span>. מכאן שתחום האינטגרציה במישור הפרמטרים הוא המלבן <span class="math display">\[.Q = \left( \frac{\pi}{2}, \pi \right) \times \left( 0, 2\pi \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: אלמנט השטח</summary>
+<div class="foldable" title="שלב 2: אלמנט השטח">
+<p>המטריצה אלכסונית, ולכן <span class="math display">\[.\det \left( g_{ij} \right) = 1 \cdot \sin^2 u = \sin^2 u\]</span></p>
+<p>בתחום <span class="math inline">\(0 &lt; u &lt; \pi\)</span> מתקיים <span class="math inline">\(\sin u &gt; 0\)</span>, ולכן אפשר להוציא שורש בלי ערך מוחלט: <span class="math display">\[.dA = \sqrt{\det \left( g_{ij} \right)} \, du \, dv = \sin u \, du \, dv\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: האינטגרל</summary>
+<div class="foldable" title="שלב 3: האינטגרל">
+<p>נציב בנוסחת השטח מ<a href="#box-thm-area-on-surface">משפט 7.1.8</a>. האינטגרנד אינו תלוי ב-<span class="math inline">\(v\)</span>, ולכן האינטגרציה על <span class="math inline">\(v\)</span> נותנת גורם <span class="math inline">\(2\pi\)</span>: <span class="math display">\[.A = \int_0^{2\pi} \int_{\pi/2}^{\pi} \sin u \, du \, dv = 2\pi \int_{\pi/2}^{\pi} \sin u \, du\]</span></p>
+<p>הקדומה של <span class="math inline">\(\sin u\)</span> היא <span class="math inline">\(-\cos u\)</span>, ולכן <span class="math display">\[.\int_{\pi/2}^{\pi} \sin u \, du = \Big[ -\cos u \Big]_{\pi/2}^{\pi} = \left( -\cos \pi \right) - \left( -\cos \frac{\pi}{2} \right) = 1 - 0 = 1\]</span></p>
+<p>נציב ונקבל <span class="math display">\[.A = 2\pi \cdot 1 = 2\pi\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
+<div class="foldable" title="בדיקת שפיות">
+<p>שטח הפנים של ספירת היחידה כולה הוא <span class="math inline">\(4\pi\)</span>, וחצי הכדור הדרומי הוא בדיוק מחצית ממנה. אכן <span class="math inline">\(2\pi = \frac{1}{2} \cdot 4\pi\)</span>, כנדרש.</p>
+<p>שימו לב שהקוטב הדרומי, המתקבל עבור <span class="math inline">\(u = \pi\)</span>, אינו נמצא בתמונת הפרמטריזציה, וגם המרידיאן <span class="math inline">\(v = 0\)</span> אינו נמצא בה. אלה קבוצות ממימד נמוך יותר, ולכן אינן תורמות לשטח.</p>
+</div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/hemisphere-area.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:94.0%" alt="מלבן הפרמטרים של חצי הכדור הדרומי והמשטח המתאים לו"></p>
+</figure>
+</div>
+<div id="box-q-ff-graph-area" class="thmbox thmbox-question">
+<p><strong>שאלה 7.1.18.</strong></p>
+<p>יהי <span class="math inline">\(z = g \left( u, v \right)\)</span> גרף של פונקציה גזירה, בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, v, g \left( u, v \right) \right)\)</span>.</p>
+<ol type="1">
+<li>חשבו את התבנית היסודית הראשונה, והראו שאלמנט השטח הוא <span class="math display">\[.dA = \sqrt{1 + g_u^2 + g_v^2} \, du \, dv\]</span></li>
+<li>בעזרת הנוסחה, חשבו את שטח החלק של הפרבולואיד <span class="math inline">\(z = x^2 + y^2\)</span> שמעל עיגול היחידה <span class="math inline">\(x^2 + y^2 \leq 1\)</span>.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1: אלמנט השטח של גרף</summary>
+<div class="foldable" title="סעיף 1: אלמנט השטח של גרף">
+<p>נגזור. בכל אחת מן הנגזרות שני הרכיבים הראשונים נותנים <span class="math inline">\(1\)</span> ו-<span class="math inline">\(0\)</span> או להפך: <span class="math display">\[.\overline{x}_u = \left( 1, 0, g_u \right), \qquad \overline{x}_v = \left( 0, 1, g_v \right)\]</span></p>
+<p>נחשב את שלושת המקדמים: <span class="math display">\[,g_{11} = 1^2 + 0^2 + g_u^2 = 1 + g_u^2\]</span> וכן <span class="math display">\[,g_{12} = 1 \cdot 0 + 0 \cdot 1 + g_u g_v = g_u g_v\]</span> ולבסוף <span class="math display">\[.g_{22} = 0^2 + 1^2 + g_v^2 = 1 + g_v^2\]</span></p>
+<p>נחשב את הדטרמיננטה ונפתח את המכפלה: <span class="math display">\[\begin{aligned} \det \left( g_{ij} \right) &amp;= \left( 1 + g_u^2 \right) \left( 1 + g_v^2 \right) - \left( g_u g_v \right)^2 \\ &amp;= 1 + g_v^2 + g_u^2 + g_u^2 g_v^2 - g_u^2 g_v^2 \\ &amp;= 1 + g_u^2 + g_v^2. \end{aligned}\]</span></p>
+<p>שני המחוברים המעורבים ביטלו זה את זה, ולכן <span class="math display">\[,dA = \sqrt{\det \left( g_{ij} \right)} \, du \, dv = \sqrt{1 + g_u^2 + g_v^2} \, du \, dv\]</span> כנדרש.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: שלב א, הצבה בנוסחה</summary>
+<div class="foldable" title="סעיף 2: שלב א, הצבה בנוסחה">
+<p>כאן <span class="math inline">\(g \left( u, v \right) = u^2 + v^2\)</span>, ולכן <span class="math display">\[.g_u = 2u, \qquad g_v = 2v\]</span></p>
+<p>נציב בנוסחה מן הסעיף הקודם: <span class="math display">\[.dA = \sqrt{1 + \left( 2u \right)^2 + \left( 2v \right)^2} \, du \, dv = \sqrt{1 + 4u^2 + 4v^2} \, du \, dv\]</span></p>
+<p>תחום האינטגרציה במישור הפרמטרים הוא ההיטל של המשטח על מישור <span class="math inline">\(xy\)</span>, כלומר עיגול היחידה <span class="math display">\[.Q = \left\{ \left( u, v \right) : u^2 + v^2 \leq 1 \right\}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: שלב ב, מעבר לקואורדינטות קוטביות</summary>
+<div class="foldable" title="סעיף 2: שלב ב, מעבר לקואורדינטות קוטביות">
+<p>התחום עגול והאינטגרנד תלוי רק ב-<span class="math inline">\(u^2 + v^2\)</span>, ולכן נעבור לקואורדינטות קוטביות <span class="math display">\[,u = r \cos \varphi, \qquad v = r \sin \varphi, \qquad 0 \leq r \leq 1, \; 0 \leq \varphi \leq 2\pi\]</span> שבהן <span class="math inline">\(du \, dv = r \, dr \, d\varphi\)</span> וכן <span class="math inline">\(4u^2 + 4v^2 = 4r^2\)</span>. מכאן <span class="math display">\[.A = \int_0^{2\pi} \int_0^1 \sqrt{1 + 4r^2} \, r \, dr \, d\varphi\]</span></p>
+<p>האינטגרנד אינו תלוי ב-<span class="math inline">\(\varphi\)</span>, ולכן האינטגרציה עליו נותנת גורם <span class="math inline">\(2\pi\)</span>: <span class="math display">\[.A = 2\pi \int_0^1 \sqrt{1 + 4r^2} \, r \, dr\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: שלב ג, חישוב האינטגרל</summary>
+<div class="foldable" title="סעיף 2: שלב ג, חישוב האינטגרל">
+<p>נציב <span class="math inline">\(w = 1 + 4r^2\)</span>. אז <span class="math inline">\(dw = 8r \, dr\)</span>, כלומר <span class="math inline">\(r \, dr = \frac{dw}{8}\)</span>, וגבולות האינטגרציה משתנים מ-<span class="math inline">\(r : 0 \to 1\)</span> ל-<span class="math inline">\(w : 1 \to 5\)</span>. מכאן <span class="math display">\[.\int_0^1 \sqrt{1 + 4r^2} \, r \, dr = \int_1^5 \sqrt{w} \cdot \frac{dw}{8} = \frac{1}{8} \cdot \frac{2}{3} \Big[ w^{3/2} \Big]_1^5 = \frac{1}{12} \left( 5^{3/2} - 1 \right)\]</span></p>
+<p>נשתמש ב-<span class="math inline">\(5^{3/2} = 5 \sqrt{5}\)</span> ונציב: <span class="math display">\[.A = 2\pi \cdot \frac{5 \sqrt{5} - 1}{12} = \frac{\pi \left( 5 \sqrt{5} - 1 \right)}{6}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
+<div class="foldable" title="בדיקת שפיות">
+<p>מספרית <span class="math inline">\(5 \sqrt{5} \approx 11.18\)</span>, ולכן <span class="math inline">\(A \approx \frac{\pi \cdot 10.18}{6} \approx 5.33\)</span>.</p>
+<p>שטח עיגול היחידה שמתחת למשטח הוא <span class="math inline">\(\pi \approx 3.14\)</span>. הפרבולואיד נמצא מעל העיגול והוא משופע, ולכן מתבקש ששטחו יהיה גדול יותר, וזה אכן המצב. עבור פונקציה קבועה, כלומר <span class="math inline">\(g_u = g_v = 0\)</span>, הנוסחה הייתה נותנת בדיוק את שטח העיגול, שכן אז <span class="math inline">\(dA = du \, dv\)</span>.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-area-from-metric" class="thmbox thmbox-question">
+<p><strong>שאלה 7.1.19.</strong></p>
+<p>יהי <span class="math inline">\(U = \left\{ \left( u, v \right) \in \mathbb{R}^2 : 0 &lt; u &lt; 1, \; 0 &lt; v &lt; 1 \right\}\)</span> ריבוע היחידה הפתוח, ותהי <span class="math inline">\(\overline{x} : U \to \mathbb{R}^3\)</span> פרמטריזציה מקומית של משטח <span class="math inline">\(S\)</span>, שמקדמי התבנית היסודית הראשונה שלה הם <span class="math display">\[,g_{11} = \frac{1}{u + v} + \frac{1}{\left( 1 - u \right) \left( 1 - v \right)}\]</span> וכן <span class="math display">\[,g_{12} = g_{21} = \frac{1}{u + v}\]</span> ולבסוף <span class="math display">\[.g_{22} = \frac{1}{u + v} - \frac{1}{\left( 1 + u \right) \left( 1 + v \right)}\]</span></p>
+<p>חשבו את שטח התמונה <span class="math inline">\(\overline{x} \left( U \right)\)</span>.</p>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>שלב 1: סימון מקצר</summary>
+<div class="foldable" title="שלב 1: סימון מקצר">
+<p>הביטויים מסורבלים, ולכן נסמן <span class="math display">\[.a = \frac{1}{u + v}, \qquad b = \frac{1}{\left( 1 - u \right) \left( 1 - v \right)}, \qquad c = \frac{1}{\left( 1 + u \right) \left( 1 + v \right)}\]</span></p>
+<p>בסימונים אלה <span class="math display">\[.g_{11} = a + b, \qquad g_{12} = a, \qquad g_{22} = a - c\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 2: הדטרמיננטה</summary>
+<div class="foldable" title="שלב 2: הדטרמיננטה">
+<p>נפתח את המכפלה: <span class="math display">\[\begin{aligned} \det \left( g_{ij} \right) &amp;= \left( a + b \right) \left( a - c \right) - a^2 \\ &amp;= a^2 - ac + ab - bc - a^2 \\ &amp;= a \left( b - c \right) - bc. \end{aligned}\]</span></p>
+<p>המחובר <span class="math inline">\(a^2\)</span> ביטל את עצמו. נחשב עתה בנפרד את <span class="math inline">\(b - c\)</span>, על ידי מכנה משותף: <span class="math display">\[.b - c = \frac{\left( 1 + u \right) \left( 1 + v \right) - \left( 1 - u \right) \left( 1 - v \right)}{\left( 1 - u \right) \left( 1 - v \right) \left( 1 + u \right) \left( 1 + v \right)}\]</span></p>
+<p>נפתח את המונה. שני הביטויים הם <span class="math inline">\(1 + u + v + uv\)</span> ו-<span class="math inline">\(1 - u - v + uv\)</span>, ובחיסור המחוברים <span class="math inline">\(1\)</span> ו-<span class="math inline">\(uv\)</span> מתבטלים: <span class="math display">\[.\left( 1 + u + v + uv \right) - \left( 1 - u - v + uv \right) = 2u + 2v = 2 \left( u + v \right)\]</span></p>
+<p>המכנה מצטמצם לפי נוסחת הכפל המקוצר, שכן <span class="math inline">\(\left( 1 - u \right) \left( 1 + u \right) = 1 - u^2\)</span> וכך גם ב-<span class="math inline">\(v\)</span>: <span class="math display">\[.b - c = \frac{2 \left( u + v \right)}{\left( 1 - u^2 \right) \left( 1 - v^2 \right)}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 3: הצבה וצמצום</summary>
+<div class="foldable" title="שלב 3: הצבה וצמצום">
+<p>נכפול ב-<span class="math inline">\(a = \frac{1}{u+v}\)</span>. הגורם <span class="math inline">\(u + v\)</span> מצטמצם: <span class="math display">\[.a \left( b - c \right) = \frac{1}{u + v} \cdot \frac{2 \left( u + v \right)}{\left( 1 - u^2 \right) \left( 1 - v^2 \right)} = \frac{2}{\left( 1 - u^2 \right) \left( 1 - v^2 \right)}\]</span></p>
+<p>נחשב גם את <span class="math inline">\(bc\)</span>, ושוב לפי נוסחת הכפל המקוצר: <span class="math display">\[.bc = \frac{1}{\left( 1 - u \right) \left( 1 - v \right) \left( 1 + u \right) \left( 1 + v \right)} = \frac{1}{\left( 1 - u^2 \right) \left( 1 - v^2 \right)}\]</span></p>
+<p>נחסר ונקבל <span class="math display">\[.\det \left( g_{ij} \right) = \frac{2}{\left( 1 - u^2 \right) \left( 1 - v^2 \right)} - \frac{1}{\left( 1 - u^2 \right) \left( 1 - v^2 \right)} = \frac{1}{\left( 1 - u^2 \right) \left( 1 - v^2 \right)}\]</span></p>
+<p>בריבוע היחידה מתקיים <span class="math inline">\(0 &lt; u, v &lt; 1\)</span> ולכן שני הגורמים חיוביים, והביטוי אכן חיובי כפי שמובטח ב<a href="#box-prp-det-metric">טענה 7.1.4</a>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>שלב 4: האינטגרל</summary>
+<div class="foldable" title="שלב 4: האינטגרל">
+<p>אלמנט השטח מתפרק למכפלה של ביטוי ב-<span class="math inline">\(u\)</span> בלבד וביטוי ב-<span class="math inline">\(v\)</span> בלבד: <span class="math display">\[.dA = \sqrt{\det \left( g_{ij} \right)} \, du \, dv = \frac{1}{\sqrt{1 - u^2}} \cdot \frac{1}{\sqrt{1 - v^2}} \, du \, dv\]</span></p>
+<p>לכן האינטגרל הכפול מתפרק למכפלת שני אינטגרלים זהים: <span class="math display">\[.A = \int_0^1 \int_0^1 \frac{du \, dv}{\sqrt{1 - u^2} \sqrt{1 - v^2}} = \left( \int_0^1 \frac{du}{\sqrt{1 - u^2}} \right)^2\]</span></p>
+<p>הקדומה היא <span class="math inline">\(\arcsin u\)</span>. האינטגרל אינו אמיתי בקצה <span class="math inline">\(u = 1\)</span>, ולכן נחשב אותו כגבול: <span class="math display">\[.\int_0^1 \frac{du}{\sqrt{1 - u^2}} = \lim_{\varepsilon \to 0^+} \Big[ \arcsin u \Big]_0^{1 - \varepsilon} = \arcsin 1 - \arcsin 0 = \frac{\pi}{2} - 0 = \frac{\pi}{2}\]</span></p>
+<p>מכאן <span class="math display">\[.A = \left( \frac{\pi}{2} \right)^2 = \frac{\pi^2}{4}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
+<div class="foldable" title="מה זה ממחיש">
+<p>לא נאמר בשאלה מהו המשטח <span class="math inline">\(S\)</span>, ולא הייתה לכך שום חשיבות. כל מה שנדרש לחישוב השטח היו מקדמי המטריקה, ובדיוק כמו בחישוב האורך ב<a href="#box-q-ff-length-helix">שאלה 7.1.20</a>, אין צורך לצאת אל המרחב העוטף.</p>
+</div>
+</details>
+</div>
+<div id="box-q-ff-length-helix" class="thmbox thmbox-question">
+<p><strong>שאלה 7.1.20.</strong></p>
 <p>על הגליל ברדיוס <span class="math inline">\(R\)</span>, בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( R \cos v, R \sin v, u \right)\)</span>, נתונה העקומה במישור הפרמטרים <span class="math display">\[,\alpha \left( t \right) = \left( ct, \; t \right), \qquad t \in \left[ 0, 2\pi \right]\]</span> כאשר <span class="math inline">\(c &gt; 0\)</span> קבוע. חשבו את אורך העקומה המתאימה על המשטח, פעם בעזרת התבנית היסודית ופעם ישירות ב-<span class="math inline">\(\mathbb{R}^3\)</span>, וּודאו שהתוצאות מתלכדות.</p>
 </div>
 <div class="thmbox thmbox-solution">
@@ -890,7 +1032,7 @@ window.Quarto = {
 </details>
 </div>
 <div id="box-q-ff-angle" class="thmbox thmbox-question">
-<p><strong>שאלה 7.1.18.</strong></p>
+<p><strong>שאלה 7.1.21.</strong></p>
 <p>יהי הפרבולואיד ההיפרבולי <span class="math inline">\(z = xy\)</span> בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, v, uv \right)\)</span>. חשבו את התבנית היסודית הראשונה, ומצאו את הזווית בין שתי עקומות הקואורדינטות בנקודה <span class="math inline">\(\left( u, v \right) = \left( 1, 1 \right)\)</span>.</p>
 </div>
 <div class="thmbox thmbox-solution">
@@ -914,6 +1056,163 @@ window.Quarto = {
 <div class="foldable" title="בדיקה ישירה">
 <p>אפשר לאמת ישירות. בנקודה <span class="math inline">\(\left( 1, 1 \right)\)</span> מתקבל <span class="math inline">\(\overline{x}_u = \left( 1, 0, 1 \right)\)</span> ו-<span class="math inline">\(\overline{x}_v = \left( 0, 1, 1 \right)\)</span>, ולכן <span class="math display">\[,\left\langle \overline{x}_u, \overline{x}_v \right\rangle = 1 \cdot 0 + 0 \cdot 1 + 1 \cdot 1 = 1\]</span> וכן <span class="math inline">\(\left\| \overline{x}_u \right\| = \left\| \overline{x}_v \right\| = \sqrt{2}\)</span>. מכאן <span class="math inline">\(\cos \theta = \frac{1}{\sqrt{2} \cdot \sqrt{2}} = \frac{1}{2}\)</span>, כנדרש.</p>
 <p>שימו לב שבראשית, כלומר עבור <span class="math inline">\(u = v = 0\)</span>, מתקבל <span class="math inline">\(g_{12} = 0\)</span> ושם כן מתקבלת זווית ישרה.</p>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="משטחים-אוריינטביליים" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="משטחים-אוריינטביליים"><span class="header-section-number">7.2</span> משטחים אוריינטביליים</h2>
+<p>משטח אוריינטבילי הוא משטח שניתן להגדיר עליו פנים וחוץ, או צד עליון וצד תחתון, באופן רציף לאורך כל המשטח.</p>
+<div id="box-def-orientable" class="thmbox thmbox-definition" title="משטח אוריינטבילי">
+<p><strong>הגדרה 7.2.1 — משטח אוריינטבילי.</strong></p>
+<p>משטח חלק <span class="math inline">\(S \subseteq \mathbb{R}^3\)</span> נקרא <strong>אוריינטבילי</strong> אם קיימת פונקציה רציפה <span class="math inline">\(N : S \to \mathbb{R}^3\)</span> המתאימה לכל נקודה <span class="math inline">\(p \in S\)</span> וקטור נורמל יחידה, כלומר <span class="math display">\[,\left\| N \left( p \right) \right\| = 1\]</span> וכן <span class="math display">\[.N \left( p \right) \perp T_p \left( S \right)\]</span></p>
+<p>הרציפות של <span class="math inline">\(N\)</span> מבטיחה שוקטור הנורמל לא יקפוץ פתאום מכיוון אחד לכיוון אחר.</p>
+</div>
+<div id="box-def-orientation" class="thmbox thmbox-definition" title="אוריינטציה">
+<p><strong>הגדרה 7.2.2 — אוריינטציה.</strong></p>
+<p><strong>אוריינטציה</strong> היא בחירה ספציפית של שדה נורמלים רציף <span class="math inline">\(N\)</span>, והוא נקרא אוריינטציה על המשטח. יש שתי אוריינטציות אפשריות, <span class="math inline">\(N\)</span> ו-<span class="math inline">\(-N\)</span>.</p>
+</div>
+<div id="box-def-orientable-atlas" class="thmbox thmbox-definition" title="הגדרה בעזרת פרמטריזציה">
+<p><strong>הגדרה 7.2.3 — הגדרה בעזרת פרמטריזציה.</strong></p>
+<p>בלשון של אטלס וכיסויים פרמטריים, משטח <span class="math inline">\(S\)</span> הוא אוריינטבילי אם ניתן לכסות אותו על ידי אוסף של מפות <span class="math inline">\(\left\{ \overline{x}_i \left( u_i, v_i \right) \right\}\)</span> כך שלכל חפיפה בין שתי מפות, היעקוביאן של המעבר בין הקואורדינטות הוא חיובי <span class="math display">\[.\det \left( J \right) &gt; 0\]</span></p>
+<p>תנאי זה מבטיח שוקטורי הנורמל המחושבים בכל מפה על ידי <span class="math display">\[N = \frac{\overline{x}_u \times \overline{x}_v}{\left\| \overline{x}_u \times \overline{x}_v \right\|}\]</span> מצביעים לאותו צד של המשטח.</p>
+</div>
+<div id="box-rem-not-all-orientable" class="thmbox thmbox-remark" title="לא כל משטח הוא אוריינטבילי">
+<p><strong>הערה 7.2.4 — לא כל משטח הוא אוריינטבילי.</strong></p>
+<p>לא כל המשטחים הם אוריינטביליים, ולדוגמה הטבעת של מוביוס. אם נצא מנקודה מסוימת על החלק הפנימי של המשטח, נחזור אל נקודת ההתחלה כאשר וקטור הנורמל <span class="math inline">\(N\)</span> הפך להיות <span class="math inline">\(-N\)</span>.</p>
+</div>
+<section id="תרגילים-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="תרגילים-1">תרגילים</h3>
+<div id="box-q-or-jacobian-criterion" class="thmbox thmbox-question">
+<p><strong>שאלה 7.2.5.</strong></p>
+<p>ראינו שתי הגדרות לאוריינטביליות, האחת בעזרת שדה נורמלים רציף והשנייה בעזרת אטלס שבו כל יעקוביאני המעבר חיוביים. בתרגיל זה נראה שהן שקולות.</p>
+<p>יהי <span class="math inline">\(S \subseteq \mathbb{R}^3\)</span> משטח רגולרי.</p>
+<ol type="1">
+<li>תהיינה <span class="math inline">\(\overline{x} \left( u, v \right)\)</span> ו-<span class="math inline">\(\overline{y} \left( s, t \right)\)</span> שתי פרמטריזציות של <span class="math inline">\(S\)</span> שתמונותיהן נחתכות, ויהי <span class="math inline">\(\varphi = \overline{x}^{-1} \circ \overline{y}\)</span> מעבר הקואורדינטות ביניהן, כלומר <span class="math inline">\(\overline{y} \left( s, t \right) = \overline{x} \left( u \left( s, t \right), v \left( s, t \right) \right)\)</span>. נסמן ב-<span class="math inline">\(J\)</span> את היעקוביאן של <span class="math inline">\(\varphi\)</span>. הוכיחו כי <span class="math display">\[.\overline{y}_s \times \overline{y}_t = \det \left( J \right) \cdot \left( \overline{x}_u \times \overline{x}_v \right)\]</span></li>
+<li>הסיקו: אם קיים ל-<span class="math inline">\(S\)</span> אטלס שבו <span class="math inline">\(\det \left( J \right) &gt; 0\)</span> בכל חפיפה, אזי <span class="math inline">\(S\)</span> אוריינטבילי.</li>
+<li>הוכיחו את הכיוון ההפוך: אם <span class="math inline">\(S\)</span> אוריינטבילי, אזי קיים לו אטלס כזה. הניחו שתחום ההגדרה של כל פרמטריזציה הוא קשיר.</li>
+</ol>
+</div>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1: גזירה לפי כלל השרשרת</summary>
+<div class="foldable" title="סעיף 1: גזירה לפי כלל השרשרת">
+<p>נגזור את ההרכבה <span class="math inline">\(\overline{y} \left( s, t \right) = \overline{x} \left( u \left( s, t \right), v \left( s, t \right) \right)\)</span> לפי כל אחד מן המשתנים, בעזרת כלל השרשרת: <span class="math display">\[,\overline{y}_s = \frac{\partial u}{\partial s} \overline{x}_u + \frac{\partial v}{\partial s} \overline{x}_v\]</span> וכן <span class="math display">\[.\overline{y}_t = \frac{\partial u}{\partial t} \overline{x}_u + \frac{\partial v}{\partial t} \overline{x}_v\]</span></p>
+<p>זהו בדיוק המצב שראינו בתרגול 6: וקטור המשיק לעקומה על המשטח הוא צירוף לינארי של <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span>. כאן מקדמי הצירוף הם בדיוק איברי היעקוביאן <span class="math display">\[.J = \begin{pmatrix} \dfrac{\partial u}{\partial s} &amp; \dfrac{\partial u}{\partial t} \\[6pt] \dfrac{\partial v}{\partial s} &amp; \dfrac{\partial v}{\partial t} \end{pmatrix}\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1: פתיחת המכפלה הוקטורית</summary>
+<div class="foldable" title="סעיף 1: פתיחת המכפלה הוקטורית">
+<p>נשתמש בבילינאריות של המכפלה הוקטורית שראינו בתרגול 4, ונפתח את המכפלה לארבעה מחוברים: <span class="math display">\[\begin{aligned} \overline{y}_s \times \overline{y}_t = \; &amp; \frac{\partial u}{\partial s} \frac{\partial u}{\partial t} \left( \overline{x}_u \times \overline{x}_u \right) + \frac{\partial u}{\partial s} \frac{\partial v}{\partial t} \left( \overline{x}_u \times \overline{x}_v \right) \\ + \; &amp; \frac{\partial v}{\partial s} \frac{\partial u}{\partial t} \left( \overline{x}_v \times \overline{x}_u \right) + \frac{\partial v}{\partial s} \frac{\partial v}{\partial t} \left( \overline{x}_v \times \overline{x}_v \right). \end{aligned}\]</span></p>
+<p>המחובר הראשון והמחובר האחרון מתאפסים, שכן המכפלה הוקטורית של וקטור בעצמו היא אפס. במחובר השלישי נשתמש באנטי־סימטריות, כלומר <span class="math inline">\(\overline{x}_v \times \overline{x}_u = -\left( \overline{x}_u \times \overline{x}_v \right)\)</span>, ונקבל <span class="math display">\[.\overline{y}_s \times \overline{y}_t = \left( \frac{\partial u}{\partial s} \frac{\partial v}{\partial t} - \frac{\partial v}{\partial s} \frac{\partial u}{\partial t} \right) \left( \overline{x}_u \times \overline{x}_v \right)\]</span></p>
+<p>הביטוי בסוגריים הוא בדיוק הדטרמיננטה של <span class="math inline">\(J\)</span>, ולכן <span class="math display">\[,\overline{y}_s \times \overline{y}_t = \det \left( J \right) \cdot \left( \overline{x}_u \times \overline{x}_v \right)\]</span> כנדרש.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: בניית שדה הנורמלים</summary>
+<div class="foldable" title="סעיף 2: בניית שדה הנורמלים">
+<p>נניח שקיים אטלס כנתון. בכל מפה <span class="math inline">\(\overline{x}\)</span> באטלס נגדיר <span class="math display">\[.N = \frac{\overline{x}_u \times \overline{x}_v}{\left\| \overline{x}_u \times \overline{x}_v \right\|}\]</span> הביטוי מוגדר היטב, שכן המשטח רגולרי ולכן <span class="math inline">\(\overline{x}_u \times \overline{x}_v \neq 0\)</span>. כמו כן <span class="math inline">\(\left\| N \right\| = 1\)</span>, והמכפלה הוקטורית ניצבת לשני הגורמים שלה, כלומר ל-<span class="math inline">\(\overline{x}_u\)</span> ול-<span class="math inline">\(\overline{x}_v\)</span> הפורשים את <span class="math inline">\(T_p \left( S \right)\)</span>, ולכן <span class="math inline">\(N \perp T_p \left( S \right)\)</span>.</p>
+<p>נותר לוודא שההגדרה אינה תלויה במפה. תהי <span class="math inline">\(p\)</span> נקודה בחפיפה של שתי מפות <span class="math inline">\(\overline{x}\)</span> ו-<span class="math inline">\(\overline{y}\)</span>. לפי סעיף 1 <span class="math display">\[,\overline{y}_s \times \overline{y}_t = \det \left( J \right) \cdot \left( \overline{x}_u \times \overline{x}_v \right)\]</span> ומכיוון ש-<span class="math inline">\(\det \left( J \right) &gt; 0\)</span>, נוכל לקחת נורמה ולהוציא את הסקלר החיובי בלי ערך מוחלט: <span class="math display">\[.\left\| \overline{y}_s \times \overline{y}_t \right\| = \det \left( J \right) \cdot \left\| \overline{x}_u \times \overline{x}_v \right\|\]</span></p>
+<p>נחלק את השוויון הראשון בשוויון השני. הגורם <span class="math inline">\(\det \left( J \right)\)</span> מצטמצם, ומתקבל <span class="math display">\[.\frac{\overline{y}_s \times \overline{y}_t}{\left\| \overline{y}_s \times \overline{y}_t \right\|} = \frac{\overline{x}_u \times \overline{x}_v}{\left\| \overline{x}_u \times \overline{x}_v \right\|}\]</span></p>
+<p>כלומר שתי המפות נותנות את אותו וקטור, ולכן <span class="math inline">\(N\)</span> מוגדרת היטב על כל <span class="math inline">\(S\)</span>. הרציפות היא תכונה מקומית, ובכל מפה <span class="math inline">\(N\)</span> נתונה על ידי ביטוי רציף בנגזרות החלקיות, ולכן <span class="math inline">\(N\)</span> רציפה. מכאן ש-<span class="math inline">\(S\)</span> אוריינטבילי.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 3: תיקון הסימן בכל מפה</summary>
+<div class="foldable" title="סעיף 3: תיקון הסימן בכל מפה">
+<p>נניח ש-<span class="math inline">\(S\)</span> אוריינטבילי, ויהי <span class="math inline">\(N\)</span> שדה נורמלים רציף. ניקח אטלס כלשהו של <span class="math inline">\(S\)</span>, ונתקן אותו מפה־מפה.</p>
+<p>תהי <span class="math inline">\(\overline{x} : U \to S\)</span> מפה באטלס, ונסמן <span class="math display">\[.n = \frac{\overline{x}_u \times \overline{x}_v}{\left\| \overline{x}_u \times \overline{x}_v \right\|}\]</span> בכל נקודה <span class="math inline">\(p\)</span> בתמונה, גם <span class="math inline">\(N \left( p \right)\)</span> וגם <span class="math inline">\(n \left( p \right)\)</span> הם וקטורי יחידה הניצבים ל-<span class="math inline">\(T_p \left( S \right)\)</span>. המרחב <span class="math inline">\(T_p \left( S \right)\)</span> הוא דו־ממדי ב-<span class="math inline">\(\mathbb{R}^3\)</span>, ולכן המשלים הניצב שלו הוא חד־ממדי, ובו יש בדיוק שני וקטורי יחידה. מכאן <span class="math display">\[.n \left( p \right) = \pm N \left( p \right)\]</span></p>
+<p>נגדיר <span class="math inline">\(\lambda \left( p \right) = \left\langle n \left( p \right), N \left( p \right) \right\rangle\)</span>. זוהי פונקציה רציפה, כמכפלה סקלרית של שתי פונקציות רציפות, והיא מקבלת רק את הערכים <span class="math inline">\(1\)</span> ו-<span class="math inline">\(-1\)</span>. פונקציה רציפה על קבוצה קשירה שמקבלת רק שני ערכים בדידים היא קבועה, ולכן <span class="math inline">\(\lambda \equiv 1\)</span> או <span class="math inline">\(\lambda \equiv -1\)</span> על כל תחום המפה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 3: החלפת סדר המשתנים והסקת המסקנה</summary>
+<div class="foldable" title="סעיף 3: החלפת סדר המשתנים והסקת המסקנה">
+<p>אם <span class="math inline">\(\lambda \equiv 1\)</span> נשאיר את המפה כמות שהיא. אם <span class="math inline">\(\lambda \equiv -1\)</span>, נחליף את סדר שני המשתנים ונגדיר מפה חדשה <span class="math display">\[.\overline{x}^{*} \left( u, v \right) = \overline{x} \left( v, u \right)\]</span> אז <span class="math inline">\(\overline{x}^{*}_u = \overline{x}_v\)</span> ו-<span class="math inline">\(\overline{x}^{*}_v = \overline{x}_u\)</span>, ולכן לפי האנטי־סימטריות <span class="math display">\[,\overline{x}^{*}_u \times \overline{x}^{*}_v = \overline{x}_v \times \overline{x}_u = - \left( \overline{x}_u \times \overline{x}_v \right)\]</span> כלומר הנורמל של המפה החדשה הוא <span class="math inline">\(-n = N\)</span>.</p>
+<p>לאחר התיקון הזה בכל מפה, קיבלנו אטלס שבו לכל מפה <span class="math display">\[.\frac{\overline{x}_u \times \overline{x}_v}{\left\| \overline{x}_u \times \overline{x}_v \right\|} = N\]</span></p>
+<p>נבדוק עתה את היעקוביאנים. תהי נקודה בחפיפה של שתי מפות מן האטלס החדש. לפי סעיף 1 <span class="math display">\[,\overline{y}_s \times \overline{y}_t = \det \left( J \right) \cdot \left( \overline{x}_u \times \overline{x}_v \right)\]</span> ולפי הבנייה שני האגפים הם כפולות של <span class="math inline">\(N\)</span>: <span class="math display">\[.\left\| \overline{y}_s \times \overline{y}_t \right\| N = \det \left( J \right) \cdot \left\| \overline{x}_u \times \overline{x}_v \right\| N\]</span></p>
+<p>מכיוון ש-<span class="math inline">\(N \neq 0\)</span>, נשווה את המקדמים ונקבל <span class="math display">\[.\det \left( J \right) = \frac{\left\| \overline{y}_s \times \overline{y}_t \right\|}{\left\| \overline{x}_u \times \overline{x}_v \right\|} &gt; 0\]</span></p>
+<p>אגף ימין הוא מנה של שתי נורמות חיוביות, ולכן חיובי. קיבלנו אטלס שבו כל יעקוביאני המעבר חיוביים, כנדרש.</p>
+</div>
+</details>
+</div>
+<div id="box-q-or-mobius" class="thmbox thmbox-question">
+<p><strong>שאלה 7.2.6.</strong></p>
+<p><strong>הטבעת של מוביוס.</strong> נתבונן במעגל היחידה <span class="math inline">\(x^2 + y^2 = 1\)</span> במישור <span class="math inline">\(xy\)</span>, ובקטע ישר <span class="math inline">\(\ell\)</span> באורך <span class="math inline">\(1\)</span> שמרכזו <span class="math inline">\(p\)</span> נע על המעגל. בהתחלה <span class="math inline">\(p = \left( 1, 0, 0 \right)\)</span> והקטע מקביל לציר <span class="math inline">\(z\)</span>. כאשר <span class="math inline">\(p\)</span> מסתובב בזווית <span class="math inline">\(\theta\)</span> סביב ציר <span class="math inline">\(z\)</span>, הקטע מסתובב בזווית <span class="math inline">\(\frac{\theta}{2}\)</span> סביב <span class="math inline">\(p\)</span>, במישור שמכיל את <span class="math inline">\(p\)</span> ואת ציר <span class="math inline">\(z\)</span>.</p>
+<ol type="1">
+<li>הראו שהנקודה שהייתה בהתחלה ב-<span class="math inline">\(\left( 1, 0, t \right)\)</span> מגיעה אל <span class="math display">\[,\overline{x} \left( t, \theta \right) = \left( \left( 1 - t \sin \frac{\theta}{2} \right) \cos \theta, \; \left( 1 - t \sin \frac{\theta}{2} \right) \sin \theta, \; t \cos \frac{\theta}{2} \right)\]</span> כאשר <span class="math inline">\(-\frac{1}{2} &lt; t &lt; \frac{1}{2}\)</span> ו-<span class="math inline">\(0 &lt; \theta &lt; 2\pi\)</span>.</li>
+<li>חשבו את התבנית היסודית הראשונה של <span class="math inline">\(\overline{x}\)</span>, והסיקו ממנה שהפרמטריזציה רגולרית.</li>
+<li>חשבו את שדה הנורמלים לאורך מעגל האמצע <span class="math inline">\(t = 0\)</span>. הראו שכאשר <span class="math inline">\(\theta\)</span> עובר מ-<span class="math inline">\(0\)</span> ל-<span class="math inline">\(2\pi\)</span> הנורמל מתהפך, והסיקו שהטבעת של מוביוס אינה אוריינטבילית.</li>
+</ol>
+</div>
+<iframe class="widget-frame" src="widgets/ch07/mobius.html" loading="lazy" title="הטבעת של מוביוס ושדה הנורמלים לאורך מעגל האמצע"></iframe>
+<div class="thmbox thmbox-solution">
+<p><strong>פתרון.</strong></p>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1: בניית הפרמטריזציה</summary>
+<div class="foldable" title="סעיף 1: בניית הפרמטריזציה">
+<p>לאחר סיבוב בזווית <span class="math inline">\(\theta\)</span>, מרכז הקטע נמצא בנקודה <span class="math display">\[.p \left( \theta \right) = \left( \cos \theta, \; \sin \theta, \; 0 \right)\]</span></p>
+<p>המישור שמכיל את <span class="math inline">\(p \left( \theta \right)\)</span> ואת ציר <span class="math inline">\(z\)</span> נפרש על ידי שני וקטורי יחידה ניצבים, הוקטור הרדיאלי <span class="math display">\[,e_r \left( \theta \right) = \left( \cos \theta, \; \sin \theta, \; 0 \right)\]</span> והוקטור <span class="math display">\[.e_z = \left( 0, 0, 1 \right)\]</span></p>
+<p>בהתחלה הקטע מקביל לציר <span class="math inline">\(z\)</span>, כלומר כיוונו הוא <span class="math inline">\(e_z\)</span>. הסיבוב בזווית <span class="math inline">\(\frac{\theta}{2}\)</span> בתוך המישור הזה, בבסיס <span class="math inline">\(\left\{ e_r, e_z \right\}\)</span>, נתון על ידי מטריצת סיבוב, ולכן כיוון הקטע הופך להיות <span class="math display">\[.\begin{pmatrix} \cos \frac{\theta}{2} &amp; -\sin \frac{\theta}{2} \\ \sin \frac{\theta}{2} &amp; \cos \frac{\theta}{2} \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} -\sin \frac{\theta}{2} \\ \cos \frac{\theta}{2} \end{pmatrix}\]</span></p>
+<p>כלומר הכיוון החדש הוא <span class="math display">\[.w \left( \theta \right) = -\sin \frac{\theta}{2} \, e_r \left( \theta \right) + \cos \frac{\theta}{2} \, e_z\]</span></p>
+<p>בדיקה: עבור <span class="math inline">\(\theta = 0\)</span> מתקבל <span class="math inline">\(w \left( 0 \right) = -0 \cdot e_r + 1 \cdot e_z = e_z\)</span>, כלומר הקטע אכן מקביל לציר <span class="math inline">\(z\)</span> בהתחלה.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 1: הצבה וקבלת הנוסחה</summary>
+<div class="foldable" title="סעיף 1: הצבה וקבלת הנוסחה">
+<p>הנקודה שהייתה בהתחלה ב-<span class="math inline">\(\left( 1, 0, t \right)\)</span> נמצאת במרחק <span class="math inline">\(t\)</span> ממרכז הקטע בכיוון הקטע, ולכן לאחר הסיבוב היא נמצאת ב-<span class="math inline">\(p \left( \theta \right) + t \, w \left( \theta \right)\)</span>. נציב ונחשב רכיב־רכיב: <span class="math display">\[\begin{aligned} p \left( \theta \right) + t \, w \left( \theta \right) &amp;= \left( \cos \theta, \sin \theta, 0 \right) + t \left( -\sin \frac{\theta}{2} \cos \theta, \; -\sin \frac{\theta}{2} \sin \theta, \; \cos \frac{\theta}{2} \right) \\ &amp;= \left( \cos \theta - t \sin \frac{\theta}{2} \cos \theta, \; \sin \theta - t \sin \frac{\theta}{2} \sin \theta, \; t \cos \frac{\theta}{2} \right). \end{aligned}\]</span></p>
+<p>בשני הרכיבים הראשונים נוציא גורם משותף ונקבל <span class="math display">\[,\overline{x} \left( t, \theta \right) = \left( \left( 1 - t \sin \frac{\theta}{2} \right) \cos \theta, \; \left( 1 - t \sin \frac{\theta}{2} \right) \sin \theta, \; t \cos \frac{\theta}{2} \right)\]</span> כנדרש. הקטע הוא באורך <span class="math inline">\(1\)</span> ומרכזו על המעגל, ולכן <span class="math inline">\(t\)</span> נע בין <span class="math inline">\(-\frac{1}{2}\)</span> ל-<span class="math inline">\(\frac{1}{2}\)</span>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: הנגזרות החלקיות</summary>
+<div class="foldable" title="סעיף 2: הנגזרות החלקיות">
+<p>נסמן לקיצור <span class="math display">\[,R \left( t, \theta \right) = 1 - t \sin \frac{\theta}{2}\]</span> כך ש-<span class="math inline">\(\overline{x} = \left( R \cos \theta, \; R \sin \theta, \; t \cos \frac{\theta}{2} \right)\)</span>. נחשב את הנגזרת של <span class="math inline">\(R\)</span> לפי <span class="math inline">\(\theta\)</span>: <span class="math display">\[.R_\theta = -\frac{t}{2} \cos \frac{\theta}{2}\]</span></p>
+<p>נגזור לפי <span class="math inline">\(t\)</span>. מתקיים <span class="math inline">\(\frac{\partial R}{\partial t} = -\sin \frac{\theta}{2}\)</span>, ולכן <span class="math display">\[.\overline{x}_t = \left( -\sin \frac{\theta}{2} \cos \theta, \; -\sin \frac{\theta}{2} \sin \theta, \; \cos \frac{\theta}{2} \right)\]</span> שימו לב שביטוי זה אינו תלוי ב-<span class="math inline">\(t\)</span> כלל, וזה מבטא את העובדה שהקטע ישר.</p>
+<p>נגזור לפי <span class="math inline">\(\theta\)</span>, לפי כלל המכפלה בשני הרכיבים הראשונים: <span class="math display">\[.\overline{x}_\theta = \left( R_\theta \cos \theta - R \sin \theta, \; R_\theta \sin \theta + R \cos \theta, \; -\frac{t}{2} \sin \frac{\theta}{2} \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: חישוב המקדם $g_{11}$</summary>
+<div class="foldable" title="סעיף 2: חישוב המקדם $g_{11}$">
+<p>נחשב את <span class="math inline">\(g_{11} = \left\langle \overline{x}_t, \overline{x}_t \right\rangle\)</span>. נוציא גורם משותף משני המחוברים הראשונים ונשתמש בזהות הפיתגורית פעמיים: <span class="math display">\[\begin{aligned} g_{11} &amp;= \sin^2 \frac{\theta}{2} \cos^2 \theta + \sin^2 \frac{\theta}{2} \sin^2 \theta + \cos^2 \frac{\theta}{2} \\ &amp;= \sin^2 \frac{\theta}{2} \left( \cos^2 \theta + \sin^2 \theta \right) + \cos^2 \frac{\theta}{2} \\ &amp;= \sin^2 \frac{\theta}{2} + \cos^2 \frac{\theta}{2} = 1. \end{aligned}\]</span></p>
+<p>כלומר <span class="math inline">\(\overline{x}_t\)</span> הוא וקטור יחידה. הדבר מתבקש, שכן <span class="math inline">\(t\)</span> מודד אורך לאורך הקטע הישר.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: חישוב המקדם $g_{12}$</summary>
+<div class="foldable" title="סעיף 2: חישוב המקדם $g_{12}$">
+<p>נחשב את <span class="math inline">\(g_{12} = \left\langle \overline{x}_t, \overline{x}_\theta \right\rangle\)</span> ונפתח: <span class="math display">\[\begin{aligned} g_{12} = \; &amp; -\sin \frac{\theta}{2} \cos \theta \left( R_\theta \cos \theta - R \sin \theta \right) \\ &amp; -\sin \frac{\theta}{2} \sin \theta \left( R_\theta \sin \theta + R \cos \theta \right) \\ &amp; + \cos \frac{\theta}{2} \left( -\frac{t}{2} \sin \frac{\theta}{2} \right). \end{aligned}\]</span></p>
+<p>נפתח את הסוגריים בשני המחוברים הראשונים. המחוברים שבהם מופיע <span class="math inline">\(R\)</span> הם <span class="math inline">\(+\sin \frac{\theta}{2} R \cos \theta \sin \theta\)</span> ו-<span class="math inline">\(-\sin \frac{\theta}{2} R \sin \theta \cos \theta\)</span>, והם מבטלים זה את זה. נותרים המחוברים שבהם מופיע <span class="math inline">\(R_\theta\)</span>, ומהם נוציא גורם משותף: <span class="math display">\[.g_{12} = -\sin \frac{\theta}{2} R_\theta \left( \cos^2 \theta + \sin^2 \theta \right) - \frac{t}{2} \sin \frac{\theta}{2} \cos \frac{\theta}{2} = -\sin \frac{\theta}{2} R_\theta - \frac{t}{2} \sin \frac{\theta}{2} \cos \frac{\theta}{2}\]</span></p>
+<p>נציב <span class="math inline">\(R_\theta = -\frac{t}{2} \cos \frac{\theta}{2}\)</span> ונקבל <span class="math display">\[.g_{12} = \frac{t}{2} \sin \frac{\theta}{2} \cos \frac{\theta}{2} - \frac{t}{2} \sin \frac{\theta}{2} \cos \frac{\theta}{2} = 0\]</span></p>
+<p>כלומר עקומות הקואורדינטות ניצבות בכל נקודה, לפי <a href="#box-cor-orthogonal-coordinate-curves">מסקנה 7.1.12</a>.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: חישוב המקדם $g_{22}$ והסקת הרגולריות</summary>
+<div class="foldable" title="סעיף 2: חישוב המקדם $g_{22}$ והסקת הרגולריות">
+<p>נחשב את <span class="math inline">\(g_{22} = \left\langle \overline{x}_\theta, \overline{x}_\theta \right\rangle\)</span>. נפתח תחילה את סכום ריבועי שני הרכיבים הראשונים: <span class="math display">\[\begin{aligned} &amp; \left( R_\theta \cos \theta - R \sin \theta \right)^2 + \left( R_\theta \sin \theta + R \cos \theta \right)^2 \\ = \; &amp; R_\theta^2 \cos^2 \theta - 2 R_\theta R \cos \theta \sin \theta + R^2 \sin^2 \theta \\ + \; &amp; R_\theta^2 \sin^2 \theta + 2 R_\theta R \sin \theta \cos \theta + R^2 \cos^2 \theta \\ = \; &amp; R_\theta^2 + R^2. \end{aligned}\]</span></p>
+<p>שני המחוברים המעורבים ביטלו זה את זה, ובשאר השתמשנו בזהות הפיתגורית. נוסיף את ריבוע הרכיב השלישי ונציב את <span class="math inline">\(R_\theta\)</span>: <span class="math display">\[.g_{22} = R_\theta^2 + R^2 + \frac{t^2}{4} \sin^2 \frac{\theta}{2} = \frac{t^2}{4} \cos^2 \frac{\theta}{2} + \frac{t^2}{4} \sin^2 \frac{\theta}{2} + R^2 = \frac{t^2}{4} + R^2\]</span></p>
+<p>לכן התבנית היסודית הראשונה היא <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \dfrac{t^2}{4} + \left( 1 - t \sin \frac{\theta}{2} \right)^2 \end{pmatrix}\]</span></p>
+<p>הדטרמיננטה היא <span class="math inline">\(\det \left( g_{ij} \right) = \frac{t^2}{4} + \left( 1 - t \sin \frac{\theta}{2} \right)^2\)</span>, כלומר סכום של שני ריבועים. סכום כזה מתאפס רק אם שני המחוברים מתאפסים בו־זמנית. מן המחובר הראשון נקבל <span class="math inline">\(t = 0\)</span>, ואז המחובר השני שווה ל-<span class="math inline">\(\left( 1 - 0 \right)^2 = 1 \neq 0\)</span>, בסתירה. לכן <span class="math inline">\(\det \left( g_{ij} \right) &gt; 0\)</span> בכל נקודה, ולפי <a href="#box-prp-det-metric">טענה 7.1.4</a> הפרמטריזציה רגולרית.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 3: הנורמל לאורך מעגל האמצע</summary>
+<div class="foldable" title="סעיף 3: הנורמל לאורך מעגל האמצע">
+<p>נציב <span class="math inline">\(t = 0\)</span>. אז <span class="math inline">\(R = 1\)</span> וכן <span class="math inline">\(R_\theta = 0\)</span>, ולכן שתי הנגזרות מצטמצמות ל-<span class="math display">\[,\overline{x}_t = \left( -\sin \frac{\theta}{2} \cos \theta, \; -\sin \frac{\theta}{2} \sin \theta, \; \cos \frac{\theta}{2} \right)\]</span> ו-<span class="math display">\[.\overline{x}_\theta = \left( -\sin \theta, \; \cos \theta, \; 0 \right)\]</span></p>
+<p>נחשב את המכפלה הוקטורית לפי פיתוח הדטרמיננטה: <span class="math display">\[.\overline{x}_t \times \overline{x}_\theta = \begin{vmatrix} \hat{i} &amp; \hat{j} &amp; \hat{k} \\ -\sin \frac{\theta}{2} \cos \theta &amp; -\sin \frac{\theta}{2} \sin \theta &amp; \cos \frac{\theta}{2} \\ -\sin \theta &amp; \cos \theta &amp; 0 \end{vmatrix}\]</span></p>
+<p>נחשב רכיב־רכיב. הרכיב הראשון הוא <span class="math display">\[,\left( -\sin \frac{\theta}{2} \sin \theta \right) \cdot 0 - \cos \frac{\theta}{2} \cdot \cos \theta = -\cos \frac{\theta}{2} \cos \theta\]</span> הרכיב השני הוא, עם סימן מינוס לפי כלל הפיתוח, <span class="math display">\[,- \left[ \left( -\sin \frac{\theta}{2} \cos \theta \right) \cdot 0 - \cos \frac{\theta}{2} \cdot \left( -\sin \theta \right) \right] = -\cos \frac{\theta}{2} \sin \theta\]</span> והרכיב השלישי הוא <span class="math display">\[.\left( -\sin \frac{\theta}{2} \cos \theta \right) \cos \theta - \left( -\sin \frac{\theta}{2} \sin \theta \right) \left( -\sin \theta \right) = -\sin \frac{\theta}{2} \left( \cos^2 \theta + \sin^2 \theta \right) = -\sin \frac{\theta}{2}\]</span></p>
+<p>לכן <span class="math display">\[.\overline{x}_t \times \overline{x}_\theta = \left( -\cos \frac{\theta}{2} \cos \theta, \; -\cos \frac{\theta}{2} \sin \theta, \; -\sin \frac{\theta}{2} \right)\]</span></p>
+<p>נבדוק את הנורמה, שוב בעזרת הזהות הפיתגורית פעמיים: <span class="math display">\[.\left\| \overline{x}_t \times \overline{x}_\theta \right\|^2 = \cos^2 \frac{\theta}{2} \left( \cos^2 \theta + \sin^2 \theta \right) + \sin^2 \frac{\theta}{2} = \cos^2 \frac{\theta}{2} + \sin^2 \frac{\theta}{2} = 1\]</span></p>
+<p>הוקטור כבר מנורמל, ולכן שדה הנורמלים של הפרמטריזציה לאורך מעגל האמצע הוא <span class="math display">\[.n \left( \theta \right) = \left( -\cos \frac{\theta}{2} \cos \theta, \; -\cos \frac{\theta}{2} \sin \theta, \; -\sin \frac{\theta}{2} \right)\]</span></p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 3: הנורמל מתהפך</summary>
+<div class="foldable" title="סעיף 3: הנורמל מתהפך">
+<p>נחשב את שני הגבולות בקצות התחום <span class="math inline">\(0 &lt; \theta &lt; 2\pi\)</span>. עבור <span class="math inline">\(\theta \to 0^{+}\)</span> מתקבל <span class="math inline">\(\cos \frac{\theta}{2} \to 1\)</span>, <span class="math inline">\(\cos \theta \to 1\)</span>, <span class="math inline">\(\sin \theta \to 0\)</span> ו-<span class="math inline">\(\sin \frac{\theta}{2} \to 0\)</span>, ולכן <span class="math display">\[.\lim_{\theta \to 0^{+}} n \left( \theta \right) = \left( -1, 0, 0 \right)\]</span></p>
+<p>עבור <span class="math inline">\(\theta \to 2\pi^{-}\)</span> מתקבל <span class="math inline">\(\cos \frac{\theta}{2} \to \cos \pi = -1\)</span>, <span class="math inline">\(\cos \theta \to 1\)</span>, <span class="math inline">\(\sin \theta \to 0\)</span> ו-<span class="math inline">\(\sin \frac{\theta}{2} \to \sin \pi = 0\)</span>, ולכן <span class="math display">\[.\lim_{\theta \to 2\pi^{-}} n \left( \theta \right) = \left( -\left( -1 \right) \cdot 1, \; 0, \; 0 \right) = \left( 1, 0, 0 \right)\]</span></p>
+<p>שני הגבולות הם באותה נקודה על המשטח, שכן <span class="math inline">\(\overline{x} \left( 0, 0 \right) = \overline{x} \left( 0, 2\pi \right) = \left( 1, 0, 0 \right)\)</span>, אך הם וקטורים הפוכים.</p>
+</div>
+</details>
+<details class="thmcollapse thmfoldable"><summary>סעיף 3: המסקנה</summary>
+<div class="foldable" title="סעיף 3: המסקנה">
+<p>נניח בשלילה שהטבעת של מוביוס אוריינטבילית, כלומר קיים עליה שדה נורמלים רציף <span class="math inline">\(N\)</span>.</p>
+<p>נתבונן בנקודות מעגל האמצע, כלומר בנקודות <span class="math inline">\(\overline{x} \left( 0, \theta \right)\)</span> עבור <span class="math inline">\(0 &lt; \theta &lt; 2\pi\)</span>. בכל נקודה כזו גם <span class="math inline">\(N\)</span> וגם <span class="math inline">\(n \left( \theta \right)\)</span> הם וקטורי יחידה הניצבים למישור המשיק, ולכן, בדיוק כמו בסעיף 3 של התרגיל הקודם, <span class="math display">\[,N = \lambda \left( \theta \right) n \left( \theta \right)\]</span> כאשר <span class="math inline">\(\lambda \left( \theta \right) = \left\langle N, n \left( \theta \right) \right\rangle\)</span> רציפה ומקבלת רק את הערכים <span class="math inline">\(\pm 1\)</span>. הקטע <span class="math inline">\(\left( 0, 2\pi \right)\)</span> קשיר, ולכן <span class="math inline">\(\lambda\)</span> קבועה. אם <span class="math inline">\(\lambda \equiv -1\)</span> נחליף את <span class="math inline">\(N\)</span> ב-<span class="math inline">\(-N\)</span>, ולכן אפשר להניח <span class="math inline">\(\lambda \equiv 1\)</span>, כלומר <span class="math inline">\(N = n \left( \theta \right)\)</span> לאורך כל מעגל האמצע.</p>
+<p>נסמן <span class="math inline">\(q = \left( 1, 0, 0 \right)\)</span>. הפונקציה <span class="math inline">\(N\)</span> רציפה בנקודה <span class="math inline">\(q\)</span>, ואפשר להתקרב אליה לאורך מעגל האמצע משני הכיוונים. מן החישוב בשלב הקודם <span class="math display">\[,N \left( q \right) = \lim_{\theta \to 0^{+}} n \left( \theta \right) = \left( -1, 0, 0 \right)\]</span> אבל גם <span class="math display">\[.N \left( q \right) = \lim_{\theta \to 2\pi^{-}} n \left( \theta \right) = \left( 1, 0, 0 \right)\]</span></p>
+<p>קיבלנו <span class="math inline">\(\left( -1, 0, 0 \right) = \left( 1, 0, 0 \right)\)</span>, וזו סתירה. לכן לא קיים שדה נורמלים רציף על הטבעת של מוביוס, כלומר היא אינה אוריינטבילית.</p>
 </div>
 </details>
 </div>
@@ -1330,6 +1629,9 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./08-Second-Fundamental-Form.html" class="pagination-link" aria-label="תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הקירוב מסדר שני והמישור המשיק</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* second-order.html — deviation from the tangent plane, and the four point types.
+   ---------------------------------------------------------------------------
+   Standalone rather than a Surface3D.mount() call: that module draws one
+   surface with x_u, x_v and a tangent patch, and cannot draw a second sheet
+   (the tangent plane) into the same painter's list, which is the whole point
+   here. Projection, painter's algorithm and the auto-fit are copied from
+   surface3d.js so the page looks like the rest of the book.
+
+   The surface drawn is the second-order model itself,
+
+       z = 1/2 ( k1 u^2 + k2 v^2 ),      -1 <= u, v <= 1,
+
+   with its tangent plane at the origin, which is z = 0. So the height of the
+   surface above the plane IS the second fundamental form, evaluated on
+   (du, dv) = (u, v): no approximation error is being hidden, because for this
+   surface the second-order model is exact.
+
+   Quads are coloured by the SIGN of that height. That is what makes the four
+   cases readable at a glance: an elliptic point is one colour all round, a
+   hyperbolic point alternates colour by quadrant.
+
+   Known limitation, shared with the other 3-D widgets here: hidden-surface
+   removal is a per-quad painter's algorithm, so where the saddle cuts through
+   its own tangent plane the two sheets interleave approximately. The plane is
+   drawn translucent so the crossing still reads correctly.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    up:   "#1f4e79", upEdge: "#16385a",     /* above the tangent plane */
+    down: "#c0392b", downEdge: "#8d2a1e",   /* below it */
+    plane: "#94a3b8",
+    ring: "#0f172a", dev: "#7c3aed", pt: "#0f172a"
+  };
+
+  var TWO_PI = 2 * Math.PI, NG = 26, EPS = 0.8;
+
+  function fmt(v, d) {
+    var s = (Math.abs(v) < 5e-4 ? 0 : v).toFixed(d === undefined ? 2 : d);
+    return s === "-0.00" ? "0.00" : s;
+  }
+
+  var host = document.getElementById("app"),
+      yaw = -0.9, pitch = 0.34, k1 = 1.2, k2 = 0.8, th = 0.6;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title" dir="ltr">z = &frac12; ( k&#8321; u&sup2; + k&#8322; v&sup2; )</p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">העקמומיות הראשית הראשונה</span>' +
+        '<input class="qv-slider qv-k1" type="range" min="-20" max="20" step="1" value="12">' +
+        '<span class="qv-badge qv-k1val"></span>' +
+      '</div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">העקמומיות הראשית השנייה</span>' +
+        '<input class="qv-slider qv-k2" type="range" min="-20" max="20" step="1" value="8">' +
+        '<span class="qv-badge qv-k2val"></span>' +
+      '</div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">כיוון היציאה מן הנקודה</span>' +
+        '<input class="qv-slider qv-th" type="range" min="0" max="1000" value="95">' +
+        '<span class="qv-badge qv-thval"></span>' +
+      '</div>' +
+      '<div class="qv-readout">' +
+        '<div><span class="qv-rl">K = k&#8321;k&#8322;</span><span class="qv-rv qv-r-K"></span></div>' +
+        '<div><span class="qv-rl">H = (k&#8321;+k&#8322;)/2</span><span class="qv-rv qv-r-H"></span></div>' +
+        '<div><span class="qv-rl">deviation</span><span class="qv-rv qv-r-d"></span></div>' +
+      '</div>' +
+      '<ul class="qv-gloss">' +
+        '<li><b>deviation</b> &mdash; המרחק המסומן מן המישור המשיק אל המשטח, בכיוון שנבחר ובמרחק קבוע מן הנקודה.</li>' +
+      '</ul>' +
+      /* no dedicated class in quadviz.css: reuse the hint's prose styling and
+         override only weight and colour from draw(), as ch07/mobius.html does */
+      '<p class="qv-hint qv-verdict"></p>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את המבט. הצבע הכחול הוא החלק של המשטח שמעל המישור המשיק והאדום הוא החלק שמתחתיו. הזיזו את שתי העקמומיויות הראשיות כדי לעבור בין ארבעת סוגי הנקודות.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      s1 = host.querySelector(".qv-k1"), v1 = host.querySelector(".qv-k1val"),
+      s2 = host.querySelector(".qv-k2"), v2 = host.querySelector(".qv-k2val"),
+      sT = host.querySelector(".qv-th"), vT = host.querySelector(".qv-thval"),
+      rK = host.querySelector(".qv-r-K"), rH = host.querySelector(".qv-r-H"),
+      rD = host.querySelector(".qv-r-d"),
+      verdict = host.querySelector(".qv-verdict");
+
+  function Z(u, v) { return 0.5 * (k1 * u * u + k2 * v * v); }
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function draw() {
+    k1 = parseInt(s1.value, 10) / 10;
+    k2 = parseInt(s2.value, 10) / 10;
+    th = (sT.value / 1000) * TWO_PI;
+
+    var dpr = window.devicePixelRatio || 1,
+        w = cv.clientWidth || 560, hgt = Math.round(w * 0.60), i, j;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";          /* else minus signs in the labels reorder */
+    ctx.lineJoin = "round";
+
+    /* ---- sample surface and plane on the same grid ---- */
+    var Sg = [], Pg = [], u, v;
+    for (i = 0; i <= NG; i++) {
+      Sg.push([]); Pg.push([]);
+      u = -1 + 2 * i / NG;
+      for (j = 0; j <= NG; j++) {
+        v = -1 + 2 * j / NG;
+        Sg[i].push(project([u, v, Z(u, v)]));
+        Pg[i].push(project([u, v, 0]));
+      }
+    }
+
+    /* ---- fit on both sheets together, so nothing jumps as k1, k2 move ---- */
+    var xs = [], ys = [];
+    for (i = 0; i <= NG; i += 2) for (j = 0; j <= NG; j += 2) {
+      xs.push(Sg[i][j][0], Pg[i][j][0]);
+      ys.push(Sg[i][j][1], Pg[i][j][1]);
+    }
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs),
+        ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys),
+        pad = 1.16,
+        sc = Math.min(w / ((xmax - xmin) * pad || 1), hgt / ((ymax - ymin) * pad || 1)),
+        cx = w / 2 - sc * (xmin + xmax) / 2,
+        cy = hgt / 2 + sc * (ymin + ymax) / 2;
+    function S(q) { return [cx + sc * q[0], cy - sc * q[1]]; }
+
+    /* ---- one painter's list: tangent plane and surface together ---- */
+    var quads = [];
+    for (i = 0; i < NG; i++) for (j = 0; j < NG; j++) {
+      var uu = -1 + 2 * (i + 0.5) / NG, vv = -1 + 2 * (j + 0.5) / NG,
+          zc = Z(uu, vv),
+          a = Sg[i][j], b = Sg[i + 1][j], c = Sg[i + 1][j + 1], d = Sg[i][j + 1];
+      quads.push({ z: (a[2] + b[2] + c[2] + d[2]) / 4, p: [a, b, c, d],
+                   kind: zc >= 0 ? "up" : "down" });
+      var e = Pg[i][j], f = Pg[i + 1][j], g = Pg[i + 1][j + 1], h = Pg[i][j + 1];
+      quads.push({ z: (e[2] + f[2] + g[2] + h[2]) / 4, p: [e, f, g, h],
+                   kind: "plane" });
+    }
+    quads.sort(function (p, q) { return p.z - q.z; });
+    quads.forEach(function (Q) {
+      ctx.beginPath();
+      var s0 = S(Q.p[0]); ctx.moveTo(s0[0], s0[1]);
+      for (var m = 1; m < 4; m++) { var sm = S(Q.p[m]); ctx.lineTo(sm[0], sm[1]); }
+      ctx.closePath();
+      if (Q.kind === "plane") {
+        ctx.fillStyle = COL.plane; ctx.globalAlpha = 0.30; ctx.fill();
+        ctx.globalAlpha = 0.35; ctx.strokeStyle = COL.plane;
+        ctx.lineWidth = 0.4; ctx.stroke();
+      } else {
+        ctx.fillStyle = Q.kind === "up" ? COL.up : COL.down;
+        ctx.globalAlpha = 0.55; ctx.fill();
+        ctx.globalAlpha = 0.75;
+        ctx.strokeStyle = Q.kind === "up" ? COL.upEdge : COL.downEdge;
+        ctx.lineWidth = 0.4; ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    });
+
+    /* ---- the circle of radius EPS in the tangent plane, and its lift ---- */
+    function ring(lift) {
+      ctx.beginPath();
+      for (var m = 0; m <= 120; m++) {
+        var a = (m / 120) * TWO_PI,
+            cu = EPS * Math.cos(a), cvv = EPS * Math.sin(a),
+            s = S(project([cu, cvv, lift ? Z(cu, cvv) : 0]));
+        if (m === 0) ctx.moveTo(s[0], s[1]); else ctx.lineTo(s[0], s[1]);
+      }
+      ctx.stroke();
+    }
+    ctx.strokeStyle = COL.ring; ctx.lineWidth = 1.1; ctx.globalAlpha = 0.55;
+    ring(false);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = COL.dev; ctx.lineWidth = 2.0;
+    ring(true);
+
+    /* ---- the chosen direction: the vertical gap between the two ---- */
+    var du = EPS * Math.cos(th), dv = EPS * Math.sin(th), dz = Z(du, dv),
+        sa2 = S(project([du, dv, 0])), sb2 = S(project([du, dv, dz]));
+    ctx.beginPath(); ctx.moveTo(sa2[0], sa2[1]); ctx.lineTo(sb2[0], sb2[1]);
+    ctx.strokeStyle = COL.dev; ctx.lineWidth = 3; ctx.stroke();
+    [[sa2, COL.ring], [sb2, COL.dev]].forEach(function (P) {
+      ctx.beginPath(); ctx.arc(P[0][0], P[0][1], 4.5, 0, TWO_PI);
+      ctx.fillStyle = P[1]; ctx.fill();
+    });
+
+    /* the point p itself, at the origin */
+    var so = S(project([0, 0, 0]));
+    ctx.beginPath(); ctx.arc(so[0], so[1], 5, 0, TWO_PI);
+    ctx.fillStyle = COL.pt; ctx.fill();
+    ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.2; ctx.stroke();
+
+    /* ---- readouts ---- */
+    v1.textContent = fmt(k1, 1);
+    v2.textContent = fmt(k2, 1);
+    vT.textContent = fmt(th / Math.PI) + "π";
+    rK.textContent = fmt(k1 * k2, 3);
+    rH.textContent = fmt((k1 + k2) / 2, 3);
+    rD.textContent = fmt(dz, 3);
+
+    var z1 = k1 === 0, z2 = k2 === 0, msg;
+    if (z1 && z2) {
+      msg = "שתי העקמומיויות הראשיות מתאפסות, ולכן K = 0 וגם H = 0. זוהי נקודה מישורית, והקירוב מסדר שני הוא מישור. שימו לב שבמקרה הזה הסדר השני אינו קובע את צורת המשטח, ויש להביט בנגזרות גבוהות יותר.";
+    } else if (z1 || z2) {
+      msg = "בדיוק אחת מן העקמומיויות הראשיות מתאפסת, ולכן K = 0 אבל H ≠ 0. זוהי נקודה פרבולית, והקירוב מסדר שני הוא גליל פרבולי: המשטח ישר לגמרי בכיוון אחד.";
+    } else if (k1 * k2 > 0) {
+      msg = "שתי העקמומיויות הראשיות מאותו סימן, ולכן K > 0. זוהי נקודה אליפטית, והקירוב מסדר שני הוא פרבולואיד אליפטי: המשטח נשאר כולו בצד אחד של המישור המשיק, ולכן יש כאן צבע אחד בלבד.";
+    } else {
+      msg = "העקמומיויות הראשיות מסימנים מנוגדים, ולכן K < 0. זוהי נקודה היפרבולית, והקירוב מסדר שני הוא פרבולואיד היפרבולי: המישור המשיק חותך את המשטח, ולכן שני הצבעים מופיעים לסירוגין ברביעים.";
+    }
+    verdict.textContent = msg;
+    verdict.style.color = k1 * k2 > 0 ? COL.up : (k1 * k2 < 0 ? COL.down : "#7c3aed");
+    verdict.style.fontWeight = "600";
+  }
+
+  /* ---- drag to rotate ---- */
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.35, Math.min(1.35, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  s1.addEventListener("input", draw);
+  s2.addEventListener("input", draw);
+  sT.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>
