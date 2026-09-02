@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>משוואות גאוס ומקדמי כריסטופל</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/autosize.js"></script>
+
+<script>
+/* gauss-equations.html — x_ij = Gamma^k_ij x_k + L_ij N, made visible. ONE idea.
+   ---------------------------------------------------------------------------
+   Shown on the unit sphere for the single second derivative x_22, the one along
+   a parallel. Its tangential part is Gamma^1_22 x_1, which points along the
+   meridian and measures how the coordinate basis TURNS inside the tangent
+   plane; its normal part is L_22 N, which measures how the surface bends OUT of
+   that plane. Those are the two halves of the Gauss equation, and the whole
+   section is about telling them apart.
+
+   The tangential part vanishes exactly at the equator -- the same place §2
+   found k_g = 0 -- so one slider connects the Christoffel symbols back to the
+   geodesic curvature.
+
+   Everything is computed from the parametrisation by central differences:
+   x_1, x_2 and x_22 by differencing x, N by normalising x_1 x x_2, then the
+   normal part is <x_22, N> N and the tangential part is the remainder. The
+   Gammas are read off by solving the 2x2 system against the basis, NOT from the
+   closed forms the exercise derives -- so the readout can contradict a wrong
+   answer instead of echoing it.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    ball: "#dbe6f0", ballEdge: "#a8c0d8",
+    curve: "#0f172a",
+    acc:  "#7c3aed",       /* x_22            */
+    tanp: "#0f766e",       /* Gamma^k_22 x_k  */
+    nrmp: "#1f4e79",       /* L_22 N          */
+    b1:   "#94a3b8", b2: "#c0392b"
+  };
+
+  var TWO_PI = 2 * Math.PI, h = 1e-4;
+
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function mul(a, s) { return [a[0] * s, a[1] * s, a[2] * s]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function norm(a) { return Math.sqrt(dot(a, a)); }
+  function cross(a, b) {
+    return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  }
+  function unit(a) { var n = norm(a); return n ? mul(a, 1 / n) : a; }
+  function fmt(v, d) {
+    var s = (Math.abs(v) < 5e-4 ? 0 : v).toFixed(d === undefined ? 3 : d);
+    return s === "-0.000" ? "0.000" : s;
+  }
+
+  function X(u, v) {
+    return [Math.sin(u) * Math.cos(v), Math.sin(u) * Math.sin(v), Math.cos(u)];
+  }
+
+  function local(u, v) {
+    var x1 = mul(sub(X(u + h, v), X(u - h, v)), 1 / (2 * h)),
+        x2 = mul(sub(X(u, v + h), X(u, v - h)), 1 / (2 * h)),
+        x22 = mul(add(sub(X(u, v + h), mul(X(u, v), 2)), X(u, v - h)), 1 / (h * h)),
+        N = unit(cross(x1, x2)),
+        L22 = dot(x22, N),
+        nrm = mul(N, L22),
+        tan = sub(x22, nrm),
+        /* solve tan = G1 x1 + G2 x2 against the (orthogonal here) basis */
+        g11 = dot(x1, x1), g22 = dot(x2, x2),
+        G1 = dot(tan, x1) / g11,
+        G2 = dot(tan, x2) / g22;
+    return { p: X(u, v), x1: x1, x2: x2, x22: x22, N: N,
+             L22: L22, tan: tan, nrm: nrm, G1: G1, G2: G2 };
+  }
+
+  var host = document.getElementById("app"),
+      yaw = -0.9, pitch = 0.34, u0 = 1.0, v0 = 0.9;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title" dir="ltr">' +
+        'x&#8322;&#8322; = &Gamma;&sup1;&#8322;&#8322; x&#8321; + &Gamma;&sup2;&#8322;&#8322; x&#8322; + L&#8322;&#8322; N' +
+        '   on the unit sphere' +
+      '</p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">הזווית הקוטבית של הנקודה</span>' +
+        '<input class="qv-slider qv-u" type="range" min="18" max="282" value="100">' +
+        '<span class="qv-badge qv-uval"></span>' +
+      '</div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">מיקום סביב הציר</span>' +
+        '<input class="qv-slider qv-v" type="range" min="0" max="1000" value="143">' +
+        '<span class="qv-badge qv-vval"></span>' +
+      '</div>' +
+      '<div class="qv-readout">' +
+        '<div><span class="qv-rl">&Gamma;&sup1;&#8322;&#8322;</span><span class="qv-rv qv-r-g1"></span></div>' +
+        '<div><span class="qv-rl">&Gamma;&sup2;&#8322;&#8322;</span><span class="qv-rv qv-r-g2"></span></div>' +
+        '<div><span class="qv-rl">L&#8322;&#8322;</span><span class="qv-rv qv-r-l"></span></div>' +
+      '</div>' +
+      '<ul class="qv-gloss">' +
+        '<li><b>&Gamma;&sup1;&#8322;&#8322;, &Gamma;&sup2;&#8322;&#8322;</b> &mdash; הרכיב המשיק, כלומר כמה הבסיס מסתובב בתוך המישור המשיק. גודל פנימי.</li>' +
+        '<li><b>L&#8322;&#8322;</b> &mdash; הרכיב הנורמלי, כלומר כמה המשטח מתעקם החוצה מן המישור המשיק. גודל חיצוני.</li>' +
+      '</ul>' +
+      /* no dedicated class in quadviz.css: reuse the hint's prose styling and
+         override only weight and colour from draw(), as ch07/mobius.html does */
+      '<p class="qv-hint qv-verdict"></p>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את המבט. החץ הסגול הוא הנגזרת השנייה לאורך המקביל, והוא סכום החץ הירוק, שהוא הרכיב המשיק, והחץ הכחול, שהוא הרכיב הנורמלי. הזיזו את הזווית הקוטבית אל קו המשווה וראו את הרכיב המשיק נעלם.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      sU = host.querySelector(".qv-u"), uval = host.querySelector(".qv-uval"),
+      sV = host.querySelector(".qv-v"), vval = host.querySelector(".qv-vval"),
+      rG1 = host.querySelector(".qv-r-g1"), rG2 = host.querySelector(".qv-r-g2"),
+      rL = host.querySelector(".qv-r-l"),
+      verdict = host.querySelector(".qv-verdict");
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function draw() {
+    u0 = parseInt(sU.value, 10) / 100;
+    v0 = (sV.value / 1000) * TWO_PI;
+
+    var dpr = window.devicePixelRatio || 1,
+        w = cv.clientWidth || 620, hgt = Math.round(w * 0.52), i, j;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";          /* else the minus sign of L22 reorders */
+    ctx.lineJoin = "round";
+
+    var NU = 26, NV = 52, G = [], a, b;
+    for (i = 0; i <= NU; i++) {
+      G.push([]);
+      a = (i / NU) * Math.PI;
+      for (j = 0; j <= NV; j++) {
+        b = (j / NV) * TWO_PI;
+        G[i].push(project(X(a, b)));
+      }
+    }
+    var xs = [], ys = [];
+    for (i = 0; i <= NU; i += 2) for (j = 0; j <= NV; j += 2) {
+      xs.push(G[i][j][0]); ys.push(G[i][j][1]);
+    }
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs),
+        ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys),
+        pad = 1.62,
+        sc = Math.min(w / ((xmax - xmin) * pad || 1), hgt / ((ymax - ymin) * pad || 1)),
+        cx = w / 2 - sc * (xmin + xmax) / 2,
+        cy = hgt / 2 + sc * (ymin + ymax) / 2;
+    function S(q) { return [cx + sc * q[0], cy - sc * q[1]]; }
+
+    var quads = [];
+    for (i = 0; i < NU; i++) for (j = 0; j < NV; j++) {
+      quads.push({ z: (G[i][j][2] + G[i + 1][j][2] + G[i + 1][j + 1][2] +
+                       G[i][j + 1][2]) / 4,
+                   p: [G[i][j], G[i + 1][j], G[i + 1][j + 1], G[i][j + 1]] });
+    }
+    quads.sort(function (m, n) { return m.z - n.z; });
+    ctx.lineWidth = 0.4;
+    quads.forEach(function (Q) {
+      ctx.beginPath();
+      var s0 = S(Q.p[0]); ctx.moveTo(s0[0], s0[1]);
+      for (var m = 1; m < 4; m++) { var sm = S(Q.p[m]); ctx.lineTo(sm[0], sm[1]); }
+      ctx.closePath();
+      ctx.fillStyle = COL.ball; ctx.globalAlpha = 0.55; ctx.fill();
+      ctx.strokeStyle = COL.ballEdge; ctx.globalAlpha = 0.35; ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+
+    /* the parallel through the point, and the equator for reference */
+    function ring(uu, dash, alpha) {
+      ctx.beginPath();
+      for (var m = 0; m <= 150; m++) {
+        var q = S(project(X(uu, (m / 150) * TWO_PI)));
+        if (m === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]);
+      }
+      ctx.strokeStyle = COL.curve; ctx.globalAlpha = alpha;
+      ctx.lineWidth = dash ? 1.2 : 2.4;
+      if (dash) ctx.setLineDash([5, 4]);
+      ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
+    }
+    ring(Math.PI / 2, true, 0.35);
+    ring(u0, false, 1);
+
+    var F = local(u0, v0);
+
+    function arrow(vec, col, lw, lab, scale) {
+      var from = F.p, v3 = mul(vec, scale),
+          s1 = S(project(from)), s2 = S(project(add(from, v3)));
+      ctx.beginPath(); ctx.moveTo(s1[0], s1[1]); ctx.lineTo(s2[0], s2[1]);
+      ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.stroke();
+      var ang = Math.atan2(s2[1] - s1[1], s2[0] - s1[0]), hh = lw > 2 ? 9 : 7;
+      ctx.beginPath();
+      ctx.moveTo(s2[0], s2[1]);
+      ctx.lineTo(s2[0] - hh * Math.cos(ang - 0.4), s2[1] - hh * Math.sin(ang - 0.4));
+      ctx.lineTo(s2[0] - hh * Math.cos(ang + 0.4), s2[1] - hh * Math.sin(ang + 0.4));
+      ctx.closePath(); ctx.fillStyle = col; ctx.fill();
+      if (lab) {
+        var n3 = norm(v3),
+            tip = add(from, mul(v3, 1 + 0.16 / Math.max(n3, 1e-9))),
+            st = S(project(tip));
+        ctx.font = "600 12px ui-sans-serif, system-ui, sans-serif";
+        ctx.fillStyle = col;
+        ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText(lab, st[0], st[1]);
+        ctx.textAlign = "start"; ctx.textBaseline = "alphabetic";
+      }
+    }
+
+    /* one common visual scale: |x_22| = sin u varies, and true lengths would
+       make the arrows shrink to nothing near the poles */
+    var vs = 0.62 / Math.max(0.35, norm(F.x22));
+    arrow(unit(F.x1), COL.b1, 1.5, "x₁", 0.34);
+    arrow(unit(F.x2), COL.b2, 1.5, "x₂", 0.34);
+    arrow(F.x22, COL.acc, 3.2, "x₂₂", vs);
+    arrow(F.nrm, COL.nrmp, 2.4, "L₂₂N", vs);
+    arrow(F.tan, COL.tanp, 2.4, "Γx", vs);
+
+    var sp = S(project(F.p));
+    ctx.beginPath(); ctx.arc(sp[0], sp[1], 4.8, 0, TWO_PI);
+    ctx.fillStyle = COL.curve; ctx.fill();
+    ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.2; ctx.stroke();
+
+    uval.textContent = fmt(u0 / Math.PI, 2) + "π";
+    vval.textContent = fmt(v0 / Math.PI, 2) + "π";
+    rG1.textContent = fmt(F.G1);
+    rG2.textContent = fmt(F.G2);
+    rL.textContent = fmt(F.L22);
+
+    var msg, col;
+    if (Math.abs(F.G1) < 0.02) {
+      msg = "כאן הרכיב המשיק מתאפס: הבסיס אינו מסתובב בתוך המישור המשיק, וכל הנגזרת השנייה היא נורמלית. זהו קו המשווה, וזו בדיוק הסיבה שהעקמומיות הגיאודזית שלו מתאפסת.";
+      col = COL.tanp;
+    } else {
+      msg = "כאן הרכיב המשיק שונה מאפס, כלומר הבסיס מסתובב בתוך המישור המשיק בזמן שנעים לאורך המקביל. הרכיב הזה נקבע על ידי המטריקה בלבד, ואילו הרכיב הנורמלי מודד את ההתעקמות אל מחוץ למשטח.";
+      col = COL.acc;
+    }
+    verdict.textContent = msg;
+    verdict.style.color = col;
+    verdict.style.fontWeight = "600";
+  }
+
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.35, Math.min(1.35, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  sU.addEventListener("input", draw);
+  sV.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

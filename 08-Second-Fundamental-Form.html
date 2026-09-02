@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס – גיאומטריה דיפרנציאלית — תרגולים</title>
+<title>8&nbsp; תרגול 8: העתקת גאוס והתבנית היסודית השנייה – גיאומטריה דיפרנציאלית — תרגולים</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,6 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./09-Gaussian-Mean-Curvature.html" rel="next">
 <link href="./07-First-Fundamental-Form.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -564,7 +565,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08-Second-Fundamental-Form.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08-Second-Fundamental-Form.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: העתקת גאוס והתבנית היסודית השנייה</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="חפש" onclick="window.quartoOpenSearch();">
@@ -648,7 +649,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-Second-Fundamental-Form.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: העתקת גאוס והתבנית היסודית השנייה</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-Gaussian-Mean-Curvature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">תרגול 9: עקמומיות גאוס והעקמומיות הממוצעת</span></span></a>
   </div>
 </li>
     </ul>
@@ -664,16 +671,15 @@ window.Quarto = {
   <li><a href="#העתקת-גאוס" id="toc-העתקת-גאוס" class="nav-link active" data-scroll-target="#העתקת-גאוס"><span class="header-section-number">8.1</span> העתקת גאוס</a></li>
   <li><a href="#אופרטור-הצורה" id="toc-אופרטור-הצורה" class="nav-link" data-scroll-target="#אופרטור-הצורה"><span class="header-section-number">8.2</span> אופרטור הצורה</a></li>
   <li><a href="#התבנית-היסודית-השנייה" id="toc-התבנית-היסודית-השנייה" class="nav-link" data-scroll-target="#התבנית-היסודית-השנייה"><span class="header-section-number">8.3</span> התבנית היסודית השנייה</a></li>
-  <li><a href="#עקמומיות-גאוס-והעקמומיות-הממוצעת" id="toc-עקמומיות-גאוס-והעקמומיות-הממוצעת" class="nav-link" data-scroll-target="#עקמומיות-גאוס-והעקמומיות-הממוצעת"><span class="header-section-number">8.4</span> עקמומיות גאוס והעקמומיות הממוצעת</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: התבנית היסודית השנייה ועקמומיות גאוס</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">תרגול 8: העתקת גאוס והתבנית היסודית השנייה</span></h1>
 </div>
 
 
@@ -690,7 +696,7 @@ window.Quarto = {
 </header>
 
 
-<section id="העתקת-גאוס" class="level2" data-number="8.1">
+<section id="העתקת-גאוס" class="level2 page-columns page-full" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="העתקת-גאוס"><span class="header-section-number">8.1</span> העתקת גאוס</h2>
 <p>עבור עקומות ראינו שחישוב וקטור הנורמל מאפשר לחשב את העקמומיות. נחיל עתה את אותו עקרון על משטחים: נרצה למדוד כמה מהר המשטח <span class="math inline">\(M\)</span> מתרחק מהמישור המשיק <span class="math inline">\(T_p \left( M \right)\)</span> בסביבת הנקודה <span class="math inline">\(p\)</span>. הכלי לכך הוא העתקה הרושמת בכל נקודה את הכיוון שאליו המשטח פונה.</p>
 <div id="box-def-gauss-map" class="thmbox thmbox-definition" title="העתקת גאוס">
@@ -711,9 +717,14 @@ window.Quarto = {
 <li><strong>גליל</strong> שכל היוצרים שלו מקבילים לכיוון קבוע <span class="math inline">\(d\)</span>. הנורמל ניצב ליוצרים בכל נקודה, ולכן <span class="math inline">\(N \left( M \right)\)</span> מוכלת ב<strong>מעגל הגדול</strong> <span class="math inline">\(S^2 \cap d^{\perp}\)</span>.</li>
 <li><strong>ספירת היחידה.</strong> מתקיים <span class="math inline">\(N \left( p \right) = \pm p\)</span>, ולכן העתקת גאוס היא הזהות או ההעתקה האנטיפודלית, ו-<span class="math inline">\(N \left( M \right)\)</span> היא <strong>כל</strong> <span class="math inline">\(S^2\)</span>.</li>
 </ol>
-<p>נקודה, עקומה, ספירה שלמה. זהו כבר מדד גס לכמה המשטח מתעקם: ככל שהתמונה מכסה חלק גדול יותר של <span class="math inline">\(S^2\)</span>, כך המישור המשיק נאלץ להסתובב יותר. בהמשך התרגול נהפוך את התצפית הזו למשפט.</p>
+<p>נקודה, עקומה, ספירה שלמה. זהו כבר מדד גס לכמה המשטח מתעקם: ככל שהתמונה מכסה חלק גדול יותר של <span class="math inline">\(S^2\)</span>, כך המישור המשיק נאלץ להסתובב יותר. בהמשך הקורס נהפוך את התצפית הזו למשפט.</p>
 </div>
-<iframe class="widget-frame" src="widgets/ch08/gauss-map.html" loading="lazy" title="העתקת גאוס: המשטח וספירת היחידה"></iframe>
+<p>בציור שלהלן שלושת המקרים זה לצד זה: בשורה העליונה המשטח עם כמה מן הנורמלים שלו, ובשורה התחתונה תמונת העתקת גאוס שלו על ספירת היחידה.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/gauss-map-three.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:92.0%" alt="מישור, גליל וספירה, ומתחת לכל אחד תמונת העתקת גאוס שלו על ספירת היחידה"></p>
+</figure>
+</div>
 <div id="box-q-gauss-paraboloid" class="thmbox thmbox-question">
 <p><strong>שאלה 8.1.4.</strong></p>
 <p>יהי <span class="math inline">\(M\)</span> הפרבולואיד האליפטי <span class="math inline">\(z = x^2 + y^2\)</span>, בפרמטריזציה <span class="math display">\[.\overline{x} \left( u, v \right) = \left( u, \; v, \; u^2 + v^2 \right)\]</span></p>
@@ -721,6 +732,9 @@ window.Quarto = {
 <li>חשבו את העתקת גאוס <span class="math inline">\(N\)</span>.</li>
 <li>תארו את התמונה <span class="math inline">\(N \left( M \right) \subseteq S^2\)</span>.</li>
 </ol>
+</div>
+<div class="column-page">
+<iframe class="widget-frame" src="widgets/ch08/gauss-map-paraboloid.html" loading="lazy" title="העתקת גאוס של הפרבולואיד ותמונתה על ספירת היחידה"></iframe>
 </div>
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
@@ -771,8 +785,7 @@ window.Quarto = {
 </details>
 <details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
 <div class="foldable" title="מה זה ממחיש">
-<p>לתמונת גאוס כאן יש <strong>שטח</strong> חיובי, בשונה מן המישור, שתמונתו נקודה, ומן הגליל, שתמונתו עקומה, כפי שראינו ב<a href="#box-rem-gauss-images">הערה 8.1.3</a>. בהמשך התרגול זה יתורגם לאמירה שעקמומיות גאוס של הפרבולואיד חיובית בכל נקודה, בעוד שעל המישור ועל הגליל היא מתאפסת.</p>
-<p>בסימולציה שלמעלה אפשר לבחור <strong>פרבולואיד</strong> ולראות את חצי הספירה הפתוח נצבע, ואת התמונה מתקרבת אל קו המשווה ככל שמתרחקים מן הקודקוד.</p>
+<p>לתמונת גאוס כאן יש <strong>שטח</strong> חיובי, בשונה מן המישור, שתמונתו נקודה, ומן הגליל, שתמונתו עקומה, כפי שראינו ב<a href="#box-rem-gauss-images">הערה 8.1.3</a>. בהמשך הקורס זה יתורגם לאמירה שעקמומיות גאוס של הפרבולואיד חיובית בכל נקודה, בעוד שעל המישור ועל הגליל היא מתאפסת.</p>
 </div>
 </details>
 </div>
@@ -811,7 +824,7 @@ window.Quarto = {
 </div>
 <div id="box-rem-spectral" class="thmbox thmbox-remark" title="מדוע התכונה הזו חשובה">
 <p><strong>הערה 8.2.7 — מדוע התכונה הזו חשובה.</strong></p>
-<p>לאופרטור צמוד לעצמו על מרחב מכפלה פנימית דו־ממדי יש ערכים עצמיים ממשיים ובסיס אורתונורמלי של וקטורים עצמיים. הערכים והוקטורים האלה הם כל הנושא של הסעיפים הבאים, והם ייקראו העקמומיויות הראשיות והכיוונים הראשיים. הצורה של <span class="math inline">\(M\)</span> בסביבת <span class="math inline">\(p\)</span> אצורה כולה ב-<span class="math inline">\(S_p\)</span>.</p>
+<p>לאופרטור צמוד לעצמו על מרחב מכפלה פנימית דו־ממדי יש ערכים עצמיים ממשיים ובסיס אורתונורמלי של וקטורים עצמיים. הערכים והוקטורים האלה ייקראו <strong>העקמומיויות הראשיות</strong> ו<strong>הכיוונים הראשיים</strong>, והם יעמדו במרכז ההמשך. הצורה של <span class="math inline">\(M\)</span> בסביבת <span class="math inline">\(p\)</span> אצורה כולה ב-<span class="math inline">\(S_p\)</span>.</p>
 </div>
 <div id="box-q-shape-sphere" class="thmbox thmbox-question">
 <p><strong>שאלה 8.2.8.</strong></p>
@@ -863,18 +876,20 @@ window.Quarto = {
 <div class="foldable" title="מה זה ממחיש">
 <p>שני דברים.</p>
 <p><strong>ראשית</strong>, על הספירה אופרטור הצורה הוא כפולה של הזהות: הספירה מתעקמת באותה מידה בכל כיוון, והמידה היא <span class="math inline">\(\frac{1}{r}\)</span>, כלומר הופכי הרדיוס, בדיוק כמו העקמומיות של מעגל ברדיוס <span class="math inline">\(r\)</span> במישור.</p>
-<p><strong>שנית</strong>, הסימן של <span class="math inline">\(S_p\)</span> אינו תכונה של המשטח לבדו, אלא תלוי בשאלה איזה צד בחרנו לקרוא לו החוץ. כל אובייקט שנבנה מ-<span class="math inline">\(S_p\)</span> חייב לעבור את המבחן הזה. שימו לב כבר עכשיו ששני הערכים העצמיים של הספירה הם <span class="math inline">\(-\frac{1}{r}\)</span>, ובבחירה האחרת שניהם <span class="math inline">\(+\frac{1}{r}\)</span>: <strong>המכפלה</strong> שלהם היא <span class="math inline">\(\frac{1}{r^2}\)</span> בשני המקרים, ואילו <strong>הסכום</strong> מחליף סימן. בהמשך התרגול נהפוך את התצפית הזו להגדרה.</p>
+<p><strong>שנית</strong>, הסימן של <span class="math inline">\(S_p\)</span> אינו תכונה של המשטח לבדו, אלא תלוי בשאלה איזה צד בחרנו לקרוא לו החוץ. כל אובייקט שנבנה מ-<span class="math inline">\(S_p\)</span> חייב לעבור את המבחן הזה. שימו לב כבר עכשיו ששני הערכים העצמיים של הספירה הם <span class="math inline">\(-\frac{1}{r}\)</span>, ובבחירה האחרת שניהם <span class="math inline">\(+\frac{1}{r}\)</span>: <strong>המכפלה</strong> שלהם היא <span class="math inline">\(\frac{1}{r^2}\)</span> בשני המקרים, ואילו <strong>הסכום</strong> מחליף סימן. בהמשך הקורס נהפוך את התצפית הזו להגדרה.</p>
 </div>
 </details>
 </div>
 </section>
-<section id="התבנית-היסודית-השנייה" class="level2" data-number="8.3">
+<section id="התבנית-היסודית-השנייה" class="level2 page-columns page-full" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="התבנית-היסודית-השנייה"><span class="header-section-number">8.3</span> התבנית היסודית השנייה</h2>
 <p>נקבע נקודה <span class="math inline">\(p = \overline{x} \left( u, v \right)\)</span>. כאשר הפרמטרים זזים אל <span class="math inline">\(\left( u + \Delta u, \; v + \Delta v \right)\)</span>, המשטח מתרחק מן המישור המשיק שלו ב-<span class="math inline">\(p\)</span>, והמידה שבה הוא מתרחק היא הרכיב של ההזזה בכיוון הנורמל, כלומר <span class="math display">\[.d \left( \Delta u, \Delta v \right) = \left\langle \overline{x} \left( u + \Delta u, \; v + \Delta v \right) - \overline{x} \left( u, v \right), \; N \right\rangle\]</span></p>
 <p>לפי משפט טיילור בשני משתנים <span class="math display">\[\begin{aligned} \overline{x} \left( u + \Delta u, v + \Delta v \right) - \overline{x} \left( u, v \right) = \; &amp; \overline{x}_u \Delta u + \overline{x}_v \Delta v \\ + \; &amp; \frac{1}{2} \left( \overline{x}_{uu} \Delta u^2 + 2 \overline{x}_{uv} \Delta u \Delta v + \overline{x}_{vv} \Delta v^2 \right) + R, \end{aligned}\]</span> כאשר השארית מקיימת <span class="math inline">\(\frac{R}{\Delta u^2 + \Delta v^2} \to 0\)</span>.</p>
 <p>הוקטורים <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span> משיקים למשטח ולכן ניצבים ל-<span class="math inline">\(N\)</span>, ומכאן ש<strong>כל האיבר מסדר ראשון מתאפס</strong> כאשר לוקחים מכפלה סקלרית עם <span class="math inline">\(N\)</span>. מה שנותר הוא <span class="math display">\[,d \left( \Delta u, \Delta v \right) = \frac{1}{2} \left( L_{11} \Delta u^2 + 2 L_{12} \Delta u \Delta v + L_{22} \Delta v^2 \right) + \left\langle R, N \right\rangle\]</span> כאשר <span class="math inline">\(L_{ij} = \left\langle \overline{x}_{ij}, N \right\rangle\)</span>.</p>
 <p>עבור עקומה, ההתרחקות מן הישר המשיק היא <span class="math inline">\(\frac{1}{2} \kappa \left( \Delta t \right)^2 + \ldots\)</span>, והמספר היחיד <span class="math inline">\(\kappa\)</span> מדד את ההתעקמות. עבור משטח ההתרחקות מן המישור המשיק היא <strong>תבנית ריבועית</strong> ב-<span class="math inline">\(\left( \Delta u, \Delta v \right)\)</span> ולא מספר בודד, שכן עכשיו יש הרבה כיוונים שבהם אפשר להתרחק. התבנית הריבועית הזו היא התבנית היסודית השנייה.</p>
+<div class="column-page">
 <iframe class="widget-frame" src="widgets/ch08/second-order.html" loading="lazy" title="ההתרחקות מן המישור המשיק והקירוב מסדר שני"></iframe>
+</div>
 <div id="box-def-second-form" class="thmbox thmbox-definition" title="התבנית היסודית השנייה">
 <p><strong>הגדרה 8.3.1 — התבנית היסודית השנייה.</strong></p>
 <p>לכל <span class="math inline">\(w_1, w_2 \in T_p \left( M \right)\)</span> נגדיר <span class="math display">\[.II_p \left( w_1, w_2 \right) = -\left\langle dN_p \left( w_1 \right), \; w_2 \right\rangle = \left\langle S_p \left( w_1 \right), \; w_2 \right\rangle\]</span></p>
@@ -902,7 +917,7 @@ window.Quarto = {
 <div id="box-rem-two-matrices" class="thmbox thmbox-remark" title="שתי המטריצות הן אובייקטים שונים">
 <p><strong>הערה 8.3.6 — שתי המטריצות הן אובייקטים שונים.</strong></p>
 <p>המטריצה <span class="math inline">\(\left( L_{ij} \right)\)</span> סימטרית, אך היא <strong>אינה</strong> מטריצה מייצגת של אופרטור. המטריצה <span class="math inline">\(\left( L^i_j \right)\)</span> <strong>כן</strong> מייצגת את <span class="math inline">\(S_p\)</span>, והיא בדרך כלל <strong>אינה</strong> סימטרית.</p>
-<p>הערכים העצמיים שיעניינו אותנו בסעיף הבא הם הערכים העצמיים של <span class="math inline">\(\left( L^i_j \right)\)</span>, לעולם לא של <span class="math inline">\(\left( L_{ij} \right)\)</span>. השתיים מתלכדות רק כאשר <span class="math inline">\(\left( g_{ij} \right)\)</span> היא מטריצת הזהות.</p>
+<p>הערכים העצמיים שיעניינו אותנו בהמשך הם הערכים העצמיים של <span class="math inline">\(\left( L^i_j \right)\)</span>, לעולם לא של <span class="math inline">\(\left( L_{ij} \right)\)</span>. השתיים מתלכדות רק כאשר <span class="math inline">\(\left( g_{ij} \right)\)</span> היא מטריצת הזהות.</p>
 </div>
 <div id="box-rem-plane-second-form" class="thmbox thmbox-remark" title="המישור">
 <p><strong>הערה 8.3.7 — המישור.</strong></p>
@@ -1003,265 +1018,6 @@ window.Quarto = {
 <div class="foldable" title="מה זה ממחיש">
 <p>עבור עקומה, ההנחה <span class="math inline">\(\kappa \equiv 0\)</span> אומרת שהישר המשיק מפסיק להסתובב, ואז העקומה נאלצת להיות הישר הזה. כאן ההנחה שהתבנית השנייה מתאפסת אומרת, דרך שלב 4, ש-<span class="math inline">\(N\)</span> מפסיק להסתובב, ולכן המישור המשיק מפסיק להסתובב, והמשטח נאלץ להיות המישור הזה.</p>
 <p>בלשון הסעיף הראשון: תמונת גאוס התכווצה לנקודה בודדת, וזו בדיוק השורה של המישור ב<a href="#box-rem-gauss-images">הערה 8.1.3</a>.</p>
-</div>
-</details>
-</div>
-</section>
-<section id="עקמומיות-גאוס-והעקמומיות-הממוצעת" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="עקמומיות-גאוס-והעקמומיות-הממוצעת"><span class="header-section-number">8.4</span> עקמומיות גאוס והעקמומיות הממוצעת</h2>
-<div id="box-def-principal" class="thmbox thmbox-definition" title="עקמומיויות ראשיות וכיוונים ראשיים">
-<p><strong>הגדרה 8.4.1 — עקמומיויות ראשיות וכיוונים ראשיים.</strong></p>
-<p>האופרטור <span class="math inline">\(S_p\)</span> צמוד לעצמו, ולכן לפי המשפט הספקטרלי קיימים מספרים ממשיים <span class="math inline">\(k_1, k_2\)</span> ובסיס <strong>אורתונורמלי</strong> <span class="math inline">\(\left\{ e_1, e_2 \right\}\)</span> של <span class="math inline">\(T_p \left( M \right)\)</span> כך ש-<span class="math display">\[.S_p \left( e_1 \right) = k_1 e_1, \qquad S_p \left( e_2 \right) = k_2 e_2\]</span></p>
-<p>המספרים <span class="math inline">\(k_1, k_2\)</span> נקראים <strong>העקמומיויות הראשיות</strong> בנקודה <span class="math inline">\(p\)</span>, והוקטורים <span class="math inline">\(e_1, e_2\)</span> נקראים <strong>הכיוונים הראשיים</strong>. אלה הם הערכים העצמיים והוקטורים העצמיים של המטריצה <span class="math inline">\(\left( L^i_j \right)\)</span>.</p>
-</div>
-<div id="box-def-K-and-H" class="thmbox thmbox-definition" title="עקמומיות גאוס והעקמומיות הממוצעת">
-<p><strong>הגדרה 8.4.2 — עקמומיות גאוס והעקמומיות הממוצעת.</strong></p>
-<p>נגדיר <span class="math display">\[,K = \det \left( L^i_j \right) = k_1 k_2\]</span> ונקרא לזה <strong>עקמומיות גאוס</strong>, וכן <span class="math display">\[,H = \frac{1}{2} \operatorname{tr} \left( L^i_j \right) = \frac{k_1 + k_2}{2}\]</span> ונקרא לזה <strong>העקמומיות הממוצעת</strong>.</p>
-<p>הדטרמיננטה והעקבה אינן תלויות בבסיס, ולכן שני הגדלים מוגדרים היטב.</p>
-</div>
-<div id="box-prp-K-formula" class="thmbox thmbox-proposition" title="הנוסחה שבה מחשבים את עקמומיות גאוס">
-<p><strong>טענה 8.4.3 — הנוסחה שבה מחשבים את עקמומיות גאוס.</strong></p>
-<p>הדטרמיננטה כפלית, ולכן מ<a href="#box-prp-shape-matrix">טענה 8.3.5</a> נובע <span class="math display">\[.K = \det \left( L^i_j \right) = \frac{\det \left( L_{ij} \right)}{\det \left( g_{ij} \right)} = \frac{L_{11} L_{22} - L_{12}^2}{g_{11} g_{22} - g_{12}^2}\]</span></p>
-<p>עבור העקמומיות הממוצעת אין קיצור דומה, שכן העקבה אינה כפלית. את <span class="math inline">\(H\)</span> מחשבים תמיד מן המטריצה <span class="math inline">\(\left( L^i_j \right)\)</span> עצמה, או כממוצע <span class="math inline">\(\frac{k_1 + k_2}{2}\)</span>.</p>
-</div>
-<div id="box-rem-diagonal-case" class="thmbox thmbox-remark" title="המקרה האלכסוני">
-<p><strong>הערה 8.4.4 — המקרה האלכסוני.</strong></p>
-<p>אם <span class="math inline">\(g_{12} = 0\)</span> <strong>וגם</strong> <span class="math inline">\(L_{12} = 0\)</span>, אזי שתי המטריצות אלכסוניות, ולכן גם המכפלה <span class="math inline">\(\left( g^{ij} \right) \left( L_{ij} \right)\)</span> אלכסונית. במקרה זה <span class="math inline">\(\left( L^i_j \right)\)</span> אלכסונית מלכתחילה, הכיוונים <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span> <strong>הם</strong> הכיוונים הראשיים, ומתקיים <span class="math display">\[,k_1 = \frac{L_{11}}{g_{11}}, \qquad k_2 = \frac{L_{22}}{g_{22}}\]</span> ולכן <span class="math display">\[.K = \frac{L_{11} L_{22}}{g_{11} g_{22}}, \qquad H = \frac{1}{2} \left( \frac{L_{11}}{g_{11}} + \frac{L_{22}}{g_{22}} \right)\]</span></p>
-<p>זה קורה בכל משטח סיבוב, וזו הדרך הקצרה שבה נשתמש בשני התרגילים הבאים.</p>
-</div>
-<div id="box-rem-char-poly" class="thmbox thmbox-remark" title="הפולינום האופייני">
-<p><strong>הערה 8.4.5 — הפולינום האופייני.</strong></p>
-<p>הפולינום האופייני של <span class="math inline">\(S_p\)</span> הוא <span class="math display">\[,P \left( \lambda \right) = \det \left( \lambda I - \left( L^i_j \right) \right) = \lambda^2 - \operatorname{tr} \left( L^i_j \right) \lambda + \det \left( L^i_j \right) = \lambda^2 - 2H \lambda + K\]</span> ולכן העקמומיויות הראשיות הן שורשיו, כלומר <span class="math display">\[.k_{1,2} = H \pm \sqrt{H^2 - K}\]</span></p>
-<p>שימו לב שתמיד <span class="math inline">\(H^2 - K = \left( \frac{k_1 - k_2}{2} \right)^2 \geq 0\)</span>, וזו בדיקת עקביות מהירה על כל חישוב.</p>
-</div>
-<div id="box-rem-char-poly-lecture" class="thmbox thmbox-remark" title="הערה על הרישום בהרצאה">
-<p><strong>הערה 8.4.6 — הערה על הרישום בהרצאה.</strong></p>
-<p>בהרצאה נרשם הפולינום האופייני בצורה <span class="math inline">\(P \left( \lambda \right) = \lambda^2 - \operatorname{tr} \left( L^i_j \right) + \det \left( L^i_j \right)\)</span>. האיבר של העקבה חייב לשאת גורם <span class="math inline">\(\lambda\)</span>, כפי שרשום ב<a href="#box-rem-char-poly">הערה 8.4.5</a>, אחרת הביטוי אינו הפולינום האופייני.</p>
-</div>
-<div id="box-rem-orientation-K-H" class="thmbox thmbox-remark" title="תלות באוריינטציה">
-<p><strong>הערה 8.4.7 — תלות באוריינטציה.</strong></p>
-<p>היפוך הנורמל מחליף את <span class="math inline">\(S_p\)</span> ב-<span class="math inline">\(-S_p\)</span>, ולכן מחליף את <span class="math inline">\(k_1, k_2\)</span> ב-<span class="math inline">\(-k_1, -k_2\)</span>. מכאן <span class="math display">\[,K \longmapsto \left( -k_1 \right) \left( -k_2 \right) = K\]</span> ואילו <span class="math display">\[.H \longmapsto \frac{-k_1 - k_2}{2} = -H\]</span></p>
-<p>לכן <strong><span class="math inline">\(K\)</span> היא תכונה של המשטח לבדו</strong>, והיא מוגדרת גם על משטח שאינו אוריינטבילי, ואילו <strong><span class="math inline">\(H\)</span> מוגדרת רק לאחר שנקבעה אוריינטציה</strong>. זו בדיוק התצפית שכבר נעשתה על הספירה ב<a href="#box-q-shape-sphere">שאלה 8.2.8</a>.</p>
-</div>
-<div id="box-q-ruled-nonpositive" class="thmbox thmbox-question">
-<p><strong>שאלה 8.4.8.</strong></p>
-<p>יהי משטח ישר, כלומר משטח בפרמטריזציה <span class="math display">\[,\overline{x} \left( u, v \right) = \gamma \left( u \right) + v \, \delta \left( u \right)\]</span> כאשר <span class="math inline">\(\gamma\)</span> ו-<span class="math inline">\(\delta\)</span> עקומות חלקות. הוכיחו שעקמומיות גאוס שלו אי־חיובית בכל נקודה, כלומר <span class="math inline">\(K \leq 0\)</span>.</p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: הנגזרת השנייה לפי $v$ מתאפסת</summary>
-<div class="foldable" title="שלב 1: הנגזרת השנייה לפי $v$ מתאפסת">
-<p>נגזור לפי <span class="math inline">\(v\)</span>. המחובר <span class="math inline">\(\gamma \left( u \right)\)</span> אינו תלוי ב-<span class="math inline">\(v\)</span> ולכן נגזרתו מתאפסת, ובמחובר השני <span class="math inline">\(\delta \left( u \right)\)</span> הוא מקדם קבוע ביחס ל-<span class="math inline">\(v\)</span>: <span class="math display">\[.\overline{x}_v = \delta \left( u \right)\]</span></p>
-<p>הביטוי הזה אינו תלוי ב-<span class="math inline">\(v\)</span> כלל, ולכן גזירה נוספת לפי <span class="math inline">\(v\)</span> נותנת <span class="math display">\[.\overline{x}_{vv} = 0\]</span></p>
-<p>זהו הביטוי הגיאומטרי לכך שעקומות הקואורדינטות בכיוון <span class="math inline">\(v\)</span> הן <strong>ישרים</strong>: לישר אין תאוצה.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: מקדם אחד של התבנית השנייה מתאפס</summary>
-<div class="foldable" title="שלב 2: מקדם אחד של התבנית השנייה מתאפס">
-<p>נציב בנוסחה <span class="math inline">\(L_{ij} = \left\langle \overline{x}_{ij}, N \right\rangle\)</span> ונקבל <span class="math display">\[.L_{22} = \left\langle \overline{x}_{vv}, N \right\rangle = \left\langle 0, N \right\rangle = 0\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: הדטרמיננטה של התבנית השנייה</summary>
-<div class="foldable" title="שלב 3: הדטרמיננטה של התבנית השנייה">
-<p>נציב בדטרמיננטה. המחובר הראשון מתאפס שכן <span class="math inline">\(L_{22} = 0\)</span>, ונשאר רק המחובר השני: <span class="math display">\[.\det \left( L_{ij} \right) = L_{11} L_{22} - L_{12}^2 = L_{11} \cdot 0 - L_{12}^2 = -L_{12}^2\]</span></p>
-<p>ריבוע הוא תמיד אי־שלילי, ולכן <span class="math inline">\(-L_{12}^2 \leq 0\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: מסקנה</summary>
-<div class="foldable" title="שלב 4: מסקנה">
-<p>הדטרמיננטה של המטריקה חיובית תמיד, ולכן לפי <a href="#box-prp-K-formula">טענה 8.4.3</a> <span class="math display">\[,K = \frac{\det \left( L_{ij} \right)}{\det \left( g_{ij} \right)} = \frac{-L_{12}^2}{\det \left( g_{ij} \right)} \leq 0\]</span> כנדרש.</p>
-<p>יתר על כן, שוויון מתקיים אם ורק אם <span class="math inline">\(L_{12} = 0\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
-<div class="foldable" title="מה זה ממחיש">
-<p>זהו משפט על <strong>מחלקה שלמה</strong> של משטחים, ולא על משטח בודד, והוא נובע ממקדם אחד שמתאפס. בפרט אין על שום משטח ישר נקודה אליפטית.</p>
-<p>הדבר גם מסביר את הקשר בין שני חישובים שכבר עשינו: הגליל הוא משטח ישר, ואכן ראינו שעקמומיות גאוס שלו מתאפסת. המישור הוא משטח ישר, ואכן <span class="math inline">\(K = 0\)</span> עליו. הפרבולואיד האליפטי, לעומת זאת, אינו יכול להיות משטח ישר, שכן ראינו שיש לו עקמומיות חיובית.</p>
-</div>
-</details>
-</div>
-<div id="box-q-revolution-curvature" class="thmbox thmbox-question">
-<p><strong>שאלה 8.4.9.</strong></p>
-<p>יהי משטח הסיבוב <span class="math display">\[,\overline{x} \left( u, v \right) = \left( f \left( u \right) \cos v, \; f \left( u \right) \sin v, \; g \left( u \right) \right)\]</span> כאשר <span class="math inline">\(f &gt; 0\)</span>.</p>
-<ol type="1">
-<li>חשבו את <span class="math inline">\(\left( g_{ij} \right)\)</span>, את <span class="math inline">\(N\)</span>, את <span class="math inline">\(\left( L_{ij} \right)\)</span>, את העקמומיויות הראשיות, ואת <span class="math inline">\(K\)</span> ואת <span class="math inline">\(H\)</span>.</li>
-<li>הראו שאם העקומה היוצרת <span class="math inline">\(\gamma \left( u \right) = \left( f \left( u \right), 0, g \left( u \right) \right)\)</span> נתונה בפרמטריזציה טבעית, אזי <span class="math display">\[.K = -\frac{f''}{f}\]</span></li>
-</ol>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: הנגזרות החלקיות</summary>
-<div class="foldable" title="שלב 1: הנגזרות החלקיות">
-<p>לאורך כל הפתרון נסמן <span class="math display">\[.w = \sqrt{\left( f' \right)^2 + \left( g' \right)^2} = \left\| \gamma' \right\| &gt; 0\]</span></p>
-<p>נגזור לפי <span class="math inline">\(u\)</span>, כאשר <span class="math inline">\(v\)</span> קבוע, ולפי <span class="math inline">\(v\)</span>, כאשר <span class="math inline">\(u\)</span> קבוע: <span class="math display">\[.\overline{x}_u = \left( f' \cos v, \; f' \sin v, \; g' \right), \qquad \overline{x}_v = \left( -f \sin v, \; f \cos v, \; 0 \right)\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: התבנית היסודית הראשונה</summary>
-<div class="foldable" title="שלב 2: התבנית היסודית הראשונה">
-<p>נשתמש בזהות <span class="math inline">\(\cos^2 v + \sin^2 v = 1\)</span> פעמיים: <span class="math display">\[,g_{11} = \left( f' \right)^2 \cos^2 v + \left( f' \right)^2 \sin^2 v + \left( g' \right)^2 = \left( f' \right)^2 + \left( g' \right)^2 = w^2\]</span> ובמכפלה המעורבת שני המחוברים מבטלים זה את זה, <span class="math display">\[,g_{12} = -f f' \cos v \sin v + f f' \sin v \cos v + 0 = 0\]</span> ולבסוף <span class="math display">\[.g_{22} = f^2 \sin^2 v + f^2 \cos^2 v + 0 = f^2\]</span></p>
-<p>המטריצה אלכסונית, ולכן <span class="math inline">\(\det \left( g_{ij} \right) = f^2 w^2\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: וקטור הנורמל</summary>
-<div class="foldable" title="שלב 3: וקטור הנורמל">
-<p>נפתח את הדטרמיננטה רכיב־רכיב. הרכיב הראשון הוא <span class="math display">\[,f' \sin v \cdot 0 - g' \cdot f \cos v = -f g' \cos v\]</span> הרכיב השני, עם סימן מינוס לפי כלל הפיתוח, הוא <span class="math display">\[,- \left( f' \cos v \cdot 0 - g' \cdot \left( -f \sin v \right) \right) = -f g' \sin v\]</span> והרכיב השלישי הוא <span class="math display">\[.f' \cos v \cdot f \cos v - f' \sin v \cdot \left( -f \sin v \right) = f f' \left( \cos^2 v + \sin^2 v \right) = f f'\]</span></p>
-<p>לכן, בהוצאת גורם משותף, <span class="math display">\[.\overline{x}_u \times \overline{x}_v = f \left( -g' \cos v, \; -g' \sin v, \; f' \right)\]</span></p>
-<p>הנורמה היא <span class="math inline">\(f \sqrt{\left( g' \right)^2 + \left( f' \right)^2} = f w\)</span>, כאשר השתמשנו ב-<span class="math inline">\(f &gt; 0\)</span> כדי לוותר על הערך המוחלט. מכאן <span class="math display">\[.N = \frac{1}{w} \left( -g' \cos v, \; -g' \sin v, \; f' \right)\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: הנגזרות השניות</summary>
-<div class="foldable" title="שלב 4: הנגזרות השניות">
-<p>נגזור שוב: <span class="math display">\[,\overline{x}_{uu} = \left( f'' \cos v, \; f'' \sin v, \; g'' \right)\]</span> וכן <span class="math display">\[,\overline{x}_{uv} = \left( -f' \sin v, \; f' \cos v, \; 0 \right)\]</span> ולבסוף <span class="math display">\[.\overline{x}_{vv} = \left( -f \cos v, \; -f \sin v, \; 0 \right)\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 5: מקדמי התבנית השנייה</summary>
-<div class="foldable" title="שלב 5: מקדמי התבנית השנייה">
-<p>נשתמש בנוסחה הימנית מ<a href="#box-prp-two-formulas-Lij">טענה 8.3.3</a>.</p>
-<p>עבור <span class="math inline">\(L_{11}\)</span> שני המחוברים התלויים ב-<span class="math inline">\(v\)</span> מתחברים: <span class="math display">\[.L_{11} = \frac{1}{w} \left( -f'' g' \cos^2 v - f'' g' \sin^2 v + f' g'' \right) = \frac{f' g'' - f'' g'}{w}\]</span></p>
-<p>עבור <span class="math inline">\(L_{12}\)</span> שני המחוברים מבטלים זה את זה: <span class="math display">\[.L_{12} = \frac{1}{w} \left( f' g' \sin v \cos v - f' g' \cos v \sin v + 0 \right) = 0\]</span></p>
-<p>עבור <span class="math inline">\(L_{22}\)</span> הם שוב מתחברים: <span class="math display">\[.L_{22} = \frac{1}{w} \left( f g' \cos^2 v + f g' \sin^2 v + 0 \right) = \frac{f g'}{w}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 6: הכול אלכסוני</summary>
-<div class="foldable" title="שלב 6: הכול אלכסוני">
-<p>מתקיים <span class="math inline">\(g_{12} = 0\)</span> וגם <span class="math inline">\(L_{12} = 0\)</span>, ולכן לפי <a href="#box-rem-diagonal-case">הערה 8.4.4</a> המרידיאנים והמקבילים הם הכיוונים הראשיים, ומתקבל <span class="math display">\[,k_1 = \frac{L_{11}}{g_{11}} = \frac{\left( f' g'' - f'' g' \right) / w}{w^2} = \frac{f' g'' - f'' g'}{\left( \left( f' \right)^2 + \left( g' \right)^2 \right)^{3/2}}\]</span> וכן <span class="math display">\[.k_2 = \frac{L_{22}}{g_{22}} = \frac{f g' / w}{f^2} = \frac{g'}{f \sqrt{\left( f' \right)^2 + \left( g' \right)^2}}\]</span></p>
-<p>מכאן <span class="math display">\[,K = k_1 k_2 = \frac{g' \left( f' g'' - f'' g' \right)}{f \left( \left( f' \right)^2 + \left( g' \right)^2 \right)^{2}}\]</span> ו-<span class="math inline">\(H\)</span> הוא הממוצע של השניים.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 7: פרמטריזציה טבעית</summary>
-<div class="foldable" title="שלב 7: פרמטריזציה טבעית">
-<p>נניח כעת <span class="math inline">\(\left( f' \right)^2 + \left( g' \right)^2 = 1\)</span>, כלומר <span class="math inline">\(w = 1\)</span>. אז <span class="math display">\[.k_1 = f' g'' - f'' g', \qquad k_2 = \frac{g'}{f}, \qquad K = \frac{g' \left( f' g'' - f'' g' \right)}{f}\]</span></p>
-<p>נגזור את הזהות <span class="math inline">\(\left( f' \right)^2 + \left( g' \right)^2 = 1\)</span> לפי <span class="math inline">\(u\)</span>. אגף ימין קבוע ונגזרתו מתאפסת, ולכן <span class="math display">\[,2 f' f'' + 2 g' g'' = 0\]</span> כלומר <span class="math display">\[.g' g'' = -f' f''\]</span></p>
-<p>נפתח את המונה של <span class="math inline">\(K\)</span> ונציב: <span class="math display">\[\begin{aligned} g' \left( f' g'' - f'' g' \right) &amp;= f' \cdot g' g'' - f'' \left( g' \right)^2 \\ &amp;= f' \left( -f' f'' \right) - f'' \left( g' \right)^2 \\ &amp;= -f'' \left( \left( f' \right)^2 + \left( g' \right)^2 \right) \\ &amp;= -f''. \end{aligned}\]</span></p>
-<p>במעבר האחרון השתמשנו שוב בהנחת הפרמטריזציה הטבעית. לכן <span class="math display">\[.K = -\frac{f''}{f}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
-<div class="foldable" title="בדיקת שפיות">
-<p>ספירת היחידה היא משטח הסיבוב של <span class="math inline">\(\gamma \left( u \right) = \left( \cos u, 0, \sin u \right)\)</span>, והיא בפרמטריזציה טבעית שכן <span class="math inline">\(\sin^2 u + \cos^2 u = 1\)</span>. כאן <span class="math inline">\(f = \cos u\)</span>, ולכן <span class="math inline">\(f'' = -\cos u\)</span> ומתקבל <span class="math display">\[,K = -\frac{-\cos u}{\cos u} = 1\]</span> וזה מתאים לספירה ברדיוס <span class="math inline">\(1\)</span>, שבה ראינו ב<a href="#box-q-shape-sphere">שאלה 8.2.8</a> ששתי העקמומיויות הראשיות הן <span class="math inline">\(\pm 1\)</span>.</p>
-<p>עבור מישור <span class="math inline">\(xy\)</span> נבחר <span class="math inline">\(\gamma \left( u \right) = \left( u, 0, 0 \right)\)</span>, ואז <span class="math inline">\(f = u\)</span> ו-<span class="math inline">\(f'' = 0\)</span>, ולכן <span class="math inline">\(K = 0\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
-<div class="foldable" title="מה זה ממחיש">
-<p>הנוסחה <span class="math inline">\(K = -\frac{f''}{f}\)</span> מזכירה <strong>רק את העקומה היוצרת</strong>, ורק דרך <span class="math inline">\(f\)</span>, כלומר דרך המרחק מן הציר. הפונקציה <span class="math inline">\(g\)</span> אינה מופיעה בה, וגם לא האופן שבו המשטח משוכן במרחב.</p>
-<p>כלומר לכל שני משטחי סיבוב שהעקומות היוצרות שלהם נותנות את אותו <span class="math inline">\(f\)</span> יש אותה עקמומיות גאוס. זהו רמז ראשון לכך ש-<span class="math inline">\(K\)</span> הוא גודל פנימי, וזה תוכנו של המשפט המפואר של גאוס.</p>
-</div>
-</details>
-</div>
-<div id="box-q-torus-curvature" class="thmbox thmbox-question">
-<p><strong>שאלה 8.4.10.</strong></p>
-<p>יהיו <span class="math inline">\(R &gt; r &gt; 0\)</span>, ויהי הטורוס <span class="math display">\[,\overline{x} \left( u, v \right) = \left( \left( R + r \cos u \right) \cos v, \; \left( R + r \cos u \right) \sin v, \; r \sin u \right)\]</span> כאשר <span class="math inline">\(0 &lt; u &lt; 2\pi\)</span> ו-<span class="math inline">\(0 &lt; v &lt; 2\pi\)</span>. חשבו את <span class="math inline">\(k_1\)</span>, את <span class="math inline">\(k_2\)</span>, את <span class="math inline">\(K\)</span> ואת <span class="math inline">\(H\)</span>, וקבעו באילו נקודות <span class="math inline">\(K\)</span> חיובית, שלילית ומתאפסת.</p>
-</div>
-<iframe class="widget-frame" src="widgets/ch08/torus-curvature.html" loading="lazy" title="מיון נקודות על הטורוס לפי סימן עקמומיות גאוס"></iframe>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: הטורוס הוא משטח סיבוב</summary>
-<div class="foldable" title="שלב 1: הטורוס הוא משטח סיבוב">
-<p>הטורוס מתקבל מסיבוב המעגל <span class="math display">\[\gamma \left( u \right) = \left( R + r \cos u, \; 0, \; r \sin u \right)\]</span> שרדיוסו <span class="math inline">\(r\)</span> ומרכזו במרחק <span class="math inline">\(R\)</span> מן הציר, סביב ציר <span class="math inline">\(z\)</span>. לכן אפשר להשתמש ב<a href="#box-q-revolution-curvature">שאלה 8.4.9</a> עם <span class="math display">\[.f \left( u \right) = R + r \cos u, \qquad g \left( u \right) = r \sin u\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: הנגזרות</summary>
-<div class="foldable" title="שלב 2: הנגזרות">
-<p>נגזור: <span class="math display">\[,f' = -r \sin u, \qquad f'' = -r \cos u\]</span> וכן <span class="math display">\[.g' = r \cos u, \qquad g'' = -r \sin u\]</span></p>
-<p>נחשב את <span class="math inline">\(w\)</span>: <span class="math display">\[,w^2 = \left( f' \right)^2 + \left( g' \right)^2 = r^2 \sin^2 u + r^2 \cos^2 u = r^2\]</span> כלומר <span class="math inline">\(w = r\)</span>.</p>
-<p>העקומה היוצרת היא אפוא בעלת מהירות <strong>קבועה</strong> <span class="math inline">\(r\)</span>, אך אין זו פרמטריזציה טבעית אלא אם <span class="math inline">\(r = 1\)</span>. לכן נשתמש בנוסחאות הכלליות של שלב 6 ולא בקיצור <span class="math inline">\(-\frac{f''}{f}\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: שתי התבניות</summary>
-<div class="foldable" title="שלב 3: שתי התבניות">
-<p>לפי שלב 2 של התרגיל הקודם <span class="math display">\[.g_{11} = w^2 = r^2, \qquad g_{12} = 0, \qquad g_{22} = f^2 = \left( R + r \cos u \right)^2\]</span></p>
-<p>לפי שלב 5 שם, נציב ונקבל <span class="math display">\[,L_{11} = \frac{f' g'' - f'' g'}{w} = \frac{\left( -r \sin u \right) \left( -r \sin u \right) - \left( -r \cos u \right) \left( r \cos u \right)}{r}\]</span> ובמונה שני המחוברים חיוביים, <span class="math display">\[,L_{11} = \frac{r^2 \sin^2 u + r^2 \cos^2 u}{r} = \frac{r^2}{r} = r\]</span> וכן <span class="math inline">\(L_{12} = 0\)</span>, ולבסוף <span class="math display">\[.L_{22} = \frac{f g'}{w} = \frac{\left( R + r \cos u \right) \cdot r \cos u}{r} = \left( R + r \cos u \right) \cos u\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: העקמומיויות הראשיות</summary>
-<div class="foldable" title="שלב 4: העקמומיויות הראשיות">
-<p>הכול אלכסוני, ולכן לפי <a href="#box-rem-diagonal-case">הערה 8.4.4</a> <span class="math display">\[,k_1 = \frac{L_{11}}{g_{11}} = \frac{r}{r^2} = \frac{1}{r}\]</span> וכן, בצמצום גורם אחד של <span class="math inline">\(R + r \cos u\)</span>, <span class="math display">\[.k_2 = \frac{L_{22}}{g_{22}} = \frac{\left( R + r \cos u \right) \cos u}{\left( R + r \cos u \right)^2} = \frac{\cos u}{R + r \cos u}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 5: שתי העקמומיויות</summary>
-<div class="foldable" title="שלב 5: שתי העקמומיויות">
-<p>נכפול ונקבל <span class="math display">\[,K = k_1 k_2 = \frac{\cos u}{r \left( R + r \cos u \right)}\]</span> ונחבר, במכנה משותף, <span class="math display">\[.H = \frac{k_1 + k_2}{2} = \frac{1}{2} \left( \frac{1}{r} + \frac{\cos u}{R + r \cos u} \right) = \frac{R + r \cos u + r \cos u}{2r \left( R + r \cos u \right)} = \frac{R + 2r \cos u}{2r \left( R + r \cos u \right)}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 6: הסימן של עקמומיות גאוס</summary>
-<div class="foldable" title="שלב 6: הסימן של עקמומיות גאוס">
-<p>מכיוון ש-<span class="math inline">\(R &gt; r &gt; 0\)</span> ומכיוון ש-<span class="math inline">\(\cos u \geq -1\)</span>, מתקיים <span class="math display">\[,R + r \cos u \geq R - r &gt; 0\]</span> ולכן המכנה <span class="math inline">\(r \left( R + r \cos u \right)\)</span> של <span class="math inline">\(K\)</span> <strong>חיובי בכל נקודה</strong>. מכאן שהסימן של <span class="math inline">\(K\)</span> הוא הסימן של <span class="math inline">\(\cos u\)</span> בלבד:</p>
-<ol type="1">
-<li>כאשר <span class="math inline">\(-\frac{\pi}{2} &lt; u &lt; \frac{\pi}{2}\)</span>, כלומר <span class="math inline">\(\cos u &gt; 0\)</span>, מתקיים <span class="math inline">\(K &gt; 0\)</span>. זהו החלק <strong>החיצוני</strong> של הטורוס, הפונה הרחק מן הציר.</li>
-<li>כאשר <span class="math inline">\(\frac{\pi}{2} &lt; u &lt; \frac{3\pi}{2}\)</span>, כלומר <span class="math inline">\(\cos u &lt; 0\)</span>, מתקיים <span class="math inline">\(K &lt; 0\)</span>. זהו החלק <strong>הפנימי</strong>, הפונה אל הציר.</li>
-<li>כאשר <span class="math inline">\(u = \pm \frac{\pi}{2}\)</span> מתקיים <span class="math inline">\(K = 0\)</span>. אלה שני מעגלים ברדיוס <span class="math inline">\(R\)</span>, העליון והתחתון שבטורוס.</li>
-</ol>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 7: אין נקודות שבהן שתי העקמומיויות מתאפסות</summary>
-<div class="foldable" title="שלב 7: אין נקודות שבהן שתי העקמומיויות מתאפסות">
-<p>העקמומיות <span class="math inline">\(k_1 = \frac{1}{r}\)</span> היא קבוע שונה מאפס. לכן בשני המעגלים <span class="math inline">\(u = \pm \frac{\pi}{2}\)</span> מתקיים <span class="math inline">\(k_2 = 0\)</span> אך <span class="math inline">\(k_1 \neq 0\)</span>, כלומר בדיוק עקמומיות ראשית אחת מתאפסת. ההבחנה הזו היא נושא הסעיף הבא.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
-<div class="foldable" title="בדיקת שפיות">
-<p>עבור <span class="math inline">\(u = 0\)</span>, כלומר על המעגל החיצוני ביותר, מתקבל <span class="math inline">\(k_1 = \frac{1}{r}\)</span> וכן <span class="math inline">\(k_2 = \frac{1}{R + r}\)</span>. אלה בדיוק ההופכיים של שני הרדיוסים המתבקשים באותה נקודה: הרדיוס <span class="math inline">\(r\)</span> של המעגל הקטן, והמרחק <span class="math inline">\(R + r\)</span> מן הציר.</p>
-<p>עבור <span class="math inline">\(u = \pi\)</span>, כלומר על המעגל הפנימי ביותר, מתקבל <span class="math inline">\(k_1 = \frac{1}{r}\)</span> וכן <span class="math inline">\(k_2 = -\frac{1}{R - r}\)</span>, ההופכי של המרחק <span class="math inline">\(R - r\)</span> מן הציר, עם סימן מינוס משום שהמשטח מתעקם שם לכיוון ההפוך.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
-<div class="foldable" title="מה זה ממחיש">
-<p>בחלק החיצוני שתי העקמומיויות הראשיות מאותו סימן, והמשטח נראה מקומית כמו כיפה. בחלק הפנימי הן מסימנים מנוגדים, והוא נראה כמו אוכף. בשני המעגלים שביניהם אחת מהן מתאפסת, והוא נראה כמו גליל.</p>
-<p>משטח אחד ורגיל לחלוטין נושא את שלוש ההתנהגויות בעת ובעונה אחת, ולכן ממיינים <strong>נקודות</strong> ולא משטחים.</p>
-</div>
-</details>
-</div>
-<div id="box-q-graph-curvature" class="thmbox thmbox-question">
-<p><strong>שאלה 8.4.11.</strong></p>
-<p>תהי <span class="math inline">\(h \left( u, v \right)\)</span> פונקציה חלקה, ויהי <span class="math inline">\(M\)</span> הגרף שלה בפרמטריזציה <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, \; v, \; h \left( u, v \right) \right)\)</span>.</p>
-<ol type="1">
-<li>הראו כי <span class="math display">\[,K = \frac{h_{uu} h_{vv} - h_{uv}^2}{\left( 1 + h_u^2 + h_v^2 \right)^2}\]</span> וכן <span class="math display">\[.H = \frac{\left( 1 + h_v^2 \right) h_{uu} - 2 h_u h_v h_{uv} + \left( 1 + h_u^2 \right) h_{vv}}{2 \left( 1 + h_u^2 + h_v^2 \right)^{3/2}}\]</span></li>
-<li>הסיקו מה קורה ב<strong>נקודה קריטית</strong> של <span class="math inline">\(h\)</span>, כלומר בנקודה שבה <span class="math inline">\(\nabla h = \left( 0, 0 \right)\)</span>.</li>
-</ol>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: התבנית היסודית הראשונה</summary>
-<div class="foldable" title="שלב 1: התבנית היסודית הראשונה">
-<p>לאורך הפתרון נסמן <span class="math inline">\(W = \sqrt{1 + h_u^2 + h_v^2}\)</span>.</p>
-<p>הנגזרות החלקיות הן <span class="math inline">\(\overline{x}_u = \left( 1, 0, h_u \right)\)</span> ו-<span class="math inline">\(\overline{x}_v = \left( 0, 1, h_v \right)\)</span>, ולכן <span class="math display">\[.g_{11} = 1 + h_u^2, \qquad g_{12} = h_u h_v, \qquad g_{22} = 1 + h_v^2\]</span></p>
-<p>נפתח את המכפלה בדטרמיננטה. שני המחוברים המעורבים מבטלים זה את זה: <span class="math display">\[\begin{aligned} \det \left( g_{ij} \right) &amp;= \left( 1 + h_u^2 \right) \left( 1 + h_v^2 \right) - h_u^2 h_v^2 \\ &amp;= 1 + h_v^2 + h_u^2 + h_u^2 h_v^2 - h_u^2 h_v^2 \\ &amp;= 1 + h_u^2 + h_v^2 = W^2. \end{aligned}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: וקטור הנורמל</summary>
-<div class="foldable" title="שלב 2: וקטור הנורמל">
-<p>המכפלה הוקטורית של שני הוקטורים היא <span class="math inline">\(\overline{x}_u \times \overline{x}_v = \left( -h_u, \; -h_v, \; 1 \right)\)</span>, שנורמתה <span class="math inline">\(W\)</span>, ולכן <span class="math display">\[.N = \frac{1}{W} \left( -h_u, \; -h_v, \; 1 \right)\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: התבנית היסודית השנייה</summary>
-<div class="foldable" title="שלב 3: התבנית היסודית השנייה">
-<p>לנגזרות השניות יש רכיב שלישי בלבד, <span class="math display">\[,\overline{x}_{uu} = \left( 0, 0, h_{uu} \right), \qquad \overline{x}_{uv} = \left( 0, 0, h_{uv} \right), \qquad \overline{x}_{vv} = \left( 0, 0, h_{vv} \right)\]</span> והרכיב השלישי של <span class="math inline">\(N\)</span> הוא <span class="math inline">\(\frac{1}{W}\)</span>, ולכן כל מכפלה סקלרית מצטמצמת לאיבר אחד: <span class="math display">\[.L_{11} = \frac{h_{uu}}{W}, \qquad L_{12} = \frac{h_{uv}}{W}, \qquad L_{22} = \frac{h_{vv}}{W}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: שתי העקמומיויות</summary>
-<div class="foldable" title="שלב 4: שתי העקמומיויות">
-<p>כל אחד מן המקדמים נושא גורם <span class="math inline">\(\frac{1}{W}\)</span>, ולכן הדטרמיננטה נושאת <span class="math inline">\(\frac{1}{W^2}\)</span>: <span class="math display">\[.K = \frac{\det \left( L_{ij} \right)}{\det \left( g_{ij} \right)} = \frac{\left( h_{uu} h_{vv} - h_{uv}^2 \right) / W^2}{W^2} = \frac{h_{uu} h_{vv} - h_{uv}^2}{W^4}\]</span></p>
-<p>כאן <span class="math inline">\(g_{12} = h_u h_v\)</span> אינו מתאפס בדרך כלל, ולכן <a href="#box-rem-diagonal-case">הערה 8.4.4</a> אינו חל ואת <span class="math inline">\(H\)</span> יש לחשב מן המטריצה <span class="math inline">\(\left( L^i_j \right)\)</span> עצמה. נרשום את ההופכית של המטריקה, <span class="math display">\[,\left( g^{ij} \right) = \frac{1}{W^2} \begin{pmatrix} 1 + h_v^2 &amp; -h_u h_v \\ -h_u h_v &amp; 1 + h_u^2 \end{pmatrix}\]</span> ונכפול ב-<span class="math inline">\(\left( L_{ij} \right)\)</span> לפי <a href="#box-prp-shape-matrix">טענה 8.3.5</a>. אנחנו זקוקים רק לשני איברי האלכסון של המכפלה. האיבר השמאלי העליון הוא <span class="math display">\[,L^1_1 = \frac{1}{W^2} \cdot \frac{1}{W} \left[ \left( 1 + h_v^2 \right) h_{uu} - h_u h_v h_{uv} \right]\]</span> והאיבר הימני התחתון הוא <span class="math display">\[.L^2_2 = \frac{1}{W^2} \cdot \frac{1}{W} \left[ -h_u h_v h_{uv} + \left( 1 + h_u^2 \right) h_{vv} \right]\]</span></p>
-<p>נחבר את השניים ונחלק בשתיים. שני האיברים המעורבים זהים ולכן מצטרפים לאיבר אחד עם מקדם <span class="math inline">\(2\)</span>: <span class="math display">\[.H = \frac{1}{2} \operatorname{tr} \left( L^i_j \right) = \frac{\left( 1 + h_v^2 \right) h_{uu} - 2 h_u h_v h_{uv} + \left( 1 + h_u^2 \right) h_{vv}}{2 W^3}\]</span></p>
-<p>נותר להציב <span class="math inline">\(W^4 = \left( 1 + h_u^2 + h_v^2 \right)^2\)</span> וכן <span class="math inline">\(W^3 = \left( 1 + h_u^2 + h_v^2 \right)^{3/2}\)</span>, וזה בדיוק הנדרש.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 5: בנקודה קריטית</summary>
-<div class="foldable" title="שלב 5: בנקודה קריטית">
-<p>אם <span class="math inline">\(h_u = h_v = 0\)</span> אזי <span class="math inline">\(W = 1\)</span>, ולכן <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}, \qquad \left( L_{ij} \right) = \begin{pmatrix} h_{uu} &amp; h_{uv} \\ h_{uv} &amp; h_{vv} \end{pmatrix} = \operatorname{Hess} \left( h \right)\]</span> ומכיוון שגם <span class="math inline">\(\left( g^{ij} \right)\)</span> היא מטריצת הזהות, <span class="math display">\[.\left( L^i_j \right) = \left( g^{ij} \right) \left( L_{ij} \right) = \operatorname{Hess} \left( h \right)\]</span></p>
-<p>מכאן <span class="math display">\[,K = \det \operatorname{Hess} \left( h \right), \qquad H = \frac{1}{2} \left( h_{uu} + h_{vv} \right)\]</span> והעקמומיויות הראשיות הן <strong>הערכים העצמיים של ההסיאן</strong>, והכיוונים הראשיים הם הוקטורים העצמיים שלו.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
-<div class="foldable" title="מה זה ממחיש">
-<p>שלב 5 אומר שמבחן הנגזרות השניות מחשבון אינפיניטסימלי והסימן של <span class="math inline">\(K\)</span> הם אותה אמירה:</p>
-<ol type="1">
-<li>אם <span class="math inline">\(\det \operatorname{Hess} \left( h \right) &gt; 0\)</span>, הנקודה היא מקסימום או מינימום מקומי, ואז <span class="math inline">\(K &gt; 0\)</span>.</li>
-<li>אם <span class="math inline">\(\det \operatorname{Hess} \left( h \right) &lt; 0\)</span>, הנקודה היא אוכף, ואז <span class="math inline">\(K &lt; 0\)</span>.</li>
-<li>אם <span class="math inline">\(\det \operatorname{Hess} \left( h \right) = 0\)</span>, המבחן אינו נותן תשובה, ואז <span class="math inline">\(K = 0\)</span>.</li>
-</ol>
-<p>השורה השלישית אינה חיסרון של אף אחת משתי האמירות. שתיהן שותקות מאותה סיבה: המידע מסדר שני מיצה את עצמו, והצורה נקבעת על ידי נגזרות גבוהות יותר. הסעיף הבא עוסק בדיוק בכך.</p>
 </div>
 </details>
 </div>
@@ -1677,6 +1433,9 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./09-Gaussian-Mean-Curvature.html" class="pagination-link" aria-label="תרגול 9: עקמומיות גאוס והעקמומיות הממוצעת">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">תרגול 9: עקמומיות גאוס והעקמומיות הממוצעת</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

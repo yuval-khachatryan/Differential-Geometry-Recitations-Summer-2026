@@ -8,6 +8,7 @@
 </head>
 <body>
 <div id="app"></div>
+<script src="../shared/autosize.js"></script>
 
 <script>
 /* torus-curvature.html — the torus shaded by the sign of the Gaussian curvature.
@@ -83,7 +84,7 @@
 
   host.innerHTML =
     '<div class="qv">' +
-      '<p class="qv-title" dir="ltr">x(u,v) = ( (R + r cos u) cos v, (R + r cos u) sin v, r sin u )</p>' +
+      '<p class="qv-title" dir="ltr">x(u,v) = ( (R + r cos u) cos v, (R + r cos u) sin v, r sin u ),   R = 1,  r = 0.4</p>' +
       '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
       '<div class="qv-row">' +
         '<span class="qv-label">מיקום על המעגל הקטן</span>' +
@@ -94,11 +95,6 @@
         '<span class="qv-label">מיקום סביב הציר</span>' +
         '<input class="qv-slider qv-v" type="range" min="0" max="1000" value="143">' +
         '<span class="qv-badge qv-vval"></span>' +
-      '</div>' +
-      '<div class="qv-row">' +
-        '<span class="qv-label">רדיוס המעגל הקטן</span>' +
-        '<input class="qv-slider qv-r" type="range" min="10" max="70" step="1" value="40">' +
-        '<span class="qv-badge qv-rval"></span>' +
       '</div>' +
       '<div class="qv-readout">' +
         '<div><span class="qv-rl">k&#8321;</span><span class="qv-rv qv-r-k1"></span></div>' +
@@ -120,7 +116,6 @@
   var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
       sU = host.querySelector(".qv-u"), uv = host.querySelector(".qv-uval"),
       sV = host.querySelector(".qv-v"), vv = host.querySelector(".qv-vval"),
-      sR = host.querySelector(".qv-r"), rv = host.querySelector(".qv-rval"),
       rk1 = host.querySelector(".qv-r-k1"), rk2 = host.querySelector(".qv-r-k2"),
       rK = host.querySelector(".qv-r-K"), rH = host.querySelector(".qv-r-H"),
       verdict = host.querySelector(".qv-verdict");
@@ -134,7 +129,6 @@
   }
 
   function draw() {
-    rad = parseInt(sR.value, 10) / 100;
     uSel = (sU.value / 1000) * TWO_PI;
     vSel = (sV.value / 1000) * TWO_PI;
 
@@ -226,7 +220,6 @@
     /* ---- readouts ---- */
     uv.textContent = fmt(uSel / Math.PI) + "π";
     vv.textContent = fmt(vSel / Math.PI) + "π";
-    rv.textContent = fmt(rad);
     rk1.textContent = fmt(Lp.k1, 3);
     rk2.textContent = fmt(Lp.k2, 3);
     rK.textContent = fmt(Lp.K, 3);
@@ -277,7 +270,6 @@
 
   sU.addEventListener("input", draw);
   sV.addEventListener("input", draw);
-  sR.addEventListener("input", draw);
   window.addEventListener("resize", draw);
   draw();
 })();

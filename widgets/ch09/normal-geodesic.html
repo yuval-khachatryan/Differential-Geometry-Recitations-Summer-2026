@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>פירוק העקמומיות לרכיב נורמלי ולרכיב גיאודזי</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/autosize.js"></script>
+
+<script>
+/* normal-geodesic.html — the decomposition g'' = k_n N + k_g u. ONE idea.
+   ---------------------------------------------------------------------------
+   The curve is a parallel on the unit sphere, chosen because it makes the whole
+   point of the section visible in a single slider: as the parallel moves from
+   the equator to the pole its NORMAL curvature stays put at -1, because the
+   sphere bends the same in every direction, while its GEODESIC curvature grows
+   without bound, because the circle winds ever more tightly inside the surface.
+   At the equator k_g = 0 and the parallel is a great circle.
+
+   That is also exactly the exercise beside it, so the widget is a check on the
+   answer rather than a separate illustration.
+
+   Everything is computed from the parametrisation:
+       p   = (rho cos f, rho sin f, cos u0),   rho = sin u0
+       T   = (-sin f, cos f, 0)                 (already unit)
+       g'' = -(1/rho)(cos f, sin f, 0)
+       N   = p                                  (unit sphere, outward)
+       u   = N x T
+   so k_n = <g'', N>, k_g = <g'', u>, kappa = |g''| = 1/rho, and the readout can
+   disagree with the exercise if the exercise is wrong.
+
+   Standalone rather than Surface3D.mount(): that module draws x_u, x_v and a
+   tangent patch, never a curve with a decomposed acceleration. Projection,
+   painter's algorithm and auto-fit are copied from surface3d.js so the page
+   looks like the rest of the book.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    ball: "#dbe6f0", ballEdge: "#a8c0d8",
+    curve: "#0f172a",
+    acc:   "#7c3aed",        /* g''            */
+    nrm:   "#1f4e79",        /* k_n N          */
+    geo:   "#c0392b",        /* k_g u          */
+    tan:   "#0f766e"         /* T              */
+  };
+
+  var TWO_PI = 2 * Math.PI;
+
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function mul(a, s) { return [a[0] * s, a[1] * s, a[2] * s]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function norm(a) { return Math.sqrt(dot(a, a)); }
+  function cross(a, b) {
+    return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  }
+  function fmt(v, d) {
+    var s = (Math.abs(v) < 5e-4 ? 0 : v).toFixed(d === undefined ? 2 : d);
+    return s === "-0.00" ? "0.00" : s;
+  }
+
+  var host = document.getElementById("app"),
+      yaw = -0.9, pitch = 0.36, u0 = 1.0, phi = 0.7;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title" dir="ltr">' +
+        "g'' = k&#8345; N + k_g u   on a parallel of the unit sphere" +
+      '</p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">הזווית הקוטבית של המקביל</span>' +
+        '<input class="qv-slider qv-u" type="range" min="18" max="282" value="100">' +
+        '<span class="qv-badge qv-uval"></span>' +
+      '</div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">מיקום הנקודה על המקביל</span>' +
+        '<input class="qv-slider qv-p" type="range" min="0" max="1000" value="111">' +
+        '<span class="qv-badge qv-pval"></span>' +
+      '</div>' +
+      '<div class="qv-readout">' +
+        '<div><span class="qv-rl">&kappa;</span><span class="qv-rv qv-r-k"></span></div>' +
+        '<div><span class="qv-rl">k&#8345;  (normal)</span><span class="qv-rv qv-r-kn"></span></div>' +
+        '<div><span class="qv-rl">k_g  (geodesic)</span><span class="qv-rv qv-r-kg"></span></div>' +
+        '<div><span class="qv-rl">k&#8345;&sup2; + k_g&sup2;</span><span class="qv-rv qv-r-sum"></span></div>' +
+      '</div>' +
+      '<ul class="qv-gloss">' +
+        '<li><b>&kappa;</b> &mdash; העקמומיות של המקביל כעקומה במרחב.</li>' +
+        '<li><b>k&#8345;</b> &mdash; הרכיב בכיוון הנורמל למשטח. על הספירה הוא קבוע.</li>' +
+        '<li><b>k_g</b> &mdash; הרכיב בכיוון המשיק למשטח וניצב לעקומה.</li>' +
+        '<li><b>k&#8345;&sup2; + k_g&sup2;</b> &mdash; משווים ל-&kappa;&sup2;, וזהו הקשר הפיתגורי.</li>' +
+      '</ul>' +
+      /* no dedicated class in quadviz.css: reuse the hint's prose styling and
+         override only weight and colour from draw(), as ch07/mobius.html does */
+      '<p class="qv-hint qv-verdict"></p>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את המבט. החץ הסגול הוא וקטור התאוצה עצמו, והוא סכום החץ הכחול, שהוא הרכיב הנורמלי, והחץ האדום, שהוא הרכיב הגיאודזי. הזיזו את המקביל מקו המשווה אל הקוטב: הרכיב הנורמלי אינו זז כלל, והרכיב הגיאודזי גדל.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      sU = host.querySelector(".qv-u"), uval = host.querySelector(".qv-uval"),
+      sP = host.querySelector(".qv-p"), pval = host.querySelector(".qv-pval"),
+      rK = host.querySelector(".qv-r-k"), rKn = host.querySelector(".qv-r-kn"),
+      rKg = host.querySelector(".qv-r-kg"), rSum = host.querySelector(".qv-r-sum"),
+      verdict = host.querySelector(".qv-verdict");
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function frameAt(uu, f) {
+    var rho = Math.sin(uu), c = Math.cos(uu),
+        p = [rho * Math.cos(f), rho * Math.sin(f), c],
+        T = [-Math.sin(f), Math.cos(f), 0],
+        acc = mul([Math.cos(f), Math.sin(f), 0], -1 / rho),
+        N = p,                          /* unit sphere, outward normal */
+        u = cross(N, T);
+    return { p: p, T: T, N: N, u: u, acc: acc,
+             kn: dot(acc, N), kg: dot(acc, u), kappa: norm(acc), rho: rho };
+  }
+
+  function draw() {
+    u0 = parseInt(sU.value, 10) / 100;
+    phi = (sP.value / 1000) * TWO_PI;
+
+    var dpr = window.devicePixelRatio || 1,
+        w = cv.clientWidth || 620, hgt = Math.round(w * 0.54), i, j;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";          /* else the minus sign of k_n reorders */
+    ctx.lineJoin = "round";
+
+    var NU = 26, NV = 52, G = [], a, b;
+    for (i = 0; i <= NU; i++) {
+      G.push([]);
+      a = (i / NU) * Math.PI;
+      for (j = 0; j <= NV; j++) {
+        b = (j / NV) * TWO_PI;
+        G[i].push(project([Math.sin(a) * Math.cos(b), Math.sin(a) * Math.sin(b), Math.cos(a)]));
+      }
+    }
+
+    /* fit on the sphere alone, so the arrows cannot make the view jump */
+    var xs = [], ys = [];
+    for (i = 0; i <= NU; i += 2) for (j = 0; j <= NV; j += 2) {
+      xs.push(G[i][j][0]); ys.push(G[i][j][1]);
+    }
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs),
+        ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys),
+        pad = 1.55,
+        sc = Math.min(w / ((xmax - xmin) * pad || 1), hgt / ((ymax - ymin) * pad || 1)),
+        cx = w / 2 - sc * (xmin + xmax) / 2,
+        cy = hgt / 2 + sc * (ymin + ymax) / 2;
+    function S(q) { return [cx + sc * q[0], cy - sc * q[1]]; }
+
+    var quads = [];
+    for (i = 0; i < NU; i++) for (j = 0; j < NV; j++) {
+      quads.push({ z: (G[i][j][2] + G[i + 1][j][2] +
+                       G[i + 1][j + 1][2] + G[i][j + 1][2]) / 4,
+                   p: [G[i][j], G[i + 1][j], G[i + 1][j + 1], G[i][j + 1]] });
+    }
+    quads.sort(function (m, n) { return m.z - n.z; });
+    ctx.lineWidth = 0.4;
+    quads.forEach(function (Q) {
+      ctx.beginPath();
+      var s0 = S(Q.p[0]); ctx.moveTo(s0[0], s0[1]);
+      for (var m = 1; m < 4; m++) { var sm = S(Q.p[m]); ctx.lineTo(sm[0], sm[1]); }
+      ctx.closePath();
+      ctx.fillStyle = COL.ball; ctx.globalAlpha = 0.75; ctx.fill();
+      ctx.strokeStyle = COL.ballEdge; ctx.globalAlpha = 0.4; ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+
+    /* the equator, for reference: the one parallel with k_g = 0 */
+    ctx.beginPath();
+    for (j = 0; j <= 140; j++) {
+      var e = S(project([Math.cos((j / 140) * TWO_PI), Math.sin((j / 140) * TWO_PI), 0]));
+      if (j === 0) ctx.moveTo(e[0], e[1]); else ctx.lineTo(e[0], e[1]);
+    }
+    ctx.strokeStyle = COL.curve; ctx.globalAlpha = 0.3;
+    ctx.lineWidth = 1.2; ctx.setLineDash([5, 4]); ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+
+    /* the chosen parallel */
+    ctx.beginPath();
+    for (j = 0; j <= 160; j++) {
+      var q = S(project(frameAt(u0, (j / 160) * TWO_PI).p));
+      if (j === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]);
+    }
+    ctx.strokeStyle = COL.curve; ctx.lineWidth = 2.6; ctx.stroke();
+
+    var F = frameAt(u0, phi);
+
+    function arrow(from, vec, col, lw, lab) {
+      var s1 = S(project(from)), s2 = S(project(add(from, vec)));
+      ctx.beginPath(); ctx.moveTo(s1[0], s1[1]); ctx.lineTo(s2[0], s2[1]);
+      ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.stroke();
+      var ang = Math.atan2(s2[1] - s1[1], s2[0] - s1[0]), hh = lw > 2 ? 9 : 7;
+      ctx.beginPath();
+      ctx.moveTo(s2[0], s2[1]);
+      ctx.lineTo(s2[0] - hh * Math.cos(ang - 0.4), s2[1] - hh * Math.sin(ang - 0.4));
+      ctx.lineTo(s2[0] - hh * Math.cos(ang + 0.4), s2[1] - hh * Math.sin(ang + 0.4));
+      ctx.closePath(); ctx.fillStyle = col; ctx.fill();
+      if (lab) {
+        ctx.font = "600 12px ui-sans-serif, system-ui, sans-serif";
+        ctx.fillStyle = col;
+        ctx.fillText(lab, s2[0] + 6, s2[1] - 5);
+      }
+    }
+
+    /* Arrows are drawn at a common visual scale rather than at true length:
+       near the pole kappa blows up like 1/sin(u0) and a true-length g'' would
+       leave the panel. The RATIO between the two components is preserved, which
+       is what the picture is about; the exact numbers are in the readout. */
+    var vis = 0.55 / Math.max(1, F.kappa);
+    arrow(F.p, mul(F.T, 0.42), COL.tan, 1.8, "T");
+    arrow(F.p, mul(F.N, 0.42), COL.ballEdge, 1.4, "N");
+    arrow(F.p, mul(F.acc, vis), COL.acc, 3.2, "γ''");
+    arrow(F.p, mul(F.N, F.kn * vis), COL.nrm, 2.4, "kₙN");
+    arrow(F.p, mul(F.u, F.kg * vis), COL.geo, 2.4, "k_g u");
+
+    var sp = S(project(F.p));
+    ctx.beginPath(); ctx.arc(sp[0], sp[1], 4.8, 0, TWO_PI);
+    ctx.fillStyle = COL.curve; ctx.fill();
+    ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.2; ctx.stroke();
+
+    uval.textContent = fmt(u0 / Math.PI) + "π";
+    pval.textContent = fmt(phi / Math.PI) + "π";
+    rK.textContent = fmt(F.kappa, 3);
+    rKn.textContent = fmt(F.kn, 3);
+    rKg.textContent = fmt(F.kg, 3);
+    rSum.textContent = fmt(F.kn * F.kn + F.kg * F.kg, 3) +
+                       "   (κ² = " + fmt(F.kappa * F.kappa, 3) + ")";
+
+    var msg, col;
+    if (Math.abs(F.kg) < 0.02) {
+      msg = "זהו קו המשווה: העקמומיות הגיאודזית מתאפסת, המקביל הוא מעגל גדול, וכל ההתעקמות שלו נכפית עליו על ידי המשטח.";
+      col = COL.nrm;
+    } else {
+      msg = "כאן העקמומיות הגיאודזית שונה מאפס, ולכן המקביל אינו מעגל גדול. שימו לב שהעקמומיות הנורמלית נשארה −1 בדיוק, כמו בכל נקודה אחרת על הספירה.";
+      col = COL.geo;
+    }
+    verdict.textContent = msg;
+    verdict.style.color = col;
+    verdict.style.fontWeight = "600";
+  }
+
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.35, Math.min(1.35, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  sU.addEventListener("input", draw);
+  sP.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

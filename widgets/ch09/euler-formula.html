@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>נוסחת אוילר</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/autosize.js"></script>
+
+<script>
+/* euler-formula.html — k_n(theta) = k1 cos^2 t + k2 sin^2 t. ONE idea.
+   ---------------------------------------------------------------------------
+   Only theta moves. k1 and k2 are fixed here on purpose: varying them is the
+   NEXT idea (which of the four types the point is), and that has its own page,
+   point-types.html. Mixing the two is what made the earlier chapter-8 widget
+   unreadable.
+
+   Left: the surface z = (k1 u^2 + k2 v^2)/2 with its tangent plane at the
+   origin, the chosen direction drawn in that plane, and the NORMAL SECTION cut
+   out by the plane through N and that direction. For this surface the section
+   is exactly the parabola z = k_n(theta) t^2 / 2, whose curvature at t = 0 is
+   k_n(theta) -- so the curve you see bending IS the number being plotted.
+
+   Right: k_n against theta over a full turn, with the current theta marked, the
+   two extremes k1 and k2 as dashed guides, and the zeros marked. The zeros are
+   the asymptotic directions, and they exist only because k1 k2 < 0 here.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    surf: "#bcd4ea", edge: "#7ba6cf", plane: "#94a3b8",
+    dir: "#0f766e", sect: "#7c3aed",
+    max: "#1f4e79", min: "#c0392b", zero: "#0f172a"
+  };
+
+  var TWO_PI = 2 * Math.PI, NG = 24, R = 1.2, K1 = 1.2, K2 = -0.7;
+
+  function fmt(v, d) {
+    var s = (Math.abs(v) < 5e-4 ? 0 : v).toFixed(d === undefined ? 2 : d);
+    return s === "-0.00" ? "0.00" : s;
+  }
+  function kn(th) {
+    var c = Math.cos(th), s = Math.sin(th);
+    return K1 * c * c + K2 * s * s;
+  }
+
+  var host = document.getElementById("app"),
+      yaw = -0.9, pitch = 0.30, th = 0.6;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title" dir="ltr">' +
+        'k&#8345;(&theta;) = k&#8321; cos&sup2;&theta; + k&#8322; sin&sup2;&theta;' +
+        ',   k&#8321; = 1.2,  k&#8322; = &minus;0.7' +
+      '</p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">הזווית מן הכיוון הראשי הראשון</span>' +
+        '<input class="qv-slider qv-t" type="range" min="0" max="1000" value="95">' +
+        '<span class="qv-badge qv-tval"></span>' +
+      '</div>' +
+      '<div class="qv-readout">' +
+        '<div><span class="qv-rl">k&#8345;(&theta;)</span><span class="qv-rv qv-r-kn"></span></div>' +
+      '</div>' +
+      '<div class="qv-legend">' +
+        '<span><i class="qv-key" style="background:#7c3aed"></i>החתך הנורמלי בכיוון הנבחר</span>' +
+        '<span><i class="qv-key" style="background:#1f4e79"></i>הכיוון הראשי של המקסימום</span>' +
+        '<span><i class="qv-key" style="background:#c0392b"></i>הכיוון הראשי של המינימום</span>' +
+      '</div>' +
+      /* no dedicated class in quadviz.css: reuse the hint's prose styling and
+         override only weight and colour from draw(), as ch07/mobius.html does */
+      '<p class="qv-hint qv-verdict"></p>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את המבט. הזיזו את הזווית וראו את החתך הנורמלי משנה את כיוון התעקמותו. הגרף מימין הוא העקמומיות הנורמלית לאורך סיבוב שלם: היא נעה בין שני הערכים הראשיים ואינה יוצאת מהם.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      sT = host.querySelector(".qv-t"), tval = host.querySelector(".qv-tval"),
+      rKn = host.querySelector(".qv-r-kn"),
+      verdict = host.querySelector(".qv-verdict");
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function draw() {
+    th = (sT.value / 1000) * TWO_PI;
+
+    var dpr = window.devicePixelRatio || 1,
+        w = cv.clientWidth || 680, hgt = Math.round(w * 0.46), i, j;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";          /* else the minus sign of k2 reorders */
+    ctx.lineJoin = "round";
+
+    var LW = w * 0.56;              /* 3-D panel width */
+
+    /* ---------------- left: surface, tangent plane, normal section --------- */
+    function Z(u, v) { return 0.5 * (K1 * u * u + K2 * v * v); }
+
+    var Sg = [], Pg = [], u, v;
+    for (i = 0; i <= NG; i++) {
+      Sg.push([]); Pg.push([]);
+      u = -R + 2 * R * i / NG;
+      for (j = 0; j <= NG; j++) {
+        v = -R + 2 * R * j / NG;
+        Sg[i].push(project([u, v, Z(u, v)]));
+        Pg[i].push(project([u, v, 0]));
+      }
+    }
+    var xs = [], ys = [];
+    for (i = 0; i <= NG; i += 2) for (j = 0; j <= NG; j += 2) {
+      xs.push(Sg[i][j][0], Pg[i][j][0]); ys.push(Sg[i][j][1], Pg[i][j][1]);
+    }
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs),
+        ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys),
+        pad = 1.15,
+        sc = Math.min(LW / ((xmax - xmin) * pad || 1), hgt / ((ymax - ymin) * pad || 1)),
+        cx = LW / 2 - sc * (xmin + xmax) / 2,
+        cy = hgt / 2 + sc * (ymin + ymax) / 2;
+    function S(q) { return [cx + sc * q[0], cy - sc * q[1]]; }
+
+    var quads = [];
+    for (i = 0; i < NG; i++) for (j = 0; j < NG; j++) {
+      quads.push({ z: (Sg[i][j][2] + Sg[i + 1][j][2] + Sg[i + 1][j + 1][2] +
+                       Sg[i][j + 1][2]) / 4,
+                   p: [Sg[i][j], Sg[i + 1][j], Sg[i + 1][j + 1], Sg[i][j + 1]],
+                   kind: "s" });
+      quads.push({ z: (Pg[i][j][2] + Pg[i + 1][j][2] + Pg[i + 1][j + 1][2] +
+                       Pg[i][j + 1][2]) / 4,
+                   p: [Pg[i][j], Pg[i + 1][j], Pg[i + 1][j + 1], Pg[i][j + 1]],
+                   kind: "p" });
+    }
+    quads.sort(function (a, b) { return a.z - b.z; });
+    quads.forEach(function (Q) {
+      ctx.beginPath();
+      var s0 = S(Q.p[0]); ctx.moveTo(s0[0], s0[1]);
+      for (var m = 1; m < 4; m++) { var sm = S(Q.p[m]); ctx.lineTo(sm[0], sm[1]); }
+      ctx.closePath();
+      if (Q.kind === "p") {
+        ctx.fillStyle = COL.plane; ctx.globalAlpha = 0.24; ctx.fill();
+        ctx.globalAlpha = 0.28; ctx.strokeStyle = COL.plane;
+      } else {
+        ctx.fillStyle = COL.surf; ctx.globalAlpha = 0.70; ctx.fill();
+        ctx.globalAlpha = 0.65; ctx.strokeStyle = COL.edge;
+      }
+      ctx.lineWidth = 0.4; ctx.stroke(); ctx.globalAlpha = 1;
+    });
+
+    /* the two principal directions, in the tangent plane */
+    [[0, COL.max], [Math.PI / 2, COL.min]].forEach(function (d) {
+      var a = d[0], c1 = S(project([-R * 0.95 * Math.cos(a), -R * 0.95 * Math.sin(a), 0])),
+          c2 = S(project([R * 0.95 * Math.cos(a), R * 0.95 * Math.sin(a), 0]));
+      ctx.beginPath(); ctx.moveTo(c1[0], c1[1]); ctx.lineTo(c2[0], c2[1]);
+      ctx.strokeStyle = d[1]; ctx.lineWidth = 1.6;
+      ctx.setLineDash([6, 4]); ctx.globalAlpha = 0.8; ctx.stroke();
+      ctx.setLineDash([]); ctx.globalAlpha = 1;
+    });
+
+    /* the chosen direction, and the normal section above it */
+    var ct = Math.cos(th), st = Math.sin(th);
+    var d1 = S(project([0, 0, 0])), d2 = S(project([R * 0.9 * ct, R * 0.9 * st, 0]));
+    ctx.beginPath(); ctx.moveTo(d1[0], d1[1]); ctx.lineTo(d2[0], d2[1]);
+    ctx.strokeStyle = COL.dir; ctx.lineWidth = 2.4; ctx.stroke();
+
+    ctx.beginPath();
+    for (i = 0; i <= 80; i++) {
+      var t = -R + 2 * R * i / 80,
+          q = S(project([t * ct, t * st, Z(t * ct, t * st)]));
+      if (i === 0) ctx.moveTo(q[0], q[1]); else ctx.lineTo(q[0], q[1]);
+    }
+    ctx.strokeStyle = COL.sect; ctx.lineWidth = 3; ctx.stroke();
+
+    var so = S(project([0, 0, 0]));
+    ctx.beginPath(); ctx.arc(so[0], so[1], 4.6, 0, TWO_PI);
+    ctx.fillStyle = COL.zero; ctx.fill();
+    ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.2; ctx.stroke();
+
+    /* ---------------- right: k_n against theta ---------------- */
+    var gx0 = LW + 26, gx1 = w - 12, gy0 = 22, gy1 = hgt - 30,
+        lo = Math.min(K1, K2) - 0.35, hi = Math.max(K1, K2) + 0.35;
+    function GX(a) { return gx0 + (a / TWO_PI) * (gx1 - gx0); }
+    function GY(y) { return gy1 - ((y - lo) / (hi - lo)) * (gy1 - gy0); }
+
+    ctx.strokeStyle = "#e2e8f0"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(gx0, GY(0)); ctx.lineTo(gx1, GY(0)); ctx.stroke();
+
+    [[K1, COL.max, "k₁"], [K2, COL.min, "k₂"]].forEach(function (d) {
+      ctx.beginPath(); ctx.moveTo(gx0, GY(d[0])); ctx.lineTo(gx1, GY(d[0]));
+      ctx.strokeStyle = d[1]; ctx.lineWidth = 1; ctx.setLineDash([5, 4]);
+      ctx.globalAlpha = 0.75; ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
+      ctx.font = "11px ui-sans-serif, system-ui, sans-serif";
+      ctx.fillStyle = d[1]; ctx.fillText(d[2], gx0 - 20, GY(d[0]) + 4);
+    });
+
+    ctx.beginPath();
+    for (i = 0; i <= 240; i++) {
+      var a = (i / 240) * TWO_PI, X = GX(a), Y = GY(kn(a));
+      if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+    }
+    ctx.strokeStyle = COL.sect; ctx.lineWidth = 2.2; ctx.stroke();
+
+    /* the zeros: the asymptotic directions */
+    if (K1 * K2 < 0) {
+      var t0 = Math.atan(Math.sqrt(-K1 / K2));
+      [t0, Math.PI - t0, Math.PI + t0, TWO_PI - t0].forEach(function (a) {
+        var X = GX(a), Y = GY(0);
+        ctx.beginPath(); ctx.arc(X, Y, 3.4, 0, TWO_PI);
+        ctx.fillStyle = COL.zero; ctx.fill();
+      });
+    }
+
+    var cxp = GX(th), cyp = GY(kn(th));
+    ctx.beginPath(); ctx.moveTo(cxp, GY(lo)); ctx.lineTo(cxp, cyp);
+    ctx.strokeStyle = COL.dir; ctx.lineWidth = 1.2;
+    ctx.globalAlpha = 0.6; ctx.stroke(); ctx.globalAlpha = 1;
+    ctx.beginPath(); ctx.arc(cxp, cyp, 5, 0, TWO_PI);
+    ctx.fillStyle = COL.dir; ctx.fill();
+    ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.2; ctx.stroke();
+
+    ctx.font = "11px ui-sans-serif, system-ui, sans-serif";
+    ctx.fillStyle = "#64748b";
+    ["0", "π/2", "π", "3π/2", "2π"].forEach(function (lab, m) {
+      ctx.fillText(lab, GX(m * Math.PI / 2) - 8, gy1 + 16);
+    });
+
+    tval.textContent = fmt(th / Math.PI) + "π";
+    rKn.textContent = fmt(kn(th), 3);
+
+    var val = kn(th), msg, col;
+    if (Math.abs(val) < 0.02) {
+      msg = "כאן העקמומיות הנורמלית מתאפסת: זהו כיוון אסימפטוטי. החתך הנורמלי משיק למישור המשיק עד לסדר שני.";
+      col = COL.zero;
+    } else if (Math.abs(val - K1) < 0.02) {
+      msg = "זהו הכיוון הראשי הראשון, שבו העקמומיות הנורמלית מקבלת את ערכה המרבי.";
+      col = COL.max;
+    } else if (Math.abs(val - K2) < 0.02) {
+      msg = "זהו הכיוון הראשי השני, שבו העקמומיות הנורמלית מקבלת את ערכה המזערי.";
+      col = COL.min;
+    } else if (val > 0) {
+      msg = "החתך הנורמלי מתעקם לכיוון הנורמל, ולכן העקמומיות הנורמלית חיובית.";
+      col = COL.max;
+    } else {
+      msg = "החתך הנורמלי מתעקם מן הנורמל והלאה, ולכן העקמומיות הנורמלית שלילית.";
+      col = COL.min;
+    }
+    verdict.textContent = msg;
+    verdict.style.color = col;
+    verdict.style.fontWeight = "600";
+  }
+
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.35, Math.min(1.35, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  sT.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

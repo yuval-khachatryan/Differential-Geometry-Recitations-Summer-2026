@@ -3,32 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>העתקת גאוס</title>
+<title>העתקת גאוס של הפרבולואיד</title>
 <link rel="stylesheet" href="../shared/quadviz.css">
 </head>
 <body>
 <div id="app"></div>
+<script src="../shared/autosize.js"></script>
 
 <script>
-/* gauss-map.html — the Gauss map N : M -> S^2, surface beside sphere.
+/* gauss-map-paraboloid.html — the Gauss map of z = u^2 + v^2, beside its image.
    ---------------------------------------------------------------------------
-   Standalone rather than a Surface3D.mount() call: that module draws one
-   surface with x_u, x_v and a tangent patch, and has no notion of a second
-   linked view. Projection, painter's algorithm and the auto-fit are kept
-   deliberately identical to surface3d.js so this page looks like the rest of
-   the book, and the same yaw/pitch drives BOTH panels — that is what makes the
-   correspondence between a point and its image legible while rotating.
+   ONE surface, the one its exercise is about. An earlier version of this page
+   carried a selector for plane / cylinder / sphere / paraboloid; that merged
+   four separate claims into a single widget sitting in a single place, which is
+   not what a simulation is for. The plane / cylinder / sphere comparison is a
+   figure beside the remark that makes it, and this page illustrates only the
+   exercise it sits next to.
 
-   The key idea of the drawing: the image of the Gauss map is itself a
-   parametrised surface, (u,v) |-> N(u,v), lying on the unit sphere. So it is
-   meshed exactly like any other surface and painted over a plain unit sphere.
-   The degenerate cases then need no special code — for the plane every image
-   quad has zero area and only the marker survives, for the cylinder the mesh
-   collapses onto one great circle, which is precisely the statement being made.
+   Standalone rather than Surface3D.mount(): that module draws one surface with
+   x_u, x_v and a tangent patch, and has no second linked view. Projection,
+   painter's algorithm and auto-fit are copied from surface3d.js so this looks
+   like the rest of the book, and one yaw/pitch drives BOTH panels -- that is
+   what makes the correspondence legible while rotating.
 
-   N is taken from the SAME f by central differences, never from a closed form,
-   so the picture cannot silently disagree with the parametrisation it claims to
-   illustrate.
+   The image of the Gauss map is itself a parametrised surface, (u,v) |-> N(u,v)
+   on the unit sphere, so it is meshed like any other surface and painted over a
+   plain sphere. N comes from central differences on the SAME f, never from the
+   closed form the exercise derives, so the picture cannot silently agree with a
+   wrong answer.
    --------------------------------------------------------------------------- */
 (function () {
   "use strict";
@@ -37,10 +39,10 @@
     surf: "#bcd4ea", edge: "#7ba6cf",
     ball: "#e8edf3", ballEdge: "#c3cedb",
     img:  "#c0392b", imgEdge: "#8d2a1e",
-    pt:   "#0f172a", nrm: "#1f4e79", axis: "#94a3b8"
+    pt:   "#0f172a", nrm: "#1f4e79"
   };
 
-  var TWO_PI = 2 * Math.PI;
+  var TWO_PI = 2 * Math.PI, U0 = -1.2, U1 = 1.2, NU = 20;
 
   function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
   function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
@@ -56,72 +58,45 @@
     return s === "-0.00" ? "0.00" : s;
   }
 
-  /* ---- the four surfaces ---- */
-  var SURFS = [
-    { name: "מישור",
-      f: function (u, v) { return [u, v, 0]; },
-      u0: -1.4, u1: 1.4, v0: -1.4, v1: 1.4, nu: 12, nv: 12,
-      verdict: "הנורמל הוא אותו וקטור בכל נקודה, כלומר הוא קבוע. לכן התמונה על ספירת היחידה היא נקודה אחת, והיא אינה זזה כשמזיזים את הנקודה על המשטח." },
-    { name: "גליל",
-      f: function (u, v) { return [Math.cos(v), Math.sin(v), u]; },
-      u0: -1.5, u1: 1.5, v0: 0, v1: TWO_PI, nu: 10, nv: 64,
-      verdict: "הנורמל ניצב תמיד לציר הגליל, ולכן התמונה מוכלת במעגל הגדול שבמישור הניצב לציר. הזזת הנקודה לאורך יוצר אינה משנה את הנורמל כלל." },
-    { name: "ספירה",
-      f: function (u, v) {
-        return [Math.sin(u) * Math.cos(v), Math.sin(u) * Math.sin(v), Math.cos(u)];
-      },
-      u0: 0.04, u1: Math.PI - 0.04, v0: 0, v1: TWO_PI, nu: 24, nv: 48,
-      verdict: "בכל נקודה הנורמל מקביל לרדיוס, ולכן העתקת גאוס היא הזהות והתמונה היא כל הספירה. שני הציורים זהים." },
-    { name: "פרבולואיד",
-      f: function (u, v) { return [u, v, u * u + v * v]; },
-      u0: -1.2, u1: 1.2, v0: -1.2, v1: 1.2, nu: 18, nv: 18,
-      verdict: "הרכיב השלישי של הנורמל חיובי תמיד, ולכן התמונה מוכלת בחצי הספירה העליון הפתוח. ככל שמתרחקים מן הקודקוד המשטח נעשה תלול והתמונה מתקרבת אל קו המשווה, בלי להגיע אליו." }
-  ];
+  function f(u, v) { return [u, v, u * u + v * v]; }
+
+  function normalAt(u, v) {
+    var e = 1e-5,
+        xu = mul(sub(f(u + e, v), f(u - e, v)), 1 / (2 * e)),
+        xv = mul(sub(f(u, v + e), f(u, v - e)), 1 / (2 * e));
+    return unit(cross(xu, xv));
+  }
 
   var host = document.getElementById("app"),
-      yaw = -0.95, pitch = 0.40, sel = 3;
+      yaw = -0.95, pitch = 0.40;
 
   host.innerHTML =
     '<div class="qv">' +
-      '<p class="qv-title">העתקת גאוס: המשטח משמאל, ספירת היחידה מימין</p>' +
+      '<p class="qv-title" dir="ltr">z = u&sup2; + v&sup2;   &rarr;   N(u,v) &isin; S&sup2;</p>' +
       '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
-      '<div class="qv-row qv-pick"></div>' +
       '<div class="qv-row">' +
         '<span class="qv-label">מיקום הנקודה, פרמטר ראשון</span>' +
-        '<input class="qv-slider qv-u" type="range" min="0" max="1000" value="620">' +
+        '<input class="qv-slider qv-u" type="range" min="0" max="1000" value="700">' +
         '<span class="qv-badge qv-uval"></span>' +
       '</div>' +
       '<div class="qv-row">' +
         '<span class="qv-label">מיקום הנקודה, פרמטר שני</span>' +
-        '<input class="qv-slider qv-v" type="range" min="0" max="1000" value="300">' +
+        '<input class="qv-slider qv-v" type="range" min="0" max="1000" value="330">' +
         '<span class="qv-badge qv-vval"></span>' +
       '</div>' +
       '<div class="qv-dirs">' +
         '<span><b>p</b>&nbsp;<span dir="ltr" class="qv-r-p"></span></span>' +
         '<span><b>N(p)</b>&nbsp;<span dir="ltr" class="qv-r-n"></span></span>' +
+        '<span><b>N&#8323;</b>&nbsp;<span dir="ltr" class="qv-r-n3"></span></span>' +
       '</div>' +
-      /* no dedicated class in quadviz.css: reuse the hint's prose styling and
-         override only weight and colour from draw(), as ch07/mobius.html does */
-      '<p class="qv-hint qv-verdict"></p>' +
-      '<div class="qv-hint">גררו את הציור כדי לסובב את שני הפאנלים יחד. האזור האדום על הספירה הוא התמונה של כל המשטח תחת העתקת גאוס, והנקודה הכהה עליו היא התמונה של הנקודה הנוכחית.</div>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את שני הפאנלים יחד. האזור האדום הוא התמונה של המשטח כולו תחת העתקת גאוס. הרכיב השלישי של הנורמל חיובי תמיד, ולכן התמונה נשארת בחצי הספירה העליון הפתוח: ככל שמתרחקים מן הקודקוד המשטח נעשה תלול, והתמונה מתקרבת אל קו המשווה בלי להגיע אליו.</div>' +
     '</div>';
 
   var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
-      pick = host.querySelector(".qv-pick"),
       sU = host.querySelector(".qv-u"), uval = host.querySelector(".qv-uval"),
       sV = host.querySelector(".qv-v"), vval = host.querySelector(".qv-vval"),
       rP = host.querySelector(".qv-r-p"), rN = host.querySelector(".qv-r-n"),
-      verdict = host.querySelector(".qv-verdict"),
-      btns = [];
-
-  SURFS.forEach(function (s, i) {
-    var b = document.createElement("button");
-    b.className = "qv-btn";
-    b.textContent = s.name;
-    b.addEventListener("click", function () { sel = i; draw(); });
-    pick.appendChild(b);
-    btns.push(b);
-  });
+      rN3 = host.querySelector(".qv-r-n3");
 
   function project(p) {
     var ca = Math.cos(yaw), sa = Math.sin(yaw),
@@ -131,15 +106,6 @@
     return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
   }
 
-  /* N by central differences on the same f, as in ch07/mobius.html */
-  function normalAt(S, u, v) {
-    var e = 1e-5,
-        xu = mul(sub(S.f(u + e, v), S.f(u - e, v)), 1 / (2 * e)),
-        xv = mul(sub(S.f(u, v + e), S.f(u, v - e)), 1 / (2 * e));
-    return unit(cross(xu, xv));
-  }
-
-  /* screen map for one panel: fit `pts` inside [ox, ox+ow] x [0, hgt] */
   function fitter(pts, ox, ow, hgt) {
     var xs = [], ys = [], i;
     for (i = 0; i < pts.length; i++) { xs.push(pts[i][0]); ys.push(pts[i][1]); }
@@ -159,11 +125,10 @@
     ctx.closePath();
   }
 
-  /* mix a hex-ish rgb triple towards white by 1 - f */
-  function shade(r, g, b, f) {
-    return "rgb(" + Math.round(255 - (255 - r) * f) + "," +
-                    Math.round(255 - (255 - g) * f) + "," +
-                    Math.round(255 - (255 - b) * f) + ")";
+  function shade(r, g, b, t) {
+    return "rgb(" + Math.round(255 - (255 - r) * t) + "," +
+                    Math.round(255 - (255 - g) * t) + "," +
+                    Math.round(255 - (255 - b) * t) + ")";
   }
 
   function arrow(S3, p3, tip3, col, lw, lab) {
@@ -184,19 +149,12 @@
   }
 
   function draw() {
-    var S = SURFS[sel], i, j, u, v;
-
-    btns.forEach(function (b, k) {
-      b.style.fontWeight = k === sel ? "700" : "400";
-      b.style.borderColor = k === sel ? COL.nrm : "#bbbbbb";
-      b.style.background  = k === sel ? "#e8eef5" : "#f5f5f5";
-    });
-
-    var uSel = S.u0 + (sU.value / 1000) * (S.u1 - S.u0),
-        vSel = S.v0 + (sV.value / 1000) * (S.v1 - S.v0);
+    var i, j, u, v;
+    var uSel = U0 + (sU.value / 1000) * (U1 - U0),
+        vSel = U0 + (sV.value / 1000) * (U1 - U0);
 
     var dpr = window.devicePixelRatio || 1,
-        w = cv.clientWidth || 640, hgt = Math.round(w * 0.52);
+        w = cv.clientWidth || 640, hgt = Math.round(w * 0.50);
     cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
     cv.style.height = hgt + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -204,25 +162,24 @@
     ctx.direction = "ltr";          /* else minus signs in the labels reorder */
     ctx.lineJoin = "round";
 
-    /* ---------- sample the surface and its Gauss image on one grid ---------- */
     var P = [], G = [];
-    for (i = 0; i <= S.nu; i++) {
+    for (i = 0; i <= NU; i++) {
       P.push([]); G.push([]);
-      u = S.u0 + (i / S.nu) * (S.u1 - S.u0);
-      for (j = 0; j <= S.nv; j++) {
-        v = S.v0 + (j / S.nv) * (S.v1 - S.v0);
-        P[i].push(project(S.f(u, v)));
-        G[i].push(normalAt(S, u, v));
+      u = U0 + (i / NU) * (U1 - U0);
+      for (j = 0; j <= NU; j++) {
+        v = U0 + (j / NU) * (U1 - U0);
+        P[i].push(project(f(u, v)));
+        G[i].push(normalAt(u, v));
       }
     }
 
-    /* ---------- left panel: the surface ---------- */
+    /* ---------- left: the paraboloid ---------- */
     var half = w / 2, flat = [];
-    for (i = 0; i <= S.nu; i++) for (j = 0; j <= S.nv; j += 2) flat.push(P[i][j]);
+    for (i = 0; i <= NU; i++) for (j = 0; j <= NU; j += 2) flat.push(P[i][j]);
     var SL = fitter(flat, 0, half, hgt);
 
     var quads = [];
-    for (i = 0; i < S.nu; i++) for (j = 0; j < S.nv; j++) {
+    for (i = 0; i < NU; i++) for (j = 0; j < NU; j++) {
       var a = P[i][j], b = P[i + 1][j], c = P[i + 1][j + 1], d = P[i][j + 1],
           nn = project(G[i][j]);
       quads.push({ z: (a[2] + b[2] + c[2] + d[2]) / 4, p: [a, b, c, d],
@@ -238,14 +195,13 @@
       ctx.globalAlpha = 1;
     });
 
-    /* the moving point and its normal, on the surface */
-    var p3 = S.f(uSel, vSel), n3 = normalAt(S, uSel, vSel);
-    arrow(SL, p3, add(p3, mul(n3, 0.75)), COL.nrm, 2.6, "N");
+    var p3 = f(uSel, vSel), n3 = normalAt(uSel, vSel);
+    arrow(SL, p3, add(p3, mul(n3, 0.8)), COL.nrm, 2.6, "N");
     var sp = SL(project(p3));
     ctx.beginPath(); ctx.arc(sp[0], sp[1], 5, 0, TWO_PI);
     ctx.fillStyle = COL.pt; ctx.fill();
 
-    /* ---------- right panel: the unit sphere, plus the image ---------- */
+    /* ---------- right: the unit sphere and the Gauss image ---------- */
     var ball = [], BU = 24, BV = 48, bu, bv;
     function ballPt(a, b) {
       return [Math.sin(a) * Math.cos(b), Math.sin(a) * Math.sin(b), Math.cos(a)];
@@ -262,18 +218,16 @@
     for (i = 0; i <= BU; i++) for (j = 0; j <= BV; j += 2) bflat.push(ball[i][j]);
     var SR = fitter(bflat, half, half, hgt);
 
-    /* one painter's list: sphere quads, then image quads pushed out very
-       slightly so they win the depth tie against the sphere underneath */
     var list = [];
     for (i = 0; i < BU; i++) for (j = 0; j < BV; j++) {
-      var ba = ball[i][j], bb = ball[i + 1][j],
-          bc = ball[i + 1][j + 1], bd = ball[i][j + 1];
-      list.push({ z: (ba[2] + bb[2] + bc[2] + bd[2]) / 4,
-                  p: [ba, bb, bc, bd], img: false,
+      list.push({ z: (ball[i][j][2] + ball[i + 1][j][2] +
+                      ball[i + 1][j + 1][2] + ball[i][j + 1][2]) / 4,
+                  p: [ball[i][j], ball[i + 1][j], ball[i + 1][j + 1], ball[i][j + 1]],
+                  img: false,
                   lit: Math.abs(project(ballPt((i + 0.5) / BU * Math.PI,
                                                (j + 0.5) / BV * TWO_PI))[2]) });
     }
-    for (i = 0; i < S.nu; i++) for (j = 0; j < S.nv; j++) {
+    for (i = 0; i < NU; i++) for (j = 0; j < NU; j++) {
       var ia = project(mul(G[i][j], 1.004)),
           ib = project(mul(G[i + 1][j], 1.004)),
           ic = project(mul(G[i + 1][j + 1], 1.004)),
@@ -285,52 +239,40 @@
     list.forEach(function (Q) {
       quadPath(SR, Q.p);
       if (Q.img) {
-        ctx.fillStyle = COL.img; ctx.globalAlpha = 0.5; ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.strokeStyle = COL.imgEdge; ctx.lineWidth = 0.5;
-        ctx.globalAlpha = 0.6; ctx.stroke(); ctx.globalAlpha = 1;
+        ctx.fillStyle = COL.img; ctx.globalAlpha = 0.55; ctx.fill();
+        ctx.globalAlpha = 0.6; ctx.strokeStyle = COL.imgEdge;
+        ctx.lineWidth = 0.5; ctx.stroke(); ctx.globalAlpha = 1;
       } else {
         ctx.fillStyle = shade(0xe8, 0xed, 0xf3, 0.4 + 0.6 * Q.lit);
         ctx.fill();
-        ctx.strokeStyle = COL.ballEdge; ctx.lineWidth = 0.4;
-        ctx.globalAlpha = 0.5; ctx.stroke(); ctx.globalAlpha = 1;
+        ctx.globalAlpha = 0.5; ctx.strokeStyle = COL.ballEdge;
+        ctx.lineWidth = 0.4; ctx.stroke(); ctx.globalAlpha = 1;
       }
     });
 
-    /* The image mesh degenerates for the plane (a point) and the cylinder (a
-       curve), where every quad has zero area and nothing above is visible. The
-       image grid LINES survive both cases, so draw them unconditionally: for
-       the cylinder they trace the great circle, for the plane they collapse
-       onto the marker below, which is exactly the claim. */
-    ctx.strokeStyle = COL.img; ctx.lineWidth = 1.6; ctx.globalAlpha = 0.9;
-    for (i = 0; i <= S.nu; i += Math.max(1, Math.round(S.nu / 6))) {
-      ctx.beginPath();
-      for (j = 0; j <= S.nv; j++) {
-        var g1 = SR(project(mul(G[i][j], 1.006)));
-        if (j === 0) ctx.moveTo(g1[0], g1[1]); else ctx.lineTo(g1[0], g1[1]);
-      }
-      ctx.stroke();
+    /* the equator, which the image approaches but never reaches */
+    ctx.beginPath();
+    for (j = 0; j <= 120; j++) {
+      var e = SR(project(ballPt(Math.PI / 2, (j / 120) * TWO_PI)));
+      if (j === 0) ctx.moveTo(e[0], e[1]); else ctx.lineTo(e[0], e[1]);
     }
-    ctx.globalAlpha = 1;
+    ctx.strokeStyle = COL.pt; ctx.globalAlpha = 0.45;
+    ctx.lineWidth = 1.2; ctx.setLineDash([4, 3]); ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
 
-    /* the image of the moving point, and the radius pointing at it */
-    arrow(SR, [0, 0, 0], mul(n3, 1.0), COL.nrm, 1.6, null);
+    arrow(SR, [0, 0, 0], n3, COL.nrm, 1.6, null);
     var sn = SR(project(mul(n3, 1.01)));
     ctx.beginPath(); ctx.arc(sn[0], sn[1], 5.5, 0, TWO_PI);
     ctx.fillStyle = COL.pt; ctx.fill();
     ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.2; ctx.stroke();
 
-    /* ---------- readouts ---------- */
     uval.textContent = fmt(uSel);
     vval.textContent = fmt(vSel);
     rP.textContent = "(" + fmt(p3[0]) + ", " + fmt(p3[1]) + ", " + fmt(p3[2]) + ")";
     rN.textContent = "(" + fmt(n3[0]) + ", " + fmt(n3[1]) + ", " + fmt(n3[2]) + ")";
-    verdict.textContent = S.verdict;
-    verdict.style.color = COL.nrm;
-    verdict.style.fontWeight = "600";
+    rN3.textContent = fmt(n3[2]) + "  > 0";
   }
 
-  /* ---- drag to rotate, both panels together ---- */
   var dragging = false, lastX = 0, lastY = 0;
   function down(e) {
     dragging = true;
