@@ -731,18 +731,14 @@ window.Quarto = {
 <p>הפולינום האופייני של <span class="math inline">\(S_p\)</span> הוא <span class="math display">\[,P \left( \lambda \right) = \det \left( \lambda I - \left( L^i_j \right) \right) = \lambda^2 - \operatorname{tr} \left( L^i_j \right) \lambda + \det \left( L^i_j \right) = \lambda^2 - 2H \lambda + K\]</span> ולכן העקמומיויות הראשיות הן שורשיו, כלומר <span class="math display">\[.k_{1,2} = H \pm \sqrt{H^2 - K}\]</span></p>
 <p>שימו לב שתמיד <span class="math inline">\(H^2 - K = \left( \frac{k_1 - k_2}{2} \right)^2 \geq 0\)</span>, וזו בדיקת עקביות מהירה על כל חישוב.</p>
 </div>
-<div id="box-rem-char-poly-lecture" class="thmbox thmbox-remark" title="הערה על הרישום בהרצאה">
-<p><strong>הערה 9.1.7 — הערה על הרישום בהרצאה.</strong></p>
-<p>בהרצאה נרשם הפולינום האופייני בצורה <span class="math inline">\(P \left( \lambda \right) = \lambda^2 - \operatorname{tr} \left( L^i_j \right) + \det \left( L^i_j \right)\)</span>. האיבר של העקבה חייב לשאת גורם <span class="math inline">\(\lambda\)</span>, כפי שרשום ב<a href="#box-rem-char-poly">הערה 9.1.6</a>, אחרת הביטוי אינו הפולינום האופייני.</p>
-</div>
 <div id="box-rem-orientation-K-H" class="thmbox thmbox-remark" title="תלות באוריינטציה">
-<p><strong>הערה 9.1.8 — תלות באוריינטציה.</strong></p>
+<p><strong>הערה 9.1.7 — תלות באוריינטציה.</strong></p>
 <p>היפוך הנורמל מחליף את <span class="math inline">\(S_p\)</span> ב-<span class="math inline">\(-S_p\)</span>, ולכן מחליף את <span class="math inline">\(k_1, k_2\)</span> ב-<span class="math inline">\(-k_1, -k_2\)</span>. מכאן <span class="math display">\[,K \longmapsto \left( -k_1 \right) \left( -k_2 \right) = K\]</span> ואילו <span class="math display">\[.H \longmapsto \frac{-k_1 - k_2}{2} = -H\]</span></p>
 <p>לכן <strong><span class="math inline">\(K\)</span> היא תכונה של המשטח לבדו</strong>, והיא מוגדרת גם על משטח שאינו אוריינטבילי, ואילו <strong><span class="math inline">\(H\)</span> מוגדרת רק לאחר שנקבעה אוריינטציה</strong>.</p>
 <p>הספירה ממחישה זאת. עם הנורמל החיצוני שתי העקמומיויות הראשיות שלה הן <span class="math inline">\(-\frac{1}{r}\)</span>, ועם הנורמל הפנימי שתיהן <span class="math inline">\(+\frac{1}{r}\)</span>. המכפלה היא <span class="math inline">\(\frac{1}{r^2}\)</span> בשני המקרים, ואילו הסכום מחליף סימן.</p>
 </div>
 <div id="box-q-ruled-nonpositive" class="thmbox thmbox-question">
-<p><strong>שאלה 9.1.9.</strong></p>
+<p><strong>שאלה 9.1.8.</strong></p>
 <p>יהי משטח ישר, כלומר משטח בפרמטריזציה <span class="math display">\[,\overline{x} \left( u, v \right) = \gamma \left( u \right) + v \, \delta \left( u \right)\]</span> כאשר <span class="math inline">\(\gamma\)</span> ו-<span class="math inline">\(\delta\)</span> עקומות חלקות. הוכיחו שעקמומיות גאוס שלו אי־חיובית בכל נקודה, כלומר <span class="math inline">\(K \leq 0\)</span>.</p>
 </div>
 <div class="thmbox thmbox-solution">
@@ -781,20 +777,20 @@ window.Quarto = {
 </div>
 <p>הנוסחה הבאה חושבה בהרצאה, ונשתמש בה כמות שהיא.</p>
 <div id="box-prp-revolution-KH" class="thmbox thmbox-proposition" title="עקמומיות של משטח סיבוב">
-<p><strong>טענה 9.1.10 — עקמומיות של משטח סיבוב.</strong></p>
+<p><strong>טענה 9.1.9 — עקמומיות של משטח סיבוב.</strong></p>
 <p>עבור משטח הסיבוב <span class="math display">\[\overline{x} \left( u, v \right) = \left( f \left( u \right) \cos v, \; f \left( u \right) \sin v, \; g \left( u \right) \right)\]</span> עם <span class="math inline">\(f &gt; 0\)</span>, נסמן <span class="math display">\[.w = \sqrt{\left( f' \right)^2 + \left( g' \right)^2} = \left\| \gamma' \right\|\]</span></p>
 <p>אזי שתי התבניות הן <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} w^2 &amp; 0 \\ 0 &amp; f^2 \end{pmatrix}, \qquad \left( L_{ij} \right) = \begin{pmatrix} \dfrac{f' g'' - f'' g'}{w} &amp; 0 \\[6pt] 0 &amp; \dfrac{f g'}{w} \end{pmatrix}\]</span> ומכיוון ששתיהן אלכסוניות, המרידיאנים והמקבילים הם הכיוונים הראשיים, ולפי <a href="#box-rem-diagonal-case">הערה 9.1.5</a> <span class="math display">\[.k_1 = \frac{f' g'' - f'' g'}{w^3}, \qquad k_2 = \frac{g'}{f \, w}\]</span></p>
 <p>מכפלתן היא עקמומיות גאוס, <span class="math display">\[.K = k_1 k_2 = \frac{g' \left( f' g'' - f'' g' \right)}{f \, w^4}\]</span></p>
 <p>אם העקומה היוצרת נתונה בפרמטריזציה טבעית, כלומר <span class="math inline">\(w = 1\)</span>, המונה מצטמצם ל-<span class="math inline">\(-f''\)</span> והביטוי כולו הופך ל-<span class="math display">\[.K = -\frac{f''}{f}\]</span></p>
 </div>
 <div id="box-exm-revolution-sphere" class="thmbox thmbox-example" title="הספירה והמישור">
-<p><strong>דוגמה 9.1.11 — הספירה והמישור.</strong></p>
+<p><strong>דוגמה 9.1.10 — הספירה והמישור.</strong></p>
 <p>ספירת היחידה היא משטח הסיבוב של <span class="math inline">\(\gamma \left( u \right) = \left( \cos u, 0, \sin u \right)\)</span>, שהיא בפרמטריזציה טבעית שכן <span class="math inline">\(\sin^2 u + \cos^2 u = 1\)</span>. כאן <span class="math inline">\(f = \cos u\)</span> ולכן <span class="math inline">\(f'' = -\cos u\)</span>, ומתקבל <span class="math display">\[.K = -\frac{f''}{f} = -\frac{-\cos u}{\cos u} = 1\]</span></p>
 <p>עבור מישור <span class="math inline">\(xy\)</span> נבחר <span class="math inline">\(\gamma \left( u \right) = \left( u, 0, 0 \right)\)</span>, ואז <span class="math inline">\(f = u\)</span> ו-<span class="math inline">\(f'' = 0\)</span>, ולכן <span class="math inline">\(K = 0\)</span>.</p>
 <p>שימו לב שהנוסחה <span class="math inline">\(K = -\frac{f''}{f}\)</span> מזכירה <strong>רק</strong> את <span class="math inline">\(f\)</span>, כלומר רק את המרחק מן הציר. הפונקציה <span class="math inline">\(g\)</span> אינה מופיעה בה כלל, וגם לא האופן שבו המשטח משוכן במרחב. זהו רמז ראשון לכך ש-<span class="math inline">\(K\)</span> הוא גודל פנימי.</p>
 </div>
 <div id="box-q-torus-curvature" class="thmbox thmbox-question">
-<p><strong>שאלה 9.1.12.</strong></p>
+<p><strong>שאלה 9.1.11.</strong></p>
 <p>יהיו <span class="math inline">\(R &gt; r &gt; 0\)</span>, ויהי הטורוס <span class="math display">\[,\overline{x} \left( u, v \right) = \left( \left( R + r \cos u \right) \cos v, \; \left( R + r \cos u \right) \sin v, \; r \sin u \right)\]</span> כאשר <span class="math inline">\(0 &lt; u &lt; 2\pi\)</span> ו-<span class="math inline">\(0 &lt; v &lt; 2\pi\)</span>. חשבו את <span class="math inline">\(k_1\)</span>, את <span class="math inline">\(k_2\)</span>, את <span class="math inline">\(K\)</span> ואת <span class="math inline">\(H\)</span>, וקבעו באילו נקודות <span class="math inline">\(K\)</span> חיובית, שלילית ומתאפסת.</p>
 </div>
 <div class="column-page">
@@ -804,19 +800,19 @@ window.Quarto = {
 <p><strong>פתרון.</strong></p>
 <details class="thmcollapse thmfoldable"><summary>שלב 1: הטורוס הוא משטח סיבוב</summary>
 <div class="foldable" title="שלב 1: הטורוס הוא משטח סיבוב">
-<p>הטורוס מתקבל מסיבוב המעגל <span class="math display">\[\gamma \left( u \right) = \left( R + r \cos u, \; 0, \; r \sin u \right)\]</span> שרדיוסו <span class="math inline">\(r\)</span> ומרכזו במרחק <span class="math inline">\(R\)</span> מן הציר, סביב ציר <span class="math inline">\(z\)</span>. לכן אפשר להשתמש ב<a href="#box-prp-revolution-KH">טענה 9.1.10</a> עם <span class="math display">\[.f \left( u \right) = R + r \cos u, \qquad g \left( u \right) = r \sin u\]</span></p>
+<p>הטורוס מתקבל מסיבוב המעגל <span class="math display">\[\gamma \left( u \right) = \left( R + r \cos u, \; 0, \; r \sin u \right)\]</span> שרדיוסו <span class="math inline">\(r\)</span> ומרכזו במרחק <span class="math inline">\(R\)</span> מן הציר, סביב ציר <span class="math inline">\(z\)</span>. לכן אפשר להשתמש ב<a href="#box-prp-revolution-KH">טענה 9.1.9</a> עם <span class="math display">\[.f \left( u \right) = R + r \cos u, \qquad g \left( u \right) = r \sin u\]</span></p>
 </div>
 </details>
 <details class="thmcollapse thmfoldable"><summary>שלב 2: הנגזרות</summary>
 <div class="foldable" title="שלב 2: הנגזרות">
 <p>נגזור: <span class="math display">\[,f' = -r \sin u, \qquad f'' = -r \cos u\]</span> וכן <span class="math display">\[.g' = r \cos u, \qquad g'' = -r \sin u\]</span></p>
 <p>נחשב את <span class="math inline">\(w\)</span>: <span class="math display">\[,w^2 = \left( f' \right)^2 + \left( g' \right)^2 = r^2 \sin^2 u + r^2 \cos^2 u = r^2\]</span> כלומר <span class="math inline">\(w = r\)</span>.</p>
-<p>העקומה היוצרת היא אפוא בעלת מהירות <strong>קבועה</strong> <span class="math inline">\(r\)</span>, אך אין זו פרמטריזציה טבעית אלא אם <span class="math inline">\(r = 1\)</span>. לכן נשתמש בנוסחאות הכלליות של <a href="#box-prp-revolution-KH">טענה 9.1.10</a> ולא בקיצור <span class="math inline">\(-\frac{f''}{f}\)</span>.</p>
+<p>העקומה היוצרת היא אפוא בעלת מהירות <strong>קבועה</strong> <span class="math inline">\(r\)</span>, אך אין זו פרמטריזציה טבעית אלא אם <span class="math inline">\(r = 1\)</span>. לכן נשתמש בנוסחאות הכלליות של <a href="#box-prp-revolution-KH">טענה 9.1.9</a> ולא בקיצור <span class="math inline">\(-\frac{f''}{f}\)</span>.</p>
 </div>
 </details>
 <details class="thmcollapse thmfoldable"><summary>שלב 3: שתי התבניות</summary>
 <div class="foldable" title="שלב 3: שתי התבניות">
-<p>נציב ב<a href="#box-prp-revolution-KH">טענה 9.1.10</a>. המטריקה היא <span class="math display">\[.g_{11} = w^2 = r^2, \qquad g_{12} = 0, \qquad g_{22} = f^2 = \left( R + r \cos u \right)^2\]</span></p>
+<p>נציב ב<a href="#box-prp-revolution-KH">טענה 9.1.9</a>. המטריקה היא <span class="math display">\[.g_{11} = w^2 = r^2, \qquad g_{12} = 0, \qquad g_{22} = f^2 = \left( R + r \cos u \right)^2\]</span></p>
 <p>מקדמי התבנית השנייה הם <span class="math display">\[,L_{11} = \frac{f' g'' - f'' g'}{w} = \frac{\left( -r \sin u \right) \left( -r \sin u \right) - \left( -r \cos u \right) \left( r \cos u \right)}{r}\]</span> ובמונה שני המחוברים חיוביים, <span class="math display">\[,L_{11} = \frac{r^2 \sin^2 u + r^2 \cos^2 u}{r} = \frac{r^2}{r} = r\]</span> וכן <span class="math inline">\(L_{12} = 0\)</span>, ולבסוף <span class="math display">\[.L_{22} = \frac{f g'}{w} = \frac{\left( R + r \cos u \right) \cdot r \cos u}{r} = \left( R + r \cos u \right) \cos u\]</span></p>
 </div>
 </details>
@@ -842,7 +838,7 @@ window.Quarto = {
 </details>
 <details class="thmcollapse thmfoldable"><summary>שלב 7: אין נקודות שבהן שתי העקמומיויות מתאפסות</summary>
 <div class="foldable" title="שלב 7: אין נקודות שבהן שתי העקמומיויות מתאפסות">
-<p>העקמומיות <span class="math inline">\(k_1 = \frac{1}{r}\)</span> היא קבוע שונה מאפס. לכן בשני המעגלים <span class="math inline">\(u = \pm \frac{\pi}{2}\)</span> מתקיים <span class="math inline">\(k_2 = 0\)</span> אך <span class="math inline">\(k_1 \neq 0\)</span>, כלומר בדיוק עקמומיות ראשית אחת מתאפסת. ההבחנה בין המקרה הזה לבין המקרה שבו <strong>שתי</strong> העקמומיויות מתאפסות היא נושא <a href="#box-def-point-types">הגדרה 9.3.6</a>.</p>
+<p>העקמומיות <span class="math inline">\(k_1 = \frac{1}{r}\)</span> היא קבוע שונה מאפס. לכן בשני המעגלים <span class="math inline">\(u = \pm \frac{\pi}{2}\)</span> מתקיים <span class="math inline">\(k_2 = 0\)</span> אך <span class="math inline">\(k_1 \neq 0\)</span>, כלומר בדיוק עקמומיות ראשית אחת מתאפסת. ההבחנה בין המקרה הזה לבין המקרה שבו <strong>שתי</strong> העקמומיויות מתאפסות היא נושא <a href="#box-def-point-types">הגדרה 9.3.5</a>.</p>
 </div>
 </details>
 <details class="thmcollapse thmfoldable"><summary>בדיקת שפיות</summary>
@@ -860,14 +856,14 @@ window.Quarto = {
 </div>
 <p>גם הנוסחה הבאה חושבה בהרצאה. היא תשמש אותנו כשנמיין נקודות, שכן כל משטח נראה מקומית כמו גרף.</p>
 <div id="box-prp-graph-KH" class="thmbox thmbox-proposition" title="עקמומיות של גרף של פונקציה">
-<p><strong>טענה 9.1.13 — עקמומיות של גרף של פונקציה.</strong></p>
+<p><strong>טענה 9.1.12 — עקמומיות של גרף של פונקציה.</strong></p>
 <p>עבור הגרף <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, \; v, \; h \left( u, v \right) \right)\)</span> מתקיים <span class="math display">\[,K = \frac{h_{uu} h_{vv} - h_{uv}^2}{\left( 1 + h_u^2 + h_v^2 \right)^2}\]</span> וכן <span class="math display">\[.H = \frac{\left( 1 + h_v^2 \right) h_{uu} - 2 h_u h_v h_{uv} + \left( 1 + h_u^2 \right) h_{vv}}{2 \left( 1 + h_u^2 + h_v^2 \right)^{3/2}}\]</span></p>
 <p>ב<strong>נקודה קריטית</strong> של <span class="math inline">\(h\)</span>, כלומר כאשר <span class="math inline">\(\nabla h = \left( 0, 0 \right)\)</span>, מתקבלת <span class="math inline">\(\left( g_{ij} \right)\)</span> מטריצת הזהות ו-<span class="math inline">\(\left( L_{ij} \right) = \operatorname{Hess} \left( h \right)\)</span>, ולכן שם <span class="math display">\[,K = \det \operatorname{Hess} \left( h \right), \qquad H = \frac{1}{2} \left( h_{uu} + h_{vv} \right)\]</span> והעקמומיויות הראשיות הן <strong>הערכים העצמיים של ההסיאן</strong>.</p>
 </div>
 <div id="box-exm-graph-paraboloid" class="thmbox thmbox-example" title="הפרבולואיד בראשית">
-<p><strong>דוגמה 9.1.14 — הפרבולואיד בראשית.</strong></p>
+<p><strong>דוגמה 9.1.13 — הפרבולואיד בראשית.</strong></p>
 <p>עבור <span class="math inline">\(h \left( u, v \right) = u^2 + v^2\)</span> מתקיים <span class="math inline">\(h_u = 2u\)</span> ו-<span class="math inline">\(h_v = 2v\)</span>, ולכן הראשית היא נקודה קריטית. שם <span class="math display">\[,\operatorname{Hess} \left( h \right) = \begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 2 \end{pmatrix}\]</span> ומכאן <span class="math inline">\(K = 4\)</span> וכן <span class="math inline">\(H = 2\)</span>, ושתי העקמומיויות הראשיות שוות ל-<span class="math inline">\(2\)</span>.</p>
-<p>בפרט <span class="math inline">\(K &gt; 0\)</span>, ולכן הפרבולואיד אינו יכול להיות משטח ישר, בהתאם ל<a href="#box-q-ruled-nonpositive">שאלה 9.1.9</a>.</p>
+<p>בפרט <span class="math inline">\(K &gt; 0\)</span>, ולכן הפרבולואיד אינו יכול להיות משטח ישר, בהתאם ל<a href="#box-q-ruled-nonpositive">שאלה 9.1.8</a>.</p>
 </div>
 </section>
 <section id="העקמומיות-הנורמלית-והגיאודזית" class="level2 page-columns page-full" data-number="9.2">
@@ -1039,13 +1035,8 @@ window.Quarto = {
 <p><strong>טענה 9.3.1 — נוסחת אוילר.</strong></p>
 <p>יהי <span class="math inline">\(\left\{ e_1, e_2 \right\}\)</span> הבסיס האורתונורמלי של הכיוונים הראשיים בנקודה <span class="math inline">\(p\)</span>, ויהי <span class="math display">\[v = \cos \theta \, e_1 + \sin \theta \, e_2\]</span> וקטור משיק יחידה היוצר זווית <span class="math inline">\(\theta\)</span> עם <span class="math inline">\(e_1\)</span>. אזי <span class="math display">\[.k_n \left( \theta \right) = k_1 \cos^2 \theta + k_2 \sin^2 \theta\]</span></p>
 </div>
-<div id="box-rem-euler-lecture" class="thmbox thmbox-remark" title="הערה על הרישום בהרצאה">
-<p><strong>הערה 9.3.2 — הערה על הרישום בהרצאה.</strong></p>
-<p>בהרצאה נרשמה הנוסחה בצורה <span class="math inline">\(k_n \left( \theta \right) = k_1 \cos^2 \theta + k_2^2 \sin^2 \theta\)</span>. המקדם השני הוא <span class="math inline">\(k_2\)</span> ולא <span class="math inline">\(k_2^2\)</span>, כפי שרשום ב<a href="#box-prp-euler">טענה 9.3.1</a>.</p>
-<p>כמו כן, בשורה שמעליה מופיע <span class="math inline">\(\left\langle e_1, e_2 \right\rangle\)</span> במקומות שבהם הכוונה ל-<span class="math inline">\(\left\langle e_1, e_1 \right\rangle\)</span> ול-<span class="math inline">\(\left\langle e_2, e_2 \right\rangle\)</span>. אלה שווים ל-<span class="math inline">\(1\)</span>, ודווקא <span class="math inline">\(\left\langle e_1, e_2 \right\rangle = 0\)</span> הוא מה שמבטל את האיבר המעורב.</p>
-</div>
 <div id="box-cor-euler-extremes" class="thmbox thmbox-corollary" title="העקמומיויות הראשיות הן הקיצון">
-<p><strong>מסקנה 9.3.3 — העקמומיויות הראשיות הן הקיצון.</strong></p>
+<p><strong>מסקנה 9.3.2 — העקמומיויות הראשיות הן הקיצון.</strong></p>
 <p>נרשום את נוסחת אוילר מחדש, תוך שימוש ב-<span class="math inline">\(\cos^2 \theta = 1 - \sin^2 \theta\)</span>: <span class="math display">\[.k_n \left( \theta \right) = k_1 - \left( k_1 - k_2 \right) \sin^2 \theta\]</span></p>
 <p>נניח <span class="math inline">\(k_1 \geq k_2\)</span>. הביטוי <span class="math inline">\(\sin^2 \theta\)</span> נע בין <span class="math inline">\(0\)</span> ל-<span class="math inline">\(1\)</span>, ולכן <span class="math inline">\(k_n\)</span> נע בדיוק על הקטע <span class="math inline">\(\left[ k_2, k_1 \right]\)</span>: הוא מקבל את <span class="math inline">\(k_1\)</span> כאשר <span class="math inline">\(\sin \theta = 0\)</span>, כלומר בכיוון <span class="math inline">\(e_1\)</span>, ואת <span class="math inline">\(k_2\)</span> כאשר <span class="math inline">\(\sin^2 \theta = 1\)</span>, כלומר בכיוון <span class="math inline">\(e_2\)</span>.</p>
 <p>כלומר <strong>העקמומיויות הראשיות הן העקמומיות הנורמלית המרבית והמזערית בנקודה, והכיוונים הראשיים הם הכיוונים שבהם הן מתקבלות</strong>.</p>
@@ -1054,7 +1045,7 @@ window.Quarto = {
 <iframe class="widget-frame" src="widgets/ch09/euler-formula.html" loading="lazy" title="נוסחת אוילר: העקמומיות הנורמלית כפונקציה של הכיוון"></iframe>
 </div>
 <div id="box-def-asymptotic" class="thmbox thmbox-definition" title="כיוון אסימפטוטי">
-<p><strong>הגדרה 9.3.4 — כיוון אסימפטוטי.</strong></p>
+<p><strong>הגדרה 9.3.3 — כיוון אסימפטוטי.</strong></p>
 <p>וקטור משיק יחידה <span class="math inline">\(v\)</span> נקרא <strong>כיוון אסימפטוטי</strong> בנקודה <span class="math inline">\(p\)</span> אם <span class="math inline">\(k_n \left( v \right) = 0\)</span>.</p>
 <p>לפי נוסחת אוילר, <span class="math inline">\(k_n \left( \theta \right) = 0\)</span> פירושו <span class="math display">\[.k_1 \cos^2 \theta = -k_2 \sin^2 \theta\]</span></p>
 <p>נפריד למקרים, שכן חלוקה ב-<span class="math inline">\(k_2\)</span> מותרת רק כאשר הוא שונה מאפס.</p>
@@ -1066,12 +1057,12 @@ window.Quarto = {
 <p>לסיכום, <strong>כיוונים אסימפטוטיים קיימים אם ורק אם <span class="math inline">\(K \leq 0\)</span></strong>: שניים כאשר <span class="math inline">\(K &lt; 0\)</span>, אחד בלבד כאשר <span class="math inline">\(K = 0\)</span> אך <span class="math inline">\(H \neq 0\)</span>, וכולם כאשר <span class="math inline">\(K = H = 0\)</span>.</p>
 </div>
 <div id="box-rem-second-order-model" class="thmbox thmbox-remark" title="הקירוב מסדר שני בבסיס הראשי">
-<p><strong>הערה 9.3.5 — הקירוב מסדר שני בבסיס הראשי.</strong></p>
+<p><strong>הערה 9.3.4 — הקירוב מסדר שני בבסיס הראשי.</strong></p>
 <p>נמקם את <span class="math inline">\(p\)</span> בראשית, ונבחר את <span class="math inline">\(e_1\)</span> ואת <span class="math inline">\(e_2\)</span> בכיווני הצירים, כך ש-<span class="math inline">\(T_p \left( M \right)\)</span> הוא מישור <span class="math inline">\(xy\)</span>. הבסיס אורתונורמלי ומלכסן את <span class="math inline">\(S_p\)</span>, ולכן שם <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}, \qquad \left( L_{ij} \right) = \begin{pmatrix} k_1 &amp; 0 \\ 0 &amp; k_2 \end{pmatrix}\]</span> וההתרחקות מן המישור המשיק הופכת ל-<span class="math display">\[.\frac{1}{2} \left( k_1 x^2 + k_2 y^2 \right)\]</span></p>
 <p>כלומר בסביבת <span class="math inline">\(p\)</span> המשטח מקורב על ידי אחד מארבעה משטחים ממעלה שנייה, וסוגי הנקודות נקראים על שמם.</p>
 </div>
 <div id="box-def-point-types" class="thmbox thmbox-definition" title="מיון הנקודות">
-<p><strong>הגדרה 9.3.6 — מיון הנקודות.</strong></p>
+<p><strong>הגדרה 9.3.5 — מיון הנקודות.</strong></p>
 <p>ההתנהגות של <span class="math inline">\(k_n \left( \theta \right)\)</span> היא בעצמה המיון:</p>
 <ol type="1">
 <li><span class="math inline">\(k_1\)</span> ו-<span class="math inline">\(k_2\)</span> מאותו סימן, כלומר <span class="math inline">\(K &gt; 0\)</span>. אז <span class="math inline">\(k_n\)</span> אינו מתאפס לעולם ושומר על סימן קבוע. הנקודה נקראת <strong>אליפטית</strong>, והמודל הוא פרבולואיד אליפטי.</li>
@@ -1084,12 +1075,12 @@ window.Quarto = {
 <iframe class="widget-frame" src="widgets/ch09/point-types.html" loading="lazy" title="ארבעת סוגי הנקודות כפונקציה של שתי העקמומיויות הראשיות"></iframe>
 </div>
 <div id="box-rem-planar-undetermined" class="thmbox thmbox-remark" title="נקודה מישורית אינה נקבעת על ידי הסדר השני">
-<p><strong>הערה 9.3.7 — נקודה מישורית אינה נקבעת על ידי הסדר השני.</strong></p>
+<p><strong>הערה 9.3.6 — נקודה מישורית אינה נקבעת על ידי הסדר השני.</strong></p>
 <p>בשלושת המקרים הראשונים האיבר הריבועי שולט עבור הזזות קטנות, ולכן המודל אכן קובע את צורת המשטח בסביבת הנקודה.</p>
-<p>במקרה הרביעי האיבר הריבועי מתאפס זהותית ואינו אומר דבר, והצורה נקבעת על ידי נגזרות מסדר גבוה יותר. ב<a href="#box-q-monkey-saddle">שאלה 9.3.9</a> נראה שני משטחים בעלי נקודה מישורית שאינם דומים זה לזה כלל.</p>
+<p>במקרה הרביעי האיבר הריבועי מתאפס זהותית ואינו אומר דבר, והצורה נקבעת על ידי נגזרות מסדר גבוה יותר. ב<a href="#box-q-monkey-saddle">שאלה 9.3.8</a> נראה שני משטחים בעלי נקודה מישורית שאינם דומים זה לזה כלל.</p>
 </div>
 <div id="box-q-hyperbolic-paraboloid" class="thmbox thmbox-question">
-<p><strong>שאלה 9.3.8.</strong></p>
+<p><strong>שאלה 9.3.7.</strong></p>
 <p>יהי המשטח <span class="math inline">\(\overline{x} \left( u, v \right) = \left( u, \; v, \; uv \right)\)</span>, כלומר <span class="math inline">\(z = xy\)</span>. בראשית:</p>
 <ol type="1">
 <li>חשבו את <span class="math inline">\(\left( g_{ij} \right)\)</span>, את <span class="math inline">\(\left( L_{ij} \right)\)</span> ואת <span class="math inline">\(\left( L^i_j \right)\)</span>.</li>
@@ -1138,12 +1129,12 @@ window.Quarto = {
 <details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
 <div class="foldable" title="מה זה ממחיש">
 <p>נוסחת אוילר חוזה שבנקודה היפרבולית יש בדיוק שני כיוונים אסימפטוטיים, וכאן הם מתגלים כשני ישרים ממשיים המונחים על המשטח. המשטח <span class="math inline">\(z = xy\)</span> הוא משטח <strong>ישר כפול</strong>: דרך כל נקודה שלו עוברים בדיוק שני ישרים, וזה בדיוק המספר שהמיון חוזה.</p>
-<p>שימו לב גם שהראשית מקיימת <span class="math inline">\(H = 0\)</span>. משטח שבו <span class="math inline">\(H \equiv 0\)</span> נקרא מינימלי, ובנקודה כזו <span class="math inline">\(k_2 = -k_1\)</span> ולכן <span class="math display">\[,K = k_1 k_2 = -k_1^2 \leq 0\]</span> כלומר לפי <a href="#box-def-point-types">הגדרה 9.3.6</a> כל נקודה על משטח מינימלי היא היפרבולית, פרט לנקודות שבהן <span class="math inline">\(k_1 = 0\)</span>, שהן מישוריות.</p>
+<p>שימו לב גם שהראשית מקיימת <span class="math inline">\(H = 0\)</span>. משטח שבו <span class="math inline">\(H \equiv 0\)</span> נקרא מינימלי, ובנקודה כזו <span class="math inline">\(k_2 = -k_1\)</span> ולכן <span class="math display">\[,K = k_1 k_2 = -k_1^2 \leq 0\]</span> כלומר לפי <a href="#box-def-point-types">הגדרה 9.3.5</a> כל נקודה על משטח מינימלי היא היפרבולית, פרט לנקודות שבהן <span class="math inline">\(k_1 = 0\)</span>, שהן מישוריות.</p>
 </div>
 </details>
 </div>
 <div id="box-q-monkey-saddle" class="thmbox thmbox-question">
-<p><strong>שאלה 9.3.9.</strong></p>
+<p><strong>שאלה 9.3.8.</strong></p>
 <p>מיינו את כל הנקודות של שני המשטחים הבאים:</p>
 <ol type="1">
 <li><span class="math inline">\(z = u^3 - 3uv^2\)</span>, הנקרא <strong>אוכף הקוף</strong>.</li>
@@ -1154,7 +1145,7 @@ window.Quarto = {
 <p><strong>פתרון.</strong></p>
 <details class="thmcollapse thmfoldable"><summary>סעיף 1: אוכף הקוף, הנגזרות</summary>
 <div class="foldable" title="סעיף 1: אוכף הקוף, הנגזרות">
-<p>נשתמש בנוסחה לגרף מ<a href="#box-prp-graph-KH">טענה 9.1.13</a> עם <span class="math inline">\(h \left( u, v \right) = u^3 - 3uv^2\)</span>.</p>
+<p>נשתמש בנוסחה לגרף מ<a href="#box-prp-graph-KH">טענה 9.1.12</a> עם <span class="math inline">\(h \left( u, v \right) = u^3 - 3uv^2\)</span>.</p>
 <p>נגזור פעם אחת: <span class="math display">\[.h_u = 3u^2 - 3v^2, \qquad h_v = -6uv\]</span></p>
 <p>נגזור פעמיים: <span class="math display">\[.h_{uu} = 6u, \qquad h_{uv} = -6v, \qquad h_{vv} = -6u\]</span></p>
 </div>
@@ -1168,7 +1159,7 @@ window.Quarto = {
 <details class="thmcollapse thmfoldable"><summary>סעיף 1: המיון</summary>
 <div class="foldable" title="סעיף 1: המיון">
 <p>עבור <span class="math inline">\(\left( u, v \right) \neq \left( 0, 0 \right)\)</span> מתקיים <span class="math inline">\(u^2 + v^2 &gt; 0\)</span>, ולכן <span class="math inline">\(K &lt; 0\)</span> והנקודה <strong>היפרבולית</strong>.</p>
-<p>בראשית מתקיים <span class="math inline">\(h_u = h_v = 0\)</span>, ולכן זו נקודה קריטית ואפשר להשתמש בחלק השני של <a href="#box-prp-graph-KH">טענה 9.1.13</a>. שם <span class="math display">\[,h_{uu} = h_{uv} = h_{vv} = 0\]</span> כלומר <span class="math inline">\(\operatorname{Hess} \left( h \right)\)</span> היא מטריצת האפס, ומכאן <span class="math inline">\(k_1 = k_2 = 0\)</span> והראשית היא נקודה <strong>מישורית</strong>.</p>
+<p>בראשית מתקיים <span class="math inline">\(h_u = h_v = 0\)</span>, ולכן זו נקודה קריטית ואפשר להשתמש בחלק השני של <a href="#box-prp-graph-KH">טענה 9.1.12</a>. שם <span class="math display">\[,h_{uu} = h_{uv} = h_{vv} = 0\]</span> כלומר <span class="math inline">\(\operatorname{Hess} \left( h \right)\)</span> היא מטריצת האפס, ומכאן <span class="math inline">\(k_1 = k_2 = 0\)</span> והראשית היא נקודה <strong>מישורית</strong>.</p>
 </div>
 </details>
 <details class="thmcollapse thmfoldable"><summary>סעיף 2: הפונקציה $v^4$</summary>
