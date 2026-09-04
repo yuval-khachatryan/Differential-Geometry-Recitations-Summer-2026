@@ -675,7 +675,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -696,7 +696,7 @@ window.Quarto = {
 </header>
 
 
-<section id="העתקת-גאוס" class="level2 page-columns page-full" data-number="8.1">
+<section id="העתקת-גאוס" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="העתקת-גאוס"><span class="header-section-number">8.1</span> העתקת גאוס</h2>
 <p>עבור עקומות ראינו שחישוב וקטור הנורמל מאפשר לחשב את העקמומיות. נחיל עתה את אותו עקרון על משטחים: נרצה למדוד כמה מהר המשטח <span class="math inline">\(M\)</span> מתרחק מהמישור המשיק <span class="math inline">\(T_p \left( M \right)\)</span> בסביבת הנקודה <span class="math inline">\(p\)</span>. הכלי לכך הוא העתקה הרושמת בכל נקודה את הכיוון שאליו המשטח פונה.</p>
 <div id="box-def-gauss-map" class="thmbox thmbox-definition" title="העתקת גאוס">
@@ -733,9 +733,7 @@ window.Quarto = {
 <li>תארו את התמונה <span class="math inline">\(N \left( M \right) \subseteq S^2\)</span>.</li>
 </ol>
 </div>
-<div class="column-page">
 <iframe class="widget-frame" src="widgets/ch08/gauss-map-paraboloid.html" loading="lazy" title="העתקת גאוס של הפרבולואיד ותמונתה על ספירת היחידה"></iframe>
-</div>
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
 <details class="thmcollapse thmfoldable"><summary>שלב 1: הנגזרות החלקיות</summary>
@@ -881,15 +879,13 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="התבנית-היסודית-השנייה" class="level2 page-columns page-full" data-number="8.3">
+<section id="התבנית-היסודית-השנייה" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="התבנית-היסודית-השנייה"><span class="header-section-number">8.3</span> התבנית היסודית השנייה</h2>
 <p>נקבע נקודה <span class="math inline">\(p = \overline{x} \left( u, v \right)\)</span>. כאשר הפרמטרים זזים אל <span class="math inline">\(\left( u + \Delta u, \; v + \Delta v \right)\)</span>, המשטח מתרחק מן המישור המשיק שלו ב-<span class="math inline">\(p\)</span>, והמידה שבה הוא מתרחק היא הרכיב של ההזזה בכיוון הנורמל, כלומר <span class="math display">\[.d \left( \Delta u, \Delta v \right) = \left\langle \overline{x} \left( u + \Delta u, \; v + \Delta v \right) - \overline{x} \left( u, v \right), \; N \right\rangle\]</span></p>
 <p>לפי משפט טיילור בשני משתנים <span class="math display">\[\begin{aligned} \overline{x} \left( u + \Delta u, v + \Delta v \right) - \overline{x} \left( u, v \right) = \; &amp; \overline{x}_u \Delta u + \overline{x}_v \Delta v \\ + \; &amp; \frac{1}{2} \left( \overline{x}_{uu} \Delta u^2 + 2 \overline{x}_{uv} \Delta u \Delta v + \overline{x}_{vv} \Delta v^2 \right) + R, \end{aligned}\]</span> כאשר השארית מקיימת <span class="math inline">\(\frac{R}{\Delta u^2 + \Delta v^2} \to 0\)</span>.</p>
 <p>הוקטורים <span class="math inline">\(\overline{x}_u\)</span> ו-<span class="math inline">\(\overline{x}_v\)</span> משיקים למשטח ולכן ניצבים ל-<span class="math inline">\(N\)</span>, ומכאן ש<strong>כל האיבר מסדר ראשון מתאפס</strong> כאשר לוקחים מכפלה סקלרית עם <span class="math inline">\(N\)</span>. מה שנותר הוא <span class="math display">\[,d \left( \Delta u, \Delta v \right) = \frac{1}{2} \left( L_{11} \Delta u^2 + 2 L_{12} \Delta u \Delta v + L_{22} \Delta v^2 \right) + \left\langle R, N \right\rangle\]</span> כאשר <span class="math inline">\(L_{ij} = \left\langle \overline{x}_{ij}, N \right\rangle\)</span>.</p>
 <p>עבור עקומה, ההתרחקות מן הישר המשיק היא <span class="math inline">\(\frac{1}{2} \kappa \left( \Delta t \right)^2 + \ldots\)</span>, והמספר היחיד <span class="math inline">\(\kappa\)</span> מדד את ההתעקמות. עבור משטח ההתרחקות מן המישור המשיק היא <strong>תבנית ריבועית</strong> ב-<span class="math inline">\(\left( \Delta u, \Delta v \right)\)</span> ולא מספר בודד, שכן עכשיו יש הרבה כיוונים שבהם אפשר להתרחק. התבנית הריבועית הזו היא התבנית היסודית השנייה.</p>
-<div class="column-page">
 <iframe class="widget-frame" src="widgets/ch08/second-order.html" loading="lazy" title="ההתרחקות מן המישור המשיק והקירוב מסדר שני"></iframe>
-</div>
 <div id="box-def-second-form" class="thmbox thmbox-definition" title="התבנית היסודית השנייה">
 <p><strong>הגדרה 8.3.1 — התבנית היסודית השנייה.</strong></p>
 <p>לכל <span class="math inline">\(w_1, w_2 \in T_p \left( M \right)\)</span> נגדיר <span class="math display">\[.II_p \left( w_1, w_2 \right) = -\left\langle dN_p \left( w_1 \right), \; w_2 \right\rangle = \left\langle S_p \left( w_1 \right), \; w_2 \right\rangle\]</span></p>

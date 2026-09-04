@@ -154,7 +154,8 @@
         vSel = U0 + (sV.value / 1000) * (U1 - U0);
 
     var dpr = window.devicePixelRatio || 1,
-        w = cv.clientWidth || 640, hgt = Math.round(w * 0.50);
+        /* capped so the sliders stay on screen together with the picture */
+        w = cv.clientWidth || 640, hgt = Math.min(Math.round(w * 0.50), 400);
     cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
     cv.style.height = hgt + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);

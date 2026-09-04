@@ -675,7 +675,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -696,7 +696,7 @@ window.Quarto = {
 </header>
 
 
-<section id="עקמומיות-גאוס-והעקמומיות-הממוצעת" class="level2 page-columns page-full" data-number="9.1">
+<section id="עקמומיות-גאוס-והעקמומיות-הממוצעת" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="עקמומיות-גאוס-והעקמומיות-הממוצעת"><span class="header-section-number">9.1</span> עקמומיות גאוס והעקמומיות הממוצעת</h2>
 <div id="box-rem-recap" class="thmbox thmbox-remark" title="תזכורת: הכלים שנשתמש בהם">
 <p><strong>הערה 9.1.1 — תזכורת: הכלים שנשתמש בהם.</strong></p>
@@ -793,9 +793,7 @@ window.Quarto = {
 <p><strong>שאלה 9.1.11.</strong></p>
 <p>יהיו <span class="math inline">\(R &gt; r &gt; 0\)</span>, ויהי הטורוס <span class="math display">\[,\overline{x} \left( u, v \right) = \left( \left( R + r \cos u \right) \cos v, \; \left( R + r \cos u \right) \sin v, \; r \sin u \right)\]</span> כאשר <span class="math inline">\(0 &lt; u &lt; 2\pi\)</span> ו-<span class="math inline">\(0 &lt; v &lt; 2\pi\)</span>. חשבו את <span class="math inline">\(k_1\)</span>, את <span class="math inline">\(k_2\)</span>, את <span class="math inline">\(K\)</span> ואת <span class="math inline">\(H\)</span>, וקבעו באילו נקודות <span class="math inline">\(K\)</span> חיובית, שלילית ומתאפסת.</p>
 </div>
-<div class="column-page">
 <iframe class="widget-frame" src="widgets/ch09/torus-curvature.html" loading="lazy" title="מיון נקודות על הטורוס לפי סימן עקמומיות גאוס"></iframe>
-</div>
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
 <details class="thmcollapse thmfoldable"><summary>שלב 1: הטורוס הוא משטח סיבוב</summary>
@@ -866,7 +864,7 @@ window.Quarto = {
 <p>בפרט <span class="math inline">\(K &gt; 0\)</span>, ולכן הפרבולואיד אינו יכול להיות משטח ישר, בהתאם ל<a href="#box-q-ruled-nonpositive">שאלה 9.1.8</a>.</p>
 </div>
 </section>
-<section id="העקמומיות-הנורמלית-והגיאודזית" class="level2 page-columns page-full" data-number="9.2">
+<section id="העקמומיות-הנורמלית-והגיאודזית" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="העקמומיות-הנורמלית-והגיאודזית"><span class="header-section-number">9.2</span> העקמומיות הנורמלית והגיאודזית</h2>
 <p>עקומה המצוירת על משטח מתעקמת משתי סיבות שאינן קשורות זו לזו: המשטח עצמו מתעקם תחתיה, והעקומה עצמה סוטה הצידה בתוך המשטח. פירוק הוקטור <span class="math inline">\(\gamma''\)</span> לרכיב נורמלי ולרכיב משיק מפריד בין השתיים, ומסתבר שכל אחד מן הרכיבים נשלט על ידי אחת משתי התבניות היסודיות.</p>
 <div id="box-def-kn-kg" class="thmbox thmbox-definition" title="העקמומיות הנורמלית והגיאודזית">
@@ -883,9 +881,7 @@ window.Quarto = {
 <p><strong>טענה 9.2.3 — העקמומיות הנורמלית היא התבנית היסודית השנייה.</strong></p>
 <p>עבור עקומה בפרמטריזציה טבעית מתקיים <span class="math display">\[,k_n = II \left( \gamma', \gamma' \right)\]</span> ואם <span class="math inline">\(\gamma \left( t \right) = \overline{x} \left( \alpha^1 \left( t \right), \alpha^2 \left( t \right) \right)\)</span> אזי בקואורדינטות <span class="math display">\[.k_n = L_{ij} \left( \alpha^i \right)' \left( \alpha^j \right)' = L_{11} \left( \left( \alpha^1 \right)' \right)^2 + 2 L_{12} \left( \alpha^1 \right)' \left( \alpha^2 \right)' + L_{22} \left( \left( \alpha^2 \right)' \right)^2\]</span></p>
 </div>
-<div class="column-page">
 <iframe class="widget-frame" src="widgets/ch09/normal-geodesic.html" loading="lazy" title="פירוק וקטור התאוצה לרכיב נורמלי ולרכיב גיאודזי"></iframe>
-</div>
 <div id="box-rem-kn-direction" class="thmbox thmbox-remark" title="העקמומיות הנורמלית שייכת לכיוון, לא לעקומה">
 <p><strong>הערה 9.2.4 — העקמומיות הנורמלית שייכת לכיוון, לא לעקומה.</strong></p>
 <p>אגף ימין ב<a href="#box-prp-kn-is-II">טענה 9.2.3</a> מזכיר את <span class="math inline">\(\gamma\)</span> רק דרך <span class="math inline">\(\gamma'\)</span>. לכן שתי עקומות העוברות דרך <span class="math inline">\(p\)</span> עם אותו וקטור משיק יחידה נותנות שם את <strong>אותה</strong> עקמומיות נורמלית, גם אם הן שונות לחלוטין בכל מקום אחר.</p>
@@ -1028,7 +1024,7 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="נוסחת-אוילר-ומיון-נקודות" class="level2 page-columns page-full" data-number="9.3">
+<section id="נוסחת-אוילר-ומיון-נקודות" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="נוסחת-אוילר-ומיון-נקודות"><span class="header-section-number">9.3</span> נוסחת אוילר ומיון נקודות</h2>
 <p>ראינו שהעקמומיות הנורמלית שייכת לכיוון ולא לעקומה, ולכן אפשר לשאול כיצד היא משתנה כאשר מסובבים את הכיוון סביב הנקודה. התשובה קצרה במפתיע, ומכילה בתוכה את כל המיון של הנקודה.</p>
 <div id="box-prp-euler" class="thmbox thmbox-proposition" title="נוסחת אוילר">
@@ -1041,9 +1037,7 @@ window.Quarto = {
 <p>נניח <span class="math inline">\(k_1 \geq k_2\)</span>. הביטוי <span class="math inline">\(\sin^2 \theta\)</span> נע בין <span class="math inline">\(0\)</span> ל-<span class="math inline">\(1\)</span>, ולכן <span class="math inline">\(k_n\)</span> נע בדיוק על הקטע <span class="math inline">\(\left[ k_2, k_1 \right]\)</span>: הוא מקבל את <span class="math inline">\(k_1\)</span> כאשר <span class="math inline">\(\sin \theta = 0\)</span>, כלומר בכיוון <span class="math inline">\(e_1\)</span>, ואת <span class="math inline">\(k_2\)</span> כאשר <span class="math inline">\(\sin^2 \theta = 1\)</span>, כלומר בכיוון <span class="math inline">\(e_2\)</span>.</p>
 <p>כלומר <strong>העקמומיויות הראשיות הן העקמומיות הנורמלית המרבית והמזערית בנקודה, והכיוונים הראשיים הם הכיוונים שבהם הן מתקבלות</strong>.</p>
 </div>
-<div class="column-page">
 <iframe class="widget-frame" src="widgets/ch09/euler-formula.html" loading="lazy" title="נוסחת אוילר: העקמומיות הנורמלית כפונקציה של הכיוון"></iframe>
-</div>
 <div id="box-def-asymptotic" class="thmbox thmbox-definition" title="כיוון אסימפטוטי">
 <p><strong>הגדרה 9.3.3 — כיוון אסימפטוטי.</strong></p>
 <p>וקטור משיק יחידה <span class="math inline">\(v\)</span> נקרא <strong>כיוון אסימפטוטי</strong> בנקודה <span class="math inline">\(p\)</span> אם <span class="math inline">\(k_n \left( v \right) = 0\)</span>.</p>
@@ -1071,9 +1065,7 @@ window.Quarto = {
 <li>שניהם מתאפסים, כלומר <span class="math inline">\(K = H = 0\)</span>. אז <span class="math inline">\(k_n \equiv 0\)</span>. הנקודה נקראת <strong>מישורית</strong>, והמודל הוא מישור.</li>
 </ol>
 </div>
-<div class="column-page">
 <iframe class="widget-frame" src="widgets/ch09/point-types.html" loading="lazy" title="ארבעת סוגי הנקודות כפונקציה של שתי העקמומיויות הראשיות"></iframe>
-</div>
 <div id="box-rem-planar-undetermined" class="thmbox thmbox-remark" title="נקודה מישורית אינה נקבעת על ידי הסדר השני">
 <p><strong>הערה 9.3.6 — נקודה מישורית אינה נקבעת על ידי הסדר השני.</strong></p>
 <p>בשלושת המקרים הראשונים האיבר הריבועי שולט עבור הזזות קטנות, ולכן המודל אכן קובע את צורת המשטח בסביבת הנקודה.</p>
@@ -1190,7 +1182,7 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="מקדמי-כריסטופל" class="level2 page-columns page-full" data-number="9.4">
+<section id="מקדמי-כריסטופל" class="level2" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="מקדמי-כריסטופל"><span class="header-section-number">9.4</span> מקדמי כריסטופל</h2>
 <p>ב<a href="#box-q-N-cross-basis">שאלה 9.2.6</a> נותרה שאלה פתוחה אחת. ראינו שכדי לחשב את העקמומיות הגיאודזית די לדעת את <span class="math inline">\(\left\langle \overline{x}_{ij}, \overline{x}_m \right\rangle\)</span>, ושאלנו האם הביטוי הזה ניתן לביטוי דרך המטריקה בלבד. הסעיף הזה עונה על כך בחיוב, והכלי הוא פירוק של הנגזרות השניות.</p>
 <div id="box-def-gauss-equations" class="thmbox thmbox-definition" title="משוואות גאוס ומקדמי כריסטופל">
@@ -1215,9 +1207,7 @@ window.Quarto = {
 <p>זו התשובה לשאלה שנשארה פתוחה ב<a href="#box-q-N-cross-basis">שאלה 9.2.6</a>: הביטוי <span class="math inline">\(\left\langle \overline{x}_{ij}, \overline{x}_m \right\rangle\)</span> אכן ניתן לביטוי דרך המטריקה, ולכן <strong>העקמומיות הגיאודזית נקבעת על ידי התבנית היסודית הראשונה לבדה</strong>.</p>
 <p>לשני משטחים בעלי אותה מטריקה יש אותה עקמומיות גיאודזית לאורך עקומות מתאימות, גם אם הם מעוקמים במרחב בצורה שונה לחלוטין. זה עומד בניגוד ל-<span class="math inline">\(k_n\)</span>, שהיא מנה של התבנית השנייה בראשונה ולכן חיצונית לגמרי.</p>
 </div>
-<div class="column-page">
 <iframe class="widget-frame" src="widgets/ch09/gauss-equations.html" loading="lazy" title="פירוק הנגזרת השנייה לרכיב משיק ולרכיב נורמלי"></iframe>
-</div>
 <div id="box-q-sphere-christoffel" class="thmbox thmbox-question">
 <p><strong>שאלה 9.4.5.</strong></p>
 <p>על ספירת היחידה נשתמש בקואורדינטות הכדוריות הרגילות, שבהן <span class="math inline">\(u\)</span> היא הזווית הקוטבית ו-<span class="math inline">\(v\)</span> היא זווית הסיבוב סביב הציר. בקואורדינטות אלה המטריקה היא <span class="math display">\[.ds^2 = du^2 + \sin^2 u \, dv^2\]</span> חשבו את כל מקדמי כריסטופל בקואורדינטות אלה, תוך שימוש ב<strong>מקדמי המטריקה בלבד</strong>.</p>

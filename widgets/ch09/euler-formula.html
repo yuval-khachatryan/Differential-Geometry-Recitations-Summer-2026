@@ -94,7 +94,8 @@
     th = (sT.value / 1000) * TWO_PI;
 
     var dpr = window.devicePixelRatio || 1,
-        w = cv.clientWidth || 680, hgt = Math.round(w * 0.46), i, j;
+        /* capped so the sliders stay on screen together with the picture */
+        w = cv.clientWidth || 680, hgt = Math.min(Math.round(w * 0.46), 400), i, j;
     cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
     cv.style.height = hgt + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
