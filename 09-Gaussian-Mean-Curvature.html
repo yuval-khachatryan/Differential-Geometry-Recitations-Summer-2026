@@ -1220,7 +1220,7 @@ window.Quarto = {
 </div>
 <div id="box-q-sphere-christoffel" class="thmbox thmbox-question">
 <p><strong>שאלה 9.4.5.</strong></p>
-<p>המטריקה של ספירת היחידה היא <span class="math display">\[.ds^2 = du^2 + \sin^2 u \, dv^2\]</span> חשבו את כל מקדמי כריסטופל שלה <strong>מתוך המטריקה בלבד</strong>, בלי להשתמש בפרמטריזציה כלשהי ב-<span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+<p>על ספירת היחידה נשתמש בקואורדינטות הכדוריות הרגילות, שבהן <span class="math inline">\(u\)</span> היא הזווית הקוטבית ו-<span class="math inline">\(v\)</span> היא זווית הסיבוב סביב הציר. בקואורדינטות אלה המטריקה היא <span class="math display">\[.ds^2 = du^2 + \sin^2 u \, dv^2\]</span> חשבו את כל מקדמי כריסטופל בקואורדינטות אלה, תוך שימוש ב<strong>מקדמי המטריקה בלבד</strong>.</p>
 </div>
 <div class="thmbox thmbox-solution">
 <p><strong>פתרון.</strong></p>
@@ -1259,15 +1259,9 @@ window.Quarto = {
 <p>כל המקדמים מתאפסים פרט לשניים: <span class="math display">\[,\Gamma^1_{22} = -\sin u \cos u\]</span> וכן <span class="math display">\[.\Gamma^2_{12} = \Gamma^2_{21} = \cot u\]</span></p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>הערה: קריאה אצל פרסלי</summary>
-<div class="foldable" title="הערה: קריאה אצל פרסלי">
-<p>פרסלי מחשב את אותה ספירה בקואורדינטות של <strong>קו רוחב</strong>, כלומר עם המטריקה <span class="math inline">\(d\theta^2 + \cos^2 \theta \, d\varphi^2\)</span>, ומקבל <span class="math display">\[.\Gamma^2_{12} = -\tan \theta, \qquad \Gamma^1_{22} = \sin \theta \cos \theta\]</span></p>
-<p>הסימנים הפוכים משלנו, וזה נכון: הקשר בין שתי הזוויות הוא <span class="math inline">\(\theta = \frac{\pi}{2} - u\)</span>, וגזירה לפי <span class="math inline">\(\theta\)</span> מוסיפה סימן מינוס. אין להעתיק את תשובתו אל הסימונים שלנו.</p>
-</div>
-</details>
 <details class="thmcollapse thmfoldable"><summary>מה זה ממחיש</summary>
 <div class="foldable" title="מה זה ממחיש">
-<p>בחישוב כולו לא הופיע <span class="math inline">\(\mathbb{R}^3\)</span> אפילו פעם אחת. הנתון היחיד היה <span class="math inline">\(ds^2\)</span>, וממנו נגזרו כל המקדמים. זו בדיוק המשמעות של <a href="#box-rem-christoffel-intrinsic">הערה 9.4.4</a>.</p>
+<p>מקדמי כריסטופל מוגדרים תמיד ביחס לבסיס <span class="math inline">\(\left\{ \overline{x}_1, \overline{x}_2 \right\}\)</span> של קואורדינטות מסוימות, ולכן הקואורדינטות <span class="math inline">\(\left( u, v \right)\)</span> הן חלק מן הנתון. מה שלא הופיע בחישוב הוא ה<strong>שיכון</strong>, כלומר ההעתקה <span class="math inline">\(\overline{x}\)</span> עצמה אל תוך <span class="math inline">\(\mathbb{R}^3\)</span>. לא נזקקנו לה ולו פעם אחת, אלא רק למקדמי <span class="math inline">\(g_{ij}\)</span> ולנגזרותיהם. זו בדיוק המשמעות של <a href="#box-rem-christoffel-intrinsic">הערה 9.4.4</a>.</p>
 <p>שימו לב גם לשני הביטויים שהתקבלו. המקדם <span class="math inline">\(\Gamma^2_{12} = \cot u\)</span> מתפוצץ בקטבים ואינו מתאפס לעולם, ואילו <span class="math inline">\(\Gamma^1_{22} = -\sin u \cos u\)</span> מתאפס בדיוק כאשר <span class="math inline">\(u = \frac{\pi}{2}\)</span>, כלומר בקו המשווה. זו אותה נקודה בדיוק שבה מצאנו ב<a href="#box-q-normal-sections-sphere">שאלה 9.2.7</a> שהעקמומיות הגיאודזית מתאפסת, ואין זה מקרה.</p>
 </div>
 </details>
