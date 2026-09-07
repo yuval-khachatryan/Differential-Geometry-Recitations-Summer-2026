@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הקשת הגדולה הארוכה איננה מינימום מקומי</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/autosize.js"></script>
+
+<script>
+/* long-great-arc.html — the LONG great-circle arc from p = (1,0,0) to
+   q = (0,1,0) on the unit sphere is not even a local minimum of length.
+   ONE idea, one slider.
+   ---------------------------------------------------------------------------
+   Standalone, like ch07/mobius.html and ch10/hyperboloid-geodesics.html:
+   Surface3D.mount draws a graph z = f(u,v) with x_u, x_v and a tangent patch,
+   and several widgets depend on it, so a sphere carrying two competing arcs
+   lives in its own page rather than growing the shared module. The projection,
+   the depth-sorted painter's algorithm and the auto-fit are copied from
+   surface3d.js / mobius.html on purpose, so the page still looks like the rest
+   of the book.
+
+   The construction, exactly as in the exercise. Every plane through the LINE pq
+   meets the sphere in a circle through p and q. Tilt it by an angle th away
+   from the xy-plane and its unit normal is
+
+     n(th) = ( sin th / sqrt2 , sin th / sqrt2 , cos th ),
+
+   which satisfies n . p = n . q = sin th / sqrt2 =: d, so p and q lie on the
+   plane  n . x = d  for EVERY th. The circle cut out is
+
+     centre  c = d n ,   radius  r = sqrt(1 - d^2) = sqrt(1 - sin^2 th / 2).
+
+   th = 0 gives d = 0: the plane is the xy-plane, c is the origin, r = 1, and
+   the circle is the great circle C_0 through p and q. For th != 0 the circle
+   is SMALLER, and the long arc on a smaller circle subtends a smaller length --
+   yet as th -> 0 the whole circle converges to C_0, so the shortened curve
+   lies arbitrarily close to the long arc it is competing with. That is the
+   whole argument: the long arc has curves of strictly smaller length in every
+   neighbourhood of it, so it is not a local minimum.
+
+   The length reported on screen is NOT the closed form  r (2 pi - arccos(...)):
+   it is r times the sweep of the very parametrisation that is drawn,
+
+     a(s) = c + r ( cos(psi) e1 + sin(psi) e2 ),   psi = s * psiEnd,  0 <= s <= 1,
+
+   with e1 = (p - c)/r and e2 = n x e1 an orthonormal frame of the plane, and
+   psiEnd the LONG way round from p to q. A curve that had drifted off the
+   sphere, or an arc that had silently taken the short way, would show up in the
+   number. At th = 0 this returns 3 pi / 2 exactly.
+
+   Curve segments and sphere quads go into ONE depth-sorted list, so the part of
+   an arc that runs round the back is drawn under the near half of the sphere.
+   Segments carry a small positive depth bias to win the tie against the quad
+   they lie on; the bias is far smaller than the near/far gap of about 2 world
+   units, so it never pulls a back segment in front. The shell is drawn
+   translucent on purpose: p and q sit on the equator together with the arc, so
+   no viewing direction shows the endpoints AND the bulk of the long arc at
+   once, and an opaque sphere would hide a third of the curve under discussion.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    surf: [0xbc, 0xd4, 0xea],   /* the house surface blue, mixed towards white */
+    edge: "#7ba6cf",
+    ref:  "#1f4e79",            /* the long arc of the great circle C_0        */
+    arc:  "#c0392b",            /* the long arc of the tilted circle C_theta   */
+    pt:   "#0f172a"
+  };
+
+  var TWO_PI = 2 * Math.PI,
+      NU = 32, NV = 16,          /* sphere mesh: longitudes, colatitudes */
+      NARC = 300,                /* samples along each arc               */
+      TARGET = 1.5 * Math.PI,    /* the length to beat, 3 pi / 2         */
+      PAD = 1.22,                /* margin round the unit sphere         */
+      ASPECT = 0.56;
+
+  var P = [1, 0, 0], Q = [0, 1, 0];
+
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function mul(a, s) { return [a[0] * s, a[1] * s, a[2] * s]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function cross(a, b) {
+    return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  }
+  function unit(a) {
+    var n = Math.sqrt(dot(a, a));
+    return n ? mul(a, 1 / n) : a;
+  }
+  function fmt(v, d) {
+    if (d === undefined) d = 4;
+    var s = v.toFixed(d);
+    return /^-0\.?0*$/.test(s) ? s.slice(1) : s;   /* never print "-0.0000" */
+  }
+
+  /* --- geometry: begin --- (extracted verbatim by the numeric check) --- */
+
+  /* The circle C_theta, and the LONG way round it from p to q. */
+  function circleFrame(th) {
+    var d  = Math.sin(th) / Math.SQRT2,
+        n  = [d, d, Math.cos(th)],        /* unit: d^2 + d^2 + cos^2 = 1     */
+        c  = mul(n, d),                   /* foot of the origin on the plane */
+        r  = Math.sqrt(1 - d * d),
+        e1 = unit(sub(P, c)),             /* p is at psi = 0                 */
+        e2 = cross(n, e1),                /* unit, since n is unit and n . e1 = 0 */
+        v  = sub(Q, c),
+        psiQ = Math.atan2(dot(v, e2), dot(v, e1)),   /* in (-pi, pi]         */
+        /* the SHORT arc is psi from 0 to psiQ; going the other way round is
+           the long one, and its sweep is 2 pi - |psiQ| */
+        psiEnd = psiQ > 0 ? psiQ - TWO_PI : psiQ + TWO_PI;
+    return { d: d, n: n, c: c, r: r, e1: e1, e2: e2,
+             psiEnd: psiEnd, len: r * Math.abs(psiEnd) };
+  }
+
+  /* the drawn point at parameter s in [0, 1] along the long arc */
+  function arcPt(F, s) {
+    var psi = s * F.psiEnd;
+    return add(F.c, add(mul(F.e1, F.r * Math.cos(psi)),
+                        mul(F.e2, F.r * Math.sin(psi))));
+  }
+
+  /* --- geometry: end --- */
+
+  var host = document.getElementById("app"),
+      /* p on the left, q on the right, the line pq horizontal on screen and the
+         bulk of the long arc across the near bottom: the tilt then reads as a
+         rotation about a horizontal axis, which is what it is */
+      yaw = -2.356, pitch = -0.96;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title">הקשת הארוכה על הספירה איננה מינימום מקומי של אורך</p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">זווית ההטיה <span dir="ltr">&theta;</span></span>' +
+        '<input class="qv-slider qv-th" type="range" min="-400" max="400" step="5" value="0">' +
+        '<span class="qv-badge qv-thval"></span>' +
+      '</div>' +
+      /* .qv-readout is already direction:ltr, and each row is marked again:
+         marking only the VALUE leaves the label/value pair in the RTL flow and
+         renders "= 4.7124  L" */
+      '<div class="qv-readout">' +
+        '<div dir="ltr"><span class="qv-rl">L(&theta;)</span>' +
+          '<span class="qv-rv qv-r-len"></span></div>' +
+        '<div dir="ltr"><span class="qv-rl">3&pi;/2</span>' +
+          '<span class="qv-rv qv-r-tgt"></span></div>' +
+        '<div dir="ltr"><span class="qv-rl">L(&theta;) &minus; 3&pi;/2</span>' +
+          '<span class="qv-rv qv-r-dif"></span></div>' +
+      '</div>' +
+      '<div class="qv-legend">' +
+        '<span><i class="qv-key" style="background:#1f4e79"></i>הקשת הארוכה של המעגל הגדול</span>' +
+        '<span><i class="qv-key" style="background:#c0392b"></i>הקשת הארוכה של המעגל הנטוי</span>' +
+      '</div>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את הספירה, והזיזו את זווית ההטיה: הקשת הארוכה מתקצרת מתחת ל־<span dir="ltr">3&pi;/2</span> אף שהיא נשארת קרובה ככל שנרצה לקשת המקורית.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      sTh   = host.querySelector(".qv-th"),
+      thval = host.querySelector(".qv-thval"),
+      rLen  = host.querySelector(".qv-r-len"),
+      rTgt  = host.querySelector(".qv-r-tgt"),
+      rDif  = host.querySelector(".qv-r-dif");
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function draw() {
+    var thDeg = parseFloat(sTh.value) / 10,
+        th = thDeg * Math.PI / 180,
+        F  = circleFrame(th),
+        F0 = circleFrame(0),
+        i, j, m;
+
+    var dpr = window.devicePixelRatio || 1,
+        /* capped so the slider and the readouts stay on screen with the
+           picture; the auto-fit below turns the cap into side margin */
+        w = cv.clientWidth || 560, hgt = Math.min(Math.round(w * ASPECT), 400);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";          /* else minus signs in the labels reorder */
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+
+    /* ---- auto-fit. The projection is a rotation followed by dropping the
+       depth, i.e. orthographic, so the silhouette of the unit sphere is exactly
+       the unit disc whatever the view: the extent is 2 by 2 and no min/max scan
+       over the mesh is needed. Both arcs lie on the sphere, so nothing can be
+       clipped and moving the slider cannot make the picture jump. Equal x and y
+       scaling, as everywhere in the book. ---- */
+    var sc = Math.min(w / (2 * PAD), hgt / (2 * PAD)),
+        cx = w / 2, cy = hgt / 2;
+    function S(q) { return [cx + sc * q[0], cy - sc * q[1]]; }
+
+    /* ---- sample the sphere once ---- */
+    var G = [], u, v;
+    for (i = 0; i <= NV; i++) {
+      G.push([]);
+      v = (i / NV) * Math.PI;
+      for (j = 0; j <= NU; j++) {
+        u = (j / NU) * TWO_PI;
+        G[i].push(project([Math.sin(v) * Math.cos(u),
+                           Math.sin(v) * Math.sin(u),
+                           Math.cos(v)]));
+      }
+    }
+
+    /* ---- one depth-sorted list of quads and curve segments ---- */
+    var prims = [];
+    for (i = 0; i < NV; i++) for (j = 0; j < NU; j++) {
+      /* on the unit sphere the outward normal IS the position, so the depth of
+         the mid-cell point doubles as the facing of the quad */
+      var vm = ((i + 0.5) / NV) * Math.PI, um = ((j + 0.5) / NU) * TWO_PI,
+          nn = project([Math.sin(vm) * Math.cos(um),
+                        Math.sin(vm) * Math.sin(um),
+                        Math.cos(vm)]);
+      prims.push({
+        kind: "q",
+        z: nn[2],
+        p: [G[i][j], G[i + 1][j], G[i + 1][j + 1], G[i][j + 1]],
+        lit: Math.abs(nn[2]),
+        near: nn[2] >= 0
+      });
+    }
+
+    function addArc(Fr, col, lwNear, lwFar, bias) {
+      var pts = [], k;
+      for (k = 0; k <= NARC; k++) pts.push(project(arcPt(Fr, k / NARC)));
+      for (k = 0; k < NARC; k++) {
+        var zm = (pts[k][2] + pts[k + 1][2]) / 2, front = zm >= 0;
+        prims.push({
+          kind: "s",
+          /* the bias only breaks the tie with the quad the segment lies on: it
+             is ~0.02 against a near/far gap of about 2 world units */
+          z: zm + bias,
+          a: pts[k], b: pts[k + 1],
+          col: col,
+          lw: front ? lwNear : lwFar
+        });
+      }
+    }
+
+    /* the great circle first, so where the two coincide (theta = 0) the tilted
+       one is the curve you see */
+    addArc(F0, COL.ref, 2.0, 1.6, 0.020);
+    addArc(F,  COL.arc, 3.2, 2.4, 0.024);
+
+    prims.sort(function (a, b) { return a.z - b.z; });
+    prims.forEach(function (T) {
+      if (T.kind === "q") {
+        ctx.beginPath();
+        var s0 = S(T.p[0]); ctx.moveTo(s0[0], s0[1]);
+        for (var k = 1; k < 4; k++) { var sk = S(T.p[k]); ctx.lineTo(sk[0], sk[1]); }
+        ctx.closePath();
+        /* mix the house surface colour towards white with the facing angle */
+        var f = 0.26 + 0.54 * T.lit;
+        ctx.fillStyle = "rgb(" + Math.round(255 - (255 - COL.surf[0]) * f) + "," +
+                                 Math.round(255 - (255 - COL.surf[1]) * f) + "," +
+                                 Math.round(255 - (255 - COL.surf[2]) * f) + ")";
+        /* translucent, and the far half fainter still: an opaque shell would
+           swallow the part of the long arc that runs round the back */
+        ctx.globalAlpha = T.near ? 0.62 : 0.26;
+        ctx.fill();
+        ctx.strokeStyle = COL.edge;
+        ctx.globalAlpha = T.near ? 0.34 : 0.14;
+        ctx.lineWidth = 0.4; ctx.stroke();
+        ctx.globalAlpha = 1;
+      } else {
+        var sa = S(T.a), sb = S(T.b);
+        ctx.beginPath(); ctx.moveTo(sa[0], sa[1]); ctx.lineTo(sb[0], sb[1]);
+        ctx.strokeStyle = T.col; ctx.lineWidth = T.lw; ctx.stroke();
+      }
+    });
+
+    /* ---- the silhouette, drawn last so the stair-step of the mesh does not
+       show at the rim ---- */
+    ctx.beginPath(); ctx.arc(cx, cy, sc, 0, TWO_PI);
+    ctx.strokeStyle = COL.edge; ctx.globalAlpha = 0.75;
+    ctx.lineWidth = 1.1; ctx.stroke(); ctx.globalAlpha = 1;
+
+    /* ---- the two endpoints, always on top: they are fixed by the exercise and
+       losing one behind the far half reads as a bug. ASCII only on the canvas,
+       there is no bidi shaping here ---- */
+    ctx.font = "600 13px ui-sans-serif, system-ui, sans-serif";
+    function mark(p3, lab) {
+      var pr = project(p3), s = S(pr);
+      ctx.beginPath(); ctx.arc(s[0], s[1], 4.6, 0, TWO_PI);
+      ctx.fillStyle = COL.pt; ctx.fill();
+      ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.4; ctx.stroke();
+      ctx.lineWidth = 3; ctx.strokeStyle = "#ffffff";
+      ctx.strokeText(lab, s[0] + 8, s[1] - 7);
+      ctx.fillStyle = COL.pt;
+      ctx.fillText(lab, s[0] + 8, s[1] - 7);
+    }
+    mark(P, "p = (1, 0, 0)");
+    mark(Q, "q = (0, 1, 0)");
+
+    /* ---- readouts ---- */
+    thval.textContent = fmt(thDeg, 1) + "°";
+    rLen.textContent = fmt(F.len);
+    rTgt.textContent = fmt(TARGET);
+    rDif.textContent = fmt(F.len - TARGET);
+    /* the sign of the difference is the whole point, so let the box carry it */
+    rDif.style.color = F.len < TARGET - 1e-12 ? COL.arc : "#334155";
+    rDif.style.fontWeight = F.len < TARGET - 1e-12 ? "700" : "";
+  }
+
+  /* ---- drag to rotate ---- */
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    cv.classList.add("qv-grabbing");
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.35, Math.min(1.35, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; cv.classList.remove("qv-grabbing"); }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  sTh.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

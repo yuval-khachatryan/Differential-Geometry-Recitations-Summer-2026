@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הקטנואיד — משטח הסיבוב בעל השטח המזערי</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/autosize.js"></script>
+
+<script>
+/* least-area-catenary.html — the catenoid, and the area it minimises.
+   ---------------------------------------------------------------------------
+   Standalone rather than a Surface3D.mount() call: that module renders a graph
+   over a (u, v) rectangle with one fixed surface colour and no scalar readout,
+   and several other widgets depend on it. Projection, painter's algorithm,
+   auto-fit and the drag handlers are copied from surface3d.js (via
+   ch07/mobius.html and ch10/helicoid.html) so the page looks like the rest of
+   the book, and the quads are shaded because a tube occludes itself: the
+   wireframe alone would not say which face is turned towards the reader.
+
+   The surface is the surface of revolution about the x-axis of the catenary
+
+       y(x) = (1/c) cosh(c x),        -1 <= x <= 1,     c > 0,
+
+   i.e. the c_1 = 0 member of the two-parameter family y = (1/c) cosh(c(x-c_1))
+   that the exercise produces. Fixing c_1 = 0 costs nothing: it only says the
+   profile is symmetric about x = 0, which it must be when the two boundary
+   circles have equal radii, and it removes a slider that would move the picture
+   sideways and change nothing else.
+
+   HONESTY ABOUT THE BOUNDARY CIRCLES.  The exercise fixes two circles and lets
+   the profile vary; here the single slider is c, and
+
+       y(+-1) = cosh(c)/c
+
+   depends on c. So the boundary circles are NOT fixed in this picture, and they
+   are drawn at the radius the curve actually reaches, never at some static
+   radius the curve fails to meet. The hint says this outright: a given pair of
+   circles of radius R does not leave c free, it pins c down through
+   cosh(c)/c = R. What the reader is sliding through is the whole family of
+   catenoids over the strip |x| <= 1, one per boundary radius.
+
+   THE AREA.  A is measured, not quoted: composite Simpson with 400 panels on
+
+       A = 2 pi int_{-1}^{1} y sqrt(1 + (y')^2) dx,     y' = sinh(c x),
+
+   evaluated from y and y' themselves, not from the simplification
+   sqrt(1+(y')^2) = cosh(cx). Against the closed form
+   A = (2 pi/c)(1 + sinh(2c)/(2c)) the largest relative error over the slider's
+   whole range is 1.9e-9, far below the four decimals shown. The value of c at
+   which A is least is found by golden section on the SAME quadrature, not
+   hardcoded; it agrees with the analytic condition c tanh c = 1 to eight
+   decimals (c* = 1.19967864...).
+
+   The inset is what carries the point: a number alone would ask the reader to
+   remember the previous number, while the small A-versus-c graph shows the dip
+   the slider is moving through and where the current c sits on it.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    surf: [0xbc, 0xd4, 0xea], edge: "#7ba6cf",
+    prof: "#1f4e79", ring: "#c0392b",
+    axis: "#94a3b8", pin: "#0f172a",
+    panel: "#cbd5e1", ink: "#64748b"
+  };
+
+  var TWO_PI = 2 * Math.PI,
+      XA = -1, XB = 1,                  /* the two boundary planes */
+      NX = 28, NTH = 64,                /* surface mesh */
+      NR = 128,                         /* rings and the drawn meridian */
+      C_MIN = 0.35, C_MAX = 2.45,
+      QN = 400,                         /* Simpson panels — must be even */
+      ASPECT = 0.56;
+
+  function fmt(v, d) {
+    d = (d === undefined) ? 2 : d;
+    var z = (0).toFixed(d), s = (Math.abs(v) < 5e-4 ? 0 : v).toFixed(d);
+    return s === "-" + z ? z : s;
+  }
+
+  /* ---- the profile, and the area it sweeps ---- */
+  function yOf(x, c)  { return Math.cosh(c * x) / c; }
+  function ypOf(x, c) { return Math.sinh(c * x); }
+
+  /* kept as y * sqrt(1 + y'^2) on purpose: the reader is meant to recognise the
+     surface-of-revolution area integrand, and the simplification to cosh^2 is
+     the thing the exercise proves, not something to assume here */
+  function integrand(x, c) {
+    var y = yOf(x, c), yp = ypOf(x, c);
+    return y * Math.sqrt(1 + yp * yp);
+  }
+  function area(c) {
+    var n = QN, h = (XB - XA) / n,
+        s = integrand(XA, c) + integrand(XB, c), i;
+    for (i = 1; i < n; i++) s += ((i & 1) ? 4 : 2) * integrand(XA + i * h, c);
+    return 2 * Math.PI * s * h / 3;
+  }
+
+  /* golden section on the measured A, so the marked minimum is derived here and
+     cannot drift from the curve drawn beside it */
+  function argmin(f, a, b) {
+    var gr = (Math.sqrt(5) - 1) / 2,
+        c1 = b - gr * (b - a), c2 = a + gr * (b - a),
+        f1 = f(c1), f2 = f(c2), i;
+    for (i = 0; i < 90; i++) {
+      if (f1 < f2) { b = c2; c2 = c1; f2 = f1; c1 = b - gr * (b - a); f1 = f(c1); }
+      else         { a = c1; c1 = c2; f1 = f2; c2 = a + gr * (b - a); f2 = f(c2); }
+    }
+    return (a + b) / 2;
+  }
+  var C_STAR = argmin(area, 0.5, 2.0);
+
+  /* the inset curve depends on neither c nor the view, so sample it once */
+  var PLOT = (function () {
+    var pts = [], n = 100, i, c, lo = Infinity, hi = -Infinity, A;
+    for (i = 0; i <= n; i++) {
+      c = C_MIN + (i / n) * (C_MAX - C_MIN);
+      A = area(c);
+      if (A < lo) lo = A;
+      if (A > hi) hi = A;
+      pts.push([c, A]);
+    }
+    return { pts: pts, lo: lo, hi: hi };
+  })();
+
+  /* ---- the surface of revolution about the x-axis ---- */
+  function P(x, th, c) {
+    var r = yOf(x, c);
+    return [x, r * Math.cos(th), r * Math.sin(th)];
+  }
+  /* outward unit normal: x_x X x_th = y (y', -cos th, -sin th), so the outward
+     one is (-y', cos th, sin th)/sqrt(1 + y'^2) */
+  function Nrm(x, th, c) {
+    var yp = ypOf(x, c), d = Math.sqrt(1 + yp * yp);
+    return [-yp / d, Math.cos(th) / d, Math.sin(th) / d];
+  }
+
+  /* the opening view looks nearly PERPENDICULAR to the axis of revolution.
+     Down the axis a catenoid reads as a flat ring and its generating catenary
+     projects to a straight radial segment, which is exactly the thing the
+     picture is for; a small yaw and pitch keep it three-dimensional. */
+  var host = document.getElementById("app"),
+      yaw = -0.26, pitch = 0.30;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      /* the formula goes last: an em-dash straight after a formula reads as a
+         minus sign, so the dash separates two Hebrew phrases instead */
+      '<p class="qv-title">הקטנואיד — משטח הסיבוב בעל השטח המזערי&nbsp; ' +
+        '<span dir="ltr">y(x) = (1/c) cosh(cx)</span></p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">הפרמטר c של קו השרשרת</span>' +
+        '<input class="qv-slider qv-c" type="range" min="35" max="245" step="1" value="60">' +
+        '<span class="qv-badge qv-cval"></span>' +
+      '</div>' +
+      /* .qv-readout is already an LTR island, and each row is marked again: it is
+         not enough to put dir="ltr" on the value, because the label/value pair
+         would still sit in the RTL flow and render "= 17.161  A" */
+      '<div class="qv-readout">' +
+        '<div dir="ltr"><span dir="ltr" class="qv-rl">y(&plusmn;1)</span>' +
+          '<span dir="ltr" class="qv-rv qv-r-r"></span></div>' +
+        '<div dir="ltr"><span dir="ltr" class="qv-rl">A</span>' +
+          '<span dir="ltr" class="qv-rv qv-r-a"></span></div>' +
+      '</div>' +
+      /* no dedicated class in quadviz.css: inherit the hint's prose styling and
+         override only weight and colour from draw() */
+      '<p class="qv-hint qv-verdict"></p>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את המבט. שימו לב שמעגלי השפה כאן אינם קבועים, שכן רדיוסם <span dir="ltr">cosh(c)/c</span> נע יחד עם <span dir="ltr">c</span>: זוג מעגלים נתון ברדיוס <span dir="ltr">R</span> אינו משאיר את <span dir="ltr">c</span> חופשי אלא קובע אותו מתוך <span dir="ltr">cosh(c)/c = R</span>, ולכן הסרגל עובר על כל משפחת הקטנואידים מעל הרצועה <span dir="ltr">-1 &le; x &le; 1</span>. השטח <span dir="ltr">A</span> נמדד באינטגרציה נומרית, והגרף הקטן מראה אותו כפונקציה של <span dir="ltr">c</span> ואת המזער שהוא עובר בו.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      sC = host.querySelector(".qv-c"), cval = host.querySelector(".qv-cval"),
+      rR = host.querySelector(".qv-r-r"), rA = host.querySelector(".qv-r-a"),
+      verdict = host.querySelector(".qv-verdict");
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function draw() {
+    var c = parseInt(sC.value, 10) / 100,
+        A = area(c),
+        rad = yOf(XB, c),
+        i, j, x, th;
+
+    var dpr = window.devicePixelRatio || 1,
+        /* capped so the slider and the readouts stay on screen with the picture */
+        w = cv.clientWidth || 560,
+        hgt = Math.min(Math.round(w * ASPECT), 400);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";          /* else the minus sign of x = -1 reorders */
+    ctx.lineJoin = "round";
+    ctx.textBaseline = "alphabetic";
+
+    /* Which meridian to draw as "the profile". The screen height of
+       (x, r cos th, r sin th) is x sa sb + r (cos th ca sb + sin th cb), whose
+       th-part peaks at th = atan2(cb, ca sb) — independently of r and of x. So
+       that one meridian passes through the topmost point of EVERY parallel: it
+       is the upper outline of the tube, it is never occluded, and it shows the
+       catenary at full length. The meridian facing the camera would be the
+       obvious choice and is the wrong one: it is foreshortened to a nearly
+       straight radial segment, which is exactly what the picture must not say. */
+    var thTop = Math.atan2(Math.cos(pitch), Math.cos(yaw) * Math.sin(pitch));
+
+    /* ---- sample the grid once; everything below reuses it ---- */
+    var G = [];
+    for (i = 0; i <= NX; i++) {
+      G.push([]);
+      x = XA + (i / NX) * (XB - XA);
+      for (j = 0; j <= NTH; j++) {
+        th = (j / NTH) * TWO_PI;
+        G[i].push(project(P(x, th, c)));
+      }
+    }
+
+    /* ---- auto-fit on the surface, plus the two ends of the axis so its stubs
+       stay inside the frame at every c and every view angle ---- */
+    var xs = [], ys = [], q;
+    for (i = 0; i <= NX; i += 2) for (j = 0; j <= NTH; j += 4) {
+      q = G[i][j]; xs.push(q[0]); ys.push(q[1]);
+    }
+    [-1.66, 1.66].forEach(function (t) {
+      q = project([t, 0, 0]); xs.push(q[0]); ys.push(q[1]);
+    });
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs),
+        ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys),
+        pad = 1.14,
+        /* one scale for both screen axes: anisotropic scaling would keep the
+           rings tangent to the surface but destroy their circular shape and the
+           right angle they make with the axis */
+        sc = Math.min(w / ((xmax - xmin) * pad || 1), hgt / ((ymax - ymin) * pad || 1)),
+        ox = w / 2 - sc * (xmin + xmax) / 2,
+        oy = hgt / 2 + sc * (ymin + ymax) / 2;
+
+    function S(p) { return [ox + sc * p[0], oy - sc * p[1]]; }
+
+    /* ---- a boundary circle, and its topmost screen point, which is where its
+       label goes. Both circles are drawn whole and on top of the surface. cosh
+       is convex and even, so x = +-1 carry the widest parallels: the two rims
+       lie on the outer outline of the tube and the body of the surface does not
+       stand in front of them. Splitting each rim into a near and a far half, as
+       a general surface would need, only produced a two-tone ellipse that read
+       as a rendering artefact. */
+    function ring(x) {
+      var k, t, s, top = null;
+      ctx.strokeStyle = COL.ring; ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      for (k = 0; k <= NR; k++) {
+        t = (k / NR) * TWO_PI;
+        s = S(project(P(x, t, c)));
+        if (k === 0) ctx.moveTo(s[0], s[1]); else ctx.lineTo(s[0], s[1]);
+        if (!top || s[1] < top[1]) top = s;
+      }
+      ctx.stroke();
+      return top;
+    }
+
+    /* ---- the surface, painter's algorithm, shaded by the facing angle ---- */
+    var quads = [], aq, bq, cq, dq, nn;
+    for (i = 0; i < NX; i++) for (j = 0; j < NTH; j++) {
+      nn = project(Nrm(XA + ((i + 0.5) / NX) * (XB - XA),
+                       ((j + 0.5) / NTH) * TWO_PI, c));
+      aq = G[i][j]; bq = G[i + 1][j]; cq = G[i + 1][j + 1]; dq = G[i][j + 1];
+      quads.push({
+        z: (aq[2] + bq[2] + cq[2] + dq[2]) / 4,
+        p: [aq, bq, cq, dq],
+        lit: Math.abs(nn[2])
+      });
+    }
+    /* larger z is nearer the camera in this projection, so ascending order
+       paints far to near */
+    quads.sort(function (p, r) { return p.z - r.z; });
+    ctx.lineWidth = 0.4;
+    quads.forEach(function (Q) {
+      ctx.beginPath();
+      var s0 = S(Q.p[0]); ctx.moveTo(s0[0], s0[1]);
+      for (var m = 1; m < 4; m++) { var sm = S(Q.p[m]); ctx.lineTo(sm[0], sm[1]); }
+      ctx.closePath();
+      /* mix the house surface colour towards white with the facing angle */
+      var f = 0.30 + 0.70 * Q.lit;
+      ctx.fillStyle = "rgb(" + Math.round(255 - (255 - COL.surf[0]) * f) + "," +
+                               Math.round(255 - (255 - COL.surf[1]) * f) + "," +
+                               Math.round(255 - (255 - COL.surf[2]) * f) + ")";
+      ctx.fill();
+      ctx.strokeStyle = COL.edge;
+      ctx.globalAlpha = 0.5; ctx.stroke(); ctx.globalAlpha = 1;
+    });
+
+    /* ---- the axis of revolution. Drawn on top and dashed, not underneath: the
+       tube is opaque and encloses the whole of it, so drawing it first left two
+       stubs a few pixels long and nothing else. A dashed line reading through
+       an opaque surface is the usual way of saying "this runs behind". ---- */
+    ctx.save();
+    ctx.setLineDash([5, 4]);
+    var a1 = S(project([-1.6, 0, 0])), a2 = S(project([1.6, 0, 0]));
+    ctx.beginPath(); ctx.moveTo(a1[0], a1[1]); ctx.lineTo(a2[0], a2[1]);
+    ctx.strokeStyle = COL.axis; ctx.lineWidth = 1.3; ctx.stroke();
+    ctx.restore();
+
+    /* ---- the two boundary circles ---- */
+    var topA = ring(XA), topB = ring(XB);
+
+    /* ---- the generating catenary itself, along the upper outline ---- */
+    ctx.beginPath();
+    for (i = 0; i <= NR; i++) {
+      var s = S(project(P(XA + (i / NR) * (XB - XA), thTop, c)));
+      if (i === 0) ctx.moveTo(s[0], s[1]); else ctx.lineTo(s[0], s[1]);
+    }
+    ctx.strokeStyle = COL.prof; ctx.lineWidth = 2.8; ctx.stroke();
+
+    /* its two ends sit on the boundary circles, which is the constraint the
+       whole exercise is about */
+    [XA, XB].forEach(function (t) {
+      var s = S(project(P(t, thTop, c)));
+      ctx.beginPath(); ctx.arc(s[0], s[1], 3.6, 0, TWO_PI);
+      ctx.fillStyle = COL.pin; ctx.fill();
+      ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.1; ctx.stroke();
+    });
+
+    /* labels are Latin only: canvas does no bidi shaping, so Hebrew here would
+       come out reversed — it lives in the chrome above and below instead. They
+       sit over the top of each boundary circle rather than out on the axis,
+       where they would read as naming the axis instead of the circle. */
+    ctx.font = "11px ui-sans-serif, system-ui, sans-serif";
+    ctx.fillStyle = COL.ring;
+    ctx.textAlign = "center";
+    /* clamped: the fit is computed on the surface, which knows nothing about a
+       text baseline sitting above it */
+    ctx.fillText("x = -1", topA[0], Math.max(topA[1] - 11, 12));
+    ctx.fillText("x = 1",  topB[0], Math.max(topB[1] - 11, 12));
+    ctx.textAlign = "start";
+
+    /* ---- inset: A as a function of c, and where the slider is on it ---- */
+    (function () {
+      var IW = Math.max(122, Math.min(170, Math.round(w * 0.30))),
+          IH = Math.round(IW * 0.60),
+          bx = 10, by = 10,
+          pl = bx + 20, pr = bx + IW - 9, pt = by + 13, pb = by + IH - 15;
+
+      function px(cc) { return pl + (cc - C_MIN) / (C_MAX - C_MIN) * (pr - pl); }
+      function py(AA) { return pb - (AA - PLOT.lo) / (PLOT.hi - PLOT.lo) * (pb - pt); }
+
+      ctx.fillStyle = "rgba(255,255,255,0.94)";
+      ctx.fillRect(bx, by, IW, IH);
+      ctx.strokeStyle = COL.panel; ctx.lineWidth = 1;
+      ctx.strokeRect(bx + 0.5, by + 0.5, IW - 1, IH - 1);
+
+      /* frame of the plot */
+      ctx.beginPath();
+      ctx.moveTo(pl, pt - 3); ctx.lineTo(pl, pb); ctx.lineTo(pr, pb);
+      ctx.strokeStyle = COL.axis; ctx.lineWidth = 1; ctx.stroke();
+
+      /* where the minimum sits */
+      ctx.save();
+      ctx.setLineDash([2, 2]);
+      ctx.beginPath();
+      ctx.moveTo(px(C_STAR), pt - 2); ctx.lineTo(px(C_STAR), pb);
+      ctx.strokeStyle = COL.axis; ctx.lineWidth = 1; ctx.stroke();
+      ctx.restore();
+
+      ctx.beginPath();
+      PLOT.pts.forEach(function (p, k) {
+        var sx = px(p[0]), sy = py(p[1]);
+        if (k === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+      });
+      ctx.strokeStyle = COL.prof; ctx.lineWidth = 1.7; ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(px(c), py(A), 3.6, 0, TWO_PI);
+      ctx.fillStyle = COL.ring; ctx.fill();
+      ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.1; ctx.stroke();
+
+      ctx.font = "10px ui-sans-serif, system-ui, sans-serif";
+      ctx.fillStyle = COL.ink;
+      ctx.fillText("A", bx + 6, pt + 3);
+      ctx.fillText("c", pr - 5, pb + 11);
+    })();
+
+    /* ---- readouts ---- */
+    cval.textContent = fmt(c);
+    rR.textContent = fmt(rad, 4);
+    rA.textContent = fmt(A, 4);
+
+    /* innerHTML rather than textContent: the value of c must sit in its own LTR
+       island, or the numeral and the letter swap places in the RTL flow */
+    var atMin = Math.abs(c - C_STAR) <= 0.025;
+    verdict.innerHTML = atMin
+      ? 'זהו הקטנואיד בעל השטח הקטן ביותר במשפחה, סביב <span dir="ltr">c = ' +
+          fmt(C_STAR) + '</span>.'
+      : "השטח כאן גדול מן המזער שבמשפחה.";
+    verdict.style.color = atMin ? COL.prof : COL.ring;
+    verdict.style.fontWeight = "600";
+  }
+
+  /* ---- drag to rotate ---- */
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    cv.classList.add("qv-grabbing");
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.45, Math.min(1.45, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; cv.classList.remove("qv-grabbing"); }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  sC.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

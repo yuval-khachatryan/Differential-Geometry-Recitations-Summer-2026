@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מטריקה קונפורמית בעלת עקמומיות קבועה</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/autosize.js"></script>
+
+<script>
+/* constant-curvature.html — the conformal metric with constant Gauss curvature.
+   ---------------------------------------------------------------------------
+   Illustrates one exercise: on the plane with
+
+     g_ij = f^2 delta_ij,   f(x,y) = ( 1 + (rho/4)(x^2 + y^2) )^{-1},
+
+   the Gauss curvature is constant, K == rho, for every rho > 0.
+
+   Standalone rather than a shared module: this is a 2-D scalar field, and none
+   of the shared drawing modules (curve2d.js draws a curve, surface3d.js a
+   graph) has anything to plot here. Only the frame, grid and axis-numbering
+   conventions are borrowed from curve2d.js so the page looks like the rest of
+   the book.
+
+   The whole point is a contrast, so the picture has to carry both halves of it
+   at once:
+
+     * the conformal factor lambda = f^2 is SHADED, and its level circles drawn,
+       so that "the metric changes from point to point" is something you see
+       rather than something you are told;
+
+     * K at the marked point is not the answer rho substituted back in. It is
+       recomputed on every frame from lambda itself, by a five-point Laplacian,
+
+         K = -(1/(2 lambda)) * Delta_0 (ln lambda),
+
+       so the readout cannot silently agree with the exercise -- if the formula
+       or the factor were wrong the number would stop being rho. Dragging the
+       point sweeps lambda over an order of magnitude while that readout does
+       not move.
+
+   The step h = 1e-3 is a compromise: the second difference of ln(lambda), a
+   quantity of size O(1), is of size h^2, so double-precision cancellation
+   leaves about 1e-10, while the truncation error is O(h^2) = 1e-6. Both are
+   far below the three decimals displayed.
+
+   No Hebrew is drawn on the canvas -- canvas does no bidi shaping. Greek and
+   Latin letters only there; the Hebrew lives in the chrome.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    field: [31, 78, 121],   /* CHAIN, the shading colour, mixed towards white */
+    level: "#1f4e79",
+    grid:  "#dde5ee",
+    axis:  "#94a3b8",
+    num:   "#64748b",
+    pt:    "#c0392b"
+  };
+
+  var TWO_PI = 2 * Math.PI,
+      MAXA = 0.60,          /* alpha at lambda = 1; leaves the grid readable   */
+      HALF = 2.5,           /* world half-HEIGHT; the width follows from it,   */
+                            /* since x and y must share one scale              */
+      CELL = 4,             /* shading cell, css px                            */
+      LEVELS = [0.8, 0.6, 0.4, 0.2],
+      EPS = 1e-3;           /* finite-difference step for the Laplacian        */
+
+  function fmt(v, d) {
+    if (!isFinite(v)) return "—";
+    var s = v.toFixed(d === undefined ? 3 : d);
+    return /^-0(\.0*)?$/.test(s) ? s.slice(1) : s;
+  }
+
+  /* ---- the metric ---------------------------------------------------------
+     w = 1 + (rho/4) r^2,  f = 1/w,  lambda = f^2 = w^{-2}. */
+  function wOf(x, y, rho) { return 1 + rho / 4 * (x * x + y * y); }
+  function lamOf(x, y, rho) { var w = wOf(x, y, rho); return 1 / (w * w); }
+  function lnLam(x, y, rho) { return -2 * Math.log(wOf(x, y, rho)); }
+
+  /* K = -(1/(2 lambda)) Delta_0 (ln lambda), five-point stencil. */
+  function Kat(x, y, rho) {
+    var c = lnLam(x, y, rho),
+        lap = (lnLam(x + EPS, y, rho) + lnLam(x - EPS, y, rho) +
+               lnLam(x, y + EPS, rho) + lnLam(x, y - EPS, rho) - 4 * c) / (EPS * EPS);
+    return -lap / (2 * lamOf(x, y, rho));
+  }
+
+  /* radius of the level circle lambda = c: w = 1/sqrt(c), so
+     (rho/4) r^2 = 1/sqrt(c) - 1. */
+  function levelRadius(c, rho) {
+    return 2 * Math.sqrt((1 / Math.sqrt(c) - 1) / rho);
+  }
+
+  var host = document.getElementById("app"),
+      px = 1.4, py = 0.9,                    /* the marked point, world coords */
+      sc = 1, ox = 0, oy = 0, xVis = 1, yVis = 1;   /* set by draw(), read by the drag */
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title">מטריקה קונפורמית במישור: הגורם הקונפורמי משתנה, עקמומיות גאוס קבועה</p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">הפרמטר ρ</span>' +
+        '<input class="qv-slider qv-rho" type="range" min="0.2" max="4" step="0.05" value="1">' +
+        '<span class="qv-badge qv-rhoval"></span>' +
+      '</div>' +
+      /* .qv-readout is already direction:ltr; each label is marked as well, so
+         the label/value pair cannot fall into the RTL flow and render "= 0.431  λ" */
+      '<div class="qv-readout">' +
+        '<div><span class="qv-rl" dir="ltr">p = (x, y)</span>' +
+            '<span class="qv-rv qv-r-p" dir="ltr"></span></div>' +
+        '<div><span class="qv-rl" dir="ltr">f(p)</span>' +
+            '<span class="qv-rv qv-r-f" dir="ltr"></span></div>' +
+        '<div><span class="qv-rl" dir="ltr">λ = f²(p)</span>' +
+            '<span class="qv-rv qv-r-lam" dir="ltr"></span></div>' +
+        '<div><span class="qv-rl" dir="ltr">K = &minus;Δ<sub>0</sub>(ln λ) / 2λ</span>' +
+            '<span class="qv-rv qv-r-K" dir="ltr"></span></div>' +
+        '<div><span class="qv-rl" dir="ltr">ρ</span>' +
+            '<span class="qv-rv qv-r-rho" dir="ltr"></span></div>' +
+      '</div>' +
+      /* the formula is an LTR island AND unbreakable: a line break between the
+         K and the rho would leave the equality split across two lines of an RTL
+         paragraph, where it no longer reads as one formula */
+      '<div class="qv-hint">גררו את הנקודה על המישור והזיזו את המחוון: הגורם הקונפורמי λ משתנה מנקודה לנקודה, ואילו עקמומיות גאוס יוצאת ' +
+        '<span dir="ltr" style="white-space:nowrap">K = ρ</span> בכל נקודה ולכל ערך של ρ.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      sRho = host.querySelector(".qv-rho"), rhoval = host.querySelector(".qv-rhoval"),
+      rP = host.querySelector(".qv-r-p"), rF = host.querySelector(".qv-r-f"),
+      rLam = host.querySelector(".qv-r-lam"), rK = host.querySelector(".qv-r-K"),
+      rRho = host.querySelector(".qv-r-rho");
+
+  /* white halo under every canvas label: the shading behind them is not a
+     constant colour, so a plain fill loses contrast somewhere on the field */
+  function label(txt, x, y, col, font, align, base) {
+    ctx.font = font; ctx.textAlign = align; ctx.textBaseline = base;
+    ctx.lineJoin = "round"; ctx.lineWidth = 3;
+    ctx.strokeStyle = "rgba(255,255,255,0.92)";
+    ctx.strokeText(txt, x, y);
+    ctx.fillStyle = col; ctx.fillText(txt, x, y);
+  }
+
+  function draw() {
+    var rho = parseFloat(sRho.value),
+        dpr = window.devicePixelRatio || 1,
+        /* capped, so the picture and its readouts stay on screen together */
+        w = cv.clientWidth || 560, hgt = Math.min(Math.round(w * 0.5), 400);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";        /* else the minus signs in the numbering reorder */
+    ctx.lineJoin = "round";
+
+    /* ---- one scale for both axes. The metric is conformal: an anisotropic
+       picture would turn its level circles into ellipses and misrepresent the
+       one property the exercise is about. The height fixes the scale, the
+       width then shows whatever it shows. ---- */
+    sc = (hgt / 2) / HALF;
+    ox = w / 2; oy = hgt / 2;
+    xVis = (w / 2) / sc;          /* half-window actually on screen, in world units */
+    yVis = (hgt / 2) / sc;
+    function X(x) { return ox + x * sc; }
+    function Y(y) { return oy - y * sc; }
+
+    /* keep the marked point inside the frame after a resize or a drag */
+    px = Math.max(-xVis + 0.12, Math.min(xVis - 0.12, px));
+    py = Math.max(-yVis + 0.12, Math.min(yVis - 0.12, py));
+    var sx = X(px), sy = Y(py);
+
+    /* ---- grid, drawn UNDER the shading so the tint dims it rather than
+       hiding it. Both loops run over the visible window, not over a fixed
+       coordinate box, or the lines stop short of the frame. ---- */
+    var step = 0.5;
+    if (step * sc < 22) step = 1;
+    if (step * sc < 22) step = 2;
+    ctx.strokeStyle = COL.grid; ctx.lineWidth = 1;
+    var g;
+    for (g = Math.ceil(-xVis / step) * step; g <= xVis; g += step) {
+      ctx.beginPath(); ctx.moveTo(X(g), 0); ctx.lineTo(X(g), hgt); ctx.stroke();
+    }
+    for (g = Math.ceil(-yVis / step) * step; g <= yVis; g += step) {
+      ctx.beginPath(); ctx.moveTo(0, Y(g)); ctx.lineTo(w, Y(g)); ctx.stroke();
+    }
+
+    /* ---- the conformal factor, cell by cell. alpha is LINEAR in lambda, and
+       so is the colour bar below, so the two can be read against each other. */
+    var ix, iy, cxw, cyw, lam;
+    for (ix = 0; ix < w; ix += CELL) {
+      cxw = (ix + CELL / 2 - ox) / sc;
+      for (iy = 0; iy < hgt; iy += CELL) {
+        cyw = (oy - (iy + CELL / 2)) / sc;
+        lam = lamOf(cxw, cyw, rho);
+        ctx.fillStyle = "rgba(" + COL.field[0] + "," + COL.field[1] + "," +
+                        COL.field[2] + "," + (MAXA * lam).toFixed(3) + ")";
+        ctx.fillRect(ix, iy, CELL, CELL);
+      }
+    }
+
+    /* ---- axes ---- */
+    ctx.strokeStyle = COL.axis; ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.moveTo(0, Y(0)); ctx.lineTo(w, Y(0)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(X(0), 0); ctx.lineTo(X(0), hgt); ctx.stroke();
+    label("x", w - 9, Y(0) - 11, "#475569", "bold 12px Arial, sans-serif", "center", "middle");
+    label("y", X(0) + 12, 11, "#475569", "bold 12px Arial, sans-serif", "center", "middle");
+
+    /* numbers on the grid lines, again over the whole visible window */
+    var lstep = step * sc < 34 ? step * 2 : step,
+        dec = Math.max(0, -Math.floor(Math.log(lstep) / Math.LN10 + 1e-9)),
+        tol = lstep * 1e-6, gv, q;
+    function num(v) {
+      var s = v.toFixed(dec);
+      return /^-0(\.0*)?$/.test(s) ? s.slice(1) : s;      /* no "-0" */
+    }
+    /* the tick's own pen is set inside the loop: label() below leaves the white
+       halo stroke behind it, and a tick drawn with that is invisible */
+    for (gv = Math.ceil(-xVis / lstep) * lstep; gv <= xVis; gv += lstep) {
+      q = X(gv);
+      if (Math.abs(gv) < tol || q < 12 || q > w - 12) continue;
+      ctx.strokeStyle = COL.axis; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(q, Y(0) - 3); ctx.lineTo(q, Y(0) + 3); ctx.stroke();
+      label(num(gv), q, Y(0) + 6, COL.num, "11px Arial, sans-serif", "center", "top");
+    }
+    for (gv = Math.ceil(-yVis / lstep) * lstep; gv <= yVis; gv += lstep) {
+      q = Y(gv);
+      if (Math.abs(gv) < tol || q < 9 || q > hgt - 9) continue;
+      ctx.strokeStyle = COL.axis; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(X(0) - 3, q); ctx.lineTo(X(0) + 3, q); ctx.stroke();
+      label(num(gv), X(0) - 6, q, COL.num, "11px Arial, sans-serif", "right", "middle");
+    }
+    label("0", X(0) - 6, Y(0) + 6, COL.num, "11px Arial, sans-serif", "right", "top");
+
+    /* ---- level circles of lambda. They are circles because lambda depends on
+       r alone, and they crowd towards the origin as rho grows -- the metric
+       changing faster is exactly what a larger K looks like here. ---- */
+    ctx.setLineDash([5, 4]);
+    LEVELS.forEach(function (c, li) {
+      var r = levelRadius(c, rho);
+      if (!isFinite(r) || r * sc < 10) return;
+      ctx.beginPath(); ctx.arc(X(0), Y(0), r * sc, 0, TWO_PI);
+      ctx.strokeStyle = COL.level; ctx.globalAlpha = 0.5; ctx.lineWidth = 1.2;
+      ctx.stroke(); ctx.globalAlpha = 1;
+      /* one label per quadrant rather than all four on one ray: on a common ray
+         the labels of neighbouring levels crowd, and the innermost ones collide
+         with the marked point's own readout */
+      var ang = 0.72 + li * 1.7,
+          lx = X(r * Math.cos(ang)), ly = Y(r * Math.sin(ang)),
+          /* ... and drop the label altogether where the marked point's own two
+             lines are sitting: the circle is still drawn, only its name is not
+             stacked on top of the readout the reader is watching */
+          clash = Math.abs(lx - (sx + 55)) < 90 && Math.abs(ly - (sy - 13)) < 26;
+      if (!clash && lx > 26 && lx < w - 26 && ly > 12 && ly < hgt - 12) {
+        ctx.setLineDash([]);
+        label("λ = " + c.toFixed(1), lx, ly, COL.level,
+              "11px Arial, sans-serif", "center", "middle");
+        ctx.setLineDash([5, 4]);
+      }
+    });
+    ctx.setLineDash([]);
+
+    /* ---- colour bar for the shading, same linear map as the field ---- */
+    var bx = 12, by = 24, bw = Math.min(120, w * 0.28), bh = 9;
+    ctx.fillStyle = "rgba(255,255,255,0.85)";
+    ctx.fillRect(bx - 7, by - 15, bw + 14, bh + 30);
+    var grad = ctx.createLinearGradient(bx, 0, bx + bw, 0);
+    grad.addColorStop(0, "rgba(" + COL.field.join(",") + ",0)");
+    grad.addColorStop(1, "rgba(" + COL.field.join(",") + "," + MAXA + ")");
+    ctx.fillStyle = grad; ctx.fillRect(bx, by, bw, bh);
+    ctx.strokeStyle = "#cbd5e1"; ctx.lineWidth = 1;
+    ctx.strokeRect(bx + 0.5, by + 0.5, bw - 1, bh - 1);
+    label("λ", bx, by - 5, COL.level, "bold 11px Arial, sans-serif", "left", "bottom");
+    label("0", bx, by + bh + 3, COL.num, "10px Arial, sans-serif", "left", "top");
+    label("1", bx + bw, by + bh + 3, COL.num, "10px Arial, sans-serif", "right", "top");
+
+    /* ---- the marked point, with its two numbers beside it ---- */
+    var lamP = lamOf(px, py, rho), kP = Kat(px, py, rho);
+    ctx.beginPath(); ctx.arc(sx, sy, 5, 0, TWO_PI);
+    ctx.fillStyle = COL.pt; ctx.fill();
+    ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.4; ctx.stroke();
+
+    var side = sx > w - 110 ? -1 : 1, tx = sx + side * 11,
+        al = side > 0 ? "left" : "right";
+    label("λ = " + fmt(lamP), tx, sy - 20, COL.level,
+          "bold 12px Arial, sans-serif", al, "middle");
+    label("K = " + fmt(kP), tx, sy - 6, COL.pt,
+          "bold 12px Arial, sans-serif", al, "middle");
+
+    /* ---- readouts ---- */
+    rhoval.textContent = fmt(rho, 2);
+    rP.textContent = "(" + fmt(px, 2) + ", " + fmt(py, 2) + ")";
+    rF.textContent = fmt(1 / wOf(px, py, rho));
+    rLam.textContent = fmt(lamP);
+    rK.textContent = fmt(kP);
+    rRho.textContent = fmt(rho);
+  }
+
+  /* ---- drag the marked point. It may be dropped anywhere: that K does not
+     depend on where it lands is the claim being illustrated. ---- */
+  var dragging = false;
+
+  function place(e) {
+    var p = e.touches ? e.touches[0] : e, r = cv.getBoundingClientRect();
+    px = (p.clientX - r.left - ox) / sc;
+    py = (oy - (p.clientY - r.top)) / sc;
+    draw();
+  }
+  function down(e) {
+    dragging = true;
+    cv.classList.add("qv-grabbing");
+    if (e.touches) e.preventDefault();
+    place(e);
+  }
+  function move(e) {
+    if (!dragging) return;
+    if (e.touches) e.preventDefault();
+    place(e);
+  }
+  function up() { dragging = false; cv.classList.remove("qv-grabbing"); }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  sRho.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

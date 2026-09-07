@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ההליקואיד — עקמומיות גאוס והעקמומיות הממוצעת</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/autosize.js"></script>
+
+<script>
+/* helicoid.html — the helicoid, and the fact that H vanishes on it identically.
+   ---------------------------------------------------------------------------
+   Standalone rather than a Surface3D.mount() call: that module has one fixed
+   surface colour, no curvature readouts, and draws x_u, x_v rather than N, and
+   several other widgets depend on it. Projection, painter's algorithm and the
+   auto-fit are copied from surface3d.js so the page looks like the rest of the
+   book, and the quads are shaded as in ch07/mobius.html and ch09/torus-
+   curvature.html, because a helicoid occludes itself along every ramp and the
+   wireframe alone would not say which face is turned towards the reader.
+
+       x(u, v) = ( u cos v, u sin v, k v ),      k != 0
+
+   Everything numeric — g_ij, L_ij, (L^i_j), K, H — is computed from that
+   parametrisation by central differences, NOT from the closed forms derived in
+   the exercise. So the readout is an independent check on the algebra rather
+   than a replay of it: if the exercise were wrong, the numbers would disagree.
+   Central-difference step 1e-3: truncation is O(h^2) ~ 1e-6, round-off in the
+   second differences is O(eps/h^2) ~ 1e-10, and both stay far below the four
+   decimals shown.
+
+   Two deliberate choices:
+
+   * v runs over [-pi, pi] rather than [0, 2pi]. It is still exactly one full
+     turn, but z = k v is then symmetric about 0, so the surface stays centred
+     on the origin for every k and the drawing does not drift up the canvas as
+     the ramp climbs.
+   * the view is refitted at the current k, as in ch07/mobius.html. The fixed
+     fit of surface3d.js is for its sweep slider, which only reveals more of a
+     surface that never changes; here k changes the surface itself, and a fixed
+     fit would leave the picture small over most of the slider. Refitting
+     normalises the overall size but not the shape, and the shape — how steep
+     the ramp is against the radius — is exactly what k controls.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    surf: [0xbc, 0xd4, 0xea], edge: "#7ba6cf",
+    nrm:  "#7c3aed", pt: "#0f172a"
+  };
+
+  var NU = 24, NV = 88,
+      UMAX = 1.8,                       /* u in [-UMAX, UMAX] */
+      VMAX = Math.PI,                   /* v in [-VMAX, VMAX] — one full turn */
+      KMIN = 0.15, KMAX = 0.60,
+      U0 = 0.9, V0 = 3 * Math.PI / 4,   /* the marked point, fixed in (u, v) */
+      ARROW = 0.6,                      /* drawn length of N, in world units */
+      ASPECT = 0.56, h = 1e-3;
+
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function mul(a, s) { return [a[0] * s, a[1] * s, a[2] * s]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function norm(a) { return Math.sqrt(dot(a, a)); }
+  function cross(a, b) {
+    return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  }
+  function unit(a) { var n = norm(a); return n ? mul(a, 1 / n) : a; }
+  function fmt(v, d) {
+    d = (d === undefined) ? 2 : d;
+    var z = (0).toFixed(d), s = (Math.abs(v) < 5e-4 ? 0 : v).toFixed(d);
+    return s === "-" + z ? z : s;
+  }
+
+  function X(u, v, k) {
+    return [u * Math.cos(v), u * Math.sin(v), k * v];
+  }
+
+  /* the unit normal alone — all the quads need, and cheap enough to call once
+     per quad centre */
+  function normalAt(u, v, k) {
+    var xu = mul(sub(X(u + h, v, k), X(u - h, v, k)), 1 / (2 * h)),
+        xv = mul(sub(X(u, v + h, k), X(u, v - h, k)), 1 / (2 * h));
+    return unit(cross(xu, xv));
+  }
+
+  /* the full local computation, run only at the marked point: first and second
+     fundamental forms, then the shape operator (L^i_j) = (g^ik)(L_kj), and K, H
+     as its determinant and half its trace */
+  function local(u, v, k) {
+    var x0  = X(u, v, k),
+        xu  = mul(sub(X(u + h, v, k), X(u - h, v, k)), 1 / (2 * h)),
+        xv  = mul(sub(X(u, v + h, k), X(u, v - h, k)), 1 / (2 * h)),
+        xuu = mul(add(sub(X(u + h, v, k), mul(x0, 2)), X(u - h, v, k)), 1 / (h * h)),
+        xvv = mul(add(sub(X(u, v + h, k), mul(x0, 2)), X(u, v - h, k)), 1 / (h * h)),
+        xuv = mul(add(sub(sub(X(u + h, v + h, k), X(u + h, v - h, k)),
+                          X(u - h, v + h, k)), X(u - h, v - h, k)), 1 / (4 * h * h)),
+        N = unit(cross(xu, xv)),
+        g11 = dot(xu, xu), g12 = dot(xu, xv), g22 = dot(xv, xv),
+        L11 = dot(xuu, N), L12 = dot(xuv, N), L22 = dot(xvv, N),
+        detg = g11 * g22 - g12 * g12,
+        /* (g^ij) = adj / detg, then the product with (L_ij) */
+        S11 = ( g22 * L11 - g12 * L12) / detg,
+        S12 = ( g22 * L12 - g12 * L22) / detg,
+        S21 = (-g12 * L11 + g11 * L12) / detg,
+        S22 = (-g12 * L12 + g11 * L22) / detg;
+    return {
+      p: x0, N: N,
+      K: S11 * S22 - S12 * S21,
+      H: (S11 + S22) / 2
+    };
+  }
+
+  var host = document.getElementById("app"),
+      yaw = -0.95, pitch = 0.42, kVal = 0.33;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title">ההליקואיד&nbsp; ' +
+        '<span dir="ltr">x(u, v) = ( u cos v, u sin v, k v )</span></p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">הצעד k</span>' +
+        '<input class="qv-slider qv-k" type="range" min="0" max="1000" value="400">' +
+        '<span class="qv-badge qv-kval"></span>' +
+      '</div>' +
+      /* .qv-readout is already an LTR island, and each row is marked again: it is
+         not enough to put dir="ltr" on the value, because the label/value pair
+         would still sit in the RTL flow and render "= 0.0000  H" */
+      '<div class="qv-readout">' +
+        '<div dir="ltr"><span dir="ltr" class="qv-rl">K</span>' +
+          '<span dir="ltr" class="qv-rv qv-r-K"></span></div>' +
+        '<div dir="ltr"><span dir="ltr" class="qv-rl">H</span>' +
+          '<span dir="ltr" class="qv-rv qv-r-H"></span></div>' +
+      '</div>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את המבט, והזיזו את k כדי לשנות את קצב העלייה. הנקודה המסומנת נשארת באותו ערך של u, ולכן K משתנה עם k ונשאר שלילי, ואילו H מתאפס בדיוק לכל k ובכל נקודה, כלומר ההליקואיד הוא משטח מינימלי.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      sK = host.querySelector(".qv-k"), kval = host.querySelector(".qv-kval"),
+      rK = host.querySelector(".qv-r-K"), rH = host.querySelector(".qv-r-H");
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function draw() {
+    kVal = KMIN + (sK.value / 1000) * (KMAX - KMIN);
+
+    var dpr = window.devicePixelRatio || 1,
+        /* capped so the slider and the readouts stay on screen with the picture */
+        w = cv.clientWidth || 560, hgt = Math.min(Math.round(w * ASPECT), 400), i, j;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";          /* else the minus sign of K < 0 reorders */
+    ctx.lineJoin = "round";
+
+    /* ---- sample the grid once; everything below reuses it ---- */
+    var G = [], u, v;
+    for (i = 0; i <= NU; i++) {
+      G.push([]);
+      u = -UMAX + (i / NU) * 2 * UMAX;
+      for (j = 0; j <= NV; j++) {
+        v = -VMAX + (j / NV) * 2 * VMAX;
+        G[i].push(project(X(u, v, kVal)));
+      }
+    }
+
+    /* ---- fit on the surface, coarsely: the extremes are on the boundary of the
+       (u, v) rectangle, which every second sample still visits. The tip of N is
+       included too — there is only one arrow, at a point fixed in (u, v), so it
+       cannot make the view jump, and when the ramp is nearly flat the arrow
+       sticks out above the surface and would otherwise be clipped. ---- */
+    var xs = [], ys = [], P = local(U0, V0, kVal),
+        tip = add(P.p, mul(P.N, ARROW));
+    for (i = 0; i <= NU; i += 2) for (j = 0; j <= NV; j += 2) {
+      xs.push(G[i][j][0]); ys.push(G[i][j][1]);
+    }
+    [project(P.p), project(tip)].forEach(function (q) { xs.push(q[0]); ys.push(q[1]); });
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs),
+        ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys),
+        pad = 1.14,
+        /* one scale for both screen axes: N must keep its right angle to the
+           surface, and anisotropic scaling does not preserve angles */
+        sc = Math.min(w / ((xmax - xmin) * pad || 1), hgt / ((ymax - ymin) * pad || 1)),
+        cx = w / 2 - sc * (xmin + xmax) / 2,
+        cy = hgt / 2 + sc * (ymin + ymax) / 2;
+
+    function S(p) { return [cx + sc * p[0], cy - sc * p[1]]; }
+
+    /* ---- the surface, painter's algorithm, shaded by the facing angle ---- */
+    var quads = [];
+    for (i = 0; i < NU; i++) for (j = 0; j < NV; j++) {
+      var uc = -UMAX + ((i + 0.5) / NU) * 2 * UMAX,
+          vc = -VMAX + ((j + 0.5) / NV) * 2 * VMAX,
+          nn = project(normalAt(uc, vc, kVal)),
+          a = G[i][j], b = G[i + 1][j], c = G[i + 1][j + 1], d = G[i][j + 1];
+      quads.push({
+        z: (a[2] + b[2] + c[2] + d[2]) / 4,
+        p: [a, b, c, d],
+        lit: Math.abs(nn[2])
+      });
+    }
+    quads.sort(function (p, r) { return p.z - r.z; });
+    ctx.lineWidth = 0.4;
+    quads.forEach(function (Q) {
+      ctx.beginPath();
+      var s0 = S(Q.p[0]); ctx.moveTo(s0[0], s0[1]);
+      for (var m = 1; m < 4; m++) { var sm = S(Q.p[m]); ctx.lineTo(sm[0], sm[1]); }
+      ctx.closePath();
+      /* mix the house surface colour towards white with the facing angle */
+      var f = 0.30 + 0.70 * Q.lit;
+      ctx.fillStyle = "rgb(" + Math.round(255 - (255 - COL.surf[0]) * f) + "," +
+                               Math.round(255 - (255 - COL.surf[1]) * f) + "," +
+                               Math.round(255 - (255 - COL.surf[2]) * f) + ")";
+      ctx.fill();
+      ctx.strokeStyle = COL.edge;
+      ctx.globalAlpha = 0.5; ctx.stroke(); ctx.globalAlpha = 1;
+    });
+
+    /* ---- the marked point and its normal ---- */
+    var s1 = S(project(P.p)), s2 = S(project(tip));
+    ctx.beginPath(); ctx.moveTo(s1[0], s1[1]); ctx.lineTo(s2[0], s2[1]);
+    ctx.strokeStyle = COL.nrm; ctx.lineWidth = 2.6; ctx.stroke();
+    var ang = Math.atan2(s2[1] - s1[1], s2[0] - s1[0]);
+    ctx.beginPath();
+    ctx.moveTo(s2[0], s2[1]);
+    ctx.lineTo(s2[0] - 9 * Math.cos(ang - 0.4), s2[1] - 9 * Math.sin(ang - 0.4));
+    ctx.lineTo(s2[0] - 9 * Math.cos(ang + 0.4), s2[1] - 9 * Math.sin(ang + 0.4));
+    ctx.closePath(); ctx.fillStyle = COL.nrm; ctx.fill();
+
+    ctx.beginPath(); ctx.arc(s1[0], s1[1], 5, 0, 2 * Math.PI);
+    ctx.fillStyle = COL.pt; ctx.fill();
+    ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.2; ctx.stroke();
+
+    /* canvas labels are Latin only. The Hebrew of this page lives in the chrome,
+       which is RTL and shaped by the browser; canvas text is not, so Hebrew put
+       here would come out reversed. u is spelled out because it is what the
+       reader has to substitute into K = -k^2/(k^2+u^2)^2 to check the readout. */
+    ctx.font = "12px ui-sans-serif, system-ui, sans-serif";
+    ctx.fillStyle = COL.nrm;
+    ctx.fillText("N", s2[0] + 6, s2[1] - 4);
+    ctx.fillStyle = COL.pt;
+    ctx.fillText("u = " + fmt(U0), s1[0] + 8, s1[1] + 15);
+
+    /* ---- readouts ---- */
+    kval.textContent = fmt(kVal);
+    rK.textContent = fmt(P.K, 4);
+    rH.textContent = fmt(P.H, 4);
+  }
+
+  /* ---- drag to rotate ---- */
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.45, Math.min(1.45, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  sK.addEventListener("input", draw);
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

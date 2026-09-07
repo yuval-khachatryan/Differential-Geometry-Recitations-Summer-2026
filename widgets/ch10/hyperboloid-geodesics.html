@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ארבעה קווים גיאודזיים על ההיפרבולואיד החד־יריעתי</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/autosize.js"></script>
+
+<script>
+/* hyperboloid-geodesics.html — the four geodesics through (1, 0, 0) on the
+   one-sheeted hyperboloid x^2 + y^2 - z^2 = 1.  ONE idea, belongs to
+   box-q-hyperboloid-four-geodesics.
+   ---------------------------------------------------------------------------
+   Standalone, like ch07/mobius.html: Surface3D.mount draws a graph z = f(u,v)
+   with x_u, x_v and a tangent patch, and four other widgets depend on it, so
+   an implicit surface carrying four named curves lives in its own page rather
+   than growing the shared module. The projection, the painter's algorithm and
+   the auto-fit are copied from surface3d.js / mobius.html on purpose, so the
+   page still looks like the rest of the book.
+
+   The surface is drawn from x(th, ph) = (cosh ph cos th, cosh ph sin th,
+   sinh ph), |ph| <= PHI, which is the parametrisation the neighbouring
+   exercise uses. The four curves are written exactly as in the solution:
+
+     g1(t) = (1,  t,  t)                 a ruling
+     g2(t) = (1,  t, -t)                 the other ruling
+     g3(s) = (cos s, sin s, 0)           the waist circle
+     g4(t) = (cosh t, 0, sinh t)         the hyperbola in y = 0
+
+   No curve is re-derived from the surface parametrisation and no point is
+   projected onto the surface: each g is evaluated as written and the readout
+   reports the measured value of x^2 + y^2 - z^2 along the drawn samples, so a
+   curve that had drifted off the surface would say so on screen.
+
+   g4 is drawn in its (cosh, sinh) parametrisation, which is NOT unit speed;
+   the geodesic is the trace, and the solution reparametrises it by arc length
+   before checking the criterion. The picture is unaffected -- only the spacing
+   of the samples along the branch would change.
+
+   Hidden-surface removal is the usual painter's algorithm with one change. A
+   curve that lies exactly ON the surface z-fights with the quads carrying it,
+   and a depth bias large enough to stop that near the silhouette is already
+   large enough to pull the far sheet forward -- the curves came out dashed.
+   The hyperboloid is a quadric, so a line meets it in at most two points, and
+   of those the nearer one is the one whose outward normal faces the viewer.
+   So back-facing quads, back-side curve segments, front-facing quads and
+   front-side curve segments, in that order, is exact: no bias, no dashing. The
+   sort inside each pass is kept for the grazing views, where the inside of a
+   flare comes into sight.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var COL = {
+    surf: [0xbc, 0xd4, 0xea],   /* the house surface blue, mixed towards white */
+    edge: "#7ba6cf",
+    ghost: "#94a3b8",           /* the three curves that are not selected */
+    pt: "#0f172a"
+  };
+
+  var TWO_PI = 2 * Math.PI, NTH = 72, NPH = 14;
+
+  /* --- curves: begin --- (extracted verbatim by the numeric check) */
+  var PHI = 1.2, ZMAX = Math.sinh(PHI);
+
+  function lineP(t) { return [1, t, t]; }
+  function lineM(t) { return [1, t, -t]; }
+  function waist(s) { return [Math.cos(s), Math.sin(s), 0]; }
+  function hyper(t) { return [Math.cosh(t), 0, Math.sinh(t)]; }
+
+  /* u = 0 is the point (1, 0, 0) for all four, so the readout of the tangent
+     is taken there and the four directions are visibly different. */
+  var CURVES = [
+    { f: lineP, u0: -ZMAX, u1: ZMAX, n: 120, col: "#1f4e79",
+      name: "ישר ראשון",
+      eq: "(1, t, t)", tan: "(0, 1, 1)",
+      msg: "הישר הראשון מוכל כולו במשטח, ולכן התאוצה שלו מתאפסת. וקטור האפס ניצב לכל מישור משיק, ומכאן שהישר הוא קו גיאודזי." },
+    { f: lineM, u0: -ZMAX, u1: ZMAX, n: 120, col: "#c0392b",
+      name: "ישר שני",
+      eq: "(1, t, -t)", tan: "(0, 1, -1)",
+      msg: "הישר השני מוכל אף הוא כולו במשטח, ובאותו חישוב בדיוק גם הוא קו גיאודזי. שני הישרים הם הישרים היוצרים של ההיפרבולואיד העוברים בנקודה, אחד מכל אחת משתי המשפחות." },
+    { f: waist, u0: 0, u1: TWO_PI, n: 200, col: "#0f766e",
+      name: "מעגל המותן",
+      eq: "(cos s, sin s, 0)", tan: "(0, 1, 0)",
+      msg: "מעגל המותן הוא מעגל היחידה במישור האמצע, והפרמטריזציה שלו טבעית. התאוצה שלו מכוונת אל ציר הסיבוב, וזהו בדיוק כיוון הנורמל למשטח, ולכן הוא קו גיאודזי." },
+    { f: hyper, u0: -PHI, u1: PHI, n: 140, col: "#7c3aed",
+      name: "היפרבולה",
+      eq: "(cosh t, 0, sinh t)", tan: "(0, 0, 1)",
+      msg: "ההיפרבולה מונחת במישור החותך את המשטח דרך ציר הסיבוב, ולכן גם המהירות, גם התאוצה וגם הנורמל למשטח מונחים באותו מישור. בפרמטריזציה טבעית התאוצה ניצבת למהירות, ולכן היא נופלת בכיוון הנורמל, וההיפרבולה היא קו גיאודזי." }
+  ];
+  /* --- curves: end --- */
+
+  /* the surface, in the parametrisation of the neighbouring exercise */
+  function X(th, ph) {
+    var c = Math.cosh(ph);
+    return [c * Math.cos(th), c * Math.sin(th), Math.sinh(ph)];
+  }
+  /* the normal line is spanned by grad F, F = x^2 + y^2 - z^2 -- the very fact
+     step 1 of the solution establishes. It shades the quads and it decides
+     which sheet a piece of the picture is on. Outward: at (1,0,0) it is
+     (2,0,0), which points away from the axis. */
+  function normalOf(p) {
+    var g = [2 * p[0], 2 * p[1], -2 * p[2]],
+        n = Math.sqrt(g[0] * g[0] + g[1] * g[1] + g[2] * g[2]);
+    return [g[0] / n, g[1] / n, g[2] / n];
+  }
+  function normalAt(th, ph) { return normalOf(X(th, ph)); }
+
+  function fmt(v, d) {
+    var s = (Math.abs(v) < 5e-4 ? 0 : v).toFixed(d === undefined ? 3 : d);
+    return s === "-0.000" ? "0.000" : s;
+  }
+
+  /* the opening view looks roughly along +x, so p = (1, 0, 0) is on the NEAR
+     sheet and the four tangent directions there -- (0,1,1), (0,1,-1), (0,1,0)
+     and (0,0,1), all in the tangent plane x = 1 -- are splayed apart rather
+     than seen edge on. A negative yaw would put p behind the surface. */
+  var host = document.getElementById("app"),
+      yaw = 1.25, pitch = 0.42, sel = 0;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title">ארבעה קווים גיאודזיים דרך אותה נקודה על ההיפרבולואיד החד־יריעתי</p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">הקו המודגש</span>' +
+        CURVES.map(function (C, i) {
+          return '<button class="qv-btn qv-sel" type="button" data-i="' + i + '">' +
+                 C.name + '</button>';
+        }).join("") +
+      '</div>' +
+      '<div class="qv-readout">' +
+        '<div><span class="qv-rl">&gamma;(u)</span><span class="qv-rv qv-r-eq"></span></div>' +
+        '<div><span class="qv-rl">&gamma;&prime;(0)</span><span class="qv-rv qv-r-tan"></span></div>' +
+        '<div><span class="qv-rl">x&sup2; + y&sup2; &minus; z&sup2;</span><span class="qv-rv qv-r-f"></span></div>' +
+      '</div>' +
+      '<div class="qv-legend">' +
+        CURVES.map(function (C) {
+          return '<span><i class="qv-key" style="background:' + C.col + '"></i>' +
+                 C.name + '</span>';
+        }).join("") +
+      '</div>' +
+      /* no dedicated class in quadviz.css: reuse the hint's prose styling and
+         override only weight and colour from draw(), as ch07/mobius.html does */
+      '<p class="qv-hint qv-verdict"></p>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את המבט, ובחרו קו כדי להדגיש אותו; שלושת האחרים נשארים חיוורים ברקע, וכולם נפגשים בנקודה המסומנת.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      btns = [].slice.call(host.querySelectorAll(".qv-sel")),
+      rEq = host.querySelector(".qv-r-eq"),
+      rTan = host.querySelector(".qv-r-tan"),
+      rF = host.querySelector(".qv-r-f"),
+      verdict = host.querySelector(".qv-verdict");
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function draw() {
+    var dpr = window.devicePixelRatio || 1,
+        /* capped so the buttons and the readouts stay on screen with the
+           picture; the auto-fit below turns the cap into side margin */
+        w = cv.clientWidth || 560, hgt = Math.min(Math.round(w * 0.56), 400), i, j;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";          /* else minus signs in the labels reorder */
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+
+    /* ---- sample the surface once ---- */
+    var G = [], th, ph;
+    for (i = 0; i <= NPH; i++) {
+      G.push([]);
+      ph = -PHI + 2 * PHI * i / NPH;
+      for (j = 0; j <= NTH; j++) {
+        th = TWO_PI * j / NTH;
+        G[i].push(project(X(th, ph)));
+      }
+    }
+
+    /* ---- fit on the surface alone: every curve lies on it, so nothing can be
+       clipped, and highlighting a curve cannot make the picture jump ---- */
+    var xs = [], ys = [];
+    for (i = 0; i <= NPH; i += 2) for (j = 0; j <= NTH; j += 2) {
+      xs.push(G[i][j][0]); ys.push(G[i][j][1]);
+    }
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs),
+        ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys),
+        pad = 1.14,
+        sc = Math.min(w / ((xmax - xmin) * pad || 1), hgt / ((ymax - ymin) * pad || 1)),
+        cx = w / 2 - sc * (xmin + xmax) / 2,
+        cy = hgt / 2 + sc * (ymin + ymax) / 2;
+    function S(q) { return [cx + sc * q[0], cy - sc * q[1]]; }
+
+    /* ---- four passes: the far sheet, the curves on it, the near sheet, the
+       curves on it. The outward normal decides which sheet a piece is on. ---- */
+    var backQ = [], backS = [], frontQ = [], frontS = [];
+    for (i = 0; i < NPH; i++) for (j = 0; j < NTH; j++) {
+      var a = G[i][j], b = G[i + 1][j], c = G[i + 1][j + 1], d = G[i][j + 1],
+          nn = project(normalAt(TWO_PI * (j + 0.5) / NTH,
+                                -PHI + 2 * PHI * (i + 0.5) / NPH));
+      (nn[2] > 0 ? frontQ : backQ).push({
+        kind: "q",
+        z: (a[2] + b[2] + c[2] + d[2]) / 4,
+        p: [a, b, c, d],
+        lit: Math.abs(nn[2])
+      });
+    }
+
+    /* the measured value of F along the selected curve: the picture's own
+       evidence that the curve really is on the surface */
+    var fmin = Infinity, fmax = -Infinity;
+
+    CURVES.forEach(function (C, idx) {
+      var on = idx === sel, pts = [], face = [], u, p, m;
+      for (m = 0; m <= C.n; m++) {
+        u = C.u0 + (C.u1 - C.u0) * m / C.n;
+        p = C.f(u);
+        if (on) {
+          var F = p[0] * p[0] + p[1] * p[1] - p[2] * p[2];
+          if (F < fmin) fmin = F;
+          if (F > fmax) fmax = F;
+        }
+        pts.push(project(p));
+        /* the curve is ON the surface, so grad F at the curve point IS the
+           surface normal there: this is the same front/back test the quads get */
+        face.push(project(normalOf(p))[2]);
+      }
+      for (m = 0; m < C.n; m++) {
+        ((face[m] + face[m + 1] > 0) ? frontS : backS).push({
+          kind: "s",
+          z: (pts[m][2] + pts[m + 1][2]) / 2,
+          a: pts[m], b: pts[m + 1],
+          col: on ? C.col : COL.ghost,
+          lw: on ? 3 : 1.3,
+          al: on ? 1 : 0.8
+        });
+      }
+    });
+
+    function byDepth(p, q) { return p.z - q.z; }
+    backQ.sort(byDepth); backS.sort(byDepth);
+    frontQ.sort(byDepth); frontS.sort(byDepth);
+    backQ.concat(backS, frontQ, frontS).forEach(function (Q) {
+      if (Q.kind === "q") {
+        ctx.beginPath();
+        var s0 = S(Q.p[0]); ctx.moveTo(s0[0], s0[1]);
+        for (var m = 1; m < 4; m++) { var sm = S(Q.p[m]); ctx.lineTo(sm[0], sm[1]); }
+        ctx.closePath();
+        /* mix the house surface colour towards white with the facing angle:
+           the grid alone will not say which sheet is turned towards you */
+        var f = 0.26 + 0.54 * Q.lit;
+        ctx.fillStyle = "rgb(" + Math.round(255 - (255 - COL.surf[0]) * f) + "," +
+                                 Math.round(255 - (255 - COL.surf[1]) * f) + "," +
+                                 Math.round(255 - (255 - COL.surf[2]) * f) + ")";
+        ctx.fill();
+        ctx.strokeStyle = COL.edge; ctx.globalAlpha = 0.5;
+        ctx.lineWidth = 0.4; ctx.stroke(); ctx.globalAlpha = 1;
+      } else {
+        var sa = S(Q.a), sb = S(Q.b);
+        ctx.beginPath(); ctx.moveTo(sa[0], sa[1]); ctx.lineTo(sb[0], sb[1]);
+        ctx.strokeStyle = Q.col; ctx.lineWidth = Q.lw;
+        ctx.globalAlpha = Q.al; ctx.stroke(); ctx.globalAlpha = 1;
+      }
+    });
+
+    /* ---- the common point, always on top: it is the anchor of the whole
+       picture, and losing it behind the far sheet reads as a bug ---- */
+    var sp = S(project([1, 0, 0]));
+    ctx.beginPath(); ctx.arc(sp[0], sp[1], 5, 0, TWO_PI);
+    ctx.fillStyle = COL.pt; ctx.fill();
+    ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.4; ctx.stroke();
+    /* ASCII only on the canvas: there is no bidi shaping here.
+       Haloed, because the two rulings cross at p at roughly right angles and
+       any fixed offset would land the label on one of them. */
+    ctx.font = "12px ui-sans-serif, system-ui, sans-serif";
+    ctx.lineWidth = 3.2; ctx.strokeStyle = "#ffffff"; ctx.lineJoin = "round";
+    ctx.strokeText("p = (1, 0, 0)", sp[0] + 11, sp[1] - 9);
+    ctx.fillStyle = COL.pt;
+    ctx.fillText("p = (1, 0, 0)", sp[0] + 11, sp[1] - 9);
+
+    /* ---- chrome ---- */
+    var C = CURVES[sel];
+    btns.forEach(function (b, m) {
+      var on = m === sel;
+      b.style.background = on ? CURVES[m].col : "";
+      b.style.borderColor = on ? CURVES[m].col : "";
+      b.style.color = on ? "#ffffff" : "";
+      b.style.fontWeight = on ? "700" : "";
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    rEq.textContent = C.eq;
+    rTan.textContent = C.tan;
+    rF.textContent = (fmt(fmin) === fmt(fmax)) ? fmt(fmax)
+                                               : fmt(fmin) + " … " + fmt(fmax);
+    verdict.textContent = C.msg;
+    verdict.style.color = C.col;
+    verdict.style.fontWeight = "600";
+  }
+
+  /* ---- drag to rotate ---- */
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.35, Math.min(1.35, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      sel = parseInt(b.getAttribute("data-i"), 10);
+      draw();
+    });
+  });
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

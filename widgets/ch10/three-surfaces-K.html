@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הספירה, הגליל והאוכף — סימן עקמומיות גאוס</title>
+<link rel="stylesheet" href="../shared/quadviz.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../shared/autosize.js"></script>
+
+<script>
+/* three-surfaces-K.html — one exercise: the sphere, the cylinder and the saddle
+   are pairwise non-isometric, because the signs of their Gaussian curvatures
+   differ.
+   ---------------------------------------------------------------------------
+   Standalone rather than a Surface3D.mount() call, for the same reason
+   ch09/torus-curvature.html is: that module has no per-quad colouring and no
+   curvature readouts, and several widgets depend on it. Projection, painter's
+   algorithm and the auto-fit are copied from surface3d.js so the page looks like
+   the rest of the book, and the quads are shaded as in ch07/mobius.html because
+   a sphere and a saddle both self-occlude.
+
+       sphere    x(u,v) = ( sin u cos v, sin u sin v, cos u ),  R = 1
+       cylinder  x(u,v) = ( cos v, sin v, u ),                  b = 1
+       saddle    x(u,v) = ( u, v, u^2 - v^2 )
+
+   Everything numeric — g_ij, L_ij, K — is computed from the parametrisation by
+   central differences, NOT from the closed forms derived in the exercise. So the
+   picture is an independent check on that algebra rather than a replay of it: if
+   the exercise were wrong, the readouts would disagree with it.
+
+   Central-difference step 1e-3: truncation is O(h^2) ~ 1e-6 and round-off in the
+   second differences is O(eps/h^2) ~ 1e-10, so both stay far below the three
+   decimals shown. The sphere's parametrisation degenerates at the poles
+   (det g = sin^2 u -> 0), so the readout's sampling lattice is pulled slightly
+   in from u = 0 and u = pi; the drawn quads are sampled at their CENTRES and so
+   never land on a pole to begin with.
+
+   Deliberately minimal controls: drag to rotate, and one three-way selector.
+   The exercise fixes R = b = 1 and fixes the saddle, so there is nothing to
+   slide.
+   --------------------------------------------------------------------------- */
+(function () {
+  "use strict";
+
+  var TWO_PI = 2 * Math.PI, PI = Math.PI, h = 1e-3, KTOL = 1e-6;
+
+  /* the book's curvature-sign palette */
+  var SGN = {
+    pos:  { base: [0x1f, 0x4e, 0x79], edge: "#16385a", f0: 0.30, f1: 0.70, css: "#1f4e79" },
+    /* #0f172a is far darker than the other two: with the same mix the cylinder
+       reads as a black silhouette and the wireframe vanishes into it, so the
+       zero case gets a shallower mix towards white. */
+    zero: { base: [0x0f, 0x17, 0x2a], edge: "#0f172a", f0: 0.13, f1: 0.40, css: "#0f172a" },
+    neg:  { base: [0xc0, 0x39, 0x2b], edge: "#8d2a1e", f0: 0.30, f1: 0.70, css: "#c0392b" }
+  };
+
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function mul(a, s) { return [a[0] * s, a[1] * s, a[2] * s]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function norm(a) { return Math.sqrt(dot(a, a)); }
+  function cross(a, b) {
+    return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  }
+  function unit(a) { var n = norm(a); return n ? mul(a, 1 / n) : a; }
+  function fmt(v, d) {
+    var s = (Math.abs(v) < 5e-4 ? 0 : v).toFixed(d === undefined ? 3 : d);
+    return /^-0\.?0*$/.test(s) ? s.slice(1) : s;
+  }
+  function signOf(K) { return K > KTOL ? "pos" : (K < -KTOL ? "neg" : "zero"); }
+
+  /* ---- the three surfaces ---- */
+  var SURF = {
+    sphere: {
+      label: "ספירה",
+      X: function (u, v) {
+        return [Math.sin(u) * Math.cos(v), Math.sin(u) * Math.sin(v), Math.cos(u)];
+      },
+      u0: 0, u1: PI, v0: 0, v1: TWO_PI, nu: 32, nv: 64,
+      /* pulled in from the poles, where this parametrisation degenerates */
+      ru0: 0.03, ru1: PI - 0.03, rv0: 0, rv1: TWO_PI,
+      param: "( sin u cos v, sin u sin v, cos u ),  R = 1",
+      kexp: "K = 1/R² = 1 > 0",
+      yaw: -0.95, pitch: 0.42,
+      verdict: "על הספירה עקמומיות גאוס קבועה וחיובית בכל נקודה, ושווה להופכי של ריבוע הרדיוס. כל נקודה עליה היא נקודה אליפטית."
+    },
+    cylinder: {
+      label: "גליל",
+      X: function (u, v) { return [Math.cos(v), Math.sin(v), u]; },
+      u0: -1.4, u1: 1.4, v0: 0, v1: TWO_PI, nu: 20, nv: 64,
+      ru0: -1.4, ru1: 1.4, rv0: 0, rv1: TWO_PI,
+      param: "( cos v, sin v, u ),  b = 1",
+      kexp: "K = 0",
+      yaw: -0.95, pitch: 0.42,
+      verdict: "על הגליל עקמומיות גאוס מתאפסת בכל נקודה: היוצרות הן קווים ישרים, ולכן אחת מן העקמומיויות הראשיות מתאפסת. כל נקודה עליו היא נקודה פרבולית."
+    },
+    saddle: {
+      label: "אוכף",
+      X: function (u, v) { return [u, v, u * u - v * v]; },
+      u0: -1, u1: 1, v0: -1, v1: 1, nu: 34, nv: 34,
+      ru0: -1, ru1: 1, rv0: -1, rv1: 1,
+      param: "( u, v, u² − v² )",
+      kexp: "K = -4/(1 + 4u² + 4v²)² < 0",
+      yaw: -0.85, pitch: 0.50,
+      verdict: "על האוכף עקמומיות גאוס שלילית בכל נקודה, והיא שואפת לאפס ככל שמתרחקים מן הראשית. כל נקודה עליו היא נקודה היפרבולית."
+    }
+  };
+
+  var ORDER = ["sphere", "cylinder", "saddle"];
+
+  /* the whole local frame at (u,v), by central differences on X alone */
+  function local(s, u, v) {
+    var X = s.X,
+        x0  = X(u, v),
+        xu  = mul(sub(X(u + h, v), X(u - h, v)), 1 / (2 * h)),
+        xv  = mul(sub(X(u, v + h), X(u, v - h)), 1 / (2 * h)),
+        xuu = mul(add(sub(X(u + h, v), mul(x0, 2)), X(u - h, v)), 1 / (h * h)),
+        xvv = mul(add(sub(X(u, v + h), mul(x0, 2)), X(u, v - h)), 1 / (h * h)),
+        xuv = mul(add(sub(sub(X(u + h, v + h), X(u + h, v - h)), X(u - h, v + h)),
+                      X(u - h, v - h)), 1 / (4 * h * h)),
+        N = unit(cross(xu, xv)),
+        g11 = dot(xu, xu), g12 = dot(xu, xv), g22 = dot(xv, xv),
+        L11 = dot(xuu, N), L12 = dot(xuv, N), L22 = dot(xvv, N),
+        detg = g11 * g22 - g12 * g12;
+    return { N: N, K: (L11 * L22 - L12 * L12) / detg };
+  }
+
+  /* K and N do not depend on the view, so they are computed once per surface and
+     reused on every drag frame; only the projection is redone. */
+  var cache = {};
+  function build(key) {
+    if (cache[key]) return cache[key];
+    var s = SURF[key], i, j, u, v, cells = [];
+    for (i = 0; i < s.nu; i++) {
+      cells.push([]);
+      u = s.u0 + (s.u1 - s.u0) * (i + 0.5) / s.nu;
+      for (j = 0; j < s.nv; j++) {
+        v = s.v0 + (s.v1 - s.v0) * (j + 0.5) / s.nv;
+        cells[i].push(local(s, u, v));
+      }
+    }
+    /* the readout range gets its own lattice, INCLUDING the endpoints and the
+       midpoint, so the saddle's extreme K = -4 at the origin actually shows up
+       (the quad centres straddle the origin and would report -3.95). */
+    var m = 40, kmin = Infinity, kmax = -Infinity, K;
+    for (i = 0; i <= m; i++) {
+      u = s.ru0 + (s.ru1 - s.ru0) * i / m;
+      for (j = 0; j <= m; j++) {
+        v = s.rv0 + (s.rv1 - s.rv0) * j / m;
+        K = local(s, u, v).K;
+        if (K < kmin) kmin = K;
+        if (K > kmax) kmax = K;
+      }
+    }
+    cache[key] = { cells: cells, kmin: kmin, kmax: kmax };
+    return cache[key];
+  }
+
+  /* ---- chrome ---- */
+  var host = document.getElementById("app"),
+      pick = "sphere", yaw = SURF.sphere.yaw, pitch = SURF.sphere.pitch;
+
+  host.innerHTML =
+    '<div class="qv">' +
+      '<p class="qv-title">הספירה, הגליל והאוכף: סימן עקמומיות גאוס</p>' +
+      '<div class="qv-canvas-wrap"><canvas class="qv-canvas qv-grab"></canvas></div>' +
+      '<div class="qv-row">' +
+        '<span class="qv-label">המשטח</span>' +
+        ORDER.map(function (k) {
+          return '<button class="qv-btn qv-pick" type="button" data-k="' + k + '">' +
+                 SURF[k].label + '</button>';
+        }).join("") +
+      '</div>' +
+      '<div class="qv-dirs">' +
+        '<span><b>x(u,v)</b>&nbsp;<span dir="ltr" class="qv-r-param"></span></span>' +
+      '</div>' +
+      '<div class="qv-readout">' +
+        '<div><span class="qv-rl">min K</span><span class="qv-rv qv-r-kmin"></span></div>' +
+        '<div><span class="qv-rl">max K</span><span class="qv-rv qv-r-kmax"></span></div>' +
+      '</div>' +
+      '<div class="qv-legend">' +
+        '<span><i class="qv-key" style="background:#1f4e79"></i>עקמומיות חיובית, <span dir="ltr">K &gt; 0</span></span>' +
+        '<span><i class="qv-key" style="background:#0f172a"></i>עקמומיות אפס, <span dir="ltr">K = 0</span></span>' +
+        '<span><i class="qv-key" style="background:#c0392b"></i>עקמומיות שלילית, <span dir="ltr">K &lt; 0</span></span>' +
+      '</div>' +
+      /* no dedicated class in quadviz.css: reuse the hint's prose styling and
+         override only weight and colour from draw(), as ch07/mobius.html does */
+      '<p class="qv-hint qv-verdict"></p>' +
+      '<div class="qv-hint">גררו את הציור כדי לסובב את המבט, והחליפו בין שלושת המשטחים. עקמומיות גאוס נשמרת תחת איזומטריה, ולשלושת המשטחים סימני עקמומיות שונים, ולכן אף שניים מהם אינם איזומטריים.</div>' +
+    '</div>';
+
+  var cv = host.querySelector("canvas"), ctx = cv.getContext("2d"),
+      btns = [].slice.call(host.querySelectorAll(".qv-pick")),
+      rParam = host.querySelector(".qv-r-param"),
+      rMin = host.querySelector(".qv-r-kmin"),
+      rMax = host.querySelector(".qv-r-kmax"),
+      verdict = host.querySelector(".qv-verdict");
+
+  function project(p) {
+    var ca = Math.cos(yaw), sa = Math.sin(yaw),
+        cb = Math.cos(pitch), sb = Math.sin(pitch),
+        x1 = p[0] * ca - p[1] * sa,
+        y1 = p[0] * sa + p[1] * ca;
+    return [x1, y1 * sb + p[2] * cb, y1 * cb - p[2] * sb];
+  }
+
+  function draw() {
+    var s = SURF[pick], C = build(pick), i, j, u, v;
+
+    var dpr = window.devicePixelRatio || 1,
+        /* capped so the selector and the readouts stay on screen with the picture */
+        w = cv.clientWidth || 560, hgt = Math.min(Math.round(w * 0.56), 400);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr);
+    cv.style.height = hgt + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, hgt);
+    ctx.direction = "ltr";     /* else the minus sign of a negative K reorders */
+    ctx.lineJoin = "round";
+
+    /* ---- project the grid ---- */
+    var G = [];
+    for (i = 0; i <= s.nu; i++) {
+      G.push([]);
+      u = s.u0 + (s.u1 - s.u0) * i / s.nu;
+      for (j = 0; j <= s.nv; j++) {
+        v = s.v0 + (s.v1 - s.v0) * j / s.nv;
+        G[i].push(project(s.X(u, v)));
+      }
+    }
+
+    /* ---- auto-fit, equal x/y scaling ---- */
+    var xs = [], ys = [];
+    for (i = 0; i <= s.nu; i += 2) for (j = 0; j <= s.nv; j += 2) {
+      xs.push(G[i][j][0]); ys.push(G[i][j][1]);
+    }
+    var xmin = Math.min.apply(null, xs), xmax = Math.max.apply(null, xs),
+        ymin = Math.min.apply(null, ys), ymax = Math.max.apply(null, ys),
+        pad = 1.18,
+        sc = Math.min(w / ((xmax - xmin) * pad || 1), hgt / ((ymax - ymin) * pad || 1)),
+        cx = w / 2 - sc * (xmin + xmax) / 2,
+        cy = hgt / 2 + sc * (ymin + ymax) / 2;
+    function S(q) { return [cx + sc * q[0], cy - sc * q[1]]; }
+
+    /* ---- shaded quads, coloured by sign(K) at the quad centre, painter's
+       algorithm: both the sphere and the saddle occlude themselves ---- */
+    var quads = [];
+    for (i = 0; i < s.nu; i++) for (j = 0; j < s.nv; j++) {
+      var cell = C.cells[i][j],
+          a = G[i][j], b = G[i + 1][j], c = G[i + 1][j + 1], d = G[i][j + 1],
+          nn = project(cell.N);
+      quads.push({ z: (a[2] + b[2] + c[2] + d[2]) / 4, p: [a, b, c, d],
+                   sg: signOf(cell.K), lit: Math.abs(nn[2]) });
+    }
+    quads.sort(function (p, q) { return p.z - q.z; });
+    ctx.lineWidth = 0.4;
+    quads.forEach(function (Q) {
+      ctx.beginPath();
+      var s0 = S(Q.p[0]); ctx.moveTo(s0[0], s0[1]);
+      for (var m = 1; m < 4; m++) { var sm = S(Q.p[m]); ctx.lineTo(sm[0], sm[1]); }
+      ctx.closePath();
+      /* mix the sign colour towards white with the facing angle, as in mobius,
+         and keep the mix light enough that the wireframe still shows through */
+      var P = SGN[Q.sg], f = P.f0 + (P.f1 - P.f0) * Q.lit;
+      ctx.fillStyle = "rgb(" + Math.round(255 - (255 - P.base[0]) * f) + "," +
+                               Math.round(255 - (255 - P.base[1]) * f) + "," +
+                               Math.round(255 - (255 - P.base[2]) * f) + ")";
+      ctx.fill();
+      ctx.strokeStyle = P.edge; ctx.globalAlpha = 0.38; ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+
+    /* ---- the curvature formula, LTR, on the canvas ---- */
+    ctx.font = "13px ui-sans-serif, system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillStyle = "#475569";
+    ctx.fillText(s.kexp, 10, 9);
+
+    /* ---- readouts and verdict ---- */
+    rParam.textContent = s.param;
+    rMin.textContent = fmt(C.kmin);
+    rMax.textContent = fmt(C.kmax);
+
+    var sg = signOf(C.kmin);
+    verdict.textContent = s.verdict;
+    verdict.style.color = SGN[sg].css;
+    verdict.style.fontWeight = "600";
+
+    /* the selected button is tinted with its own curvature-sign colour, so the
+       selector repeats the legend rather than adding a second code to learn */
+    btns.forEach(function (b) {
+      var on = b.getAttribute("data-k") === pick,
+          col = SGN[signOf(build(b.getAttribute("data-k")).kmin)].css;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.style.background = on ? col : "";
+      b.style.borderColor = on ? col : "";
+      b.style.color = on ? "#ffffff" : "";
+      b.style.fontWeight = on ? "700" : "";
+    });
+  }
+
+  /* ---- drag to rotate ---- */
+  var dragging = false, lastX = 0, lastY = 0;
+  function down(e) {
+    dragging = true;
+    var p = e.touches ? e.touches[0] : e;
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+  }
+  function move(e) {
+    if (!dragging) return;
+    var p = e.touches ? e.touches[0] : e;
+    yaw += (p.clientX - lastX) * 0.01;
+    pitch += (p.clientY - lastY) * 0.01;
+    pitch = Math.max(-1.45, Math.min(1.45, pitch));
+    lastX = p.clientX; lastY = p.clientY;
+    if (e.touches) e.preventDefault();
+    draw();
+  }
+  function up() { dragging = false; }
+
+  cv.addEventListener("mousedown", down);
+  window.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+  cv.addEventListener("touchstart", down, { passive: false });
+  cv.addEventListener("touchmove", move, { passive: false });
+  window.addEventListener("touchend", up);
+
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      pick = b.getAttribute("data-k");
+      /* each surface gets the viewpoint it reads best from; the reader can then
+         drag from there */
+      yaw = SURF[pick].yaw; pitch = SURF[pick].pitch;
+      draw();
+    });
+  });
+
+  window.addEventListener("resize", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

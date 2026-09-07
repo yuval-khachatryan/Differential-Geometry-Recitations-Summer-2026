@@ -658,6 +658,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">תרגול 9: עקמומיות גאוס והעקמומיות הממוצעת</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Geodesics-and-Gauss-Bonnet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">תרגול 10: קווים גיאודזיים ומשפט גאוס–בונה</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -1174,13 +1180,13 @@ window.Quarto = {
 <p>נגזור לפי <span class="math inline">\(\theta\)</span>, לפי כלל המכפלה בשני הרכיבים הראשונים: <span class="math display">\[.\overline{x}_\theta = \left( R_\theta \cos \theta - R \sin \theta, \; R_\theta \sin \theta + R \cos \theta, \; -\frac{t}{2} \sin \frac{\theta}{2} \right)\]</span></p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>סעיף 2: חישוב המקדם $g_{11}$</summary>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: חישוב המקדם \(g_{11}\)</summary>
 <div class="foldable" title="סעיף 2: חישוב המקדם $g_{11}$">
 <p>נחשב את <span class="math inline">\(g_{11} = \left\langle \overline{x}_t, \overline{x}_t \right\rangle\)</span>. נוציא גורם משותף משני המחוברים הראשונים ונשתמש בזהות הפיתגורית פעמיים: <span class="math display">\[\begin{aligned} g_{11} &amp;= \sin^2 \frac{\theta}{2} \cos^2 \theta + \sin^2 \frac{\theta}{2} \sin^2 \theta + \cos^2 \frac{\theta}{2} \\ &amp;= \sin^2 \frac{\theta}{2} \left( \cos^2 \theta + \sin^2 \theta \right) + \cos^2 \frac{\theta}{2} \\ &amp;= \sin^2 \frac{\theta}{2} + \cos^2 \frac{\theta}{2} = 1. \end{aligned}\]</span></p>
 <p>כלומר <span class="math inline">\(\overline{x}_t\)</span> הוא וקטור יחידה. הדבר מתבקש, שכן <span class="math inline">\(t\)</span> מודד אורך לאורך הקטע הישר.</p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>סעיף 2: חישוב המקדם $g_{12}$</summary>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: חישוב המקדם \(g_{12}\)</summary>
 <div class="foldable" title="סעיף 2: חישוב המקדם $g_{12}$">
 <p>נחשב את <span class="math inline">\(g_{12} = \left\langle \overline{x}_t, \overline{x}_\theta \right\rangle\)</span> ונפתח: <span class="math display">\[\begin{aligned} g_{12} = \; &amp; -\sin \frac{\theta}{2} \cos \theta \left( R_\theta \cos \theta - R \sin \theta \right) \\ &amp; -\sin \frac{\theta}{2} \sin \theta \left( R_\theta \sin \theta + R \cos \theta \right) \\ &amp; + \cos \frac{\theta}{2} \left( -\frac{t}{2} \sin \frac{\theta}{2} \right). \end{aligned}\]</span></p>
 <p>נפתח את הסוגריים בשני המחוברים הראשונים. המחוברים שבהם מופיע <span class="math inline">\(R\)</span> הם <span class="math inline">\(+\sin \frac{\theta}{2} R \cos \theta \sin \theta\)</span> ו-<span class="math inline">\(-\sin \frac{\theta}{2} R \sin \theta \cos \theta\)</span>, והם מבטלים זה את זה. נותרים המחוברים שבהם מופיע <span class="math inline">\(R_\theta\)</span>, ומהם נוציא גורם משותף: <span class="math display">\[.g_{12} = -\sin \frac{\theta}{2} R_\theta \left( \cos^2 \theta + \sin^2 \theta \right) - \frac{t}{2} \sin \frac{\theta}{2} \cos \frac{\theta}{2} = -\sin \frac{\theta}{2} R_\theta - \frac{t}{2} \sin \frac{\theta}{2} \cos \frac{\theta}{2}\]</span></p>
@@ -1188,7 +1194,7 @@ window.Quarto = {
 <p>כלומר עקומות הקואורדינטות ניצבות בכל נקודה, לפי <a href="#box-cor-orthogonal-coordinate-curves">מסקנה 7.1.12</a>.</p>
 </div>
 </details>
-<details class="thmcollapse thmfoldable"><summary>סעיף 2: חישוב המקדם $g_{22}$ והסקת הרגולריות</summary>
+<details class="thmcollapse thmfoldable"><summary>סעיף 2: חישוב המקדם \(g_{22}\) והסקת הרגולריות</summary>
 <div class="foldable" title="סעיף 2: חישוב המקדם $g_{22}$ והסקת הרגולריות">
 <p>נחשב את <span class="math inline">\(g_{22} = \left\langle \overline{x}_\theta, \overline{x}_\theta \right\rangle\)</span>. נפתח תחילה את סכום ריבועי שני הרכיבים הראשונים: <span class="math display">\[\begin{aligned} &amp; \left( R_\theta \cos \theta - R \sin \theta \right)^2 + \left( R_\theta \sin \theta + R \cos \theta \right)^2 \\ = \; &amp; R_\theta^2 \cos^2 \theta - 2 R_\theta R \cos \theta \sin \theta + R^2 \sin^2 \theta \\ + \; &amp; R_\theta^2 \sin^2 \theta + 2 R_\theta R \sin \theta \cos \theta + R^2 \cos^2 \theta \\ = \; &amp; R_\theta^2 + R^2. \end{aligned}\]</span></p>
 <p>שני המחוברים המעורבים ביטלו זה את זה, ובשאר השתמשנו בזהות הפיתגורית. נוסיף את ריבוע הרכיב השלישי ונציב את <span class="math inline">\(R_\theta\)</span>: <span class="math display">\[.g_{22} = R_\theta^2 + R^2 + \frac{t^2}{4} \sin^2 \frac{\theta}{2} = \frac{t^2}{4} \cos^2 \frac{\theta}{2} + \frac{t^2}{4} \sin^2 \frac{\theta}{2} + R^2 = \frac{t^2}{4} + R^2\]</span></p>
