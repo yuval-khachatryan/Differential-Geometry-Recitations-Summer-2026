@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; תרגול 10: קווים גיאודזיים ומשפט גאוס–בונה – גיאומטריה דיפרנציאלית — תרגולים</title>
+<title>10&nbsp; תרגול 10: קווים גיאודזיים ומשפט אגרגיום – גיאומטריה דיפרנציאלית — תרגולים</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,6 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./11-Minimal-Surfaces-and-Gauss-Bonnet.html" rel="next">
 <link href="./09-Gaussian-Mean-Curvature.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -564,7 +565,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-Geodesics-and-Gauss-Bonnet.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">תרגול 10: קווים גיאודזיים ומשפט גאוס–בונה</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-Geodesics-and-Egregium.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">תרגול 10: קווים גיאודזיים ומשפט אגרגיום</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="הצג/הסתר את סרגל הניווט" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="חפש" onclick="window.quartoOpenSearch();">
@@ -659,8 +660,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-Geodesics-and-Gauss-Bonnet.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">תרגול 10: קווים גיאודזיים ומשפט גאוס–בונה</span></span></a>
+  <a href="./10-Geodesics-and-Egregium.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">תרגול 10: קווים גיאודזיים ומשפט אגרגיום</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-Minimal-Surfaces-and-Gauss-Bonnet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">תרגול 11: משטחים מינימליים ומשפט גאוס–בונה</span></span></a>
   </div>
 </li>
     </ul>
@@ -679,9 +686,6 @@ window.Quarto = {
   </ul></li>
   <li><a href="#משוואות-גאוסקודאצי" id="toc-משוואות-גאוסקודאצי" class="nav-link" data-scroll-target="#משוואות-גאוסקודאצי"><span class="header-section-number">10.2</span> משוואות גאוס–קודאצ’י</a></li>
   <li><a href="#משפט-אגרגיום-ושלוש-הדרכים-לחשב-את-עקמומיות-גאוס" id="toc-משפט-אגרגיום-ושלוש-הדרכים-לחשב-את-עקמומיות-גאוס" class="nav-link" data-scroll-target="#משפט-אגרגיום-ושלוש-הדרכים-לחשב-את-עקמומיות-גאוס"><span class="header-section-number">10.3</span> משפט אגרגיום ושלוש הדרכים לחשב את עקמומיות גאוס</a></li>
-  <li><a href="#משטחים-מינימליים-ועקמומיות-ממוצעת" id="toc-משטחים-מינימליים-ועקמומיות-ממוצעת" class="nav-link" data-scroll-target="#משטחים-מינימליים-ועקמומיות-ממוצעת"><span class="header-section-number">10.4</span> משטחים מינימליים ועקמומיות ממוצעת</a></li>
-  <li><a href="#קואורדינטות-איזותרמיות-ואופרטור-לפלסבלטרמי" id="toc-קואורדינטות-איזותרמיות-ואופרטור-לפלסבלטרמי" class="nav-link" data-scroll-target="#קואורדינטות-איזותרמיות-ואופרטור-לפלסבלטרמי"><span class="header-section-number">10.5</span> קואורדינטות איזותרמיות ואופרטור לפלס–בלטרמי</a></li>
-  <li><a href="#משפט-גאוסבונה" id="toc-משפט-גאוסבונה" class="nav-link" data-scroll-target="#משפט-גאוסבונה"><span class="header-section-number">10.6</span> משפט גאוס–בונה</a></li>
   </ul>
 </nav>
     </div>
@@ -690,7 +694,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">תרגול 10: קווים גיאודזיים ומשפט גאוס–בונה</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">תרגול 10: קווים גיאודזיים ומשפט אגרגיום</span></h1>
 </div>
 
 
@@ -1419,429 +1423,6 @@ window.Quarto = {
 </div>
 </details>
 </div>
-</section>
-<section id="משטחים-מינימליים-ועקמומיות-ממוצעת" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="משטחים-מינימליים-ועקמומיות-ממוצעת"><span class="header-section-number">10.4</span> משטחים מינימליים ועקמומיות ממוצעת</h2>
-<div id="box-rem-mean-curvature" class="thmbox thmbox-remark" title="תזכורת: העקמומיות הממוצעת">
-<p><strong>הערה 10.4.1 — תזכורת: העקמומיות הממוצעת.</strong></p>
-<p>יהי <span class="math inline">\(M \subseteq \mathbb{R}^3\)</span> משטח חלק ואוריינטבילי עם שדה נורמל יחידה <span class="math inline">\(N\)</span>, ותהי <span class="math inline">\(\overline{x} \left( u, v \right)\)</span> פרמטריזציה מקומית שלו. שתי העקמומיויות שנחשב בסעיף זה מתקבלות מן המטריצה <span class="math inline">\(\left( L^i_j \right)\)</span> המייצגת את אופרטור הצורה: <span class="math display">\[,H = \frac{1}{2} \operatorname{tr} \left( L^i_j \right) = \frac{k_1 + k_2}{2}\]</span> וכן <span class="math display">\[.K = \det \left( L^i_j \right) = k_1 k_2\]</span></p>
-</div>
-<div id="box-def-minimal" class="thmbox thmbox-definition" title="משטח מינימלי">
-<p><strong>הגדרה 10.4.2 — משטח מינימלי.</strong></p>
-<p>משטח <span class="math inline">\(M\)</span> נקרא <strong>מינימלי</strong> אם <span class="math inline">\(H \equiv 0\)</span>, כלומר אם העקמומיות הממוצעת מתאפסת בכל נקודה שלו.</p>
-</div>
-<div id="box-q-separable-graph" class="thmbox thmbox-question">
-<p><strong>שאלה 10.4.3.</strong></p>
-<p>תהיינה <span class="math inline">\(f, g \in C^\infty \left( \mathbb{R} \right)\)</span>. חשבו את עקמומיות גאוס ואת העקמומיות הממוצעת של המשטח <span class="math display">\[.z = f \left( x \right) + g \left( y \right)\]</span></p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: פרמטריזציה של הגרף והתבנית היסודית הראשונה, שממנה מתקבל הגורם \(W\)</summary>
-<div class="foldable" title="שלב 1: פרמטריזציה של הגרף והתבנית היסודית הראשונה, שממנה מתקבל הגורם $W$">
-<p>המשטח הוא הגרף של הפונקציה <span class="math inline">\(h \left( x, y \right) = f \left( x \right) + g \left( y \right)\)</span>, ולכן נפרמטר אותו על ידי הקואורדינטות במישור: <span class="math display">\[,\overline{x} \left( u, v \right) = \left( u, \; v, \; f \left( u \right) + g \left( v \right) \right)\]</span> כאשר <span class="math inline">\(\left( u, v \right) \in \mathbb{R}^2\)</span>.</p>
-<p>נגזור לפי <span class="math inline">\(u\)</span> ולפי <span class="math inline">\(v\)</span>: <span class="math display">\[.\overline{x}_u = \left( 1, \; 0, \; f' \left( u \right) \right), \qquad \overline{x}_v = \left( 0, \; 1, \; g' \left( v \right) \right)\]</span></p>
-<p>שני הוקטורים בלתי תלויים ליניארית בכל נקודה, שכן שני הרכיבים הראשונים שלהם הם כבר <span class="math inline">\(\left( 1, 0 \right)\)</span> ו-<span class="math inline">\(\left( 0, 1 \right)\)</span>, ולכן הפרמטריזציה רגולרית בכל <span class="math inline">\(\mathbb{R}^2\)</span>.</p>
-<p>נחשב את שלוש המכפלות הסקלריות: <span class="math display">\[,g_{11} = \left\langle \overline{x}_u, \; \overline{x}_u \right\rangle = 1 + 0 + f' \left( u \right)^2 = 1 + f' \left( u \right)^2\]</span> וכן <span class="math display">\[,g_{12} = g_{21} = \left\langle \overline{x}_u, \; \overline{x}_v \right\rangle = 1 \cdot 0 + 0 \cdot 1 + f' \left( u \right) g' \left( v \right) = f' \left( u \right) g' \left( v \right)\]</span> וכן <span class="math display">\[.g_{22} = \left\langle \overline{x}_v, \; \overline{x}_v \right\rangle = 0 + 1 + g' \left( v \right)^2 = 1 + g' \left( v \right)^2\]</span></p>
-<p>כלומר <span class="math display">\[.\left( g_{ij} \right) = \begin{pmatrix} 1 + f' \left( u \right)^2 &amp; f' \left( u \right) g' \left( v \right) \\[4pt] f' \left( u \right) g' \left( v \right) &amp; 1 + g' \left( v \right)^2 \end{pmatrix}\]</span></p>
-<p>נחשב את הדטרמיננטה. נפתח את המכפלה באלכסון הראשי, <span class="math display">\[,\left( 1 + f' \left( u \right)^2 \right) \left( 1 + g' \left( v \right)^2 \right) = 1 + f' \left( u \right)^2 + g' \left( v \right)^2 + f' \left( u \right)^2 g' \left( v \right)^2\]</span> ונחסר ממנה את המכפלה באלכסון המשני, שהיא <span class="math inline">\(f' \left( u \right)^2 g' \left( v \right)^2\)</span>. שני האיברים המעורבים מצטמצמים ונשאר <span class="math display">\[.\det \left( g_{ij} \right) = 1 + f' \left( u \right)^2 + g' \left( v \right)^2\]</span></p>
-<p>נסמן מעתה <span class="math display">\[,W = \sqrt{1 + f' \left( u \right)^2 + g' \left( v \right)^2}\]</span> ואז <span class="math inline">\(\det \left( g_{ij} \right) = W^2\)</span>. שימו לב ש-<span class="math inline">\(W \geq 1 &gt; 0\)</span>, ולכן מותר לחלק בו.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: הנורמל והנגזרות השניות, הדרושים למקדמי התבנית היסודית השנייה</summary>
-<div class="foldable" title="שלב 2: הנורמל והנגזרות השניות, הדרושים למקדמי התבנית היסודית השנייה">
-<p>נחשב את המכפלה הוקטורית כפיתוח דטרמיננטה לפי השורה הראשונה: <span class="math display">\[,\overline{x}_u \times \overline{x}_v = \det \begin{pmatrix} e_1 &amp; e_2 &amp; e_3 \\ 1 &amp; 0 &amp; f' \left( u \right) \\ 0 &amp; 1 &amp; g' \left( v \right) \end{pmatrix}\]</span> ולכן הרכיב הראשון הוא <span class="math inline">\(0 \cdot g' \left( v \right) - f' \left( u \right) \cdot 1 = -f' \left( u \right)\)</span>, הרכיב השני הוא <span class="math inline">\(-\left( 1 \cdot g' \left( v \right) - f' \left( u \right) \cdot 0 \right) = -g' \left( v \right)\)</span>, והרכיב השלישי הוא <span class="math inline">\(1 \cdot 1 - 0 \cdot 0 = 1\)</span>. כלומר <span class="math display">\[.\overline{x}_u \times \overline{x}_v = \left( -f' \left( u \right), \; -g' \left( v \right), \; 1 \right)\]</span></p>
-<p>נורמת הוקטור הזה היא <span class="math display">\[,\left\| \overline{x}_u \times \overline{x}_v \right\| = \sqrt{f' \left( u \right)^2 + g' \left( v \right)^2 + 1} = W\]</span> וזה בדיוק <span class="math inline">\(\sqrt{\det \left( g_{ij} \right)}\)</span> שקיבלנו בשלב הקודם, כמצופה.</p>
-<p>לכן שדה הנורמל הוא <span class="math display">\[.N = \frac{1}{W} \left( -f' \left( u \right), \; -g' \left( v \right), \; 1 \right)\]</span></p>
-<p>נגזור פעם נוספת. הרכיב השלישי הוא היחיד שאינו קבוע, ובו <span class="math inline">\(f\)</span> תלויה רק ב-<span class="math inline">\(u\)</span> ו-<span class="math inline">\(g\)</span> תלויה רק ב-<span class="math inline">\(v\)</span>, ולכן <span class="math display">\[.\overline{x}_{uu} = \left( 0, 0, f'' \left( u \right) \right), \qquad \overline{x}_{uv} = \left( 0, 0, 0 \right), \qquad \overline{x}_{vv} = \left( 0, 0, g'' \left( v \right) \right)\]</span></p>
-<p>נציב בנוסחה <span class="math inline">\(L_{ij} = \left\langle \overline{x}_{ij}, \; N \right\rangle\)</span>. שני הרכיבים הראשונים של כל נגזרת שנייה מתאפסים, ולכן שורדת רק המכפלה של הרכיב השלישי: <span class="math display">\[,L_{11} = \frac{1}{W} \left( 0 \cdot \left( -f' \left( u \right) \right) + 0 \cdot \left( -g' \left( v \right) \right) + f'' \left( u \right) \cdot 1 \right) = \frac{f'' \left( u \right)}{W}\]</span> וכן <span class="math display">\[,L_{12} = L_{21} = \left\langle \left( 0, 0, 0 \right), \; N \right\rangle = 0\]</span> וכן <span class="math display">\[.L_{22} = \frac{g'' \left( v \right)}{W}\]</span></p>
-<p>בכתיב מטריצי <span class="math display">\[.\left( L_{ij} \right) = \frac{1}{W} \begin{pmatrix} f'' \left( u \right) &amp; 0 \\ 0 &amp; g'' \left( v \right) \end{pmatrix}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: העלאת האינדקס, ואז העקבה והדטרמיננטה שנותנות את \(H\) ואת \(K\)</summary>
-<div class="foldable" title="שלב 3: העלאת האינדקס, ואז העקבה והדטרמיננטה שנותנות את $H$ ואת $K$">
-<p>עבור מטריצה <span class="math inline">\(2 \times 2\)</span> ההופכית מתקבלת מהחלפת האלכסון הראשי, היפוך סימן האלכסון המשני וחלוקה בדטרמיננטה: <span class="math display">\[.\left( g^{ij} \right) = \frac{1}{W^2} \begin{pmatrix} 1 + g' \left( v \right)^2 &amp; -f' \left( u \right) g' \left( v \right) \\[4pt] -f' \left( u \right) g' \left( v \right) &amp; 1 + f' \left( u \right)^2 \end{pmatrix}\]</span></p>
-<p>נוודא זאת. איבר <span class="math inline">\(\left( 1,1 \right)\)</span> של המכפלה <span class="math inline">\(\left( g^{ij} \right) \left( g_{ij} \right)\)</span> הוא <span class="math display">\[,\frac{1}{W^2} \left[ \left( 1 + g' \left( v \right)^2 \right) \left( 1 + f' \left( u \right)^2 \right) - f' \left( u \right) g' \left( v \right) \cdot f' \left( u \right) g' \left( v \right) \right] = \frac{W^2}{W^2} = 1\]</span> שכן זו בדיוק הדטרמיננטה שחישבנו בשלב הראשון. איבר <span class="math inline">\(\left( 1,2 \right)\)</span> הוא <span class="math display">\[,\frac{1}{W^2} \left[ \left( 1 + g' \left( v \right)^2 \right) f' \left( u \right) g' \left( v \right) - f' \left( u \right) g' \left( v \right) \left( 1 + g' \left( v \right)^2 \right) \right] = 0\]</span> ובאותו אופן שני האיברים הנותרים, ואכן מתקבלת מטריצת הזהות.</p>
-<p>נכפול, לפי <span class="math inline">\(L^i_j = g^{ik} L_{kj}\)</span>: <span class="math display">\[.\left( L^i_j \right) = \frac{1}{W^2} \begin{pmatrix} 1 + g' \left( v \right)^2 &amp; -f' \left( u \right) g' \left( v \right) \\[4pt] -f' \left( u \right) g' \left( v \right) &amp; 1 + f' \left( u \right)^2 \end{pmatrix} \cdot \frac{1}{W} \begin{pmatrix} f'' \left( u \right) &amp; 0 \\ 0 &amp; g'' \left( v \right) \end{pmatrix}\]</span></p>
-<p>המטריצה השנייה במכפלה אלכסונית, ולכן כפל בה מכפיל את העמודה הראשונה ב-<span class="math inline">\(f'' \left( u \right)\)</span> ואת העמודה השנייה ב-<span class="math inline">\(g'' \left( v \right)\)</span>: <span class="math display">\[.\left( L^i_j \right) = \frac{1}{W^3} \begin{pmatrix} \left( 1 + g' \left( v \right)^2 \right) f'' \left( u \right) &amp; -f' \left( u \right) g' \left( v \right) g'' \left( v \right) \\[4pt] -f' \left( u \right) g' \left( v \right) f'' \left( u \right) &amp; \left( 1 + f' \left( u \right)^2 \right) g'' \left( v \right) \end{pmatrix}\]</span></p>
-<p>העקבה היא סכום האלכסון הראשי, <span class="math display">\[,\operatorname{tr} \left( L^i_j \right) = \frac{f'' \left( u \right) \left( 1 + g' \left( v \right)^2 \right) + g'' \left( v \right) \left( 1 + f' \left( u \right)^2 \right)}{W^3}\]</span> ולכן, לאחר חלוקה בשניים והצבת <span class="math inline">\(W\)</span>, <span class="math display">\[.H = \frac{f'' \left( u \right) \left( 1 + g' \left( v \right)^2 \right) + g'' \left( v \right) \left( 1 + f' \left( u \right)^2 \right)}{2 \left( 1 + f' \left( u \right)^2 + g' \left( v \right)^2 \right)^{3/2}}\]</span></p>
-<p>לדטרמיננטה נכפול את האלכסון הראשי ונחסר את המשני: <span class="math display">\[,\det \left( L^i_j \right) = \frac{1}{W^6} \left[ \left( 1 + g' \left( v \right)^2 \right) f'' \left( u \right) \left( 1 + f' \left( u \right)^2 \right) g'' \left( v \right) - f' \left( u \right)^2 g' \left( v \right)^2 f'' \left( u \right) g'' \left( v \right) \right]\]</span> ונוציא את הגורם המשותף <span class="math inline">\(f'' \left( u \right) g'' \left( v \right)\)</span>: <span class="math display">\[.\det \left( L^i_j \right) = \frac{f'' \left( u \right) g'' \left( v \right)}{W^6} \left[ \left( 1 + f' \left( u \right)^2 \right) \left( 1 + g' \left( v \right)^2 \right) - f' \left( u \right)^2 g' \left( v \right)^2 \right]\]</span></p>
-<p>הסוגריים המרובעים הם שוב הדטרמיננטה של המטריקה, כלומר <span class="math inline">\(W^2\)</span>, ולכן <span class="math display">\[.K = \frac{f'' \left( u \right) g'' \left( v \right) \cdot W^2}{W^6} = \frac{f'' \left( u \right) g'' \left( v \right)}{\left( 1 + f' \left( u \right)^2 + g' \left( v \right)^2 \right)^2}\]</span></p>
-</div>
-</details>
-</div>
-<div id="box-q-log-cos-minimal" class="thmbox thmbox-question">
-<p><strong>שאלה 10.4.4.</strong></p>
-<p>הוכיחו ש-<span class="math inline">\(H = 0\)</span> עבור המשטח <span class="math display">\[.z = \ln \frac{\cos y}{\cos x}\]</span></p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: כתיבת המשטח כגרף מהצורה \(z = f(x) + g(y)\)</summary>
-<div class="foldable" title="שלב 1: כתיבת המשטח כגרף מהצורה $z = f(x) + g(y)$">
-<p>נעבוד בריבוע <span class="math inline">\(-\frac{\pi}{2} &lt; x &lt; \frac{\pi}{2}\)</span> ו-<span class="math inline">\(-\frac{\pi}{2} &lt; y &lt; \frac{\pi}{2}\)</span>, שבו <span class="math inline">\(\cos x &gt; 0\)</span> וגם <span class="math inline">\(\cos y &gt; 0\)</span>. שם מותר לפצל את הלוגריתם, <span class="math display">\[,\ln \frac{\cos y}{\cos x} = \ln \cos y - \ln \cos x\]</span> ולכן המשטח הוא <span class="math inline">\(z = f \left( x \right) + g \left( y \right)\)</span> עבור <span class="math display">\[.f \left( x \right) = -\ln \cos x, \qquad g \left( y \right) = \ln \cos y\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: הנגזרות של \(f\) ושל \(g\)</summary>
-<div class="foldable" title="שלב 2: הנגזרות של $f$ ושל $g$">
-<p>לפי כלל השרשרת, <span class="math display">\[,f' \left( x \right) = -\frac{\left( \cos x \right)'}{\cos x} = -\frac{-\sin x}{\cos x} = \tan x\]</span> ולפי כלל המנה <span class="math display">\[.f'' \left( x \right) = \left( \tan x \right)' = \frac{\cos x \cdot \cos x - \sin x \cdot \left( -\sin x \right)}{\cos^2 x} = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} = \frac{1}{\cos^2 x}\]</span></p>
-<p>באותו אופן, ובלי סימן המינוס החיצוני, <span class="math display">\[,g' \left( y \right) = \frac{\left( \cos y \right)'}{\cos y} = \frac{-\sin y}{\cos y} = -\tan y\]</span> ולכן <span class="math display">\[.g'' \left( y \right) = -\left( \tan y \right)' = -\frac{1}{\cos^2 y}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: הצבה בנוסחת העקמומיות הממוצעת של גרף מופרד</summary>
-<div class="foldable" title="שלב 3: הצבה בנוסחת העקמומיות הממוצעת של גרף מופרד">
-<p>נשתמש בביטוי ל-<span class="math inline">\(H\)</span> שקיבלנו ב<a href="#box-q-separable-graph">שאלה 10.4.3</a>, עם <span class="math inline">\(u = x\)</span> ועם <span class="math inline">\(v = y\)</span>. תחילה נפשט את שני הגורמים שבמונה: <span class="math display">\[,1 + f' \left( x \right)^2 = 1 + \tan^2 x = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} = \frac{1}{\cos^2 x}\]</span> ובאותו חישוב, שכן <span class="math inline">\(g' \left( y \right)^2 = \tan^2 y\)</span>, <span class="math display">\[.1 + g' \left( y \right)^2 = \frac{1}{\cos^2 y}\]</span></p>
-<p>כעת נציב במונה של <span class="math inline">\(H\)</span>: <span class="math display">\[,f'' \left( x \right) \left( 1 + g' \left( y \right)^2 \right) = \frac{1}{\cos^2 x} \cdot \frac{1}{\cos^2 y} = \frac{1}{\cos^2 x \cos^2 y}\]</span> וכן <span class="math display">\[.g'' \left( y \right) \left( 1 + f' \left( x \right)^2 \right) = \left( -\frac{1}{\cos^2 y} \right) \cdot \frac{1}{\cos^2 x} = -\frac{1}{\cos^2 x \cos^2 y}\]</span></p>
-<p>סכום שני האיברים האלה הוא אפס, <span class="math display">\[,\frac{1}{\cos^2 x \cos^2 y} - \frac{1}{\cos^2 x \cos^2 y} = 0\]</span> והמכנה של <span class="math inline">\(H\)</span> הוא <span class="math inline">\(2 \left( 1 + f' \left( x \right)^2 + g' \left( y \right)^2 \right)^{3/2}\)</span>, שהוא חיובי ממש, ולכן <span class="math display">\[.H = \frac{0}{2 \left( 1 + \tan^2 x + \tan^2 y \right)^{3/2}} = 0\]</span></p>
-<p>זה מתקיים בכל נקודה של המשטח, ולכן לפי <a href="#box-def-minimal">הגדרה 10.4.2</a> המשטח מינימלי.</p>
-</div>
-</details>
-</div>
-<div id="box-q-helicoid-K-H" class="thmbox thmbox-question">
-<p><strong>שאלה 10.4.5.</strong></p>
-<p>מצאו את עקמומיות גאוס ואת העקמומיות הממוצעת של ההליקואיד <span class="math display">\[,\overline{x} \left( u, v \right) = \left( u \cos v, \; u \sin v, \; k v \right)\]</span> כאשר <span class="math inline">\(k \neq 0\)</span> קבוע.</p>
-</div>
-<iframe class="widget-frame" src="widgets/ch10/helicoid.html" loading="lazy" title="ההליקואיד, עקמומיות גאוס והעקמומיות הממוצעת שלו"></iframe>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: נגזרות ראשונות והתבנית היסודית הראשונה</summary>
-<div class="foldable" title="שלב 1: נגזרות ראשונות והתבנית היסודית הראשונה">
-<p>נגזור לפי <span class="math inline">\(u\)</span> ולפי <span class="math inline">\(v\)</span>: <span class="math display">\[.\overline{x}_u = \left( \cos v, \; \sin v, \; 0 \right), \qquad \overline{x}_v = \left( -u \sin v, \; u \cos v, \; k \right)\]</span></p>
-<p>נחשב את שלוש המכפלות הסקלריות. הראשונה, <span class="math display">\[,g_{11} = \cos^2 v + \sin^2 v + 0 = 1\]</span> השנייה, שבה שני האיברים מבטלים זה את זה, <span class="math display">\[,g_{12} = g_{21} = \cos v \cdot \left( -u \sin v \right) + \sin v \cdot u \cos v + 0 \cdot k = -u \sin v \cos v + u \sin v \cos v = 0\]</span> והשלישית, <span class="math display">\[.g_{22} = u^2 \sin^2 v + u^2 \cos^2 v + k^2 = u^2 + k^2\]</span></p>
-<p>לכן <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; u^2 + k^2 \end{pmatrix}, \qquad \det \left( g_{ij} \right) = u^2 + k^2\]</span> וזה חיובי ממש שכן <span class="math inline">\(k \neq 0\)</span>, ולכן הפרמטריזציה רגולרית בכל נקודה.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: הנורמל</summary>
-<div class="foldable" title="שלב 2: הנורמל">
-<p>נחשב את המכפלה הוקטורית כפיתוח דטרמיננטה לפי השורה הראשונה: <span class="math display">\[.\overline{x}_u \times \overline{x}_v = \det \begin{pmatrix} e_1 &amp; e_2 &amp; e_3 \\ \cos v &amp; \sin v &amp; 0 \\ -u \sin v &amp; u \cos v &amp; k \end{pmatrix}\]</span></p>
-<p>הרכיב הראשון הוא <span class="math display">\[,\sin v \cdot k - 0 \cdot u \cos v = k \sin v\]</span> הרכיב השני הוא <span class="math display">\[,-\left( \cos v \cdot k - 0 \cdot \left( -u \sin v \right) \right) = -k \cos v\]</span> והרכיב השלישי הוא <span class="math display">\[.\cos v \cdot u \cos v - \sin v \cdot \left( -u \sin v \right) = u \cos^2 v + u \sin^2 v = u\]</span></p>
-<p>כלומר <span class="math display">\[,\overline{x}_u \times \overline{x}_v = \left( k \sin v, \; -k \cos v, \; u \right)\]</span> ונורמתו <span class="math display">\[,\left\| \overline{x}_u \times \overline{x}_v \right\| = \sqrt{k^2 \sin^2 v + k^2 \cos^2 v + u^2} = \sqrt{u^2 + k^2}\]</span> שוב בהתאמה ל-<span class="math inline">\(\sqrt{\det \left( g_{ij} \right)}\)</span>. לכן <span class="math display">\[.N = \frac{1}{\sqrt{u^2 + k^2}} \left( k \sin v, \; -k \cos v, \; u \right)\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: הנגזרות השניות והתבנית היסודית השנייה</summary>
-<div class="foldable" title="שלב 3: הנגזרות השניות והתבנית היסודית השנייה">
-<p>נגזור שנית: <span class="math display">\[,\overline{x}_{uu} = \left( 0, 0, 0 \right), \qquad \overline{x}_{uv} = \left( -\sin v, \; \cos v, \; 0 \right), \qquad \overline{x}_{vv} = \left( -u \cos v, \; -u \sin v, \; 0 \right)\]</span> שכן <span class="math inline">\(\overline{x}_u\)</span> אינו תלוי ב-<span class="math inline">\(u\)</span> כלל, וגזירת <span class="math inline">\(\overline{x}_v\)</span> לפי <span class="math inline">\(u\)</span> נותנת את <span class="math inline">\(\left( -\sin v, \cos v, 0 \right)\)</span> ולפי <span class="math inline">\(v\)</span> את <span class="math inline">\(\left( -u \cos v, -u \sin v, 0 \right)\)</span>.</p>
-<p>נציב בנוסחה <span class="math inline">\(L_{ij} = \left\langle \overline{x}_{ij}, \; N \right\rangle\)</span>. המקדם הראשון מתאפס, <span class="math display">\[,L_{11} = \left\langle \left( 0, 0, 0 \right), \; N \right\rangle = 0\]</span> המקדם המעורב הוא <span class="math display">\[,L_{12} = \frac{1}{\sqrt{u^2 + k^2}} \left( \left( -\sin v \right) k \sin v + \cos v \left( -k \cos v \right) + 0 \right) = \frac{-k \sin^2 v - k \cos^2 v}{\sqrt{u^2 + k^2}} = \frac{-k}{\sqrt{u^2 + k^2}}\]</span> והמקדם האחרון מתאפס אף הוא, שכן שני האיברים מבטלים זה את זה: <span class="math display">\[.L_{22} = \frac{1}{\sqrt{u^2 + k^2}} \left( -u \cos v \cdot k \sin v + \left( -u \sin v \right) \left( -k \cos v \right) + 0 \right) = \frac{-uk \sin v \cos v + uk \sin v \cos v}{\sqrt{u^2 + k^2}} = 0\]</span></p>
-<p>בכתיב מטריצי <span class="math display">\[.\left( L_{ij} \right) = \frac{-k}{\sqrt{u^2 + k^2}} \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: המטריצה המייצגת את אופרטור הצורה</summary>
-<div class="foldable" title="שלב 4: המטריצה המייצגת את אופרטור הצורה">
-<p>המטריקה אלכסונית, ולכן ההופכית שלה מתקבלת מהיפוך כל איבר באלכסון: <span class="math display">\[.\left( g^{ij} \right) = \begin{pmatrix} 1 &amp; 0 \\[4pt] 0 &amp; \dfrac{1}{u^2 + k^2} \end{pmatrix}\]</span></p>
-<p>שימו לב ש-<span class="math inline">\(g_{12} = 0\)</span> אך <span class="math inline">\(L_{12} \neq 0\)</span>, ולכן אין כאן קיצור אלכסוני ויש לכפול ממש: <span class="math display">\[.\left( L^i_j \right) = \begin{pmatrix} 1 &amp; 0 \\[4pt] 0 &amp; \dfrac{1}{u^2 + k^2} \end{pmatrix} \cdot \frac{-k}{\sqrt{u^2 + k^2}} \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix}\]</span></p>
-<p>השורה הראשונה אינה משתנה, והשורה השנייה מתחלקת ב-<span class="math inline">\(u^2 + k^2\)</span>: <span class="math display">\[.\left( L^i_j \right) = \begin{pmatrix} 0 &amp; \dfrac{-k}{\sqrt{u^2 + k^2}} \\[8pt] \dfrac{-k}{\left( u^2 + k^2 \right)^{3/2}} &amp; 0 \end{pmatrix}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 5: העקבה והדטרמיננטה</summary>
-<div class="foldable" title="שלב 5: העקבה והדטרמיננטה">
-<p>האלכסון הראשי מתאפס כולו, ולכן <span class="math display">\[,H = \frac{1}{2} \operatorname{tr} \left( L^i_j \right) = \frac{1}{2} \left( 0 + 0 \right) = 0\]</span> כלומר ההליקואיד מינימלי לפי <a href="#box-def-minimal">הגדרה 10.4.2</a>.</p>
-<p>לדטרמיננטה נחסר מן המכפלה באלכסון הראשי, שהיא אפס, את המכפלה באלכסון המשני: <span class="math display">\[,\frac{-k}{\sqrt{u^2 + k^2}} \cdot \frac{-k}{\left( u^2 + k^2 \right)^{3/2}} = \frac{k^2}{\left( u^2 + k^2 \right)^2}\]</span> ולכן <span class="math display">\[.K = \det \left( L^i_j \right) = 0 - \frac{k^2}{\left( u^2 + k^2 \right)^2} = -\frac{k^2}{\left( k^2 + u^2 \right)^2}\]</span></p>
-</div>
-</details>
-</div>
-<div id="box-def-parallel-surface" class="thmbox thmbox-definition" title="משטח מקביל">
-<p><strong>הגדרה 10.4.6 — משטח מקביל.</strong></p>
-<p>יהי <span class="math inline">\(M\)</span> משטח אוריינטבילי עם שדה נורמל יחידה <span class="math inline">\(N\)</span>, ויהי <span class="math inline">\(\lambda \in \mathbb{R}\)</span>. <strong>המשטח המקביל</strong> ל-<span class="math inline">\(M\)</span> במרחק <span class="math inline">\(\lambda\)</span> הוא <span class="math display">\[.M^\lambda = \left\{ p + \lambda N_p \; \mid \; p \in M \right\}\]</span></p>
-<p>אם בכל נקודה <span class="math inline">\(\lambda k_1 \neq 1\)</span> וגם <span class="math inline">\(\lambda k_2 \neq 1\)</span>, אזי <span class="math inline">\(M^\lambda\)</span> הוא משטח חלק. אם בנוסף <span class="math inline">\(1 - \lambda k_1 &gt; 0\)</span> וגם <span class="math inline">\(1 - \lambda k_2 &gt; 0\)</span>, אזי הנורמל של <span class="math inline">\(M^\lambda\)</span> בנקודה <span class="math inline">\(p + \lambda N_p\)</span> הוא <span class="math inline">\(N_p\)</span> עצמו.</p>
-</div>
-<div id="box-cor-parallel-K-H" class="thmbox thmbox-corollary" title="משטחים מקבילים והחלפת תפקידים בין שתי העקמומיויות">
-<p><strong>מסקנה 10.4.7 — משטחים מקבילים והחלפת תפקידים בין שתי העקמומיויות.</strong></p>
-<p>יהי <span class="math inline">\(R &gt; 0\)</span>.</p>
-<ol type="1">
-<li>אם עקמומיות גאוס של <span class="math inline">\(M\)</span> קבועה ושווה ל-<span class="math inline">\(\frac{1}{R^2}\)</span>, אזי לשני המשטחים המקבילים <span class="math inline">\(M^{R}\)</span> ו-<span class="math inline">\(M^{-R}\)</span> עקמומיות ממוצעת קבועה <span class="math inline">\(\frac{1}{2R}\)</span>.</li>
-<li>אם העקמומיות הממוצעת של <span class="math inline">\(M\)</span> קבועה ושווה ל-<span class="math inline">\(\frac{1}{2R}\)</span>, אזי עקמומיות גאוס של <span class="math inline">\(M^{R}\)</span> קבועה ושווה ל-<span class="math inline">\(\frac{1}{R^2}\)</span>.</li>
-</ol>
-</div>
-<div id="box-thm-constant-K-sphere" class="thmbox thmbox-theorem" title="משטח קומפקטי בעל עקמומיות גאוס קבועה">
-<p><strong>משפט 10.4.8 — משטח קומפקטי בעל עקמומיות גאוס קבועה.</strong></p>
-<p>כל משטח קומפקטי וקשיר שעקמומיות גאוס שלו קבועה הוא ספירה.</p>
-</div>
-<div id="box-q-compact-cmc-sphere" class="thmbox thmbox-question">
-<p><strong>שאלה 10.4.9.</strong></p>
-<p>יהי <span class="math inline">\(M\)</span> משטח קומפקטי וקשיר שעקמומיות גאוס שלו חיובית בכל נקודה ושהעקמומיות הממוצעת שלו קבועה. הוכיחו ש-<span class="math inline">\(M\)</span> הוא ספירה.</p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: העקמומיות הממוצעת אינה מתאפסת, ובחירת האוריינטציה</summary>
-<div class="foldable" title="שלב 1: העקמומיות הממוצעת אינה מתאפסת, ובחירת האוריינטציה">
-<p>בכל נקודה מתקיים <span class="math inline">\(k_1 k_2 = K &gt; 0\)</span>, ולכן <span class="math inline">\(k_1\)</span> ו-<span class="math inline">\(k_2\)</span> שונים מאפס ובעלי אותו סימן. סכום של שני מספרים בעלי אותו סימן שונה מאפס, ולכן <span class="math display">\[,H = \frac{k_1 + k_2}{2} \neq 0\]</span> בכל נקודה.</p>
-<p>העקמומיות הממוצעת קבועה על <span class="math inline">\(M\)</span>, ולכן היא חיובית בכל הנקודות או שלילית בכל הנקודות. אם נחליף את <span class="math inline">\(N\)</span> ב-<span class="math inline">\(-N\)</span>, אופרטור הצורה <span class="math inline">\(S_p = -dN_p\)</span> מתחלף ב-<span class="math inline">\(-S_p\)</span>, ולכן <span class="math inline">\(k_1, k_2\)</span> מתחלפות ב-<span class="math inline">\(-k_1, -k_2\)</span>. מכאן ש-<span class="math inline">\(K\)</span> אינה משתנה ואילו <span class="math inline">\(H\)</span> מחליפה סימן, ולכן מותר לנו לבחור את האוריינטציה שעבורה <span class="math inline">\(H &gt; 0\)</span>.</p>
-<p>נסמן <span class="math inline">\(R = \frac{1}{2H}\)</span>, ואז <span class="math inline">\(R &gt; 0\)</span> ומתקיים <span class="math display">\[.H = \frac{1}{2R}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: חסימת העקמומיויות הראשיות, שמאפשרת לבנות את המשטח המקביל \(M^R\) ולהראות שעקמומיות גאוס שלו קבועה</summary>
-<div class="foldable" title="שלב 2: חסימת העקמומיויות הראשיות, שמאפשרת לבנות את המשטח המקביל $M^R$ ולהראות שעקמומיות גאוס שלו קבועה">
-<p>מן הנתון <span class="math inline">\(k_1 k_2 = K &gt; 0\)</span> ומן השוויון <span class="math display">\[,k_1 + k_2 = 2H = \frac{1}{R} &gt; 0\]</span> נובע ששתי העקמומיויות הראשיות חיוביות: הן בעלות אותו סימן, ואילו היו שתיהן שליליות היה הסכום שלילי.</p>
-<p>כעת, מכיוון ש-<span class="math inline">\(k_2 &gt; 0\)</span>, מתקיים <span class="math display">\[,k_1 = \frac{1}{R} - k_2 &lt; \frac{1}{R}\]</span> ובאותו אופן <span class="math inline">\(k_2 &lt; \frac{1}{R}\)</span>. לסיכום, בכל נקודה <span class="math display">\[.0 &lt; k_1 &lt; \frac{1}{R}, \qquad 0 &lt; k_2 &lt; \frac{1}{R}\]</span></p>
-<p>בפרט <span class="math inline">\(R k_1 \neq 1\)</span> וגם <span class="math inline">\(R k_2 \neq 1\)</span>, וגם <span class="math inline">\(1 - R k_1 &gt; 0\)</span> וגם <span class="math inline">\(1 - R k_2 &gt; 0\)</span>. לכן לפי <a href="#box-def-parallel-surface">הגדרה 10.4.6</a> המשטח המקביל <span class="math inline">\(M^R\)</span> הוא משטח חלק, ואם נסמן ב-<span class="math inline">\(\widetilde{N}\)</span> את שדה הנורמל שלו, אזי <span class="math display">\[.\widetilde{N}_{p + R N_p} = N_p\]</span></p>
-<p>העקמומיות הממוצעת של <span class="math inline">\(M\)</span> קבועה ושווה ל-<span class="math inline">\(\frac{1}{2R}\)</span>, ולכן לפי החלק השני של <a href="#box-cor-parallel-K-H">מסקנה 10.4.7</a> עקמומיות גאוס של <span class="math inline">\(M^R\)</span> קבועה, וערכה <span class="math display">\[.\frac{1}{R^2}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: זיהוי \(M^R\) כספירה, והחזרה ממנה אל \(M\)</summary>
-<div class="foldable" title="שלב 3: זיהוי $M^R$ כספירה, והחזרה ממנה אל $M$">
-<p>ההעתקה <span class="math inline">\(\Phi \left( p \right) = p + R N_p\)</span> רציפה, ו-<span class="math inline">\(M^R\)</span> הוא התמונה שלה. תמונה רציפה של קבוצה קומפקטית היא קומפקטית ותמונה רציפה של קבוצה קשירה היא קשירה, ולכן <span class="math inline">\(M^R\)</span> משטח קומפקטי וקשיר.</p>
-<p>ראינו בשלב הקודם שעקמומיות גאוס של <span class="math inline">\(M^R\)</span> קבועה, ולכן לפי <a href="#box-thm-constant-K-sphere">משפט 10.4.8</a> המשטח <span class="math inline">\(M^R\)</span> הוא ספירה. עקמומיות גאוס של ספירה שרדיוסה <span class="math inline">\(r\)</span> היא <span class="math inline">\(\frac{1}{r^2}\)</span>, וכאן היא <span class="math inline">\(\frac{1}{R^2}\)</span>, ולכן הרדיוס הוא <span class="math inline">\(R\)</span>.</p>
-<p>נסמן ב-<span class="math inline">\(c\)</span> את מרכזה, כלומר <span class="math display">\[.M^R = \left\{ q \in \mathbb{R}^3 \; \mid \; \left\| q - c \right\| = R \right\}\]</span></p>
-<p>תהי <span class="math inline">\(p \in M\)</span> ונסמן <span class="math inline">\(q = \Phi \left( p \right) = p + R N_p\)</span>. לפי השלב הקודם מתקיים <span class="math inline">\(\widetilde{N}_q = N_p\)</span>, ולכן <span class="math display">\[,q - R \widetilde{N}_q = \left( p + R N_p \right) - R N_p = p\]</span> כלומר כל נקודה של <span class="math inline">\(M\)</span> מתקבלת מנקודת <span class="math inline">\(M^R\)</span> המתאימה על ידי הזזה במרחק <span class="math inline">\(R\)</span> בכיוון ההפוך לנורמל.</p>
-<p>שדה הנורמל <span class="math inline">\(\widetilde{N}\)</span> רציף על הספירה, ובכל נקודה <span class="math inline">\(q\)</span> שלה הנורמל הוא <span class="math inline">\(\pm \frac{q - c}{R}\)</span>. הספירה קשירה והשדה רציף, ולכן הסימן אינו יכול להתחלף, כלומר קיים <span class="math inline">\(\varepsilon \in \left\{ 1, -1 \right\}\)</span> אחד לכל הספירה שעבורו <span class="math display">\[.\widetilde{N}_q = \varepsilon \, \frac{q - c}{R}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: פסילת אחת משתי האפשרויות לסימן, והמסקנה ש-\(M\) ספירה</summary>
-<div class="foldable" title="שלב 4: פסילת אחת משתי האפשרויות לסימן, והמסקנה ש-$M$ ספירה">
-<p>נניח <span class="math inline">\(\varepsilon = 1\)</span>. אז לכל נקודה <span class="math inline">\(q\)</span> של הספירה מתקבל <span class="math display">\[,q - R \widetilde{N}_q = q - R \cdot \frac{q - c}{R} = q - \left( q - c \right) = c\]</span> ולפי השלב הקודם כל נקודות <span class="math inline">\(M\)</span> שוות ל-<span class="math inline">\(c\)</span>, כלומר <span class="math inline">\(M = \left\{ c \right\}\)</span>. זו נקודה בודדת ולא משטח, סתירה.</p>
-<p>לכן <span class="math inline">\(\varepsilon = -1\)</span>.</p>
-<p>נציב את הערך הזה בנוסחאות שבשלב הקודם. לכל <span class="math inline">\(p \in M\)</span>, ועבור <span class="math inline">\(q = p + R N_p\)</span>, מתקבל <span class="math display">\[,p = q - R \widetilde{N}_q = q - R \cdot \left( -\frac{q - c}{R} \right) = q + \left( q - c \right) = 2q - c\]</span> ולכן <span class="math display">\[.\left\| p - c \right\| = \left\| 2q - c - c \right\| = 2 \left\| q - c \right\| = 2R\]</span></p>
-<p>זה מראה ש-<span class="math inline">\(M\)</span> מוכל בספירה שמרכזה <span class="math inline">\(c\)</span> ורדיוסה <span class="math inline">\(2R\)</span>. להכלה ההפוכה, ראינו בשלב הקודם שכל נקודה <span class="math inline">\(q\)</span> בספירה שרדיוסה <span class="math inline">\(R\)</span> היא <span class="math inline">\(\Phi \left( p \right)\)</span> עבור <span class="math inline">\(p \in M\)</span> כלשהי, ואותה <span class="math inline">\(p\)</span> שווה ל-<span class="math inline">\(2q - c\)</span>; וההעתקה <span class="math inline">\(q \mapsto 2q - c\)</span> מכסה את כל הספירה שרדיוסה <span class="math inline">\(2R\)</span>.</p>
-<p>לכן <span class="math display">\[,M = \left\{ p \in \mathbb{R}^3 \; \mid \; \left\| p - c \right\| = 2R \right\}\]</span> כלומר <span class="math inline">\(M\)</span> הוא ספירה שרדיוסה <span class="math inline">\(2R = \frac{1}{H}\)</span>, כנדרש.</p>
-</div>
-</details>
-</div>
-</section>
-<section id="קואורדינטות-איזותרמיות-ואופרטור-לפלסבלטרמי" class="level2" data-number="10.5">
-<h2 data-number="10.5" class="anchored" data-anchor-id="קואורדינטות-איזותרמיות-ואופרטור-לפלסבלטרמי"><span class="header-section-number">10.5</span> קואורדינטות איזותרמיות ואופרטור לפלס–בלטרמי</h2>
-<div id="box-def-isothermal" class="thmbox thmbox-definition" title="קואורדינטות איזותרמיות">
-<p><strong>הגדרה 10.5.1 — קואורדינטות איזותרמיות.</strong></p>
-<p>תהי <span class="math inline">\(\overline{x}\)</span> פרמטריזציה מקומית של משטח <span class="math inline">\(M \subseteq \mathbb{R}^3\)</span> בקואורדינטות <span class="math inline">\(\left( u^1, u^2 \right)\)</span>. הקואורדינטות נקראות <strong>איזותרמיות</strong> אם קיימת פונקציה <span class="math inline">\(\lambda \left( u^1, u^2 \right) &gt; 0\)</span> שעבורה <span class="math display">\[,g_{ij} = \lambda \left( u^1, u^2 \right) \delta_{ij}\]</span> כלומר <span class="math display">\[.\left( g_{ij} \right) = \lambda \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\]</span></p>
-<p>הפונקציה <span class="math inline">\(\lambda\)</span> נקראת <strong>הגורם הקונפורמי</strong> של המטריקה.</p>
-</div>
-<div id="box-def-laplace-beltrami" class="thmbox thmbox-definition" title="אופרטור לפלס–בלטרמי">
-<p><strong>הגדרה 10.5.2 — אופרטור לפלס–בלטרמי.</strong></p>
-<p>תהי מטריקה בקואורדינטות איזותרמיות, <span class="math inline">\(g_{ij} = \lambda \delta_{ij}\)</span> עם <span class="math inline">\(\lambda &gt; 0\)</span>. <strong>אופרטור לפלס–בלטרמי</strong> של המטריקה הזו הוא <span class="math display">\[.\Delta_{LB} = \frac{1}{\lambda} \left( \frac{\partial^2}{\partial \left( u^1 \right)^2} + \frac{\partial^2}{\partial \left( u^2 \right)^2} \right)\]</span></p>
-<p>נסמן ב-<span class="math inline">\(\Delta_0\)</span> את הלפלסיאן השטוח בקואורדינטות <span class="math inline">\(\left( u^1, u^2 \right)\)</span>, ואז לכל פונקציה <span class="math inline">\(h\)</span> הגזירה פעמיים ברציפות מתקיים <span class="math display">\[.\Delta_{LB} h = \frac{1}{\lambda} \Delta_0 h\]</span></p>
-</div>
-<div id="box-thm-K-isothermal" class="thmbox thmbox-theorem" title="עקמומיות גאוס בקואורדינטות איזותרמיות">
-<p><strong>משפט 10.5.3 — עקמומיות גאוס בקואורדינטות איזותרמיות.</strong></p>
-<p>תהי מטריקה בקואורדינטות איזותרמיות עם גורם קונפורמי <span class="math inline">\(\lambda\)</span>. אזי עקמומיות גאוס שלה נתונה על ידי <span class="math display">\[.K = -\frac{1}{2} \Delta_{LB} \left( \ln \lambda \right)\]</span></p>
-</div>
-<div id="box-q-sphere-lb" class="thmbox thmbox-question">
-<p><strong>שאלה 10.5.4.</strong></p>
-<p>חשבו את עקמומיות גאוס של הספירה באמצעות אופרטור לפלס–בלטרמי.</p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: בוחרים פרמטריזציה איזותרמית של הספירה ומוודאים שהיא אכן נותנת את ספירת היחידה</summary>
-<div class="foldable" title="שלב 1: בוחרים פרמטריזציה איזותרמית של הספירה ומוודאים שהיא אכן נותנת את ספירת היחידה">
-<p>הנוסחה שב-<a href="#box-thm-K-isothermal">משפט 10.5.3</a> תקפה רק בקואורדינטות איזותרמיות, ולכן דרושה לנו קודם כול פרמטריזציה איזותרמית של הספירה.</p>
-<p>ההעתקה ההפוכה להטלה הסטריאוגרפית היא פרמטריזציה כזו של ספירת היחידה <span class="math display">\[,\overline{x} \left( u, v \right) = \frac{1}{u^2 + v^2 + 1} \left( 2u, \; 2v, \; u^2 + v^2 - 1 \right)\]</span> כאשר <span class="math inline">\(\left( u, v \right) \in \mathbb{R}^2\)</span>.</p>
-<p>לאורך הפתרון נסמן <span class="math display">\[,q \left( u, v \right) = 1 + u^2 + v^2\]</span> ואז <span class="math inline">\(q \geq 1 &gt; 0\)</span> בכל נקודה, ובפרט המכנה לעולם אינו מתאפס.</p>
-<p>ברכיב השלישי מתקיים <span class="math inline">\(u^2 + v^2 - 1 = \left( 1 + u^2 + v^2 \right) - 2 = q - 2\)</span>, ולכן אפשר לכתוב את הפרמטריזציה בצורה <span class="math display">\[.\overline{x} = \left( \frac{2u}{q}, \; \frac{2v}{q}, \; \frac{q - 2}{q} \right) = \left( \frac{2u}{q}, \; \frac{2v}{q}, \; 1 - \frac{2}{q} \right)\]</span></p>
-<p>לשלושת הרכיבים מכנה משותף, ולכן <span class="math display">\[.\left\| \overline{x} \right\|^2 = \frac{\left( 2u \right)^2 + \left( 2v \right)^2 + \left( u^2 + v^2 - 1 \right)^2}{\left( u^2 + v^2 + 1 \right)^2}\]</span></p>
-<p>נפתח את המונה. לפי נוסחת הכפל המקוצר <span class="math display">\[,\left( u^2 + v^2 - 1 \right)^2 = \left( u^2 + v^2 \right)^2 - 2 \left( u^2 + v^2 \right) + 1\]</span> ולכן המונה כולו הוא <span class="math display">\[.\begin{aligned} 4u^2 + 4v^2 + \left( u^2 + v^2 \right)^2 - 2 \left( u^2 + v^2 \right) + 1 &amp;= \left( u^2 + v^2 \right)^2 + 4 \left( u^2 + v^2 \right) - 2 \left( u^2 + v^2 \right) + 1 \\ &amp;= \left( u^2 + v^2 \right)^2 + 2 \left( u^2 + v^2 \right) + 1 \\ &amp;= \left( u^2 + v^2 + 1 \right)^2 \end{aligned}\]</span></p>
-<p>המונה והמכנה זהים, ומכאן <span class="math display">\[,\left\| \overline{x} \right\|^2 = \frac{\left( u^2 + v^2 + 1 \right)^2}{\left( u^2 + v^2 + 1 \right)^2} = 1\]</span> כלומר כל נקודה בתמונה נמצאת על ספירת היחידה.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: גוזרים את הפרמטריזציה, מחשבים את מקדמי המטריקה ומזהים את הגורם הקונפורמי</summary>
-<div class="foldable" title="שלב 2: גוזרים את הפרמטריזציה, מחשבים את מקדמי המטריקה ומזהים את הגורם הקונפורמי">
-<p>נגזור את <span class="math inline">\(q\)</span> עצמה <span class="math display">\[,q_u = 2u, \qquad q_v = 2v\]</span> ונשתמש בכלל המנה על כל רכיב בנפרד.</p>
-<p>נגזור לפי <span class="math inline">\(u\)</span>. ברכיב הראשון <span class="math display">\[,\frac{\partial}{\partial u} \left( \frac{2u}{q} \right) = \frac{2q - 2u \cdot q_u}{q^2} = \frac{2 \left( 1 + u^2 + v^2 \right) - 4u^2}{q^2} = \frac{2 \left( 1 - u^2 + v^2 \right)}{q^2}\]</span> ברכיב השני המונה <span class="math inline">\(2v\)</span> אינו תלוי ב-<span class="math inline">\(u\)</span>, ולכן <span class="math display">\[,\frac{\partial}{\partial u} \left( \frac{2v}{q} \right) = 2v \cdot \left( -\frac{q_u}{q^2} \right) = -\frac{4uv}{q^2}\]</span> וברכיב השלישי נכתוב <span class="math inline">\(1 - 2q^{-1}\)</span> ונגזור לפי כלל השרשרת <span class="math display">\[.\frac{\partial}{\partial u} \left( 1 - 2q^{-1} \right) = 2q^{-2} \, q_u = \frac{4u}{q^2}\]</span></p>
-<p>נוציא את הגורם המשותף <span class="math inline">\(\frac{2}{q^2}\)</span> ונקבל <span class="math display">\[.\overline{x}_u = \frac{2}{q^2} \left( 1 - u^2 + v^2, \; -2uv, \; 2u \right)\]</span></p>
-<p>נגזור לפי <span class="math inline">\(v\)</span>. ברכיב הראשון המונה <span class="math inline">\(2u\)</span> אינו תלוי ב-<span class="math inline">\(v\)</span>, ולכן <span class="math display">\[,\frac{\partial}{\partial v} \left( \frac{2u}{q} \right) = 2u \cdot \left( -\frac{q_v}{q^2} \right) = -\frac{4uv}{q^2}\]</span> ברכיב השני <span class="math display">\[,\frac{\partial}{\partial v} \left( \frac{2v}{q} \right) = \frac{2q - 2v \cdot q_v}{q^2} = \frac{2 \left( 1 + u^2 + v^2 \right) - 4v^2}{q^2} = \frac{2 \left( 1 + u^2 - v^2 \right)}{q^2}\]</span> וברכיב השלישי <span class="math display">\[.\frac{\partial}{\partial v} \left( 1 - 2q^{-1} \right) = 2q^{-2} \, q_v = \frac{4v}{q^2}\]</span></p>
-<p>שוב נוציא את הגורם המשותף <span class="math inline">\(\frac{2}{q^2}\)</span> ונקבל <span class="math display">\[.\overline{x}_v = \frac{2}{q^2} \left( -2uv, \; 1 + u^2 - v^2, \; 2v \right)\]</span></p>
-<p>בכל אחת משלוש המכפלות הסקלריות יופיע הגורם <span class="math display">\[,\left( \frac{2}{q^2} \right)^2 = \frac{4}{q^4}\]</span> ולכן נחשב תחילה רק את הסכומים שבתוך הסוגריים.</p>
-<p>עבור <span class="math inline">\(g_{11}\)</span> נפתח תחילה את הריבוע <span class="math display">\[,\left( 1 - u^2 + v^2 \right)^2 = 1 + u^4 + v^4 - 2u^2 + 2v^2 - 2u^2 v^2\]</span> ולכן <span class="math display">\[.\begin{aligned} \left( 1 - u^2 + v^2 \right)^2 + \left( -2uv \right)^2 + \left( 2u \right)^2 &amp;= 1 + u^4 + v^4 - 2u^2 + 2v^2 - 2u^2 v^2 + 4u^2 v^2 + 4u^2 \\ &amp;= 1 + u^4 + v^4 + 2u^2 + 2v^2 + 2u^2 v^2 \\ &amp;= \left( 1 + u^2 + v^2 \right)^2 = q^2 \end{aligned}\]</span></p>
-<p>לכן <span class="math display">\[.g_{11} = \left\langle \overline{x}_u, \; \overline{x}_u \right\rangle = \frac{4}{q^4} \cdot q^2 = \frac{4}{q^2}\]</span></p>
-<p>עבור <span class="math inline">\(g_{22}\)</span> נפתח תחילה את הריבוע <span class="math display">\[,\left( 1 + u^2 - v^2 \right)^2 = 1 + u^4 + v^4 + 2u^2 - 2v^2 - 2u^2 v^2\]</span> ולכן <span class="math display">\[.\begin{aligned} \left( -2uv \right)^2 + \left( 1 + u^2 - v^2 \right)^2 + \left( 2v \right)^2 &amp;= 4u^2 v^2 + 1 + u^4 + v^4 + 2u^2 - 2v^2 - 2u^2 v^2 + 4v^2 \\ &amp;= 1 + u^4 + v^4 + 2u^2 + 2v^2 + 2u^2 v^2 \\ &amp;= \left( 1 + u^2 + v^2 \right)^2 = q^2 \end{aligned}\]</span></p>
-<p>לכן גם <span class="math display">\[.g_{22} = \left\langle \overline{x}_v, \; \overline{x}_v \right\rangle = \frac{4}{q^4} \cdot q^2 = \frac{4}{q^2}\]</span></p>
-<p>עבור המקדם המעורב נוציא את הגורם <span class="math inline">\(-2uv\)</span> משני המחוברים הראשונים <span class="math display">\[.\begin{aligned} \left( 1 - u^2 + v^2 \right) \left( -2uv \right) + \left( -2uv \right) \left( 1 + u^2 - v^2 \right) + 2u \cdot 2v &amp;= -2uv \left[ \left( 1 - u^2 + v^2 \right) + \left( 1 + u^2 - v^2 \right) \right] + 4uv \\ &amp;= -2uv \cdot 2 + 4uv \\ &amp;= -4uv + 4uv = 0 \end{aligned}\]</span></p>
-<p>לכן <span class="math display">\[.g_{12} = g_{21} = \left\langle \overline{x}_u, \; \overline{x}_v \right\rangle = \frac{4}{q^4} \cdot 0 = 0\]</span></p>
-<p>בסך הכל קיבלנו <span class="math display">\[,\left( g_{ij} \right) = \frac{4}{q^2} \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\]</span> ומכיוון ש-<span class="math inline">\(q &gt; 0\)</span>, לפי <a href="#box-def-isothermal">הגדרה 10.5.1</a> אלה קואורדינטות איזותרמיות עם גורם קונפורמי <span class="math display">\[.\lambda = \frac{4}{q^2} = \frac{4}{\left( 1 + u^2 + v^2 \right)^2}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: מחשבים את \(\ln \lambda\), עוקבים אחרי הסימן ועוברים ללפלסיאן השטוח</summary>
-<div class="foldable" title="שלב 3: מחשבים את $\ln \lambda$, עוקבים אחרי הסימן ועוברים ללפלסיאן השטוח">
-<p>לפי חוקי הלוגריתם <span class="math display">\[.\ln \lambda = \ln \left( \frac{4}{q^2} \right) = \ln 4 - \ln \left( q^2 \right) = \ln 4 - 2 \ln q\]</span></p>
-<p>לכן, לפי <a href="#box-thm-K-isothermal">משפט 10.5.3</a>, <span class="math display">\[.K = -\frac{1}{2} \Delta_{LB} \left( \ln \lambda \right) = -\frac{1}{2} \Delta_{LB} \left( \ln 4 - 2 \ln q \right)\]</span></p>
-<p>האופרטור <span class="math inline">\(\Delta_{LB}\)</span> לינארי, והוא מאפס כל פונקציה קבועה, שכן <span class="math inline">\(\Delta_{LB} c = \frac{1}{\lambda} \Delta_0 c = 0\)</span>. לכן האיבר <span class="math inline">\(\ln 4\)</span> נעלם, ואת הקבוע <span class="math inline">\(-2\)</span> אפשר להוציא אל מחוץ לאופרטור <span class="math display">\[.K = -\frac{1}{2} \cdot \left( -2 \right) \cdot \Delta_{LB} \left( \ln q \right) = \Delta_{LB} \left( \ln q \right)\]</span></p>
-<p>שני הסימנים השליליים, זה שבנוסחת העקמומיות וזה שבמעריך של <span class="math inline">\(\lambda\)</span>, ביטלו זה את זה. סימן המינוס שבנוסחה אינו שורד את החישוב, ומכאן ואילך כל הביטוי חיובי.</p>
-<p>לפי <a href="#box-def-laplace-beltrami">הגדרה 10.5.2</a> מתקיים <span class="math inline">\(\Delta_{LB} h = \frac{1}{\lambda} \Delta_0 h\)</span>, וכאן <span class="math display">\[,\frac{1}{\lambda} = \frac{q^2}{4}\]</span> ולכן <span class="math display">\[,K = \Delta_{LB} \left( \ln q \right) = \frac{1}{\lambda} \, \Delta_0 \left( \ln q \right) = \frac{q^2}{4} \, \Delta_0 \left( \ln q \right)\]</span> כאשר <span class="math display">\[.\Delta_0 = \frac{\partial^2}{\partial u^2} + \frac{\partial^2}{\partial v^2}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: מחשבים את הלפלסיאן השטוח ומציבים כדי לקבל את העקמומיות</summary>
-<div class="foldable" title="שלב 4: מחשבים את הלפלסיאן השטוח ומציבים כדי לקבל את העקמומיות">
-<p>נגזור לפי <span class="math inline">\(u\)</span> בעזרת כלל השרשרת <span class="math display">\[,\frac{\partial}{\partial u} \ln q = \frac{q_u}{q} = \frac{2u}{q}\]</span> ונגזור שוב לפי כלל המנה <span class="math display">\[.\frac{\partial^2}{\partial u^2} \ln q = \frac{2q - 2u \cdot q_u}{q^2} = \frac{2 \left( 1 + u^2 + v^2 \right) - 4u^2}{q^2} = \frac{2 \left( 1 - u^2 + v^2 \right)}{q^2}\]</span></p>
-<p>באותו אופן נגזור לפי <span class="math inline">\(v\)</span> ונקבל <span class="math display">\[,\frac{\partial}{\partial v} \ln q = \frac{q_v}{q} = \frac{2v}{q}\]</span> ולאחר גזירה נוספת <span class="math display">\[.\frac{\partial^2}{\partial v^2} \ln q = \frac{2q - 2v \cdot q_v}{q^2} = \frac{2 \left( 1 + u^2 + v^2 \right) - 4v^2}{q^2} = \frac{2 \left( 1 + u^2 - v^2 \right)}{q^2}\]</span></p>
-<p>נסכום את שני האיברים. במונה <span class="math inline">\(-2u^2\)</span> ו-<span class="math inline">\(+2u^2\)</span> מתבטלים, וכך גם <span class="math inline">\(+2v^2\)</span> ו-<span class="math inline">\(-2v^2\)</span>, ונשארים רק שני האחדים <span class="math display">\[.\begin{aligned} \Delta_0 \left( \ln q \right) &amp;= \frac{2 \left( 1 - u^2 + v^2 \right) + 2 \left( 1 + u^2 - v^2 \right)}{q^2} \\ &amp;= \frac{2 - 2u^2 + 2v^2 + 2 + 2u^2 - 2v^2}{q^2} \\ &amp;= \frac{4}{q^2} \end{aligned}\]</span></p>
-<p>נציב את הלפלסיאן שחישבנו בביטוי שקיבלנו עבור העקמומיות <span class="math display">\[.K = \frac{q^2}{4} \cdot \frac{4}{q^2} = \frac{4q^2}{4q^2} = 1\]</span></p>
-<p>הביטוי שהתקבל אינו תלוי לא ב-<span class="math inline">\(u\)</span> ולא ב-<span class="math inline">\(v\)</span>, ולכן בכל נקודה של ספירת היחידה <span class="math display">\[.K \equiv 1\]</span></p>
-<p>הסימן אכן חיובי.</p>
-</div>
-</details>
-</div>
-<div id="box-q-catenoid-lb" class="thmbox thmbox-question">
-<p><strong>שאלה 10.5.5.</strong></p>
-<p>בעזרת אופרטור לפלס–בלטרמי, חשבו את עקמומיות גאוס של הקטנואיד, שהוא משטח הסיבוב של העקומה <span class="math display">\[.\beta \left( \varphi \right) = \left( \cosh \varphi, \; 0, \; \varphi \right)\]</span></p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: בונים את הפרמטריזציה של משטח הסיבוב וגוזרים אותה</summary>
-<div class="foldable" title="שלב 1: בונים את הפרמטריזציה של משטח הסיבוב וגוזרים אותה">
-<p>הרכיב השני של <span class="math inline">\(\beta\)</span> מתאפס, ולכן העקומה מונחת במישור <span class="math inline">\(xz\)</span>, המרחק שלה מציר <span class="math inline">\(z\)</span> הוא <span class="math inline">\(\cosh \varphi\)</span> והגובה שלה הוא <span class="math inline">\(\varphi\)</span>.</p>
-<p>סיבוב הנקודה <span class="math inline">\(\left( a, \; 0, \; c \right)\)</span> סביב ציר <span class="math inline">\(z\)</span> בזווית <span class="math inline">\(\theta\)</span> נותן את הנקודה <span class="math inline">\(\left( a \cos \theta, \; a \sin \theta, \; c \right)\)</span>, ולכן משטח הסיבוב הוא <span class="math display">\[.\overline{x} \left( \theta, \varphi \right) = \left( \cosh \varphi \cos \theta, \; \cosh \varphi \sin \theta, \; \varphi \right)\]</span></p>
-<p>נגזור לפי <span class="math inline">\(\theta\)</span>. המקדם <span class="math inline">\(\cosh \varphi\)</span> קבוע ביחס ל-<span class="math inline">\(\theta\)</span>, והרכיב השלישי אינו תלוי ב-<span class="math inline">\(\theta\)</span> ולכן נגזרתו מתאפסת <span class="math display">\[.\overline{x}_\theta = \left( -\cosh \varphi \sin \theta, \; \cosh \varphi \cos \theta, \; 0 \right)\]</span></p>
-<p>נגזור לפי <span class="math inline">\(\varphi\)</span>. הפעם <span class="math inline">\(\cos \theta\)</span> ו-<span class="math inline">\(\sin \theta\)</span> הם המקדמים הקבועים, ומתקיים <span class="math inline">\(\left( \cosh \varphi \right)' = \sinh \varphi\)</span>, ואילו הרכיב השלישי נותן <span class="math inline">\(1\)</span>: <span class="math display">\[.\overline{x}_\varphi = \left( \sinh \varphi \cos \theta, \; \sinh \varphi \sin \theta, \; 1 \right)\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: מחשבים את מקדמי המטריקה ומראים שהקואורדינטות איזותרמיות</summary>
-<div class="foldable" title="שלב 2: מחשבים את מקדמי המטריקה ומראים שהקואורדינטות איזותרמיות">
-<p>המקדם הראשון הוא <span class="math display">\[.\begin{aligned} g_{11} &amp;= \left\langle \overline{x}_\theta, \; \overline{x}_\theta \right\rangle = \cosh^2 \varphi \sin^2 \theta + \cosh^2 \varphi \cos^2 \theta + 0 \\ &amp;= \cosh^2 \varphi \left( \sin^2 \theta + \cos^2 \theta \right) = \cosh^2 \varphi \end{aligned}\]</span></p>
-<p>המקדם המעורב מתאפס <span class="math display">\[.\begin{aligned} g_{12} = g_{21} &amp;= \left\langle \overline{x}_\theta, \; \overline{x}_\varphi \right\rangle \\ &amp;= \left( -\cosh \varphi \sin \theta \right) \left( \sinh \varphi \cos \theta \right) + \left( \cosh \varphi \cos \theta \right) \left( \sinh \varphi \sin \theta \right) + 0 \cdot 1 \\ &amp;= -\cosh \varphi \sinh \varphi \sin \theta \cos \theta + \cosh \varphi \sinh \varphi \sin \theta \cos \theta \\ &amp;= 0 \end{aligned}\]</span></p>
-<p>במקדם השלישי נשתמש בזהות <span class="math inline">\(\cosh^2 \varphi - \sinh^2 \varphi = 1\)</span>, כלומר <span class="math inline">\(\sinh^2 \varphi + 1 = \cosh^2 \varphi\)</span>, ונקבל <span class="math display">\[.\begin{aligned} g_{22} &amp;= \left\langle \overline{x}_\varphi, \; \overline{x}_\varphi \right\rangle = \sinh^2 \varphi \cos^2 \theta + \sinh^2 \varphi \sin^2 \theta + 1 \\ &amp;= \sinh^2 \varphi \left( \cos^2 \theta + \sin^2 \theta \right) + 1 = \sinh^2 \varphi + 1 = \cosh^2 \varphi \end{aligned}\]</span></p>
-<p>קיבלנו <span class="math display">\[,\left( g_{ij} \right) = \cosh^2 \varphi \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\]</span> ומכיוון ש-<span class="math inline">\(\cosh \varphi \geq 1 &gt; 0\)</span> לכל <span class="math inline">\(\varphi\)</span>, אלה קואורדינטות איזותרמיות עם גורם קונפורמי <span class="math display">\[.\lambda = \cosh^2 \varphi\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: מחשבים את \(\ln \lambda\), עוקבים אחרי הסימן ועוברים ללפלסיאן השטוח</summary>
-<div class="foldable" title="שלב 3: מחשבים את $\ln \lambda$, עוקבים אחרי הסימן ועוברים ללפלסיאן השטוח">
-<p>לפי חוקי הלוגריתם <span class="math display">\[,\ln \lambda = \ln \left( \cosh^2 \varphi \right) = 2 \ln \left( \cosh \varphi \right)\]</span> ולכן, מלינאריות האופרטור, <span class="math display">\[.K = -\frac{1}{2} \Delta_{LB} \left( 2 \ln \left( \cosh \varphi \right) \right) = -\frac{1}{2} \cdot 2 \cdot \Delta_{LB} \left( \ln \left( \cosh \varphi \right) \right) = -\Delta_{LB} \left( \ln \left( \cosh \varphi \right) \right)\]</span></p>
-<p>הפעם המעריך של <span class="math inline">\(\lambda\)</span> חיובי, ולכן הסימן השלילי שבנוסחת העקמומיות שורד ואינו מתבטל.</p>
-<p>כאן <span class="math inline">\(\frac{1}{\lambda} = \frac{1}{\cosh^2 \varphi}\)</span>, ולכן <span class="math display">\[,K = -\frac{1}{\cosh^2 \varphi} \, \Delta_0 \left( \ln \left( \cosh \varphi \right) \right)\]</span> כאשר <span class="math display">\[.\Delta_0 = \frac{\partial^2}{\partial \theta^2} + \frac{\partial^2}{\partial \varphi^2}\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: מחשבים את הלפלסיאן השטוח ומציבים כדי לקבל את העקמומיות</summary>
-<div class="foldable" title="שלב 4: מחשבים את הלפלסיאן השטוח ומציבים כדי לקבל את העקמומיות">
-<p>הפונקציה <span class="math inline">\(\ln \left( \cosh \varphi \right)\)</span> אינה תלויה ב-<span class="math inline">\(\theta\)</span>, ולכן <span class="math display">\[.\frac{\partial^2}{\partial \theta^2} \ln \left( \cosh \varphi \right) = 0\]</span></p>
-<p>הנגזרת לפי <span class="math inline">\(\varphi\)</span> מתקבלת מכלל השרשרת <span class="math display">\[.\frac{\partial}{\partial \varphi} \ln \left( \cosh \varphi \right) = \frac{1}{\cosh \varphi} \cdot \sinh \varphi = \frac{\sinh \varphi}{\cosh \varphi} = \tanh \varphi\]</span></p>
-<p>נגזור שוב לפי כלל המנה, ונשתמש שוב בזהות <span class="math inline">\(\cosh^2 \varphi - \sinh^2 \varphi = 1\)</span>: <span class="math display">\[.\frac{\partial}{\partial \varphi} \tanh \varphi = \frac{\cosh \varphi \cdot \cosh \varphi - \sinh \varphi \cdot \sinh \varphi}{\cosh^2 \varphi} = \frac{\cosh^2 \varphi - \sinh^2 \varphi}{\cosh^2 \varphi} = \frac{1}{\cosh^2 \varphi}\]</span></p>
-<p>נסכום את שני האיברים <span class="math display">\[.\Delta_0 \left( \ln \left( \cosh \varphi \right) \right) = 0 + \frac{1}{\cosh^2 \varphi} = \frac{1}{\cosh^2 \varphi}\]</span></p>
-<p>נציב את הלפלסיאן שחישבנו בביטוי שקיבלנו עבור העקמומיות <span class="math display">\[.K = -\frac{1}{\cosh^2 \varphi} \cdot \frac{1}{\cosh^2 \varphi} = -\frac{1}{\cosh^4 \varphi}\]</span></p>
-<p>הביטוי תלוי ב-<span class="math inline">\(\varphi\)</span> בלבד ואינו תלוי בזווית הסיבוב <span class="math inline">\(\theta\)</span>, והוא שלילי בכל נקודה של המשטח.</p>
-</div>
-</details>
-</div>
-</section>
-<section id="משפט-גאוסבונה" class="level2" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="משפט-גאוסבונה"><span class="header-section-number">10.6</span> משפט גאוס–בונה</h2>
-<div id="box-q-geodesic-triangle" class="thmbox thmbox-question">
-<p><strong>שאלה 10.6.1.</strong></p>
-<p>נתבונן במשולש על ספירת היחידה <span class="math inline">\(S^2\)</span> שצלעותיו הן עקומות גיאודזיות. נסמן את שטחו של המשולש ב-<span class="math inline">\(T\)</span>, ואת זוויותיו ב-<span class="math inline">\(\alpha, \beta, \gamma\)</span>. הוכיחו שמתקיים <span class="math display">\[.\alpha + \beta + \gamma - \pi = T\]</span></p>
-</div>
-<iframe class="widget-frame" src="widgets/ch10/spherical-lunes.html" loading="lazy" title="משולש גיאודזי על הספירה והגזרות שקובעות שלוש צלעותיו"></iframe>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: מאריכים את שלוש הצלעות למעגלים גדולים שלמים</summary>
-<div class="foldable" title="שלב 1: מאריכים את שלוש הצלעות למעגלים גדולים שלמים">
-<p>צלעות המשולש הן עקומות גיאודזיות על ספירת היחידה, ולפי <a href="#box-rem-sphere-geodesics">הערה 10.1.11</a> הן קשתות של מעגלים גדולים. נאריך כל אחת משלוש הצלעות למעגל גדול שלם.</p>
-<p>כל שני מעגלים גדולים נחתכים בשתי נקודות אנטיפודליות, ומחלקים את הספירה לארבעה חלקים שנקרא להם <strong>גזרות</strong>. גזרה נקבעת על ידי הזווית שבין שני המעגלים בנקודת החיתוך שלהם.</p>
-<p>בכל קודקוד של המשולש נפגשים שניים משלושת המעגלים הגדולים, והזווית ביניהם שם היא בדיוק הזווית של המשולש באותו קודקוד. לכן לכל אחת מן הזוויות <span class="math inline">\(\alpha, \beta, \gamma\)</span> מתאימה גזרה המכילה את המשולש, ומולה, בצדה השני של הספירה, הגזרה האנטיפודלית לה. בסך הכול קיבלנו שש גזרות.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: שטחה של גזרה, מתוך יחס הזוויות</summary>
-<div class="foldable" title="שלב 2: שטחה של גזרה, מתוך יחס הזוויות">
-<p>נתבונן בגזרה שהזווית שלה היא <span class="math inline">\(\theta\)</span>. אם נסובב אותה סביב הישר המחבר את שתי נקודות החיתוך, זווית שלמה <span class="math inline">\(2\pi\)</span> תכסה את כל הספירה, ולכן הגזרה תופסת מן הספירה בדיוק את החלק <span class="math inline">\(\frac{\theta}{2\pi}\)</span>.</p>
-<p>שטחה של ספירת היחידה הוא <span class="math inline">\(4\pi\)</span>, ולכן שטח הגזרה הוא <span class="math display">\[.\frac{\theta}{2\pi} \cdot 4\pi = 2\theta\]</span></p>
-<p>בפרט, שטחה של הגזרה שמתאימה לזווית <span class="math inline">\(\alpha\)</span> הוא <span class="math inline">\(2\alpha\)</span>, ובאותו אופן <span class="math inline">\(2\beta\)</span> ו-<span class="math inline">\(2\gamma\)</span> עבור שתי הזוויות האחרות.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: סוכמים את שטחי שש הגזרות</summary>
-<div class="foldable" title="שלב 3: סוכמים את שטחי שש הגזרות">
-<p>לכל אחת משלוש הזוויות יש שתי גזרות, זו שמכילה את המשולש והאנטיפודלית לה, ולשתיהן אותה זווית ולכן אותו שטח.</p>
-<p>לכן סכום השטחים של כל שש הגזרות הוא <span class="math display">\[.2 \left( 2\alpha \right) + 2 \left( 2\beta \right) + 2 \left( 2\gamma \right) = 4\alpha + 4\beta + 4\gamma\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: סופרים כמה פעמים מכסות הגזרות כל נקודה בספירה</summary>
-<div class="foldable" title="שלב 4: סופרים כמה פעמים מכסות הגזרות כל נקודה בספירה">
-<p>נסמן ב-<span class="math inline">\(T'\)</span> את המשולש האנטיפודלי, כלומר את המשולש שמול המשולש שלנו בצדה השני של הספירה. שטחו שווה לשטח המשולש המקורי, כלומר <span class="math inline">\(T\)</span>.</p>
-<p>שש הגזרות מכסות יחד את כל הספירה, אבל לא כל נקודה מכוסה אותו מספר פעמים:</p>
-<ol type="1">
-<li>נקודה שאינה במשולש ואינה ב-<span class="math inline">\(T'\)</span> מכוסה על ידי גזרה <strong>אחת</strong> בלבד.</li>
-<li>כל נקודה במשולש מכוסה <strong>שלוש</strong> פעמים, פעם אחת עבור כל אחת משלוש הזוויות, שכן שלוש הגזרות המכילות את המשולש מכילות אותה. באותו אופן, כל נקודה ב-<span class="math inline">\(T'\)</span> מכוסה שלוש פעמים על ידי שלוש הגזרות האנטיפודליות.</li>
-</ol>
-<p>השטח שמחוץ לשני המשולשים הוא <span class="math inline">\(4\pi - 2T\)</span>, ולכן סכום שטחי הגזרות, כאשר סופרים כל נקודה כמספר הפעמים שהיא מכוסה, הוא <span class="math display">\[.\left( 4\pi - 2T \right) + 3T + 3T = 4\pi - 2T + 6T = 4\pi + 4T\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 5: משווים בין שני החישובים ומחלקים ב-4</summary>
-<div class="foldable" title="שלב 5: משווים בין שני החישובים ומחלקים ב-4">
-<p>בשלב 3 ובשלב 4 חישבנו את אותו גודל עצמו, את סכום שטחי שש הגזרות, בשתי דרכים שונות. לכן <span class="math display">\[.4\alpha + 4\beta + 4\gamma = 4\pi + 4T\]</span></p>
-<p>נחלק את שני האגפים ב-<span class="math inline">\(4\)</span> ונקבל <span class="math display">\[,\alpha + \beta + \gamma = \pi + T\]</span> ולאחר העברת אגף <span class="math display">\[,\alpha + \beta + \gamma - \pi = T\]</span> כנדרש.</p>
-</div>
-</details>
-</div>
-<div id="box-thm-gauss-bonnet-local" class="thmbox thmbox-theorem" title="משפט גאוס–בונה המקומי">
-<p><strong>משפט 10.6.2 — משפט גאוס–בונה המקומי.</strong></p>
-<p>יהי <span class="math inline">\(M \subseteq \mathbb{R}^3\)</span> משטח, ויהי <span class="math inline">\(D \subseteq M\)</span> משולש גיאודזי שזוויותיו <span class="math inline">\(\alpha, \beta, \gamma\)</span>. אזי <span class="math display">\[.\iint_D K \, dA = \alpha + \beta + \gamma - \pi\]</span></p>
-</div>
-<div id="box-def-euler-genus" class="thmbox thmbox-definition" title="מאפיין אוילר והג'ינוס">
-<p><strong>הגדרה 10.6.3 — מאפיין אוילר והג’ינוס.</strong></p>
-<p>נחלק משטח <span class="math inline">\(M\)</span> למשולשים. <strong>מאפיין אוילר</strong> של <span class="math inline">\(M\)</span> הוא <span class="math display">\[,\chi \left( M \right) = V - E + F\]</span> כאשר <span class="math inline">\(V\)</span> הוא מספר הקודקודים, <span class="math inline">\(E\)</span> הוא מספר הצלעות ו-<span class="math inline">\(F\)</span> הוא מספר הפאות.</p>
-<p><strong>הג’ינוס</strong> של משטח אוריינטבילי, שיסומן <span class="math inline">\(g\)</span>, הוא מספר החורים שבו. עבור משטח קומפקטי ואוריינטבילי ללא שפה מתקיים <span class="math display">\[.\chi \left( M \right) = 2 - 2g\]</span></p>
-</div>
-<div id="box-thm-gauss-bonnet-global" class="thmbox thmbox-theorem" title="משפט גאוס–בונה הגלובלי">
-<p><strong>משפט 10.6.4 — משפט גאוס–בונה הגלובלי.</strong></p>
-<p>יהי <span class="math inline">\(M \subseteq \mathbb{R}^3\)</span> משטח קומפקטי ואוריינטבילי ללא שפה. אזי <span class="math display">\[,\iint_M K \, dA = 2\pi \chi \left( M \right)\]</span> ולפי <a href="#box-def-euler-genus">הגדרה 10.6.3</a> אפשר לכתוב זאת גם באמצעות הג’ינוס, <span class="math display">\[.\iint_M K \, dA = 2\pi \left( 2 - 2g \right)\]</span></p>
-</div>
-<div id="box-q-total-curvature-sphere-torus" class="thmbox thmbox-question">
-<p><strong>שאלה 10.6.5.</strong></p>
-<p>חשבו את העקמומיות הכוללת של הספירה והטורוס באמצעות משפט גאוס–בונה ובאמצעות חישוב ישיר.</p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: הספירה, בשתי הדרכים, ואותה תוצאה בשתיהן</summary>
-<div class="foldable" title="שלב 1: הספירה, בשתי הדרכים, ואותה תוצאה בשתיהן">
-<p>נסמן בכל פעם ב-<span class="math inline">\(M\)</span> את המשטח שבו אנו דנים.</p>
-<p>לספירה אין חורים, ולכן הג’ינוס שלה הוא <span class="math inline">\(g = 0\)</span>, ולפי <a href="#box-def-euler-genus">הגדרה 10.6.3</a> <span class="math display">\[.\chi \left( M \right) = 2 - 2 \cdot 0 = 2\]</span></p>
-<p>הספירה קומפקטית ואוריינטבילית וללא שפה, ולכן מ<a href="#box-thm-gauss-bonnet-global">משפט 10.6.4</a> נקבל <span class="math display">\[.\iint_M K \, dA = 2\pi \cdot 2 = 4\pi\]</span></p>
-<p>נחשב כעת את אותו גודל ישירות, מתוך העקמומיות והשטח. תהי <span class="math inline">\(M\)</span> ספירה שרדיוסה <span class="math inline">\(a\)</span>. שתי העקמומיויות הראשיות שלה שוות בכל נקודה, וערכן המוחלט הוא <span class="math inline">\(\frac{1}{a}\)</span>, ולכן עקמומיות גאוס שלה קבועה, <span class="math display">\[.K = \frac{1}{a^2}\]</span></p>
-<p>מכיוון ש-<span class="math inline">\(K\)</span> קבועה אפשר להוציא אותה אל מחוץ לאינטגרל, ואז נותר האינטגרל של <span class="math inline">\(dA\)</span> על כל המשטח, שהוא שטח הפנים. שטח הספירה הוא <span class="math inline">\(4\pi a^2\)</span>, ולכן <span class="math display">\[.\iint_M K \, dA = \frac{1}{a^2} \iint_M dA = \frac{1}{a^2} \cdot 4\pi a^2 = 4\pi\]</span></p>
-<p>זו אותה תוצאה שקיבלנו מן המשפט.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: הטורוס לפי משפט גאוס–בונה, מן הג'ינוס</summary>
-<div class="foldable" title="שלב 2: הטורוס לפי משפט גאוס–בונה, מן הג'ינוס">
-<p>בטורוס יש חור אחד, ולכן הג’ינוס שלו הוא <span class="math inline">\(g = 1\)</span>, ומכאן <span class="math display">\[.\chi \left( M \right) = 2 - 2 \cdot 1 = 0\]</span></p>
-<p>גם הטורוס קומפקטי ואוריינטבילי וללא שפה, ולכן באותו אופן נקבל <span class="math display">\[.\iint_M K \, dA = 2\pi \cdot 0 = 0\]</span></p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: הטורוס בחישוב ישיר, ובו אלמנט השטח מצמצם את מכנה העקמומיות</summary>
-<div class="foldable" title="שלב 3: הטורוס בחישוב ישיר, ובו אלמנט השטח מצמצם את מכנה העקמומיות">
-<p>יהיו <span class="math inline">\(R &gt; r &gt; 0\)</span>, ויהי הטורוס <span class="math display">\[,\overline{x} \left( u, v \right) = \left( \left( R + r \cos u \right) \cos v, \; \left( R + r \cos u \right) \sin v, \; r \sin u \right)\]</span> כאשר <span class="math inline">\(0 &lt; u &lt; 2\pi\)</span> ו-<span class="math inline">\(0 &lt; v &lt; 2\pi\)</span>.</p>
-<p>עקמומיות גאוס של הטורוס הזה היא <span class="math display">\[,K = \frac{\cos u}{r \left( R + r \cos u \right)}\]</span> והמטריקה שלו היא <span class="math display">\[,\left( g_{ij} \right) = \begin{pmatrix} r^2 &amp; 0 \\ 0 &amp; \left( R + r \cos u \right)^2 \end{pmatrix}\]</span> ולכן אלמנט השטח הוא <span class="math display">\[.dA = \sqrt{\det \left( g_{ij} \right)} \, du \, dv = r \left( R + r \cos u \right) du \, dv\]</span></p>
-<p>מכיוון ש-<span class="math inline">\(R &gt; r &gt; 0\)</span> ומכיוון ש-<span class="math inline">\(\cos u \geq -1\)</span>, מתקיים <span class="math display">\[,R + r \cos u \geq R - r &gt; 0\]</span> ולכן הביטוי <span class="math inline">\(r \left( R + r \cos u \right)\)</span> חיובי בכל נקודה. בפרט הוא אינו מתאפס, וזה מה שיאפשר לצמצם בו מיד.</p>
-<p>תחום האינטגרציה הוא <span class="math inline">\(\left( u, v \right) \in \left[ 0, 2\pi \right] \times \left[ 0, 2\pi \right]\)</span>. נציב את שני הביטויים ונקבל <span class="math display">\[.\iint_M K \, dA = \int_0^{2\pi} \int_0^{2\pi} \frac{\cos u}{r \left( R + r \cos u \right)} \cdot r \left( R + r \cos u \right) du \, dv\]</span></p>
-<p>נצמצם את האינטגרנד גורם אחר גורם. תחילה הגורם <span class="math inline">\(r\)</span> שבמונה מצטמצם מול הגורם <span class="math inline">\(r\)</span> שבמכנה: <span class="math display">\[,\frac{\cos u}{r \left( R + r \cos u \right)} \cdot r \left( R + r \cos u \right) = \frac{\cos u \cdot \left( R + r \cos u \right)}{R + r \cos u}\]</span> ואחריו מצטמצם הגורם <span class="math inline">\(R + r \cos u\)</span> שבמונה מול זה שבמכנה: <span class="math display">\[.\frac{\cos u \cdot \left( R + r \cos u \right)}{R + r \cos u} = \cos u\]</span></p>
-<p>אלמנט השטח ביטל אפוא את המכנה של עקמומיות גאוס במלואו, ונשארנו עם <span class="math display">\[.\iint_M K \, dA = \int_0^{2\pi} \int_0^{2\pi} \cos u \, du \, dv\]</span></p>
-<p>האינטגרנד אינו תלוי ב-<span class="math inline">\(v\)</span>, ולכן האינטגרציה על <span class="math inline">\(v\)</span> נותנת גורם <span class="math inline">\(2\pi\)</span>: <span class="math display">\[.\int_0^{2\pi} \int_0^{2\pi} \cos u \, du \, dv = 2\pi \int_0^{2\pi} \cos u \, du\]</span></p>
-<p>הקדומה של <span class="math inline">\(\cos u\)</span> היא <span class="math inline">\(\sin u\)</span>, ולכן <span class="math display">\[.\int_0^{2\pi} \cos u \, du = \Big[ \sin u \Big]_0^{2\pi} = \sin 2\pi - \sin 0 = 0 - 0 = 0\]</span></p>
-<p>מכאן <span class="math display">\[,\iint_M K \, dA = 2\pi \cdot 0 = 0\]</span> בדיוק כפי שקיבלנו מן המשפט.</p>
-</div>
-</details>
-</div>
-<div id="box-q-total-curvature-implicit" class="thmbox thmbox-question">
-<p><strong>שאלה 10.6.6.</strong></p>
-<p>משטח <span class="math inline">\(M\)</span> ב-<span class="math inline">\(\mathbb{R}^3\)</span> נתון על ידי המשוואה <span class="math display">\[.z^2 + \left( x^2 + y^2 - 1 \right) \left( 2x^2 + 3y^2 - 1 \right) = 0\]</span></p>
-<p>חשבו את <span class="math display">\[,\iint_M K \, dA\]</span> כאשר <span class="math inline">\(K\)</span> היא עקמומיות גאוס של המשטח.</p>
-</div>
-<div class="thmbox thmbox-solution">
-<p><strong>פתרון.</strong></p>
-<details class="thmcollapse thmfoldable"><summary>שלב 1: מחלצים את \(z\) כדי לראות מהו המשטח</summary>
-<div class="foldable" title="שלב 1: מחלצים את $z$ כדי לראות מהו המשטח">
-<p>נעביר אגף <span class="math display">\[,z^2 = -\left( x^2 + y^2 - 1 \right) \left( 2x^2 + 3y^2 - 1 \right)\]</span> ונוציא שורש <span class="math display">\[.z = \pm \sqrt{-\left( x^2 + y^2 - 1 \right) \left( 2x^2 + 3y^2 - 1 \right)}\]</span></p>
-<p>לכל נקודה <span class="math inline">\(\left( x, y \right)\)</span> שעבורה הביטוי שמתחת לשורש חיובי ממש מתקבלים שני ערכי <span class="math inline">\(z\)</span>, אחד חיובי ואחד שלילי, שווים בערכם המוחלט. המשטח סימטרי אפוא ביחס למישור <span class="math inline">\(xy\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 2: מוצאים מעל אילו נקודות במישור יושב המשטח</summary>
-<div class="foldable" title="שלב 2: מוצאים מעל אילו נקודות במישור יושב המשטח">
-<p>כדי שיהיה <span class="math inline">\(z\)</span> ממשי נדרוש שהביטוי שמתחת לשורש יהיה אי־שלילי, כלומר <span class="math display">\[,-\left( x^2 + y^2 - 1 \right) \left( 2x^2 + 3y^2 - 1 \right) \geq 0\]</span> ובאופן שקול <span class="math display">\[.\left( x^2 + y^2 - 1 \right) \left( 2x^2 + 3y^2 - 1 \right) \leq 0\]</span></p>
-<p>מכפלת שני גורמים היא אי־חיובית בדיוק כאשר סימניהם הפוכים או כאשר אחד מהם מתאפס. נסמן <span class="math display">\[,P = x^2 + y^2 - 1, \qquad Q = 2x^2 + 3y^2 - 1\]</span> ונשווה בין השניים: <span class="math display">\[,Q - P = \left( 2x^2 + 3y^2 - 1 \right) - \left( x^2 + y^2 - 1 \right) = x^2 + 2y^2 \geq 0\]</span> כלומר <span class="math inline">\(P \leq Q\)</span> בכל נקודה של המישור.</p>
-<p>נפריד למקרים:</p>
-<ol type="1">
-<li>אם <span class="math inline">\(Q &lt; 0\)</span> אזי גם <span class="math inline">\(P \leq Q &lt; 0\)</span>, כלומר שני הגורמים שליליים ומכפלתם חיובית. אין נקודות כאלה במשטח.</li>
-<li>אם <span class="math inline">\(P &gt; 0\)</span> אזי גם <span class="math inline">\(Q \geq P &gt; 0\)</span>, כלומר שני הגורמים חיוביים ומכפלתם חיובית. גם כאן אין נקודות במשטח.</li>
-<li>נותר בדיוק המקרה <span class="math inline">\(P \leq 0\)</span> וגם <span class="math inline">\(Q \geq 0\)</span>, ואז אחד הגורמים אי־חיובי והאחר אי־שלילי, ולכן המכפלה אי־חיובית כדרוש.</li>
-</ol>
-<p>התנאי הוא אפוא <span class="math display">\[,x^2 + y^2 \leq 1, \qquad 2x^2 + 3y^2 \geq 1\]</span> כלומר הנקודה נמצאת בתוך מעגל היחידה <span class="math inline">\(x^2 + y^2 = 1\)</span> ומחוץ לאליפסה <span class="math inline">\(2x^2 + 3y^2 = 1\)</span>.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 3: מזהים את הצורה של \(M\) ואת מספר החורים שלו</summary>
-<div class="foldable" title="שלב 3: מזהים את הצורה של $M$ ואת מספר החורים שלו">
-<p>מן האי־שוויון <span class="math inline">\(P \leq Q\)</span> נובע שכל נקודה שבתוך האליפסה נמצאת גם בתוך המעגל, שכן <span class="math inline">\(Q \leq 0\)</span> גורר <span class="math inline">\(P \leq 0\)</span>. לכן האליפסה מוכלת כולה בתוך המעגל, והתחום שקיבלנו בשלב 2 הוא הטבעת שבין האליפסה למעגל.</p>
-<p>בפנים הטבעת מתקיים <span class="math inline">\(P &lt; 0\)</span> וגם <span class="math inline">\(Q &gt; 0\)</span>, ולכן הביטוי שמתחת לשורש חיובי ממש ויש שני ערכי <span class="math inline">\(z\)</span> שונים זה מזה. על שתי עקומות השפה, המעגל והאליפסה, אחד משני הגורמים מתאפס, ולכן <span class="math inline">\(z = 0\)</span> ושני הענפים נפגשים.</p>
-<p>מכאן ש-<span class="math inline">\(M\)</span> מורכב משני עותקים של הטבעת, אחד מעל מישור <span class="math inline">\(xy\)</span> ואחד מתחתיו, המודבקים זה לזה לאורך שתי עקומות השפה שלהם. זהו משטח סגור שיש בו חור אחד, כלומר משטח שהטופולוגיה שלו היא של טורוס.</p>
-</div>
-</details>
-<details class="thmcollapse thmfoldable"><summary>שלב 4: מפעילים את משפט גאוס–בונה</summary>
-<div class="foldable" title="שלב 4: מפעילים את משפט גאוס–בונה">
-<p>המשטח <span class="math inline">\(M\)</span> סגור וחסום ב-<span class="math inline">\(\mathbb{R}^3\)</span> ולכן קומפקטי, והוא אוריינטבילי וללא שפה, כך שתנאי <a href="#box-thm-gauss-bonnet-global">משפט 10.6.4</a> מתקיימים.</p>
-<p>לחור אחד מתאים ג’ינוס <span class="math inline">\(g = 1\)</span>, ולכן לפי <a href="#box-def-euler-genus">הגדרה 10.6.3</a> <span class="math display">\[,\chi \left( M \right) = 2 - 2 \cdot 1 = 0\]</span> ומכאן <span class="math display">\[.\iint_M K \, dA = 2\pi \chi \left( M \right) = 2\pi \cdot 0 = 0\]</span></p>
-</div>
-</details>
-</div>
 
 
 </section>
@@ -2254,6 +1835,9 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./11-Minimal-Surfaces-and-Gauss-Bonnet.html" class="pagination-link" aria-label="תרגול 11: משטחים מינימליים ומשפט גאוס–בונה">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">תרגול 11: משטחים מינימליים ומשפט גאוס–בונה</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
